@@ -25,5 +25,6 @@ hs_err_pid*
 GameDev.pdf
 Lecture-GIT-part1.pdf
 PLA2018.txt
-.gitignore
 
+#vscode file
+.vscode/
