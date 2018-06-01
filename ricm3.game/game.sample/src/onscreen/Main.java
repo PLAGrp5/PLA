@@ -1,4 +1,4 @@
-package onscreen;
+package src.onscreen;
 
 import java.util.Scanner;
 
@@ -9,9 +9,11 @@ public class Main {
 
     public static void main(String[] args) {
         Map m = new Map(10);
-        Tank t = new Tank(m.n / 2, 1, 'R');
+        Tank j1 = new Tank(m.n / 2 - 1, 1, 'R');
+        Tank j2 = new Tank(m.n / 2, 1, 'R');
 
-        m.insert(t);
+        m.insert(j1);
+        m.insert(j2);
 
         m.print();
 
@@ -19,9 +21,9 @@ public class Main {
 
         String dir;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             dir = sc.nextLine();
-            t.move(m, dir.charAt(0));
+            j1.move(m, dir.charAt(0));
             m.print();
         }
         sc.close();

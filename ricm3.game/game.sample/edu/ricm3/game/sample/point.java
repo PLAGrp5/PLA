@@ -3,6 +3,7 @@ package edu.ricm3.game.sample;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import src.onscreen.*;
 
 public class point {
 	BufferedImage m_sprite;

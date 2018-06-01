@@ -18,6 +18,7 @@
 package edu.ricm3.game.sample;
 
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import edu.ricm3.game.GameModel;
+import src.onscreen.*;
 
 public class Model extends GameModel {
   LinkedList<Square> m_squares;
@@ -37,6 +39,8 @@ public class Model extends GameModel {
   Cowboy[] m_cowboys;
   point m_point;
   point m_point2;
+  Tank t;
+  Tank t2;
   Random rand = new Random();
   Overhead m_overhead = new Overhead();
 
@@ -52,9 +56,10 @@ public class Model extends GameModel {
     for (int i = 0; i < Options.NSQUARES; i++)
       m_squares.add(new Square(this, rand.nextInt(200), rand.nextInt(200)));
     
-    m_point = new point(this, m_charbleuSprite, 0,0, 1F);
-    
-    m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
+    //m_point = new point(this, m_charbleuSprite, 32,32, 1F);
+    t = new Tank(this, m_charbleuSprite, 1,10,'U', 1F);
+    t2 = new Tank(this, m_charrougeSprite, 5,15,'U', 1F);
+    //m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
   }
   
   @Override
@@ -118,7 +123,7 @@ public class Model extends GameModel {
       System.exit(-1);
     }
     
-    imageFile = new File("game.sample/sprites/charbleu.png");
+    imageFile = new File("game.sample/sprites/charb.png");
     try {
       m_charbleuSprite = ImageIO.read(imageFile);
     } catch (IOException ex) {
@@ -126,7 +131,7 @@ public class Model extends GameModel {
       System.exit(-1);
     }
     
-    imageFile = new File("game.sample/sprites/charrouge.png");
+    imageFile = new File("game.sample/sprites/charr.png");
     try {
       m_charrougeSprite = ImageIO.read(imageFile);
     } catch (IOException ex) {
