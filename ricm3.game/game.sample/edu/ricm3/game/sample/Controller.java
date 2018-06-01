@@ -29,7 +29,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 
 import edu.ricm3.game.GameController;
-
+import src.onscreen.*;
 /**
  * This class is to illustrate the most simple game controller. It does not
  * much, but it shows how to obtain the key strokes, mouse buttons, and mouse
@@ -49,6 +49,7 @@ public class Controller extends GameController implements ActionListener {
   Button m_strobesOn;
   Button m_plus, m_minus;
   Music m_player;
+  Map m = new Map(30);
 
   public Controller(Model m) {
     m_model = m;
@@ -95,21 +96,21 @@ public class Controller extends GameController implements ActionListener {
     if (Options.ECHO_KEYBOARD)
       System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
     	if( e.getKeyChar() == 'Z' || e.getKeyChar() == 'z') {
-    		m_model.m_point2.step("U");
+    		m_model.t2.step(m,'U');
     	}else if( e.getKeyChar() == 'Q' || e.getKeyChar() == 'q') {
-    		m_model.m_point2.step("L");
+    		m_model.t2.step(m,'L');
     	}else if( e.getKeyChar() == 'D' || e.getKeyChar() == 'd') {
-    		m_model.m_point2.step("R");
+    		m_model.t2.step(m,'R');
     	}else if( e.getKeyChar() == 'S' || e.getKeyChar() == 's') {
-    		m_model.m_point2.step("D");
-    	}else if(e.getKeyCode() == 38) {
-    		m_model.m_point.step("U");
-    	}else if(e.getKeyCode() == 39) {
-    		m_model.m_point.step("R");
-    	}else if(e.getKeyCode() == 40) {
-    		m_model.m_point.step("D");
+    		m_model.t2.step(m,'D');
     	}else if(e.getKeyCode() == 37) {
-    		m_model.m_point.step("L");
+    		m_model.t.step(m,'L');
+    	}else if(e.getKeyCode() == 40) {
+    		m_model.t.step(m,'D');
+    	}else if(e.getKeyCode() == 39) {
+    		m_model.t.step(m,'R');
+    	}else if(e.getKeyCode() == 38) {
+    		m_model.t.step(m,'U');
     	}
   }
 

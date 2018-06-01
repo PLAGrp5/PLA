@@ -1,4 +1,4 @@
-package onscreen;
+package src.onscreen;
 
 /*
 Classe Map nous permet de représenter a carte de jeu
@@ -9,7 +9,7 @@ public class Map {
     int n;
     Entity map[][];
 
-    Map(int n) {
+    public Map(int n) {
         this.n = n;
         this.map = new Entity[n][n];
         int i, j;

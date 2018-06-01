@@ -81,8 +81,9 @@ public class View extends GameView {
     	}
     }
     
-    m_model.m_point.paint(g);
-    m_model.m_point2.paint(g);
+    //m_model.m_point2.paint(g);
+    m_model.t.paint(g, m_model.t.dir);
+    m_model.t2.paint(g, m_model.t2.dir);
   }
 
 }
