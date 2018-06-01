@@ -16,16 +16,15 @@ Les sbires et les joueurs peuvent utiliser Pop et Wizz.
 
 Pop & Wizz : 
 
--Pop : C'est une capacité permettant de colorier la case où l'on est.
--Wizz : C'est une capacité qui permet d'enlever ou de poser un bloc.
+-Pop : C'est une capacité permettant de colorier la case où l'on est (pour les sbires).
+-Wizz : Recharge de peinture.
 
 Les sbires ne peuvent pas utiliser de bonus ou de malus, quand ils en récupèrent c'est le joueur qui en bénéficie.
 
 Bonus et Malus : 
 
 Les fixés :
--Une charge de vie
--Une charge de peinture
+-Une recharge de vie
 -Une mine qui fait perdre de la vie
 
 Les variables (définies par des automates pouvant être modifiés) : 
