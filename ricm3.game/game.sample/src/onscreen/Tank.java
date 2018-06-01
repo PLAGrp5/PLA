@@ -46,19 +46,20 @@ public class Tank extends Entity {
 	boolean canimove(Map m, int i, int j) {
 		return m.isfree(i, j) || m.isbonus(i, j);
 	}
-
+	
 	public void move(Map m, char dir) {
-		if (this.dir != dir)
-			this.turn(dir);
-		else {
-			Point p = nextstep(); // calcul nouvel coordonnées
-			if (canimove(m, p.i, p.j)) {
-				m.free(this.p.i, this.p.j);
-				this.p = p;
-				m.insert(this);
-			}
-		}
-	}
+    if (this.dir != dir)
+        this.turn(dir);
+    else {
+        Point p = nextstep(); // calcul nouvel coordonnées
+        if (canimove(m, p.i, p.j)) {
+            m.free(this.p.i, this.p.j);
+            this.p = p;
+            m.insert(this);
+        } else if (m.map[p.i][p.j].type == 'T')
+            this.opposite();
+    }
+}
 
 	public void step(Map m, char dir) {
 		long now = System.currentTimeMillis();
@@ -99,6 +100,5 @@ public class Tank extends Entity {
 		int w = (int) (m_scale * 32);
 		int h = (int) (m_scale * 32);
 		g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
-
 	}
 }

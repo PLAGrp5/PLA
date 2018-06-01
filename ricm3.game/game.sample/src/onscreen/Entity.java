@@ -36,7 +36,24 @@ public class Entity {
   		m_scale = scale;
   	}
 
-    void turn(char dir) {
+    public void turn(char dir) {
         this.dir = dir;
+    }
+
+    public void opposite() {
+        switch (this.dir) {
+        case 'D':
+            this.dir = 'U';
+            break;
+        case 'L':
+            this.dir = 'R';
+            break;
+        case 'R':
+            this.dir = 'L';
+            break;
+        default:
+            this.dir = 'D';
+            break;
+        }
     }
 }
