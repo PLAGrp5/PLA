@@ -8,7 +8,7 @@ public class Tank extends Entity {
         super('T', i, j, dir);
     }
 
-    Point nextstep() {
+    public Point nextstep() {
         Point p = new Point(this.p.i, this.p.j);
         switch (this.dir) {
         case 'D':
@@ -27,11 +27,11 @@ public class Tank extends Entity {
         return p;
     }
 
-    boolean canimove(Map m, int i, int j) {
+    public boolean canimove(Map m, int i, int j) {
         return m.isfree(i, j) || m.isbonus(i, j);
     }
 
-    void move(Map m, char dir) {
+    public void move(Map m, char dir) {
         if (this.dir != dir)
             this.turn(dir);
         else {
@@ -40,7 +40,8 @@ public class Tank extends Entity {
                 m.free(this.p.i, this.p.j);
                 this.p = p;
                 m.insert(this);
-            }
+            } else if (m.map[p.i][p.j].type == 'T')
+                this.opposite();
         }
     }
 }
