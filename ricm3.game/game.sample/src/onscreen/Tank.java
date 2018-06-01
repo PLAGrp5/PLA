@@ -1,4 +1,4 @@
-package onscreen;
+package src.onscreen;
 
 /*class tank*/
 
