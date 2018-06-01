@@ -1,0 +1,7 @@
+package exemple_affichage;
+
+public class Condition {
+
+	public String cond;
+	
+}

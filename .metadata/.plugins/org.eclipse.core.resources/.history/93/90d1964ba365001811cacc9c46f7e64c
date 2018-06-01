@@ -1,0 +1,10 @@
+package exemple_affichage;
+
+public class Transition {
+
+	public Etat ent;
+	public Etat sort;
+	public Action act;
+	public Condition cond;
+	
+}

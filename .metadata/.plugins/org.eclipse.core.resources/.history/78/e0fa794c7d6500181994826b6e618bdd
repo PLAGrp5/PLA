@@ -1,0 +1,8 @@
+package exemple_affichage;
+
+public class Automate {
+
+	Transition t[];
+	Etat courant;
+	
+}

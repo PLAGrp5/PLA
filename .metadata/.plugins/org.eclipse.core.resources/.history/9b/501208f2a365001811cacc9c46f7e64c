@@ -1,0 +1,26 @@
+package exemple_affichage;
+
+public class Condition {
+
+	public String cond_met1;
+	public String cond_arg1;
+	public String cond_met2;
+	public String cond_arg2;
+	
+	Condition() {	
+	}
+	
+	Condition(String met1, String met2, String arg1, String arg2) {
+		this.cond_met1 = met1;
+		this.cond_arg1 = arg1;
+		this.cond_met2 = met2;
+		this.cond_arg2 = arg2;
+	}
+	
+	public boolean exec_cond(String cond) {
+		
+		
+		return true;
+	}
+	
+}

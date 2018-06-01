@@ -1,0 +1,8 @@
+package exemple_affichage;
+import java.util.function.*;
+
+public class Action {
+
+	public interface Function<any,boolean>;
+	
+}

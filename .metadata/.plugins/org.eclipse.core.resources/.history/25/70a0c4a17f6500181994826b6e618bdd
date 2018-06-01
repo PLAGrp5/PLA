@@ -1,0 +1,17 @@
+package exemple_affichage;
+
+public class Transition {
+
+	public Etat ent;
+	public Etat sort;
+	public Action act;
+	public Condition cond;
+	
+	public void exec_act() {
+		
+	}
+	
+	public boolean exec_cond() {
+		return true;
+	}
+}

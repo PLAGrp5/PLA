@@ -1,0 +1,18 @@
+package exemple_affichage;
+
+public class Action {
+
+	public String act;
+		
+	Action() {	
+	}
+	
+	Action(String cdt) {
+		this.act = cdt;
+	}
+	
+	public void exec_act(String cond) {
+		return;
+	}
+
+}

@@ -1,4 +1,4 @@
-package onscreen;
+package src.onscreen;
 
 /*
 Classe permettant de modélier toutes les identités du jeu

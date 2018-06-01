@@ -1,0 +1,22 @@
+package exemple_affichage;
+import java.lang.String;
+
+public class Action {
+
+	public String act;
+		
+	Action() {	
+	}
+	
+	Action(String cdt) {
+		this.act = cdt;
+	}
+	
+	public void exec_act() {
+		while (!this.act.isEmpty()) {
+			
+		}
+		return;
+	}
+
+}
