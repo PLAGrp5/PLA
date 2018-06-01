@@ -12,23 +12,38 @@ public class Map {
     Map(int n) {
         this.n = n;
         this.map = new char[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; i++) {
-                this.map[i][j] = 'f';
+        int i, j;
+
+        for (i = 1; i < n; i++) {
+            for (j = 1; j < n; j++) {
+                map[i][j] = 'f';
             }
         }
+
+        for (i = 0, j = 0; j < n; j++)
+            map[i][j] = 'w';
+
+        for (i = n - 1, j = 0; j < n; j++)
+            map[i][j] = 'w';
+
+        for (i = 0, j = 0; i < n; i++)
+            map[i][j] = 'w';
+
+        for (i = 0, j = n - 1; i < n; i++)
+            map[i][j] = 'w';
+
     }
 
     void print() {
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; i++) {
-                System.out.printf("%f | ", map[i][j]);
+            for (int j = 0; j < n; j++) {
+                System.out.printf("%c ", map[i][j]);
             }
+            System.out.print("\n");
         }
     }
 
     void insert(char type, int i, int j) {
-        System.out.printf("i = %d / j = %d", i, j);
         map[i][j] = type;
     }
 }

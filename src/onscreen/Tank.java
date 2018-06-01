@@ -22,7 +22,7 @@ public class Tank {
     }
 
     Point nextstep() {
-        Point p = this.p;
+        Point p = new Point(this.p.i, this.p.j);
         switch (this.front) {
         case 'D':
             p.i++;
@@ -45,8 +45,11 @@ public class Tank {
             this.turn(dir);
         else {
             Point p = nextstep(); // calcul nouvel coordonnées
-            if (canimove(map, p.i, p.j))
+            if (canimove(map, p.i, p.j)) {
+                map.map[this.p.i][this.p.j] = 'f';
                 this.p = p;
+                map.map[p.i][p.j] = 'T';
+            }
         }
     }
 }
