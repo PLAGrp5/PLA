@@ -9,9 +9,6 @@ public class point {
 	int m_w, m_h;
 	int m_x, m_y;
 	int m_nrows, m_ncols;
-	int m_step;
-	int m_nsteps;
-	int m_idx;
 	float m_scale;
 	long m_lastMove, m_lastReverse;
 	Model m_model;
@@ -41,6 +38,23 @@ public class point {
 			m_idx = (m_idx + 1) % m_sprites.length;
 		}
 	}*/
+	
+	void step(String m) {
+		switch (m) {
+			case "U" :
+				m_y -= 32;
+				break;
+			case "L" :
+				m_x -= 32;
+				break;
+			case "R" :
+				m_x += 32;
+				break;
+			case "D" :
+				m_y += 32;
+				break;
+		}
+	}
 
 	/**
 	 * paints this square on the screen.
@@ -53,7 +67,7 @@ public class point {
 		int w = (int) (m_scale * 32);
 		int h = (int) (m_scale * 32);
 		g.drawImage(img, m_x, m_y, w, h, null);
-
+		
 	}
 
 }

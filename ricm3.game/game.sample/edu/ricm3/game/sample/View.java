@@ -26,8 +26,11 @@ import edu.ricm3.game.GameView;
 public class View extends GameView {
 
   private static final long serialVersionUID = 1L;
+  public static final int NBRE_ROW = 30;
+  public static final int NBRE_COL = 30;	
 
   Color m_background = Color.white;
+  Color m_line = Color.black;
   long m_last;
   int m_npaints;
   int m_fps;
@@ -58,7 +61,28 @@ public class View extends GameView {
     g.setColor(m_background);
     g.fillRect(0, 0, getWidth(), getHeight());
     
+    int rectWidth = 32;
+    int rectHeight = 32;
+    
+    g.setColor(m_line);
+    /*for (int i = 0; i < NBRE_ROW; i++) {
+    	g.drawLine(0, i * rectHeight, getWidth(), i * rectHeight);
+    }
+    for (int j = 0; j < NBRE_COL; j++) {
+    	g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight());
+    }*/
+    g.setColor(m_line);
+    for (int i = 0; i < NBRE_ROW; i++) {
+    	for (int j = 0; j < NBRE_COL; j++) {
+    	    g.drawRect(i*32, j*32, 32, 32);
+    	    /*if (i == j) {
+    	    	g.fillRect(i*32, j*32, 32, 32);
+    	    }*/
+    	}
+    }
+    
     m_model.m_point.paint(g);
+    m_model.m_point2.paint(g);
   }
 
 }

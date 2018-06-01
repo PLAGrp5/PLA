@@ -94,6 +94,23 @@ public class Controller extends GameController implements ActionListener {
   public void keyPressed(KeyEvent e) {
     if (Options.ECHO_KEYBOARD)
       System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+    	if( e.getKeyChar() == 'Z' || e.getKeyChar() == 'z') {
+    		m_model.m_point2.step("U");
+    	}else if( e.getKeyChar() == 'Q' || e.getKeyChar() == 'q') {
+    		m_model.m_point2.step("L");
+    	}else if( e.getKeyChar() == 'D' || e.getKeyChar() == 'd') {
+    		m_model.m_point2.step("R");
+    	}else if( e.getKeyChar() == 'S' || e.getKeyChar() == 's') {
+    		m_model.m_point2.step("D");
+    	}else if(e.getKeyCode() == 38) {
+    		m_model.m_point.step("U");
+    	}else if(e.getKeyCode() == 39) {
+    		m_model.m_point.step("R");
+    	}else if(e.getKeyCode() == 40) {
+    		m_model.m_point.step("D");
+    	}else if(e.getKeyCode() == 37) {
+    		m_model.m_point.step("L");
+    	}
   }
 
   @Override

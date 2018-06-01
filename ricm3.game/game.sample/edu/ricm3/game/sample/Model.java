@@ -32,9 +32,11 @@ public class Model extends GameModel {
   LinkedList<Square> m_squares;
   BufferedImage m_cowboySprite;
   BufferedImage m_explosionSprite;
-  BufferedImage m_pointSprite;
+  BufferedImage m_charbleuSprite;
+  BufferedImage m_charrougeSprite;
   Cowboy[] m_cowboys;
   point m_point;
+  point m_point2;
   Random rand = new Random();
   Overhead m_overhead = new Overhead();
 
@@ -50,7 +52,9 @@ public class Model extends GameModel {
     for (int i = 0; i < Options.NSQUARES; i++)
       m_squares.add(new Square(this, rand.nextInt(200), rand.nextInt(200)));
     
-    m_point = new point(this, m_pointSprite, 100, 200, 1F);
+    m_point = new point(this, m_charbleuSprite, 0,0, 1F);
+    
+    m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
   }
   
   @Override
@@ -114,9 +118,17 @@ public class Model extends GameModel {
       System.exit(-1);
     }
     
-    imageFile = new File("game.sample/sprites/point.png");
+    imageFile = new File("game.sample/sprites/charbleu.png");
     try {
-      m_pointSprite = ImageIO.read(imageFile);
+      m_charbleuSprite = ImageIO.read(imageFile);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      System.exit(-1);
+    }
+    
+    imageFile = new File("game.sample/sprites/charrouge.png");
+    try {
+      m_charrougeSprite = ImageIO.read(imageFile);
     } catch (IOException ex) {
       ex.printStackTrace();
       System.exit(-1);
