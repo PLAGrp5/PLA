@@ -1,4 +1,4 @@
-package src.onscreen;
+package onscreen;
 
 /* Classe Point */
 
