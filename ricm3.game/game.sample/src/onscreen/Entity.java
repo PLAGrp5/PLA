@@ -9,7 +9,7 @@ Classe permettant de modélier toutes les identités du jeu
  */
 public class Entity {
 		
-    Point p;
+    public Point p;
     public char dir;
     char type;
     float m_scale;
