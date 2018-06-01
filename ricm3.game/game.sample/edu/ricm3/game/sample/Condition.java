@@ -1,4 +1,4 @@
-package exemple_affichage;
+package edu.ricm3.game.sample;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -45,6 +45,10 @@ public class Condition {
 				switch(this.comp) {
 				case "":
 					return (boolean)res1;
+				case "!":
+					return !((boolean)res1);
+				default:
+					return true;
 				}
 			}
 		}
@@ -64,9 +68,22 @@ public class Condition {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		return true;		
+		switch(this.comp) {
+		case "==":
+			return (res1 == res2);
+		case "<":
+			return ((float)res1 < (float)res2);
+		case ">":
+			return ((float)res1 > (float)res2);
+		case "<=":
+			return ((float)res1 <= (float)res2);
+		case ">=":
+			return ((float)res1 >= (float)res2);
+		case "!=":
+			return ((float)res1 != (float)res2);
+		default:
+			return true;
+		}		
 	}
 	
 }

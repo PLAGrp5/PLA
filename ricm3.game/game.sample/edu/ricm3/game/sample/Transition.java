@@ -2,22 +2,20 @@ package edu.ricm3.game.sample;
 
 public class Transition {
 
+	public State ent;
+	public State sort;
+	public Action act;
+	public Condition cond;
 	
-	State entree;
-	State sortie;
-	Action act;
-	
-	
-	
-	public Transition() {
-		entree = null;
-		sortie = null;
-		act = null;
+	Transition() {
 	}
 	
-	public Transition(State entree, State sortie, Action act) {
-		this.entree = entree;
-		this.sortie = sortie;
-		this.act = act;
+	Transition(State en, State so, Action ac, Condition con) {
+		this.ent = en;
+		this.sort = so;
+		this.act = ac;
+		this.cond = con;
 	}
+	
+	
 }

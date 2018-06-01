@@ -1,8 +1,0 @@
-package exemple_affichage;
-
-public class Etat {
-
-	String name;
-	
-	
-}

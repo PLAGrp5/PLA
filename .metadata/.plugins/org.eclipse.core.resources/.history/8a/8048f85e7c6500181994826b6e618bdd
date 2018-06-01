@@ -1,8 +1,0 @@
-package exemple_affichage;
-import java.util.function.*;
-
-public class Action {
-
-	public Function<State , boolean> fonct;
-	
-}

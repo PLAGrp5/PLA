@@ -24,4 +24,10 @@ hs_err_pid*
 
 #vscode file
 .vscode/
+/.classpath
+/.gitignore
+/.project
+/edu/
+/readme.md
+/sprites/
 /src/
