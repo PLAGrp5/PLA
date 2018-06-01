@@ -1,7 +1,7 @@
 package onscreen;
 
-/**
- * map
+/*
+Classe Map nous permet de représenter a carte de jeu
  */
 
 public class Map {

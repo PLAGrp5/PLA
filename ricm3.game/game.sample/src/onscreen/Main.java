@@ -2,14 +2,14 @@ package onscreen;
 
 import java.util.Scanner;
 
-/**
- * Main
+/*
+Main pour les tests
  */
 public class Main {
 
     public static void main(String[] args) {
         Map m = new Map(10);
-        Entity t = new Entity('T', m.n / 2, 1, 'R');
+        Tank t = new Tank(m.n / 2, 1, 'R');
 
         m.insert(t);
 
