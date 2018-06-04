@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import edu.ricm3.game.sample.*;
 
+
 /*
 Classe permettant de modélier toutes les identités du jeu
  */
