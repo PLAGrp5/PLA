@@ -24,49 +24,27 @@ public class Tank extends Entity {
 		splitTankSprite();
 	}
 
-	Point nextstep() {
-		Point p = new Point(this.p.i, this.p.j);
-		switch (this.dir) {
-			case 'D':
-				p.i++;
-				break;
-			case 'L':
-				p.j--;
-				break;
-			case 'R':
-				p.j++;
-				break;
-			default:
-				p.i--;
-				break;
+	/*public void move(Map m, char dir) {
+		if (this.dir != dir)
+			this.turn(dir);
+		else {
+			Point p = nextstep(); // calcul nouvel coordonnées
+			if (canimove(m, p.i, p.j)) {
+				m.free(this.p.i, this.p.j);
+				this.p = p;
+				m.insert(this);
+			} else if (m.map[p.i][p.j].type == 'T')
+				this.opposite();
 		}
-		return p;
-	}
-
-	boolean canimove(Map m, int i, int j) {
-		return m.isfree(i, j) || m.isbonus(i, j);
-	}
-	
-	public void move(Map m, char dir) {
-    if (this.dir != dir)
-        this.turn(dir);
-    else {
-        Point p = nextstep(); // calcul nouvel coordonnées
-        if (canimove(m, p.i, p.j)) {
-            m.free(this.p.i, this.p.j);
-            this.p = p;
-            m.insert(this);
-        } else if (m.map[p.i][p.j].type == 'T')
-            this.opposite();
-    }
-}
+	}*/
 
 	public void step(Map m, char dir) {
 		long now = System.currentTimeMillis();
+		Action a = new Move(dir, m, this);
 		long elapsed = now - m_lastMove;
 		if (elapsed > 100L) {
 			m_lastMove = now;
-			move(m, dir);
+			a.execute();
 		}
 	}
 
