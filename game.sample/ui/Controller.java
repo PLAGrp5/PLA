@@ -103,6 +103,14 @@ public class Controller extends GameController implements ActionListener {
     		m_model.t2.step(m_model.m,'R');
     	}else if( e.getKeyChar() == 'S' || e.getKeyChar() == 's') {
     		m_model.t2.step(m_model.m,'D');
+    	}else if( e.getKeyCode() == 37 ) {
+    		m_model.t4.step(m_model.m,'L');
+    	}else if( e.getKeyCode() == 38 ) {
+    		m_model.t4.step(m_model.m,'U');
+    	}else if( e.getKeyCode() == 39) {
+    		m_model.t4.step(m_model.m,'R');
+    	}else if( e.getKeyCode() == 40) {
+    		m_model.t4.step(m_model.m,'D');
     	}
   }
 

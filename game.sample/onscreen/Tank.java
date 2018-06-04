@@ -9,9 +9,6 @@ import ui.*;
  */
 public class Tank extends Entity {
 	BufferedImage[] m_sprites;
-	public long m_lastMove;
-	public Automate comport;
-	public boolean aut;
 
 	public Tank(int i, int j, char dir) {
 		super('T', i, j, dir);

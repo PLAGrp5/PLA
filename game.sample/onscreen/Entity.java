@@ -1,5 +1,6 @@
 package onscreen;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import ui.*;
@@ -16,6 +17,9 @@ public class Entity {
     float m_scale;
     BufferedImage m_sprite;
   	Model m_model;
+  	public long m_lastMove;
+  	public Automate comport;
+  	public boolean aut;
 
     public Entity(char type, int i, int j, char dir) {
         this.type = type;
@@ -56,5 +60,9 @@ public class Entity {
             this.dir = 'D';
             break;
         }
+    }
+    
+    public void paint(Graphics g, char dir) {
+    	
     }
 }
