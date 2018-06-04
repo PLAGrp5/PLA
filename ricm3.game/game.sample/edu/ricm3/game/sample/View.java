@@ -31,6 +31,7 @@ public class View extends GameView {
 
   Color m_background = Color.white;
   Color m_line = Color.black;
+  Color m_tankb = Color.cyan;
   long m_last;
   int m_npaints;
   int m_fps;
@@ -56,11 +57,10 @@ public class View extends GameView {
   @Override
   protected void _paint(Graphics g) {
     computeFPS();
-
+    
     // erase background
     g.setColor(m_background);
     g.fillRect(0, 0, getWidth(), getHeight());
-    
     int rectWidth = 32;
     int rectHeight = 32;
     
@@ -81,8 +81,13 @@ public class View extends GameView {
     	}
     }
     
-    m_model.m_point.paint(g);
-    m_model.m_point2.paint(g);
+    //m_model.m_point2.paint(g);
+    g.setColor(m_tankb);
+    g.fillRect(m_model.t.p.j*32, m_model.t.p.i*32, 32, 32);
+    g.setColor(Color.orange);
+    g.fillRect(m_model.t2.p.j*32, m_model.t2.p.i*32, 32, 32);
+    m_model.t.paint(g, m_model.t.dir);
+    m_model.t2.paint(g, m_model.t2.dir);
   }
 
 }
