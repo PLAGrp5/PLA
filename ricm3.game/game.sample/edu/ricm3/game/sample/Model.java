@@ -17,6 +17,7 @@
  */
 package edu.ricm3.game.sample;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -57,8 +58,10 @@ public class Model extends GameModel {
       m_squares.add(new Square(this, rand.nextInt(200), rand.nextInt(200)));
     
     //m_point = new point(this, m_charbleuSprite, 32,32, 1F);
-    t = new Tank(this, m_charbleuSprite, 1,10,'U', 1F);
-    t2 = new Tank(this, m_charrougeSprite, 5,15,'U', 1F);
+    Color color = Color.cyan;
+    t = new Tank(this, m_charbleuSprite, 1,10,'U', 1F, color);
+    color = Color.orange;
+    t2 = new Tank(this, m_charrougeSprite, 5,15,'U', 1F, color);
     //m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
   }
   

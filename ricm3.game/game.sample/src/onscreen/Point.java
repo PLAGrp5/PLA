@@ -3,7 +3,7 @@ package src.onscreen;
 /* Classe Point */
 
 public class Point {
-    int i, j; // abscisse et ordonnée
+    public int i, j; // abscisse et ordonnée
 
     // Initialisation d'un point sans paramètre
     Point() {

@@ -47,7 +47,7 @@ public abstract class GameView extends Canvas {
   private static final long serialVersionUID = 1L;
 
   protected GameUI m_game;
-  protected Color m_background = Color.gray;
+  protected Color m_background = Color.white;
   
   private Image m_buffer1, m_buffer2;
   private Image m_renderBuffer;
@@ -67,10 +67,10 @@ public abstract class GameView extends Canvas {
         m_buffer2 = m_buffer1;
 
       Graphics gc = m_buffer1.getGraphics();
-      gc.setColor(Color.GRAY);
+      gc.setColor(Color.WHITE);
       gc.fillRect(0, 0, m_width, m_height);
       gc = m_buffer2.getGraphics();
-      gc.setColor(Color.GRAY);
+      gc.setColor(Color.WHITE);
       gc.fillRect(0, 0, m_width, m_height);
       m_renderBuffer = m_buffer2;
       m_drawBuffer = m_buffer1;
@@ -117,7 +117,7 @@ public abstract class GameView extends Canvas {
 
   public final void paint() {
     Graphics g = m_drawBuffer.getGraphics();
-    g.draw3DRect(10, 10, 100, 100, true);
+    //g.draw3DRect(10, 10, 100, 100, true);
     _paint(g);
     m_swap = true;
     repaint();

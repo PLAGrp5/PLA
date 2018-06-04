@@ -58,8 +58,8 @@ public class View extends GameView {
     computeFPS();
 
     // erase background
-    g.setColor(m_background);
-    g.fillRect(0, 0, getWidth(), getHeight());
+    //g.setColor(m_background);
+    //g.fillRect(0, 0, getWidth(), getHeight());
     
     int rectWidth = 32;
     int rectHeight = 32;
@@ -71,6 +71,10 @@ public class View extends GameView {
     for (int j = 0; j < NBRE_COL; j++) {
     	g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight());
     }*/
+    
+    m_model.t.paint(g, m_model.t.dir);
+    m_model.t2.paint(g, m_model.t2.dir);
+    
     g.setColor(m_line);
     for (int i = 0; i < NBRE_ROW; i++) {
     	for (int j = 0; j < NBRE_COL; j++) {
@@ -82,8 +86,6 @@ public class View extends GameView {
     }
     
     //m_model.m_point2.paint(g);
-    m_model.t.paint(g, m_model.t.dir);
-    m_model.t2.paint(g, m_model.t2.dir);
   }
 
 }
