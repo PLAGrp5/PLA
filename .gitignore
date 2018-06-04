@@ -11,7 +11,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+.jar
 *.war
 *.nar
 *.ear
@@ -28,5 +28,7 @@ PLA2018.txt
 
 #vscode file
 .vscode/
-/.metadata/
-/.recommenders/
+
+bin/
+.metadata/
+.recommenders/
