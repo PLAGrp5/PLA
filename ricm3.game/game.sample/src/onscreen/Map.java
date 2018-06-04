@@ -1,4 +1,4 @@
-package onscreen;
+package src.onscreen;
 
 /*
 Classe Map nous permet de représenter a carte de jeu

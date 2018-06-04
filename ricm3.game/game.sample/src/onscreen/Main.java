@@ -1,4 +1,4 @@
-package onscreen;
+package src.onscreen;
 
 import java.util.Scanner;
 
