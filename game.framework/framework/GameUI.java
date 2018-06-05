@@ -110,7 +110,7 @@ public class GameUI {
 
   private void createWindow(Dimension d) {
     m_frame = new JFrame();
-    m_frame.setTitle("Game of Tank"); // Nom de la fenêtre
+    m_frame.setTitle("Gitank"); // Nom de la fenêtre
     m_frame.setLayout(new BorderLayout());
     m_frame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage()); // Icone du jeu
 
