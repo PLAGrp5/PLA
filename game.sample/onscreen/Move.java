@@ -42,6 +42,7 @@ public class Move extends Action {
 				m.insert(e);
 			} else if (m.map[p.i][p.j].type == 'T') {
 				e.opposite();
+				this.dir = e.dir;
 			} else if (m.map[p.i][p.j].type == 'W') {
 				switch (this.dir) {
 					case 'D':
