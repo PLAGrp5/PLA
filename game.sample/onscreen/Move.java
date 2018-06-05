@@ -2,13 +2,12 @@ package onscreen;
 
 public class Move extends Action {
 
-	public Move(char dir, Map m, Entity e) {
+	public Move(char dir, Map m) {
 		this.dir = dir;
 		this.m = m;
-		this.e = e;
 	}
 
-	Point nextstep() {
+	Point nextstep(Entity e) {
 		Point p = new Point(e.p.i, e.p.j);
 		switch (this.dir) {
 			case 'D':
@@ -31,11 +30,11 @@ public class Move extends Action {
 		return m.isfree(i, j) || m.isbonus(i, j);
 	}
 
-	public void execute() {
+	public void execute(Entity e) {
 		if (this.dir != e.dir)
 			e.turn(dir);
 		else {
-			Point p = nextstep(); // calcul nouvel coordonnées
+			Point p = nextstep(e); // calcul nouvel coordonnées
 			if (canimove(m, p.i, p.j)) {
 				m.free(e.p.i, e.p.j);
 				e.p = p;
@@ -43,24 +42,6 @@ public class Move extends Action {
 			} else if (m.map[p.i][p.j].type == 'T') {
 				e.opposite();
 				this.dir = e.dir;
-			} else if (m.map[p.i][p.j].type == 'W') {
-				switch (this.dir) {
-					case 'D':
-            this.dir = 'L';
-            break;
-        case 'L':
-            this.dir = 'U';
-            break;
-        case 'R':
-            this.dir = 'D';
-            break;
-        case 'U':
-          this.dir = 'R';
-          break;
-        default:
-            this.dir = 'D';
-            break;
-				}
 			}
 		}
 	}

@@ -52,27 +52,27 @@ public class Tank extends Entity {
 		if (elapsed > 100L) {
 			m_lastMove = now;
 			if(aut) {
-				comport.step();
+				comport.step(this);
 			}else {
 				Action a;
 				switch (dir) {
 					case 'U' :
-						a = new Move('U', m_map, this);
+						a = new Move('U', m_map);
 						break;
 					case 'D' : 
-						a = new Move('D', m_map, this);
+						a = new Move('D', m_map);
 						break;
 					case 'L' : 
-						a = new Move('L', m_map, this);
+						a = new Move('L', m_map);
 						break;
 					case 'R' : 
-						a = new Move('R', m_map, this);
+						a = new Move('R', m_map);
 						break;
 					default :
-						a = new Move('U', m_map, this);
+						a = new Move('U', m_map);
 						break;
 				}
-				a.execute();
+				a.execute(this);
 			}
 		}
 	}

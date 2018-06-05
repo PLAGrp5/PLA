@@ -17,6 +17,7 @@ public class Entity {
     public long m_lastMove;
     public Automate comport;
     public boolean aut;
+    public State courant;
 
     public Entity(char type, int i, int j, char dir) {
         this.type = type;
