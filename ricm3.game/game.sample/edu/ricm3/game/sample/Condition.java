@@ -1,13 +1,6 @@
 package edu.ricm3.game.sample;
 
-public class Condition {
-	String cond;
+public abstract class Condition {
 	
-	Condition(String c) {
-		this.cond = c;
-	}
-	
-	boolean eval() {
-		return Boolean.parseBoolean(cond);
-	}
+	public abstract boolean eval(char X);
 }

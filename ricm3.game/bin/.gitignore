@@ -24,5 +24,4 @@ hs_err_pid*
 
 #vscode file
 .vscode/
-/src/
 /edu/

@@ -69,5 +69,9 @@ public class point {
 		g.drawImage(img, m_x, m_y, w, h, null);
 		
 	}
-
+	
+	boolean ecrirequirenvoieunbool(String m) {
+		System.out.println(m);
+		return true;
+	}
 }

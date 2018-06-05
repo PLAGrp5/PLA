@@ -33,6 +33,8 @@ public class GameMain {
     Dimension d = new Dimension(1024, 1024);
     new GameUI(model,view,controller,d);
     
+    Condition c = new Condition("Free(D)", true);
+    System.out.println("printf : " + c.eval());
     // notice that the main thread will exit here,
     // but not your program... hence the hooking
     // of the window events to System.exit(0) when
