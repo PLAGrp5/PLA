@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
@@ -109,8 +110,9 @@ public class GameUI {
 
   private void createWindow(Dimension d) {
     m_frame = new JFrame();
-    m_frame.setTitle("Sample Game");
+    m_frame.setTitle("Game of Tank"); // Nom de la fenêtre
     m_frame.setLayout(new BorderLayout());
+    m_frame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage()); // Icone du jeu
 
     m_frame.add(m_view, BorderLayout.CENTER);
 

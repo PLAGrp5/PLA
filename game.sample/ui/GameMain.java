@@ -18,6 +18,7 @@
 package ui;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import framework.*;
 import onscreen.*;
@@ -33,6 +34,9 @@ public class GameMain {
     Controller controller = new Controller(model);
     View view = new View(model,controller);
 
+  //récuperer la dimension de l'écran
+  //  Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
+ 
     Dimension d = new Dimension(1024, 1024);
     new GameUI(model,view,controller,d);
     
