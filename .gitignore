@@ -30,5 +30,6 @@ PLA2018.txt
 .vscode/
 
 bin/
+.settings/
 .metadata/
 .recommenders/

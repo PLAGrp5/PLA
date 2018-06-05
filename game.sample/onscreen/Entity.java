@@ -3,23 +3,20 @@ package onscreen;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import ui.*;
-
-
 /*
 Classe permettant de modélier toutes les identités du jeu
  */
 public class Entity {
-		
+
     public Point p;
     public char dir;
     char type;
     float m_scale;
     BufferedImage m_sprite;
-  	Model m_model;
-  	public long m_lastMove;
-  	public Automate comport;
-  	public boolean aut;
+    Map m_map;
+    public long m_lastMove;
+    public Automate comport;
+    public boolean aut;
 
     public Entity(char type, int i, int j, char dir) {
         this.type = type;
@@ -31,15 +28,15 @@ public class Entity {
         this.type = type;
         this.p = new Point(i, j);
     }
-    
-    public Entity(Model model, BufferedImage sprite, int x, int y,char dir, float scale) {
-  		m_model = model;
-  		m_sprite = sprite;
-  		p.i = y;
-  		p.j = x;
-  		this.dir = dir;
-  		m_scale = scale;
-  	}
+
+    public Entity(Map m, BufferedImage sprite, int x, int y, char dir, float scale) {
+        m_map = m;
+        m_sprite = sprite;
+        p.i = y;
+        p.j = x;
+        this.dir = dir;
+        m_scale = scale;
+    }
 
     public void turn(char dir) {
         this.dir = dir;
@@ -61,8 +58,8 @@ public class Entity {
             break;
         }
     }
-    
+
     public void paint(Graphics g, char dir) {
-    	
+
     }
 }

@@ -14,17 +14,17 @@ public class Tank extends Entity {
 		super('T', i, j, dir);
 	}
 
-	public Tank(Model m, BufferedImage sprite, int i, int j, char dir, float scale) {
+	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale) {
 		super('T', i, j, dir);
-		m_model = m;
+		m_map = m;
 		m_sprite = sprite;
 		m_scale = scale;
 		splitTankSprite();
 	}
 	
-	public Tank(Model m, BufferedImage sprite, int i, int j, char dir, float scale, Automate a) {
+	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, Automate a) {
 		super('T', i, j, dir);
-		m_model = m;
+		m_map = m;
 		m_sprite = sprite;
 		m_scale = scale;
 		comport = a;
@@ -57,19 +57,19 @@ public class Tank extends Entity {
 				Action a;
 				switch (dir) {
 					case 'U' :
-						a = new Move('U', m_model.m, this);
+						a = new Move('U', m_map, this);
 						break;
 					case 'D' : 
-						a = new Move('D', m_model.m, this);
+						a = new Move('D', m_map, this);
 						break;
 					case 'L' : 
-						a = new Move('L', m_model.m, this);
+						a = new Move('L', m_map, this);
 						break;
 					case 'R' : 
-						a = new Move('R', m_model.m, this);
+						a = new Move('R', m_map, this);
 						break;
 					default :
-						a = new Move('U', m_model.m, this);
+						a = new Move('U', m_map, this);
 						break;
 				}
 				a.execute();
