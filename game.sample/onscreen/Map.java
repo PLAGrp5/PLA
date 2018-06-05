@@ -1,5 +1,8 @@
 package onscreen;
 
+import java.io.File;
+import java.util.Scanner;
+
 /*
 Class Map nous permet de représenter a carte de jeu
  */
@@ -29,6 +32,53 @@ public class Map {
         for (i = 0, j = n - 1; i < n; i++)
             this.insert(new Entity('W', i, j));
 
+    }
+
+    public Map(String filepath) {
+        File f = null;
+        Scanner scan = null;
+        try {
+            f = new File(filepath);
+            scan = new Scanner(f);
+        } catch (Exception e) {
+            System.exit(0);
+        }
+
+        this.n = scan.nextInt();
+        this.map = new Entity[n][n];
+        String s;
+        for (int i = 0; i < this.n; i++) {
+            s = scan.next();
+            for (int j = 0; j < this.n; j++)
+                insert(new Entity(s.charAt(j), i, j));
+        }
+
+    }
+
+    public Map(int n, int percentage) {
+        this.n = n;
+        this.map = new Entity[n][n];
+        int i, j, rand;
+        for (i = 1; i < n; i++)
+            for (j = 1; j < n; j++) {
+                rand = (int) (Math.random() * 100);
+                if (rand < percentage)
+                    this.insert(new Entity('W', i, j));
+                else
+                    this.insert(new Entity('F', i, j));
+            }
+
+        for (i = 0, j = 0; j < n; j++)
+            this.insert(new Entity('W', i, j));
+
+        for (i = n - 1, j = 0; j < n; j++)
+            this.insert(new Entity('W', i, j));
+
+        for (i = 0, j = 0; i < n; i++)
+            this.insert(new Entity('W', i, j));
+
+        for (i = 0, j = n - 1; i < n; i++)
+            this.insert(new Entity('W', i, j));
     }
 
     public boolean isfree(int i, int j) {

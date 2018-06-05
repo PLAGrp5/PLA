@@ -29,7 +29,7 @@ public class GameMain {
   public static void main(String[] args) {
 
     // construct the game elements: model, controller, and view.
-  	Map m = new Map(30);
+  	Map m = new Map(30,50);
     Model model = new Model(m);
     Controller controller = new Controller(model);
     View view = new View(model,controller);
