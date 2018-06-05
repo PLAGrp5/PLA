@@ -62,11 +62,12 @@ public class Model extends GameModel {
 
 		State e = new State("1");
 		Condition cond = new Condition();
-		Action act = new Move('D', m, t);
+		Action act = new Move('D', m);
 		Transition trans = new Transition(e, e, act, cond);
 		Automate a = new Automate(e, trans);
 
 		t.comport = a;
+		t.courant = e;
 		t.aut = true;
 		ent[0] = t;
 
@@ -78,11 +79,12 @@ public class Model extends GameModel {
 
 		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F);
 
-		Action act1 = new Move('L', m, t3);
+		/*Action act1 = new Move('L', m);
 		Transition trans1 = new Transition(e, e, act1, cond);
-		Automate a1 = new Automate(e, trans1);
+		Automate a1 = new Automate(e, trans1);*/
 
-		t3.comport = a1;
+		t3.comport = a;
+		t3.courant = e;
 		t3.aut = true;
 		ent[1] = t3;
 
@@ -116,7 +118,7 @@ public class Model extends GameModel {
 		 */
 		for (int i = 0; i < 2; i++) {
 			if (now - ent[i].m_lastMove > 200L) {
-				ent[i].comport.step();
+				ent[i].comport.step(ent[i]);
 				ent[i].m_lastMove = now;
 			}
 		}
