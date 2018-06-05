@@ -1,9 +1,8 @@
 package onscreen;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-
-import ui.*;
 
 /* Classe permettant de modéliser les tanks dans le jeu
  */

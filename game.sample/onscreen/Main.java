@@ -6,7 +6,8 @@ Main pour les tests
 public class Main {
 
     public static void main(String[] args) {
-        Map m = new Map("game.sample/onscreen/map.txt");
+        //Map m = new Map("game.sample/onscreen/map.txt");
+        Map m = new Map(10,25);
         m.print();
         /* Tank j1 = new Tank(m.n / 2 - 1, 1, 'R');
         Tank j2 = new Tank(m.n / 2, 1, 'R');

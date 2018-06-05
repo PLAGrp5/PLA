@@ -1,9 +1,6 @@
 package onscreen;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 /*
@@ -56,6 +53,32 @@ public class Map {
                 insert(new Entity(s.charAt(j), i, j));
         }
 
+    }
+
+    public Map(int n, int percentage) {
+        this.n = n;
+        this.map = new Entity[n][n];
+        int i, j, rand;
+        for (i = 1; i < n; i++)
+            for (j = 1; j < n; j++) {
+                rand = (int) (Math.random() * 100);
+                if (rand < percentage)
+                    this.insert(new Entity('W', i, j));
+                else
+                    this.insert(new Entity('F', i, j));
+            }
+
+        for (i = 0, j = 0; j < n; j++)
+            this.insert(new Entity('W', i, j));
+
+        for (i = n - 1, j = 0; j < n; j++)
+            this.insert(new Entity('W', i, j));
+
+        for (i = 0, j = 0; i < n; i++)
+            this.insert(new Entity('W', i, j));
+
+        for (i = 0, j = n - 1; i < n; i++)
+            this.insert(new Entity('W', i, j));
     }
 
     public boolean isfree(int i, int j) {
