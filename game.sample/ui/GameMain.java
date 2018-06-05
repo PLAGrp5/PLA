@@ -29,7 +29,10 @@ public class GameMain {
   public static void main(String[] args) {
 
     // construct the game elements: model, controller, and view.
-  	Map m = new Map(30,50);
+  	//initialisation aléatoire
+  	//Map m = new Map(30,50);
+  	//initialisation avec un fichier text
+  	Map m = new Map("game.sample/onscreen/map_init.txt");
     Model model = new Model(m);
     Controller controller = new Controller(model);
     View view = new View(model,controller);
