@@ -43,7 +43,23 @@ public class Move extends Action {
 			} else if (m.map[p.i][p.j].type == 'T') {
 				e.opposite();
 			} else if (m.map[p.i][p.j].type == 'W') {
-				e.turn('U');
+				switch (this.dir) {
+					case 'D':
+            this.dir = 'L';
+            break;
+        case 'L':
+            this.dir = 'U';
+            break;
+        case 'R':
+            this.dir = 'D';
+            break;
+        case 'U':
+          this.dir = 'R';
+          break;
+        default:
+            this.dir = 'D';
+            break;
+				}
 			}
 		}
 	}

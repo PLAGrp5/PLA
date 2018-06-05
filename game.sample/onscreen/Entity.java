@@ -53,6 +53,9 @@ public class Entity {
         case 'R':
             this.dir = 'L';
             break;
+        case 'U':
+          this.dir = 'D';
+          break;
         default:
             this.dir = 'D';
             break;
