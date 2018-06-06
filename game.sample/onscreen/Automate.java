@@ -4,10 +4,10 @@ public class Automate {
 	//State courant;
 	Transition[] t;
 	
-	public Automate(State e, Transition t) {
+	public Automate(State e, Transition[] t) {
 		//courant = e;
 		this.t = new Transition[4];
-		this.t[0] = t;
+		this.t = t;
 	}
 	
 	public void step(Entity e) {

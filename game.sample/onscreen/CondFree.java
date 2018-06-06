@@ -2,7 +2,8 @@ package onscreen;
 
 public class CondFree extends Condition{
 	
-	public CondFree() {
+	public CondFree(Map m) {
+		this.m = m;
 	}
 
 	public boolean eval(Entity ent) {
