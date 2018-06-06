@@ -19,9 +19,11 @@ public class Entity {
     public Automate comport;
     public boolean aut;
     public State courant;
+	int jauge_couleur;
     public int lastj, lasti;
 	public Color m_tank;
 	public char m_color;
+
 
     public Entity(char type, int i, int j, char dir) {
         this.type = type;

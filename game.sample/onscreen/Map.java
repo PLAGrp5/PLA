@@ -107,6 +107,10 @@ public class Map {
     public void free(int i, int j) {
         this.insert(new Entity('F', i, j));
     }
+    
+    public void color(int i, int j) {
+    	
+    }
 
     public void insert(Entity e) {
         map[e.p.i][e.p.j] = e;
