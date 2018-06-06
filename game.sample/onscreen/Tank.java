@@ -61,14 +61,20 @@ public class Tank extends Entity {
 			lastj = p.j;
 			lasti = p.i;
 			m_lastMove = now;
-			if (m.color[p.i][p.j] == 'W' || m.color[p.i][p.j] == 'B' || m.color[p.i][p.j] == 'R') {
-				if (m_tank == Color.cyan) {
-					m.color[p.i][p.j] = 'B';
-				}
-				if (m_tank == Color.orange) {
-					m.color[p.i][p.j] = 'R';
+			if((jauge_couleur>0)&&(type_action == 'm')) {
+				if (m.color[p.i][p.j] == 'W' || m.color[p.i][p.j] == 'B' || m.color[p.i][p.j] == 'R') {
+					if ((m_tank == Color.cyan)&&(m.color[p.i][p.j] != 'B')){
+						m.color[p.i][p.j] = 'B';
+						jauge_couleur--;
+					}
+					else if ((m_tank == Color.orange)&&(m.color[p.i][p.j] != 'R')) {
+						m.color[p.i][p.j] = 'R';
+						jauge_couleur--;
+					}
 				}
 			}
+			
+			
 			if(aut) {
 				comport.step(this);
 			}else {

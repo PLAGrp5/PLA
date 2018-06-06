@@ -48,6 +48,7 @@ public class Move extends Action {
 				m.free(e.p.i, e.p.j);
 				e.p = p;
 				m.insert(e);
+				
 			} else if (m.map[p.i][p.j].type == 'T') {
 				e.opposite();
 				this.dir = e.dir;
