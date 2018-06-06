@@ -66,7 +66,7 @@ public class Model extends GameModel {
 		t = new Tank(m, m_charbleuSprite, 1, 10, 'L', 1F, coloria);
 
 		State e = new State("1");
-		Condition cond = new Condition();
+		Condition cond = new CondFree();
 		Action act = new Move('D', m);
 		Transition trans = new Transition(e, e, act, cond);
 		Automate a = new Automate(e, trans);
