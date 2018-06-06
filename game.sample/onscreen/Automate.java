@@ -11,6 +11,8 @@ public class Automate {
 	}
 	
 	public void step(Entity e) {
+		e.lasti = e.p.i;
+		e.lastj = e.p.j;
 		int i=0;
 		while((i<t.length-1)&&(t[i].src != e.courant)&&(!t[i].cond.eval())) {
 			i++;

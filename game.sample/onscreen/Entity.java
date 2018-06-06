@@ -1,5 +1,6 @@
 package onscreen;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -10,7 +11,7 @@ public class Entity {
 
     public Point p;
     public char dir;
-    char type;
+    public char type;
     float m_scale;
     BufferedImage m_sprite;
     Map m_map;
@@ -18,6 +19,8 @@ public class Entity {
     public Automate comport;
     public boolean aut;
     public State courant;
+	int lastj, lasti;
+	Color m_tank;
 
     public Entity(char type, int i, int j, char dir) {
         this.type = type;
