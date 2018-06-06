@@ -63,7 +63,7 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-		t = new Tank(m, m_charbleuSprite, 1, 10, 'L', 1F, coloria);
+		t = new Tank(m, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
 
 		State e = new State("1");
 		
@@ -84,13 +84,13 @@ public class Model extends GameModel {
 		t.aut = true;
 		ent[0] = t;
 		
-		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, colort2);
+		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, 30 , colort2);
 		t2.aut = false;
 
-		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'L', 1F, colort);
+		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'L', 1F, 30, colort);
 		t4.aut = false;
 
-		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F, coloria);
+		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F, 30,coloria);
 
 		/*Action act1 = new Move('L', m);
 		Transition trans1 = new Transition(e, e, act1, cond);

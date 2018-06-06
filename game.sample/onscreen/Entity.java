@@ -19,11 +19,14 @@ public class Entity {
 	public Automate comport;
 	public boolean aut;
 	public State courant;
-	int lastj, lasti;
-	Color m_tank;
 	int vie;
 	int vie_max;
 	BonusEtMalusFixes[] inventaire = new BonusEtMalusFixes[3];
+	int jauge_couleur;
+  public int lastj, lasti;
+	public Color m_tank;
+	public char m_color;
+
 
 	public Entity(char type, int i, int j, char dir) {
 		this.type = type;

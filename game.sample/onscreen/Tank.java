@@ -14,7 +14,7 @@ public class Tank extends Entity {
 		super('T', i, j, dir);
 	}
 
-	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, Color color) {
+	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, int dose_couleur, Color color) {
 		super('T', i, j, dir);
 		m_map = m;
 		m_sprite = sprite;
@@ -22,17 +22,19 @@ public class Tank extends Entity {
 		lastj = p.j;
 		lasti = p.i;
 		m_tank = color;
+		jauge_couleur = dose_couleur;
 		splitTankSprite();
 		this.setvie(15);
 		this.initinventaire();
 	}
 	
-	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, Automate a) {
+	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, int dose_couleur, Automate a) {
 		super('T', i, j, dir);
 		m_map = m;
 		m_sprite = sprite;
 		m_scale = scale;
 		comport = a;
+		jauge_couleur = dose_couleur;
 		splitTankSprite();
 		this.setvie(10);
 	}
@@ -52,33 +54,49 @@ public class Tank extends Entity {
 		}
 	}*/
 
-	public void step(Map m, char dir) {
+	public void step(Map m, char dir, char type_action) {
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;
 		if (elapsed > 100L) {
 			lastj = p.j;
 			lasti = p.i;
 			m_lastMove = now;
+			if (m.color[p.i][p.j] == 'W' || m.color[p.i][p.j] == 'B' || m.color[p.i][p.j] == 'R') {
+				if (m_tank == Color.cyan) {
+					m.color[p.i][p.j] = 'B';
+				}
+				if (m_tank == Color.orange) {
+					m.color[p.i][p.j] = 'R';
+				}
+			}
 			if(aut) {
 				comport.step(this);
 			}else {
 				Action a;
-				switch (dir) {
-					case 'U' :
-						a = new Move('U', m_map);
-						break;
-					case 'D' : 
-						a = new Move('D', m_map);
-						break;
-					case 'L' : 
-						a = new Move('L', m_map);
-						break;
-					case 'R' : 
-						a = new Move('R', m_map);
-						break;
-					default :
-						a = new Move('U', m_map);
-						break;
+				if(type_action == 'p') {
+					a = new Pop(m_map);
+				}
+				else if(type_action == 'w'){
+					a = new Wizz();
+				}
+				else { //if(type_action == 'm')
+					switch (dir) {
+						case 'U' :
+							a = new Move('U', m_map);
+							break;
+						case 'D' : 
+							a = new Move('D', m_map);
+							break;
+						case 'L' : 
+							a = new Move('L', m_map);
+							break;
+						case 'R' : 
+							a = new Move('R', m_map);
+							break;
+						default :
+							a = new Move('U', m_map);
+							break;
+					}
 				}
 				a.execute(this);
 			}
@@ -114,14 +132,13 @@ public class Tank extends Entity {
 		}
 		int w = (int) (m_scale * 32);
 		int h = (int) (m_scale * 32);
-		if(!aut) {
-			g.setColor(m_tank);
-			g.fillRect(lastj*32, lasti*32, 32, 32);
+		g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
+		/*if(!aut) {
 			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
 		} else {
 			g.setColor(Color.white);
 			g.fillRect(lastj*32, lasti*32, 32, 32);
 			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
-		}
+		}*/
 	}
 }
