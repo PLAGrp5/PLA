@@ -61,9 +61,17 @@ public class Model extends GameModel {
 		t = new Tank(m, m_charbleuSprite, 1, 10, 'L', 1F);
 
 		State e = new State("1");
-		Condition cond = new CondFree();
+		
+		Condition cond = new CondFree(m);
+		Condition cond1 = new CondDefault(m);
+		
 		Action act = new Move('D', m);
-		Transition trans = new Transition(e, e, act, cond);
+		Action act1 = new Move('L', m);
+		
+		Transition[] trans = new Transition[2];
+		trans[0]= new Transition(e, e, act, cond);
+		trans[1]= new Transition(e, e, act1, cond1);
+		
 		Automate a = new Automate(e, trans);
 
 		t.comport = a;
