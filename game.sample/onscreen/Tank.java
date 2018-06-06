@@ -1,5 +1,6 @@
 package onscreen;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -13,11 +14,14 @@ public class Tank extends Entity {
 		super('T', i, j, dir);
 	}
 
-	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale) {
+	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, Color color) {
 		super('T', i, j, dir);
 		m_map = m;
 		m_sprite = sprite;
 		m_scale = scale;
+		lastj = p.j;
+		lasti = p.i;
+		m_tank = color;
 		splitTankSprite();
 	}
 	
@@ -49,6 +53,8 @@ public class Tank extends Entity {
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;
 		if (elapsed > 100L) {
+			lastj = p.j;
+			lasti = p.i;
 			m_lastMove = now;
 			if(aut) {
 				comport.step(this);
@@ -105,6 +111,14 @@ public class Tank extends Entity {
 		}
 		int w = (int) (m_scale * 32);
 		int h = (int) (m_scale * 32);
-		g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
+		if(!aut) {
+			g.setColor(m_tank);
+			g.fillRect(lastj*32, lasti*32, 32, 32);
+			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
+		} else {
+			g.setColor(Color.white);
+			g.fillRect(lastj*32, lasti*32, 32, 32);
+			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
+		}
 	}
 }
