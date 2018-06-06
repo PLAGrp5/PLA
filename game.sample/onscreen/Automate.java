@@ -12,7 +12,7 @@ public class Automate {
 	
 	public void step(Entity e) {
 		int i=0;
-		while((i<t.length-1)&&(t[i].src != e.courant)&&(!t[i].cond.eval())) {
+		while((i<t.length-1)&&(t[i].src != e.courant)&&(!t[i].cond.eval(e))) {
 			i++;
 		}
 		t[i].act.execute(e);
