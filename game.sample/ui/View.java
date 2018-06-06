@@ -59,10 +59,9 @@ public class View extends GameView {
 	@Override
 	protected void _paint(Graphics g) {
 		computeFPS();
-
 		// erase background
-		//g.setColor(m_background);
-		//g.fillRect(0, 0, getWidth(), getHeight());
+		g.setColor(m_background);
+		g.fillRect(0, 0, getWidth(), getHeight());
 		int rectWidth = 32;
 		int rectHeight = 32;
 
@@ -72,25 +71,38 @@ public class View extends GameView {
 		 * getWidth(), i * rectHeight); } for (int j = 0; j < NBRE_COL; j++) {
 		 * g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight()); }
 		 */
-		
-		m_model.t4.paint(g, m_model.t4.dir);
-		m_model.t2.paint(g, m_model.t2.dir);
-		for (int i = 0; i < 2; i++) {
-			m_model.ent[i].paint(g, m_model.ent[i].dir);
-		}
-		
-		Graphics2D g2d = (Graphics2D) g.create();
-		TexturePaint texture_mur = new TexturePaint(m_model.m_mur, new Rectangle(0, 0, 32, 32));
+				
         
 		for(int k = 0; k < NBRE_ROW; k++) {
 			for (int l = 0; l < NBRE_COL; l++) {
-				if (m_model.m.map[k][l].type == 'W') {
-					g2d.setPaint(texture_mur);
-			        g2d.fillRect(l*32, k*32, 32, 32);
+				
+				if (m_model.m.color[k][l] == 'M') {
+					g.drawImage(m_model.m_mur, 32*l,32*k,32,32,null);
+				}
+				if (m_model.m.color[k][l] == 'B') {
+					g.setColor(Color.cyan);
+					g.fillRect(l*32, k*32, 32, 32);
+				}
+				if (m_model.m.color[k][l] == 'R') {
+					g.setColor(Color.orange);
+					g.fillRect(l*32, k*32, 32, 32);
+				}
+				if (m_model.m.color[k][l] == 'W') {
+					g.setColor(Color.white);
+					g.fillRect(l*32, k*32, 32, 32);
 				}
 			}
 		}
+		//m_model.m.print();
+		
+		m_model.t4.paint(g, m_model.t4.dir);
+		m_model.t2.paint(g, m_model.t2.dir);
+		
+		for (int i = 0; i < 2; i++) {
+			m_model.ent[i].paint(g, m_model.ent[i].dir);
+		}
 
+		
 		g.setColor(m_line);
 		for (int i = 0; i < NBRE_ROW; i++) {
 			for (int j = 0; j < NBRE_COL; j++) {

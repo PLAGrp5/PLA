@@ -27,7 +27,7 @@ public class Move extends Action {
 	}
 
 	boolean canimove(Map m, int i, int j) {
-		return m.isfree(i, j) || m.isbonus(i, j);
+		return (m.isfree(i, j) || m.isbonus(i, j));
 	}
 
 	public void execute(Entity e) {
