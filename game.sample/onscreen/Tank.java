@@ -23,6 +23,8 @@ public class Tank extends Entity {
 		lasti = p.i;
 		m_tank = color;
 		splitTankSprite();
+		this.setvie(15);
+		this.initinventaire();
 	}
 	
 	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, Automate a) {
@@ -32,6 +34,7 @@ public class Tank extends Entity {
 		m_scale = scale;
 		comport = a;
 		splitTankSprite();
+		this.setvie(10);
 	}
 
 
