@@ -21,6 +21,8 @@ public class Entity {
     public State courant;
 	int lastj, lasti;
 	Color m_tank;
+	int jauge_couleur;
+
 
     public Entity(char type, int i, int j, char dir) {
         this.type = type;
