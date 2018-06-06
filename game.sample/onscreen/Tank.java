@@ -56,12 +56,12 @@ public class Tank extends Entity {
 			lastj = p.j;
 			lasti = p.i;
 			m_lastMove = now;
-			if (m.map[p.j][p.i].m_color == 'F' || m.map[p.j][p.i].m_color == 'B' || m.map[p.j][p.i].m_color == 'R') {
+			if (m.color[p.i][p.j] == 'W' || m.color[p.i][p.j] == 'B' || m.color[p.i][p.j] == 'R') {
 				if (m_tank == Color.cyan) {
-					m.map[p.j][p.i].m_color = 'B';
+					m.color[p.i][p.j] = 'B';
 				}
 				if (m_tank == Color.orange) {
-					m.map[p.j][p.i].m_color = 'R';
+					m.color[p.i][p.j] = 'R';
 				}
 			}
 			if(aut) {

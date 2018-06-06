@@ -11,6 +11,7 @@ public class Map {
 
     int n;
     public Entity map[][];
+    public char color[][];
 
     public Map(int n) {
         this.n = n;
@@ -46,6 +47,7 @@ public class Map {
 
         this.n = scan.nextInt();
         this.map = new Entity[n][n];
+        this.color = new char[n][n];
         String s;
         for (int i = 0; i < this.n; i++) {
             s = scan.next();
@@ -55,7 +57,14 @@ public class Map {
         }
         for (int c = 0; c < this.n; c++) {
         	for (int l = 0; l < this.n; l++) {
-        		this.map[l][c].m_color = this.map[l][c].type;
+        		
+        		if(this.map[c][l].type == 'F') {
+        			this.color[c][l] = 'W';
+        		}else if(this.map[c][l].type == 'W') {
+        			this.color[c][l] = 'M';
+        		}else if(this.map[c][l].type == 'T') {
+        			this.color[c][l] = 'W';
+        		}
         	}
         }
 
