@@ -4,9 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.Object;
 
-public class Condition {
+public abstract class Condition {
 
-	public String cond_met1;
+	Map m;
+	public abstract boolean eval(Entity ent);
+	
+	/*public String cond_met1;
 	public String cond_arg1[];
 	public String comp;
 	public String cond_met2;
@@ -113,6 +116,6 @@ public class Condition {
 		cond.comp = "==";
 		
 		System.out.print(cond.exec_cond());
-	}
+	}*/
 	
 }

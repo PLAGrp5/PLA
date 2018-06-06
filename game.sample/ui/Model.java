@@ -17,6 +17,8 @@
  */
 package ui;
 
+
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -36,6 +38,7 @@ public class Model extends GameModel {
 	// BufferedImage m_explosionSprite;
 	BufferedImage m_charbleuSprite;
 	BufferedImage m_charrougeSprite;
+	BufferedImage m_mur;
 	// Cowboy[] m_cowboys;
 
 	Entity[] ent = new Entity[2];
@@ -57,27 +60,37 @@ public class Model extends GameModel {
 		 * m_squares = new LinkedList<Square>(); for (int i = 0; i < Options.NSQUARES;
 		 * i++) m_squares.add(new Square(this, rand.nextInt(200), rand.nextInt(200)));
 		 */
-
-		t = new Tank(m, m_charbleuSprite, 1, 10, 'L', 1F);
+		Color colort = Color.cyan;
+		Color colort2 = Color.orange;
+		Color coloria = Color.gray;
+		t = new Tank(m, m_charbleuSprite, 1, 10, 'L', 1F, coloria);
 
 		State e = new State("1");
-		Condition cond = new Condition();
+		
+		Condition cond = new CondFree(m);
+		Condition cond1 = new CondDefault(m);
+		
 		Action act = new Move('D', m);
-		Transition trans = new Transition(e, e, act, cond);
+		Action act1 = new Move('L', m);
+		
+		Transition[] trans = new Transition[2];
+		trans[0]= new Transition(e, e, act, cond);
+		trans[1]= new Transition(e, e, act1, cond1);
+		
 		Automate a = new Automate(e, trans);
 
 		t.comport = a;
 		t.courant = e;
 		t.aut = true;
 		ent[0] = t;
-
-		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F);
+		
+		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, colort2);
 		t2.aut = false;
 
-		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'L', 1F);
+		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'L', 1F, colort);
 		t4.aut = false;
 
-		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F);
+		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F, coloria);
 
 		/*Action act1 = new Move('L', m);
 		Transition trans1 = new Transition(e, e, act1, cond);
@@ -159,6 +172,14 @@ public class Model extends GameModel {
 		imageFile = new File("game.sample/sprites/charr.png");
 		try {
 			m_charrougeSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/mur.png");
+		try {
+			m_mur = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);

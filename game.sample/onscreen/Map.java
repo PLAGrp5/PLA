@@ -10,7 +10,7 @@ Class Map nous permet de représenter a carte de jeu
 public class Map {
 
     int n;
-    Entity map[][];
+    public Entity map[][];
 
     public Map(int n) {
         this.n = n;

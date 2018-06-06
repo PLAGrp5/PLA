@@ -32,7 +32,7 @@ public class GameMain {
   	//initialisation aléatoire
   	//Map m = new Map(30,50);
   	//initialisation avec un fichier text
-  	Map m = new Map("game.sample/onscreen/map_init.txt");
+  	Map m = new Map("game.sample/onscreen/map_test.txt");
     Model model = new Model(m);
     Controller controller = new Controller(model);
     View view = new View(model,controller);
