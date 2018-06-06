@@ -70,8 +70,8 @@ public class Model extends GameModel {
 		Condition cond = new CondFree(m);
 		Condition cond1 = new CondDefault(m);
 		
-		Action act = new Move('D', m);
-		Action act1 = new Move('L', m);
+		Action act = new Move(t.dir, m);
+		Action act1 = new Turn();
 		
 		Transition[] trans = new Transition[2];
 		trans[0]= new Transition(e, e, act, cond);

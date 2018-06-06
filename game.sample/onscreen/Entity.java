@@ -25,7 +25,6 @@ public class Entity {
 	int jauge_couleur;
   public int lastj, lasti;
 	public Color m_tank;
-	public char m_color;
 
 
 	public Entity(char type, int i, int j, char dir) {
