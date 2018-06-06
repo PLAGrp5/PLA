@@ -56,6 +56,14 @@ public class Tank extends Entity {
 			lastj = p.j;
 			lasti = p.i;
 			m_lastMove = now;
+			if (m.map[p.j][p.i].m_color == 'F' || m.map[p.j][p.i].m_color == 'B' || m.map[p.j][p.i].m_color == 'R') {
+				if (m_tank == Color.cyan) {
+					m.map[p.j][p.i].m_color = 'B';
+				}
+				if (m_tank == Color.orange) {
+					m.map[p.j][p.i].m_color = 'R';
+				}
+			}
 			if(aut) {
 				comport.step(this);
 			}else {
@@ -111,14 +119,13 @@ public class Tank extends Entity {
 		}
 		int w = (int) (m_scale * 32);
 		int h = (int) (m_scale * 32);
-		if(!aut) {
-			g.setColor(m_tank);
-			g.fillRect(lastj*32, lasti*32, 32, 32);
+		g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
+		/*if(!aut) {
 			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
 		} else {
 			g.setColor(Color.white);
 			g.fillRect(lastj*32, lasti*32, 32, 32);
 			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
-		}
+		}*/
 	}
 }
