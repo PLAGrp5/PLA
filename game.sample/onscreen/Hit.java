@@ -8,13 +8,7 @@ public class Hit extends Action {
 	}
 
 	public void execute(Model model, Entity e) {
-		model.nent++;
-		if (model.nent > model.ent.length) {
-			Entity[] tmp = new Entity[2 * model.nent];
-			System.arraycopy(model.ent, 0, tmp, 0, model.ent.length);
-			model.ent = tmp;
-		}
-		model.ent[model.nent - 1] = new Bullet(e);
+		model.add(new Bullet(e));
 		model.ent[model.nent - 1].comport = model.automates[0];
 		model.ent[model.nent - 1].comport.t[0].act = new Move(model.ent[model.nent - 1].dir, model.m);
 	}

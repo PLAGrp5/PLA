@@ -44,10 +44,6 @@ public class Tank extends Entity {
 	 * (m.map[p.i][p.j].type == 'T') this.opposite(); } }
 	 */
 
-	public void hit(Model model) {
-		new Hit().execute(model, this);
-	}
-
 	public void step(Map m, char dir) {
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;

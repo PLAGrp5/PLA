@@ -1,5 +1,6 @@
 package onscreen;
 
+import ui.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -19,8 +20,8 @@ public class Entity {
     public Automate comport;
     public boolean aut;
     public State courant;
-	int lastj, lasti;
-	Color color;
+    int lastj, lasti;
+    Color color;
 
     public Entity(char type, int i, int j, char dir) {
         this.type = type;
@@ -58,12 +59,16 @@ public class Entity {
             this.dir = 'L';
             break;
         case 'U':
-          this.dir = 'D';
-          break;
+            this.dir = 'D';
+            break;
         default:
             this.dir = 'D';
             break;
         }
+    }
+
+    public void hit(Model model) {
+        new Hit().execute(model, this);
     }
 
     public void paint(Graphics g, char dir) {

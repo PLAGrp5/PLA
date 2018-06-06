@@ -40,8 +40,9 @@ public class Model extends GameModel {
 	BufferedImage m_charrougeSprite;
 	BufferedImage m_mur;
 
-	public Entity[] ent = new Entity[3];
 	public int nent = 2;
+	public Entity[] ent = new Entity[nent];
+
 	public Map m;
 	public Automate[] automates = new Automate[2];
 	Tank t, t2, t3, t4;
@@ -121,6 +122,16 @@ public class Model extends GameModel {
 		return m_overhead;
 	}
 
+	public void add(Entity e) {
+		nent++;
+		if (nent > ent.length) {
+			Entity[] tmp = new Entity[2 * nent];
+			System.arraycopy(ent, 0, tmp, 0, ent.length);
+			ent = tmp;
+		}
+		ent[nent - 1] = e;
+	}
+
 	/*
 	 * public Cowboy[] cowboys() { return m_cowboys; }
 	 * 
@@ -197,5 +208,4 @@ public class Model extends GameModel {
 		}
 
 	}
-
 }
