@@ -1,5 +1,6 @@
 package onscreen;
 
+import ui.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -21,10 +22,11 @@ public class Tank extends Entity {
 		m_scale = scale;
 		lastj = p.j;
 		lasti = p.i;
-		m_tank = color;
+		this.color = color;
 		splitTankSprite();
+		m.insert(this);
 	}
-	
+
 	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, Automate a) {
 		super('T', i, j, dir);
 		m_map = m;
@@ -32,22 +34,19 @@ public class Tank extends Entity {
 		m_scale = scale;
 		comport = a;
 		splitTankSprite();
+		m.insert(this);
 	}
 
+	/*
+	 * public void move(Map m, char dir) { if (this.dir != dir) this.turn(dir); else
+	 * { Point p = nextstep(); // calcul nouvel coordonnées if (canimove(m, p.i,
+	 * p.j)) { m.free(this.p.i, this.p.j); this.p = p; m.insert(this); } else if
+	 * (m.map[p.i][p.j].type == 'T') this.opposite(); } }
+	 */
 
-	/*public void move(Map m, char dir) {
-		if (this.dir != dir)
-			this.turn(dir);
-		else {
-			Point p = nextstep(); // calcul nouvel coordonnées
-			if (canimove(m, p.i, p.j)) {
-				m.free(this.p.i, this.p.j);
-				this.p = p;
-				m.insert(this);
-			} else if (m.map[p.i][p.j].type == 'T')
-				this.opposite();
-		}
-	}*/
+	public void hit(Model model) {
+		new Hit().execute(model, this);
+	}
 
 	public void step(Map m, char dir) {
 		long now = System.currentTimeMillis();
@@ -56,26 +55,26 @@ public class Tank extends Entity {
 			lastj = p.j;
 			lasti = p.i;
 			m_lastMove = now;
-			if(aut) {
+			if (aut) {
 				comport.step(this);
-			}else {
+			} else {
 				Action a;
 				switch (dir) {
-					case 'U' :
-						a = new Move('U', m_map);
-						break;
-					case 'D' : 
-						a = new Move('D', m_map);
-						break;
-					case 'L' : 
-						a = new Move('L', m_map);
-						break;
-					case 'R' : 
-						a = new Move('R', m_map);
-						break;
-					default :
-						a = new Move('U', m_map);
-						break;
+				case 'U':
+					a = new Move('U', m_map);
+					break;
+				case 'D':
+					a = new Move('D', m_map);
+					break;
+				case 'L':
+					a = new Move('L', m_map);
+					break;
+				case 'R':
+					a = new Move('R', m_map);
+					break;
+				default:
+					a = new Move('U', m_map);
+					break;
 				}
 				a.execute(this);
 			}
@@ -94,30 +93,30 @@ public class Tank extends Entity {
 	public void paint(Graphics g, char dir) {
 		Image img;
 		switch (dir) {
-			case 'U':
-				img = m_sprites[1];
-				break;
-			case 'D':
-				img = m_sprites[3];
-				break;
-			case 'L':
-				img = m_sprites[0];
-				break;
-			case 'R':
-				img = m_sprites[2];
-				break;
-			default:
-				img = m_sprites[0];
+		case 'U':
+			img = m_sprites[1];
+			break;
+		case 'D':
+			img = m_sprites[3];
+			break;
+		case 'L':
+			img = m_sprites[0];
+			break;
+		case 'R':
+			img = m_sprites[2];
+			break;
+		default:
+			img = m_sprites[0];
 		}
 		int w = (int) (m_scale * 32);
 		int h = (int) (m_scale * 32);
-		if(!aut) {
-			g.setColor(m_tank);
-			g.fillRect(lastj*32, lasti*32, 32, 32);
+		if (!aut) {
+			g.setColor(color);
+			g.fillRect(lastj * 32, lasti * 32, 32, 32);
 			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
 		} else {
 			g.setColor(Color.white);
-			g.fillRect(lastj*32, lasti*32, 32, 32);
+			g.fillRect(lastj * 32, lasti * 32, 32, 32);
 			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
 		}
 	}

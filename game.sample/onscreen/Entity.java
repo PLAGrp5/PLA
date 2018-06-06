@@ -20,7 +20,7 @@ public class Entity {
     public boolean aut;
     public State courant;
 	int lastj, lasti;
-	Color m_tank;
+	Color color;
 
     public Entity(char type, int i, int j, char dir) {
         this.type = type;

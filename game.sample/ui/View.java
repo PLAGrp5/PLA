@@ -33,7 +33,7 @@ public class View extends GameView {
 
 	Color m_background = Color.white;
 	Color m_line = Color.black;
-	Color m_tankb = Color.cyan;
+	Color colorb = Color.cyan;
 	long m_last;
 	int m_npaints;
 	int m_fps;

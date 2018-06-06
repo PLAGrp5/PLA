@@ -17,7 +17,6 @@
  */
 package ui;
 
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
@@ -36,14 +35,16 @@ public class Model extends GameModel {
 	// LinkedList<Square> m_squares;
 	// BufferedImage m_cowboySprite;
 	// BufferedImage m_explosionSprite;
+	// Cowboy[] m_cowboys;
 	BufferedImage m_charbleuSprite;
 	BufferedImage m_charrougeSprite;
 	BufferedImage m_mur;
-	// Cowboy[] m_cowboys;
 
-	Entity[] ent = new Entity[2];
-	Tank t, t2, t3, t4;
+	public Entity[] ent = new Entity[3];
+	public int nent = 2;
 	public Map m;
+	public Automate[] automates = new Automate[2];
+	Tank t, t2, t3, t4;
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
@@ -66,40 +67,47 @@ public class Model extends GameModel {
 		t = new Tank(m, m_charbleuSprite, 1, 10, 'L', 1F, coloria);
 
 		State e = new State("1");
-		
+
 		Condition cond = new CondFree(m);
 		Condition cond1 = new CondDefault(m);
-		
+
 		Action act = new Move('D', m);
 		Action act1 = new Move('L', m);
-		
+
 		Transition[] trans = new Transition[2];
-		trans[0]= new Transition(e, e, act, cond);
-		trans[1]= new Transition(e, e, act1, cond1);
-		
+		trans[0] = new Transition(e, e, act, cond);
+		trans[1] = new Transition(e, e, act1, cond1);
+
 		Automate a = new Automate(e, trans);
 
 		t.comport = a;
 		t.courant = e;
 		t.aut = true;
 		ent[0] = t;
-		
+
 		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, colort2);
 		t2.aut = false;
 
-		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'L', 1F, colort);
+		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'D', 1F, colort);
 		t4.aut = false;
 
 		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F, coloria);
 
-		/*Action act1 = new Move('L', m);
-		Transition trans1 = new Transition(e, e, act1, cond);
-		Automate a1 = new Automate(e, trans1);*/
+		/*
+		 * Action act1 = new Move('L', m); Transition trans1 = new Transition(e, e,
+		 * act1, cond); Automate a1 = new Automate(e, trans1);
+		 */
 
 		t3.comport = a;
 		t3.courant = e;
 		t3.aut = true;
 		ent[1] = t3;
+
+		// Parte test Bullet
+		State eb = new State("1");
+		Transition[] transitionsb = new Transition[1];
+		transitionsb[0] = new Transition(eb, eb, act, cond);
+		automates[0] = new Automate(e, transitionsb);
 
 		// m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
 	}
@@ -129,12 +137,15 @@ public class Model extends GameModel {
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-		for (int i = 0; i < 2; i++) {
-			if (now - ent[i].m_lastMove > 200L) {
+
+		for (int i = 0; i < nent; i++) {
+			if (now - ent[i].m_lastMove > 2000L) {
 				ent[i].comport.step(ent[i]);
 				ent[i].m_lastMove = now;
+				m.print();
 			}
 		}
+
 		// }
 		/*
 		 * m_overhead.overhead();
@@ -176,7 +187,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/mur.png");
 		try {
 			m_mur = ImageIO.read(imageFile);
