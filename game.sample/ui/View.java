@@ -91,10 +91,6 @@ public class View extends GameView {
 					g.setColor(Color.white);
 					g.fillRect(l*32, k*32, 32, 32);
 				}
-				else if (m_model.m.map[k][l].type == 'B') {
-					g2d.setPaint(Color.red);
-			        g2d.fillRect(l*32, k*32, 32, 32);
-				}
 			}
 		}
 		//m_model.m.print();
@@ -108,14 +104,14 @@ public class View extends GameView {
 
 		
 		g.setColor(m_line);
-		/*for (int i = 0; i < NBRE_ROW; i++) {
+		for (int i = 0; i < NBRE_ROW; i++) {
 			for (int j = 0; j < NBRE_COL; j++) {
 				g.drawRect(i * 32, j * 32, 32, 32);
 				/*
 				 * if (i == j) { g.fillRect(i*32, j*32, 32, 32); }
 				 */
-			//}
-		//}
+			}
+		}
 	}
 
 }
