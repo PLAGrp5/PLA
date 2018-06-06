@@ -21,6 +21,8 @@ public class Entity {
     public State courant;
 	int lastj, lasti;
 	Color m_tank;
+	int vie;
+	int vie_max;
 
     public Entity(char type, int i, int j, char dir) {
         this.type = type;
@@ -69,4 +71,10 @@ public class Entity {
     public void paint(Graphics g, char dir) {
 
     }
+    
+    
+    public void setvie(int vie) {
+		this.vie_max = vie;
+		this.vie = vie;
+	}
 }
