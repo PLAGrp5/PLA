@@ -49,8 +49,14 @@ public class Map {
         String s;
         for (int i = 0; i < this.n; i++) {
             s = scan.next();
-            for (int j = 0; j < this.n; j++)
+            for (int j = 0; j < this.n; j++) {
                 insert(new Entity(s.charAt(j), i, j));
+            }
+        }
+        for (int c = 0; c < this.n; c++) {
+        	for (int l = 0; l < this.n; l++) {
+        		this.map[l][c].m_color = this.map[l][c].type;
+        	}
         }
 
     }
@@ -115,8 +121,9 @@ public class Map {
                         System.out.printf("A ");
                         break;
                     }
-                } else
+                } else {
                     System.out.printf("%c ", map[i][j].type);
+                }
             }
             System.out.print("\n");
         }
