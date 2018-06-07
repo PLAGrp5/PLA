@@ -1,7 +1,7 @@
 package onscreen;
 
 public class CondDefault extends Condition {
-	
+
 	public CondDefault(Map m) {
 		this.m = m;
 	}

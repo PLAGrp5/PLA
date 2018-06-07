@@ -33,7 +33,7 @@ public class View extends GameView {
 
 	Color m_background = Color.white;
 	Color m_line = Color.black;
-	Color m_tankb = Color.cyan;
+	Color colorb = Color.cyan;
 	long m_last;
 	int m_npaints;
 	int m_fps;
@@ -72,9 +72,11 @@ public class View extends GameView {
 		 * g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight()); }
 		 */
 				
-        
+        //	Parcours de notre tableau color (contenu dans map)
 		for(int k = 0; k < NBRE_ROW; k++) {
 			for (int l = 0; l < NBRE_COL; l++) {
+				
+				// Pour chaque case on colorie avec la texture associé
 				
 				if (m_model.m.color[k][l] == 'M') {
 					g.drawImage(m_model.m_mur, 32*l,32*k,32,32,null);
@@ -98,7 +100,7 @@ public class View extends GameView {
 		m_model.t4.paint(g, m_model.t4.dir);
 		m_model.t2.paint(g, m_model.t2.dir);
 		
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < m_model.nent; i++) {
 			m_model.ent[i].paint(g, m_model.ent[i].dir);
 		}
 

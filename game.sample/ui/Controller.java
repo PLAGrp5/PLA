@@ -29,6 +29,9 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 
 import framework.*;
+import onscreen.Bullet;
+import onscreen.Hit;
+import onscreen.Move;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -49,7 +52,7 @@ public class Controller extends GameController implements ActionListener {
   Button m_strobesOn;
   Button m_plus, m_minus;
   Music m_player;
-  //Map m = new Map(30);
+  // Map m = new Map(30);
 
   public Controller(Model m) {
     m_model = m;
@@ -58,8 +61,7 @@ public class Controller extends GameController implements ActionListener {
   /**
    * Simulation step. Warning: the model has already executed its step.
    * 
-   * @param now
-   *          is the current time in milliseconds.
+   * @param now is the current time in milliseconds.
    */
   @Override
   public void step(long now) {
@@ -67,14 +69,13 @@ public class Controller extends GameController implements ActionListener {
 
   @Override
   public void keyTyped(KeyEvent e) {
-//    if (Options.ECHO_KEYBOARD)
-//      System.out.println("KeyTyped: " + e);
+    // if (Options.ECHO_KEYBOARD)
+    // System.out.println("KeyTyped: " + e);
     if (e.getKeyChar() == ' ') {
       try {
         /*
-         * NEVER, EVER, DO THIS!
-         * NEVER LOOP FOR LONG, NEVER BLOCK, OR NEVER SLEEP,
-         * YOU WILL BLOCK EVERYTHING.
+         * NEVER, EVER, DO THIS! NEVER LOOP FOR LONG, NEVER BLOCK, OR NEVER SLEEP, YOU
+         * WILL BLOCK EVERYTHING.
          */
         System.err.println("You should not have done that!");
         System.out.println("ZZzzz....");
@@ -171,6 +172,9 @@ public class Controller extends GameController implements ActionListener {
     		case 40:
         		m_model.t4.step(m_model.m,'D','m');
         		break;
+        case 96 :
+            m_model.t4.hit(m_model);
+          break;
     	}
   }
 
@@ -246,15 +250,12 @@ public class Controller extends GameController implements ActionListener {
     m_explosionsOn.addActionListener(this);
     cont.add(m_explosionsOn);
 
-    /*File file;
-    file = new File("game.sample/sprites/Future-RPG.wav");
-    //file = new File("game.sample/sprites/Runaway-Food-Truck.wav");
-    try {
-      //m_player = new Music(file);
-      cont.add(m_player.getControls());
-    } catch (Exception ex) {
-    }
-    m_game.addSouth(cont);*/
+    /*
+     * File file; file = new File("game.sample/sprites/Future-RPG.wav"); //file =
+     * new File("game.sample/sprites/Runaway-Food-Truck.wav"); try { //m_player =
+     * new Music(file); cont.add(m_player.getControls()); } catch (Exception ex) { }
+     * m_game.addSouth(cont);
+     */
   }
 
   @Override
