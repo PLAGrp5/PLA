@@ -22,9 +22,9 @@ public class Entity {
 	public State courant;
 	int vie;
 	int vie_max;
-	BonusEtMalusFixes[] inventaire = new BonusEtMalusFixes[3];
+	public BonusEtMalusFixes[] inventaire = new BonusEtMalusFixes[3];
 	int jauge_couleur;
-  public int lastj, lasti;
+	public int lastj, lasti;
 	public Color m_tank;
 
 	public Entity(char type, int i, int j, char dir) {
@@ -46,33 +46,34 @@ public class Entity {
 		this.dir = dir;
 		m_scale = scale;
 	}
-    public void opposite() {
-        switch (this.dir) {
-        case 'D':
-            this.dir = 'U';
-            break;
-        case 'L':
-            this.dir = 'R';
-            break;
-        case 'R':
-            this.dir = 'L';
-            break;
-        case 'U':
-            this.dir = 'D';
-            break;
-        default:
-            this.dir = 'D';
-            break;
-        }
-    }
 
-    public void hit(Model model) {
-        new Hit().execute(model, this);
-    }
+	public void opposite() {
+		switch (this.dir) {
+		case 'D':
+			this.dir = 'U';
+			break;
+		case 'L':
+			this.dir = 'R';
+			break;
+		case 'R':
+			this.dir = 'L';
+			break;
+		case 'U':
+			this.dir = 'D';
+			break;
+		default:
+			this.dir = 'D';
+			break;
+		}
+	}
 
-    public void explode(Model model) {
-        new Explode().execute(model, this);
-    }
+	public void hit(Model model) {
+		new Hit().execute(model, this);
+	}
+
+	public void explode(Model model) {
+		new Explode().execute(model, this);
+	}
 
 	public void turn(char dir) {
 		this.dir = dir;
@@ -86,23 +87,21 @@ public class Entity {
 		this.vie_max = vie;
 		this.vie = vie;
 	}
-	
+
 	public void initinventaire() {
-		this.inventaire[0] = null;
-		this.inventaire[1] = null;
-		this.inventaire[2] = null;
+		for (int i = 0; i < 3; i++)
+			this.inventaire[i] = null;
 	}
 
-	//renvoie false si inventaire plein
-	public boolean setinventaire(BonusEtMalusFixes b) {
-		if (this.inventaire[0] == null)
-			this.inventaire[0] = b;
-		else if (this.inventaire[1] == null)
-			this.inventaire[1] = b;
-		else if (this.inventaire[2] == null)
-			this.inventaire[2] = b;
-		else
-			return false;
-		return true;
+	public void afficherInventaire() {
+		for (int i = 0; i < 3; i++)
+			if (this.inventaire[i] != null)
+				System.out.println(this.inventaire[i].type);
+			else
+				System.out.println("null");
+	}
+
+	public boolean inventaireVide() {
+		return this.inventaire[0] == null;
 	}
 }
