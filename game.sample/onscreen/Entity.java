@@ -68,7 +68,9 @@ public class Entity {
 	}
 
 	public void hit(Model model) {
-		new Hit().execute(model, this);
+		Hit h = new Hit();
+		if (h.canihit(model, this))
+			new Hit().execute(model, this);
 	}
 
 	public void explode(Model model) {
