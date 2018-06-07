@@ -210,8 +210,8 @@ public class GameUI {
     m_msg = msg;
   }
   
-  public void drawPLayer1Panel(int PV, int peinture) {
-	  JPanel pan = new JPanel(new GridLayout(4,3));
+  public void drawPLayer1Panel(int PV, int peinture, int score) {
+	  JPanel pan = new JPanel(new GridLayout(5,3));
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel("Joueur 1"));
@@ -227,14 +227,18 @@ public class GameUI {
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel("Score :"));
-	  pan.add(new JLabel(""+10+""));
+	  pan.add(new JLabel(""+score+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Inventaire :"));
+	  pan.add(new JLabel(""));
 	  
 	  pan.setBackground(Color.cyan);
 	  addWest(pan);
   }
 
-  public void drawPLayer2Panel(int PV, int peinture) {
-	  JPanel pan = new JPanel(new GridLayout(4,3));
+  public void drawPLayer2Panel(int PV, int peinture, int score) {
+	  JPanel pan = new JPanel(new GridLayout(5,3));
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel("Joueur 2"));
@@ -250,7 +254,11 @@ public class GameUI {
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel("Score :"));
-	  pan.add(new JLabel(""+10+""));
+	  pan.add(new JLabel(""+score+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Inventaire :"));
+	  pan.add(new JLabel(""));
 	  
 	  pan.setBackground(Color.orange);
 	  addEast(pan);

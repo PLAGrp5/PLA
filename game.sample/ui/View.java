@@ -61,8 +61,8 @@ public class View extends GameView {
 		computeFPS();
 		// erase background
 		
-		m_game.drawPLayer1Panel(m_model.t4.vie, m_model.t4.jauge_couleur);
-		m_game.drawPLayer2Panel(m_model.t2.vie, m_model.t2.jauge_couleur);
+		m_game.drawPLayer1Panel(m_model.t4.vie, m_model.t4.jauge_couleur, m_model.m.scorebleu());
+		m_game.drawPLayer2Panel(m_model.t2.vie, m_model.t2.jauge_couleur, m_model.m.scorerouge());
 		
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
