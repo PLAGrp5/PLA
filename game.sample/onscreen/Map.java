@@ -86,7 +86,7 @@ public class Map {
 	}
 
 	public boolean isbonus(int i, int j) {
-		return this.map[i][j].type == 'B';
+		return this.map[i][j].type == 'I';
 	}
 	
 	public boolean ismine(int i, int j) {

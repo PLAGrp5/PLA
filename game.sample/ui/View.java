@@ -89,7 +89,7 @@ public class View extends GameView {
 					g2d.setPaint(texture_mur);
 			        g2d.fillRect(l*32, k*32, 32, 32);
 				}
-				else if (m_model.m.map[k][l].type == 'B') {
+				else if (m_model.m.map[k][l].type == 'I') {
 					g2d.setPaint(Color.red);
 			        g2d.fillRect(l*32, k*32, 32, 32);
 				}
