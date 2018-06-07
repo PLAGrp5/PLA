@@ -7,7 +7,6 @@ public class Bullet extends Entity {
 
     public Bullet(Entity e) {
         super('B', e.p.i, e.p.j, e.dir);
-        color = e.color;
         switch (this.dir) {
         case 'D':
             p.i++;
@@ -28,7 +27,6 @@ public class Bullet extends Entity {
 
     public Bullet(Entity e, Automate a, State s) {
         super('B', e.p.i, e.p.j, e.dir);
-        color = e.color;
         switch (this.dir) {
         case 'D':
             p.i++;

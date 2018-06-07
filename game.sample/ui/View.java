@@ -100,7 +100,7 @@ public class View extends GameView {
 		m_model.t4.paint(g, m_model.t4.dir);
 		m_model.t2.paint(g, m_model.t2.dir);
 		
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < m_model.nent; i++) {
 			m_model.ent[i].paint(g, m_model.ent[i].dir);
 		}
 

@@ -156,7 +156,7 @@ public class Model extends GameModel {
 		 */
 		int i;
 		for (i = 0; i < nent; i++) {
-			if (now - ent[i].m_lastMove > 2000L) {
+			if (now - ent[i].m_lastMove > 200L) {
 				ent[i].comport.step(ent[i]);
 				ent[i].m_lastMove = now;
 				m.print();
