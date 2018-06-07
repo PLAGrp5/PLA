@@ -17,6 +17,30 @@ public class Point {
         this.j = j;
     }
 
+    Point(Point p) {
+        i = p.i;
+        j = p.j;
+    }
+
+    Point nextPoint(Point p, char dir) {
+        Point p1 = new Point(p);
+        switch (dir) {
+        case 'D':
+            p1.i++;
+            break;
+        case 'L':
+            p1.j--;
+            break;
+        case 'R':
+            p1.j++;
+            break;
+        default:
+            p1.i--;
+            break;
+        }
+        return p1;
+    }
+
     // modification d'un point par (newx,newy)
     void translate(int newi, int newj) {
         this.i += newi;

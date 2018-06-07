@@ -2,6 +2,9 @@ package onscreen;
 
 public class Move extends Action {
 
+	public Move() {
+	}
+
 	public Move(char dir, Map m) {
 		this.dir = dir;
 		this.m = m;
@@ -19,18 +22,18 @@ public class Move extends Action {
 	Point nextstep(Entity e) {
 		Point p = new Point(e.p.i, e.p.j);
 		switch (this.dir) {
-			case 'D':
-				p.i++;
-				break;
-			case 'L':
-				p.j--;
-				break;
-			case 'R':
-				p.j++;
-				break;
-			default:
-				p.i--;
-				break;
+		case 'D':
+			p.i++;
+			break;
+		case 'L':
+			p.j--;
+			break;
+		case 'R':
+			p.j++;
+			break;
+		default:
+			p.i--;
+			break;
 		}
 		return p;
 	}
@@ -81,6 +84,7 @@ public class Move extends Action {
 				e.p = p;
 				m.insert(e);				
 			}
+
 		}
 	}
 }

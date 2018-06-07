@@ -17,7 +17,6 @@
  */
 package ui;
 
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
@@ -36,14 +35,17 @@ public class Model extends GameModel {
 	// LinkedList<Square> m_squares;
 	// BufferedImage m_cowboySprite;
 	// BufferedImage m_explosionSprite;
+	// Cowboy[] m_cowboys;
 	BufferedImage m_charbleuSprite;
 	BufferedImage m_charrougeSprite;
 	BufferedImage m_mur;
-	// Cowboy[] m_cowboys;
 
-	Entity[] ent = new Entity[2];
-	Tank t, t2, t3, t4;
+	public int nent = 2;
+	public Entity[] ent = new Entity[nent];
+
 	public Map m;
+	public Automate[] automates = new Automate[2];
+	Tank t, t2, t3, t4;
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
@@ -66,17 +68,17 @@ public class Model extends GameModel {
 		t = new Tank(m, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
 
 		State e = new State("1");
-		
+
 		Condition cond = new CondFree(m);
 		Condition cond1 = new CondDefault(m);
 		
 		Action act = new Move( m);
 		Action act1 = new Turn();
-		
+
 		Transition[] trans = new Transition[2];
-		trans[0]= new Transition(e, e, act, cond);
-		trans[1]= new Transition(e, e, act1, cond1);
-		
+		trans[0] = new Transition(e, e, act, cond);
+		trans[1] = new Transition(e, e, act1, cond1);
+
 		Automate a = new Automate(e, trans);
 
 		t.comport = a;
@@ -92,14 +94,17 @@ public class Model extends GameModel {
 
 		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F, 30,coloria);
 
-		/*Action act1 = new Move('L', m);
-		Transition trans1 = new Transition(e, e, act1, cond);
-		Automate a1 = new Automate(e, trans1);*/
+		/*
+		 * Action act1 = new Move('L', m); Transition trans1 = new Transition(e, e,
+		 * act1, cond); Automate a1 = new Automate(e, trans1);
+		 */
 
 		t3.comport = a;
 		t3.courant = e;
 		t3.aut = true;
 		ent[1] = t3;
+
+		// Parte test Bullet
 
 		// m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
 	}
@@ -111,6 +116,26 @@ public class Model extends GameModel {
 
 	public Overhead getOverhead() {
 		return m_overhead;
+	}
+
+	public void add(Entity e) {
+		nent++;
+		if (nent > ent.length) {
+			Entity[] tmp = new Entity[2 * nent];
+			System.arraycopy(ent, 0, tmp, 0, ent.length);
+			ent = tmp;
+		}
+		ent[nent - 1] = e;
+	}
+
+	public void del(Entity e) {
+		m.free(e.p.i, e.p.j);
+		for (int i = 0; i < nent && ent[i].equals(e); i++)
+			if (i < nent) {
+				nent--;
+				for (; i < nent; i++)
+					ent[i] = ent[i + 1];
+			}
 	}
 
 	/*
@@ -129,12 +154,15 @@ public class Model extends GameModel {
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-		for (int i = 0; i < 2; i++) {
-			if (now - ent[i].m_lastMove > 200L) {
+		int i;
+		for (i = 0; i < nent; i++) {
+			if (now - ent[i].m_lastMove > 2000L) {
 				ent[i].comport.step(ent[i]);
 				ent[i].m_lastMove = now;
+				m.print();
 			}
 		}
+
 		// }
 		/*
 		 * m_overhead.overhead();
@@ -176,7 +204,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/mur.png");
 		try {
 			m_mur = ImageIO.read(imageFile);
@@ -186,5 +214,4 @@ public class Model extends GameModel {
 		}
 
 	}
-
 }
