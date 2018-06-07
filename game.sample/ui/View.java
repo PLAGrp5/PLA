@@ -60,6 +60,10 @@ public class View extends GameView {
 	protected void _paint(Graphics g) {
 		computeFPS();
 		// erase background
+		
+		m_game.drawPLayer1Panel(m_model.t4.vie, m_model.t4.jauge_couleur);
+		m_game.drawPLayer2Panel(m_model.t2.vie, m_model.t2.jauge_couleur);
+		
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		int rectWidth = 32;
@@ -71,12 +75,6 @@ public class View extends GameView {
 		 * getWidth(), i * rectHeight); } for (int j = 0; j < NBRE_COL; j++) {
 		 * g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight()); }
 		 */
-		
-		m_model.t4.paint(g, m_model.t4.dir);
-		m_model.t2.paint(g, m_model.t2.dir);
-		for (int i = 0; i < 2; i++) {
-			m_model.ent[i].paint(g, m_model.ent[i].dir);
-		}
 		
 		Graphics2D g2d = (Graphics2D) g.create();
 		//TexturePaint texture_mur = new TexturePaint(m_model.m_mur, new Rectangle(0, 0, 32, 32));
@@ -113,8 +111,7 @@ public class View extends GameView {
 		
 		m_model.t4.paint(g, m_model.t4.dir);
 		m_model.t2.paint(g, m_model.t2.dir);
-		
-		for (int i = 0; i < m_model.nent; i++) {
+		for (int i = 0; i < 2; i++) {
 			m_model.ent[i].paint(g, m_model.ent[i].dir);
 		}
 

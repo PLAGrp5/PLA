@@ -17,6 +17,8 @@
  */
 package framework;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -25,6 +27,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.Timer;
 
 public class GameUI {
@@ -204,6 +208,52 @@ public class GameUI {
   public void setFPS(int fps, String msg) {
     m_fps = fps;
     m_msg = msg;
+  }
+  
+  public void drawPLayer1Panel(int PV, int peinture) {
+	  JPanel pan = new JPanel(new GridLayout(4,3));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Joueur 1"));
+	  pan.add(new JLabel(""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+	  pan.add(new JLabel(""+PV+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+	  pan.add(new JLabel(""+peinture+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Score :"));
+	  pan.add(new JLabel(""+10+""));
+	  
+	  pan.setBackground(Color.cyan);
+	  addWest(pan);
+  }
+
+  public void drawPLayer2Panel(int PV, int peinture) {
+	  JPanel pan = new JPanel(new GridLayout(4,3));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Joueur 2"));
+	  pan.add(new JLabel(""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+	  pan.add(new JLabel(""+PV+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
+	  pan.add(new JLabel(""+peinture+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Score :"));
+	  pan.add(new JLabel(""+10+""));
+	  
+	  pan.setBackground(Color.orange);
+	  addEast(pan);
   }
 
 }

@@ -20,10 +20,10 @@ public class Entity {
 	public Automate comport;
 	public boolean aut;
 	public State courant;
-	int vie;
+	public int vie;
 	int vie_max;
 	public BonusEtMalusFixes[] inventaire = new BonusEtMalusFixes[3];
-	int jauge_couleur;
+	public int jauge_couleur;
 	public int lastj, lasti;
 	public Color m_tank;
 

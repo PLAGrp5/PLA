@@ -40,7 +40,7 @@ public class GameMain {
   //récuperer la dimension de l'écran
   //  Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
  
-    Dimension d = new Dimension(1024, 1024);
+    Dimension d = new Dimension(1310, 1024);
     new GameUI(model,view,controller,d);
     
     // notice that the main thread will exit here,
