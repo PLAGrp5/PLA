@@ -96,25 +96,86 @@ public class Controller extends GameController implements ActionListener {
   public void keyPressed(KeyEvent e) {
     if (Options.ECHO_KEYBOARD)
       System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-    if (e.getKeyChar() == 'Z' || e.getKeyChar() == 'z') {
-      m_model.t2.step(m_model.m, 'U');
-    } else if (e.getKeyChar() == 'Q' || e.getKeyChar() == 'q') {
-      m_model.t2.step(m_model.m, 'L');
-    } else if (e.getKeyChar() == 'D' || e.getKeyChar() == 'd') {
-      m_model.t2.step(m_model.m, 'R');
-    } else if (e.getKeyChar() == 'S' || e.getKeyChar() == 's') {
-      m_model.t2.step(m_model.m, 'D');
-    } else if (e.getKeyCode() == 37) {
-      m_model.t4.step(m_model.m, 'L');
-    } else if (e.getKeyCode() == 38) {
-      m_model.t4.step(m_model.m, 'U');
-    } else if (e.getKeyCode() == 39) {
-      m_model.t4.step(m_model.m, 'R');
-    } else if (e.getKeyCode() == 40) {
-      m_model.t4.step(m_model.m, 'D');
-    } else if (e.getKeyCode() == 96) {
-      m_model.t4.hit(m_model);
-    }
+    	switch(e.getKeyChar()) {
+    		//move Joueur 1
+    		case 'Z':
+        		m_model.t2.step(m_model.m,'U','m');
+        		break;
+    		case 'z':
+        		m_model.t2.step(m_model.m,'U','m');
+        		break;
+    		case 'Q':
+        		m_model.t2.step(m_model.m,'L','m');
+        		break;
+    		case 'q':
+        		m_model.t2.step(m_model.m,'L','m');
+        		break;
+    		case 'D':
+        		m_model.t2.step(m_model.m,'R','m');
+        		break;
+    		case 'd':
+        		m_model.t2.step(m_model.m,'R','m');
+        		break;
+    		case 'S':
+        		m_model.t2.step(m_model.m,'D','m');
+        		break;
+    		case 's':
+        		m_model.t2.step(m_model.m,'D','m');
+        		break;
+        	
+        	//Pop Joueur 1
+    		case 'w':
+    			m_model.t2.step(m_model.m,'U','p');
+    			break;
+    		case 'W':
+    			m_model.t2.step(m_model.m,'U','p');
+    			break;
+    			
+    		//Wizz Joueur 1
+    		case 'x':
+    			m_model.t2.step(m_model.m,'U','w');
+    			break;
+    		case 'X':
+    			m_model.t2.step(m_model.m,'U','w');
+    			break;
+    			
+    		//Pop Joueur 2
+    		case 'l':
+    			m_model.t4.step(m_model.m,'U','p');
+    			break;
+    		case 'L':
+    			m_model.t4.step(m_model.m,'U','p');
+    			break;
+    			
+    		//Wizz Joueur 2
+    		case 'm':
+    			m_model.t4.step(m_model.m,'U','w');
+    			break;
+    		case 'M':
+    			m_model.t4.step(m_model.m,'U','w');
+    			break;
+    			
+        	default:
+        		break;
+    	}
+    	switch(e.getKeyCode()) {
+    		//Move Joueur 2
+    		case 37:
+        		m_model.t4.step(m_model.m,'L','m');
+        		break;
+    		case 38:
+        		m_model.t4.step(m_model.m,'U','m');
+        		break;
+    		case 39:
+        		m_model.t4.step(m_model.m,'R','m');
+        		break;
+    		case 40:
+        		m_model.t4.step(m_model.m,'D','m');
+        		break;
+        case 96 :
+            m_model.t4.hit(m_model);
+          break;
+    	}
   }
 
   @Override
