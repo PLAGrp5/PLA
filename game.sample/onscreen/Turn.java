@@ -9,19 +9,20 @@ public class Turn extends Action{
 	public void execute(Entity e) {
 		switch (e.dir) {
 			case 'U' : 
-				this.dir = 'R';
+				e.dir = 'R';
 				break;
 			case 'R' : 
-				this.dir = 'D';
+				e.dir = 'D';
 				break;
 			case 'D' : 
-				this.dir = 'L';
+				e.dir = 'L';
 				break;
 			case 'L' : 
-				this.dir = 'U';
+				e.dir = 'U';
 				break;
 			default : 
 				return;
 		}
+		//e.comport.t[0].act.dir = e.dir;
 	}
 }

@@ -7,21 +7,25 @@ public class Move extends Action {
 		this.m = m;
 	}
 
+	public Move(Map m) {
+		this.m = m;
+	}
+
 	Point nextstep(Entity e) {
 		Point p = new Point(e.p.i, e.p.j);
 		switch (this.dir) {
-		case 'D':
-			p.i++;
-			break;
-		case 'L':
-			p.j--;
-			break;
-		case 'R':
-			p.j++;
-			break;
-		default:
-			p.i--;
-			break;
+			case 'D':
+				p.i++;
+				break;
+			case 'L':
+				p.j--;
+				break;
+			case 'R':
+				p.j++;
+				break;
+			default:
+				p.i--;
+				break;
 		}
 		return p;
 	}
@@ -38,9 +42,24 @@ public class Move extends Action {
 	}
 
 	public void execute(Entity e) {
-		if (this.dir != e.dir)
-			e.turn(dir);
-		else {
+		if (!e.aut) {
+			if (this.dir != e.dir)
+				e.turn(dir);
+			else {
+				Point p = nextstep(e); // calcul nouvel coordonnées
+				if (canimove(m, p.i, p.j)) {
+					if (m.isbonus(p.i, p.j))
+						bonus(e);
+					m.free(e.p.i, e.p.j);
+					e.p = p;
+					m.insert(e);
+				} else if (m.map[p.i][p.j].type == 'T') {
+					e.opposite();
+					this.dir = e.dir;
+				}
+			}
+		} else {
+			this.dir = e.dir;
 			Point p = nextstep(e); // calcul nouvel coordonnées
 			if (canimove(m, p.i, p.j)) {
 				if (m.isbonus(p.i, p.j))
@@ -48,9 +67,6 @@ public class Move extends Action {
 				m.free(e.p.i, e.p.j);
 				e.p = p;
 				m.insert(e);
-			} else if (m.map[p.i][p.j].type == 'T') {
-				e.opposite();
-				this.dir = e.dir;
 			}
 		}
 	}

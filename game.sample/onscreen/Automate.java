@@ -14,7 +14,7 @@ public class Automate {
 		e.lasti = e.p.i;
 		e.lastj = e.p.j;
 		int i = 0;
-		while ((i < t.length) && !((t[i].src == e.courant) && (t[i].cond.eval(e)))) {
+		while ((i < t.length) && ((t[i].src != e.courant) || (!t[i].cond.eval(e)))) {
 			i++;
 		}
 		if (i < t.length) {
