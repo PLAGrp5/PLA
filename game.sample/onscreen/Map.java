@@ -72,6 +72,8 @@ public class Map {
         			this.color[c][l] = 'M';
         		}else if(this.map[c][l].type == 'T') {
         			this.color[c][l] = 'W';
+        		}else if(this.map[c][l].type == 'I') {
+        			this.color[c][l] = 'I';
         		}
         	}
         }

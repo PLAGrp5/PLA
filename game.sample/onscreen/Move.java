@@ -1,5 +1,7 @@
 package onscreen;
 
+import java.awt.Color;
+
 public class Move extends Action {
 
 	public Move() {
@@ -80,6 +82,11 @@ public class Move extends Action {
 					else if(m.ismine(p.i,p.j))
 						caseMine(e);
 					m.free(e.p.i, e.p.j);
+					if(e.m_tank == Color.cyan) {
+						m.color[e.p.i][e.p.j]='B';
+					}else if(e.m_tank == Color.orange) {
+						m.color[e.p.i][e.p.j]='R';
+					}
 					e.p = p;
 					m.insert(e);
 				} else if (m.map[p.i][p.j].type == 'T') {
