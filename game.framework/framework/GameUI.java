@@ -113,16 +113,19 @@ public class GameUI {
     m_frame.setTitle("Game of Tank"); // Nom de la fenêtre
     m_frame.setLayout(new BorderLayout());
     m_frame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage()); // Icone du jeu
-
-    m_frame.add(m_view, BorderLayout.CENTER);
-
-    m_text = new JLabel();
-    m_text.setText("Starting up...");
-    m_frame.add(m_text, BorderLayout.NORTH);
-
     m_frame.setSize(d);
-    m_frame.doLayout();
-    m_frame.setVisible(true);
+    
+   // m_frame.add(m_view, BorderLayout.CENTER);
+    m_text = new JLabel();
+ //   m_text.setText("Starting up...");
+ //   m_frame.add(m_text, BorderLayout.NORTH);
+    
+    
+    Jeu test = new Jeu(m_frame, m_view);
+    m_frame = test.LancerJeu();
+    
+   // m_frame.doLayout();
+   // m_frame.setVisible(true);
 
     // hook window events so that we exit the Java Platform
     // when the window is closed by the end user.
