@@ -80,6 +80,8 @@ public class Tank extends Entity {
 					}
 				}
 			}
+			m.possession();
+
 			
 			
 			if(aut) {
@@ -155,5 +157,6 @@ public class Tank extends Entity {
 			g.fillRect(lastj*32, lasti*32, 32, 32);
 			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
 		}*/
+
 	}
 }
