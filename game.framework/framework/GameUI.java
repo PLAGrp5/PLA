@@ -22,15 +22,20 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 //import framework.GameUI.STATE;
 //import framework.Menu.ButtonClickListener;
 
-public class GameUI {
+public class GameUI implements ActionListener{
 
 	static String license = "Copyright (C) 2017  Pr. Olivier Gruber "
 			+ "This program comes with ABSOLUTELY NO WARRANTY. "
@@ -74,9 +79,11 @@ public class GameUI {
 	int m_nTicks;
 	protected Menu menu;
 	protected Help help;
+	protected Pause pause;
+	protected GameOver over;
 	
 	public enum STATE {
-		Menu, Game, Help, Pause
+		Menu, Game, Help, Pause, Over
 	};
 
 	public STATE state = STATE.Menu;
@@ -152,6 +159,35 @@ public class GameUI {
 	
 			m_frame.pack();
 			m_frame.setLocationRelativeTo(null);
+			
+			//
+			//
+			//
+			JMenuBar jmb = new JMenuBar();
+			JMenu jmFile = new JMenu("Menu");
+		    JMenuItem jmiPause = new JMenuItem("Pause");
+		    JMenuItem jmiExit = new JMenuItem("Exit");
+		    jmFile.add(jmiPause);
+		    jmFile.addSeparator();
+		    jmFile.add(jmiExit);
+		    jmb.add(jmFile);
+		    
+		    jmiPause.setActionCommand("PAUSE");
+		    jmiExit.setActionCommand("EXIT");
+		    
+		    jmiPause.setAccelerator(KeyStroke.getKeyStroke((char) 80));
+		    jmiExit.setAccelerator(KeyStroke.getKeyStroke((char) 27));
+		    
+		    
+		    jmiPause.addActionListener(this);
+		    jmiExit.addActionListener(this);
+
+		    m_frame.setJMenuBar(jmb);
+		    m_frame.setVisible(true);
+		    
+		    //
+		    //
+		    //
 	
 			GameController ctr = getController();
 	
@@ -174,6 +210,12 @@ public class GameUI {
 		} else if (state == STATE.Help) {
 			help = new Help(this);
 			help.showEvent();
+		} else if (state == STATE.Pause) {
+			pause = new Pause(this);
+			pause.showEvent();
+		} else if (state == STATE.Over) {
+			over = new GameOver(this);
+			over.showEvent();
 		}
 	}
 
@@ -193,6 +235,14 @@ public class GameUI {
 			});
 			m_timer.start();
 		}
+	}
+	
+	void stopTimer() {
+		m_timer.stop();
+	}
+	
+	void resumeTimer() {
+		m_timer.start();
 	}
 
 	/*
@@ -234,5 +284,23 @@ public class GameUI {
 	public void setFPS(int fps, String msg) {
 		m_fps = fps;
 		m_msg = msg;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+	    String command = ae.getActionCommand();
+	    
+	    if (command.equals("EXIT")) {
+			setState(STATE.Over);
+			m_frame.dispose();
+			Dimension d = new Dimension(1024, 1024);
+			createWindow(d);
+			createTimer();
+		} else if (command.equals("PAUSE")) {
+			setState(STATE.Pause);
+			Dimension d = new Dimension(1024, 1024);
+			createWindow(d);
+			stopTimer();
+		}
 	}
 }
