@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 /*
-Classe permettant de modélier toutes les identités du jeu
- */
+ * Classe permettant de modéliser toutes les identités du jeu
+*/
 public class Entity {
 
 	public Point p;

@@ -1,7 +1,7 @@
 package onscreen;
 
 /*
-Main pour les tests
+Main pour les premiers tests, notamment les prototypes
 */
 public class Main {
 

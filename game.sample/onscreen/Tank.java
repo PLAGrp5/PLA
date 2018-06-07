@@ -54,6 +54,9 @@ public class Tank extends Entity {
 		}
 	}*/
 
+	/*Réalise l'action du tank
+	 * Step est appelé depuis le controller en fonction des touches enfoncé
+	 */
 	public void step(Map m, char dir, char type_action) {
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;
@@ -61,14 +64,24 @@ public class Tank extends Entity {
 			lastj = p.j;
 			lasti = p.i;
 			m_lastMove = now;
-			if (m.color[p.i][p.j] == 'W' || m.color[p.i][p.j] == 'B' || m.color[p.i][p.j] == 'R') {
-				if (m_tank == Color.cyan) {
-					m.color[p.i][p.j] = 'B';
-				}
-				if (m_tank == Color.orange) {
-					m.color[p.i][p.j] = 'R';
+			/*
+			 * Si notre jauge de couleur n'est pas vide et que l'action est un mouvement
+			 * On colorie la case précedente seulement si elle change de couleur
+			 */
+			if((jauge_couleur>0)&&(type_action == 'm')) {
+				if (m.color[p.i][p.j] == 'W' || m.color[p.i][p.j] == 'B' || m.color[p.i][p.j] == 'R') {
+					if ((m_tank == Color.cyan)&&(m.color[p.i][p.j] != 'B')){
+						m.color[p.i][p.j] = 'B';
+						jauge_couleur--;
+					}
+					else if ((m_tank == Color.orange)&&(m.color[p.i][p.j] != 'R')) {
+						m.color[p.i][p.j] = 'R';
+						jauge_couleur--;
+					}
 				}
 			}
+			
+			
 			if(aut) {
 				comport.step(this);
 			}else {
@@ -103,6 +116,7 @@ public class Tank extends Entity {
 		}
 	}
 
+	//Récuperation des différente images du tank dans un tableau à partir des sprites
 	void splitTankSprite() {
 		m_sprites = new BufferedImage[4];
 		for (int j = 0; j < 4; j++) {
@@ -112,6 +126,7 @@ public class Tank extends Entity {
 		}
 	}
 
+	//Affichage d'un tank
 	public void paint(Graphics g, char dir) {
 		Image img;
 		switch (dir) {

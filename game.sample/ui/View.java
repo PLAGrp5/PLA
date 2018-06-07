@@ -72,9 +72,11 @@ public class View extends GameView {
 		 * g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight()); }
 		 */
 				
-        
+        //	Parcours de notre tableau color (contenu dans map)
 		for(int k = 0; k < NBRE_ROW; k++) {
 			for (int l = 0; l < NBRE_COL; l++) {
+				
+				// Pour chaque case on colorie avec la texture associé
 				
 				if (m_model.m.color[k][l] == 'M') {
 					g.drawImage(m_model.m_mur, 32*l,32*k,32,32,null);
