@@ -34,14 +34,14 @@ public class Bullet extends Entity {
 
     public Bullet(Entity e, Automate a, State s) {
         super('B', e.p.i, e.p.j, e.dir);
-        aut = true;
         courant = s;
         comport = a;
         e.m_map.insert(this);
     }
 
-    public Bullet(BufferedImage sprite, float scale, Entity e, Automate a, State s) {
+    public Bullet(Map m, BufferedImage sprite, float scale, Entity e, Automate a, State s) {
         super('B', e.p.i, e.p.j, e.dir);
+        this.m_map = m;
         switch (dir) {
         case 'D':
             p.i++;

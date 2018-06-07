@@ -3,7 +3,7 @@ package onscreen;
 import java.io.File;
 import java.util.Scanner;
 
-import com.sun.prism.paint.Color;
+//import com.sun.prism.paint.Color;
 
 /*
 Class Map nous permet de représenter la carte de jeu
