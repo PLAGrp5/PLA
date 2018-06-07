@@ -23,9 +23,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import ui.Accueil;
+//import ui.Fenetre;
 
 public class GameUI {
 
@@ -62,6 +67,8 @@ public class GameUI {
   GameModel m_model;
   GameController m_controller;
   JLabel m_text;
+  JButton m_button;
+  JPanel m_panel;
   int m_fps;
   String m_msg;
   long m_start;
@@ -81,6 +88,13 @@ public class GameUI {
     // to drive the overall clock of the simulation.
     createWindow(d);
     createTimer();
+  }
+  
+  public GameUI(JFrame jf, GameView v, GameModel m, GameController c) {
+	  this.m_frame = jf;
+	  this.m_view = v;
+	  this.m_model = m;
+	  this.m_controller = c;
   }
 
   public GameModel getModel() {
@@ -109,45 +123,89 @@ public class GameUI {
   }
 
   private void createWindow(Dimension d) {
+	  
     m_frame = new JFrame();
+    //m_button = new JButton("TestButton");
+    m_panel = new JPanel();
     m_frame.setTitle("Gitank"); // Nom de la fenêtre
     m_frame.setLayout(new BorderLayout());
     m_frame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage()); // Icone du jeu
 
-    m_frame.add(m_view, BorderLayout.CENTER);
+
+  //  m_panel.setLayout(new BorderLayout());
+  //  m_panel.add(m_view, BorderLayout.CENTER);
+    
+  //  m_frame.add(m_view, BorderLayout.CENTER);
+
 
     m_text = new JLabel();
     m_text.setText("Starting up...");
     m_frame.add(m_text, BorderLayout.NORTH);
-
+    
     m_frame.setSize(d);
-    m_frame.doLayout();
-    m_frame.setVisible(true);
+  //  m_frame.add(m_button);
 
+    //Fenetre fen = new Fenetre(m_frame, m_panel);
+   // fen.TestButton();
+    Accueil acc = new Accueil(m_frame, m_view, m_controller, m_model);
+    acc.TestBouton();
+
+   // m_panel.doLayout();
+ //   m_frame.doLayout();
+ //   m_frame.add(m_panel);
+  //  m_frame.setVisible(true); 
+   // m_button = new JButton("test");
+  //  m_frame.add(m_button);
+   // m_button.addActionListener(l);
+    
+    
+   // Fenetre fen = new Fenetre();
     // hook window events so that we exit the Java Platform
     // when the window is closed by the end user.
-    m_frame.addWindowListener(new WindowListener(m_model));
-
-    m_frame.pack();
-    m_frame.setLocationRelativeTo(null);
+// A recoller ici
+   // System.out.println("Testfin");
     
-    GameController ctr = getController();
-
-    // let's hook the controller, 
-    // so it gets mouse events and keyboard events.
-    m_view.addKeyListener(ctr);
-    m_view.addMouseListener(ctr);
-    m_view.addMouseMotionListener(ctr);
-
-    // grab the focus on this JPanel, meaning keyboard events
-    // are coming to our controller. Indeed, the focus controls
-    // which part of the overall GUI receives the keyboard events.
-    m_view.setFocusable(true);
-    m_view.requestFocusInWindow();
-
-    m_controller.notifyVisible();
   }
 
+  public void Test() {
+	  System.out.println("Superbe Méthode");
+  }
+  
+  // Création du panel Jeu
+  public void LancerJeu(JFrame jf, GameView v, GameModel m, GameController c) {
+		JPanel m_panel = new JPanel();
+		jf.setContentPane(m_panel);
+		jf.repaint();
+		jf.revalidate();
+		m_panel.setLayout(new BorderLayout());
+		m_panel.add(v, BorderLayout.CENTER);
+		m_panel.doLayout();
+		//m_panel.setVisible(true);
+		//m_frame.add(m_panel);
+		//m_frame.setVisible(true);
+	    jf.addWindowListener(new WindowListener(m));
+
+	    jf.pack();
+	    jf.setLocationRelativeTo(null);
+	    
+	    GameController ctr = c;
+
+	    // let's hook the controller, 
+	    // so it gets mouse events and keyboard events.
+	    v.addKeyListener(ctr);
+	    v.addMouseListener(ctr);
+	    v.addMouseMotionListener(ctr);
+
+	    // grab the focus on this JPanel, meaning keyboard events
+	    // are coming to our controller. Indeed, the focus controls
+	    // which part of the overall GUI receives the keyboard events.
+	    v.setFocusable(true);
+	    v.requestFocusInWindow();
+
+	    c.notifyVisible();
+	    
+	    this.m_view = v;
+	}
   /* 
    * Let's create a timer, it is the heart of the simulation,
    * ticking periodically so that we can simulate the passing of time.
