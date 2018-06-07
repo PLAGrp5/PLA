@@ -74,7 +74,7 @@ public class Model extends GameModel {
 		Condition cond = new CondFree(m);
 		Condition cond1 = new CondDefault(m);
 		
-		Action act = new Move( m);
+		Action act = new Move(m);
 		Action act1 = new Turn();
 
 		Transition[] trans = new Transition[2];
