@@ -5,6 +5,7 @@ import java.awt.Color;
 public class Move extends Action {
 
 	public Move() {
+		this.dir = 'F';
 	}
 
 	public Move(char dir, Map m) {
@@ -33,9 +34,9 @@ public class Move extends Action {
 			case 'R':
 				p.j++;
 				break;
-			default:
+			case 'U':
 				p.i--;
-				break;
+				break;				
 		}
 		return p;
 	}
@@ -67,7 +68,8 @@ public class Move extends Action {
 	}
 
 	public void execute(Entity e) {
-		if (!e.aut) {
+		this.m = e.m_map;
+		if (e instanceof Tank) {
 			/*
 			 * Convention de notre jeu: lorsque le tank n'est pas dans la bonne direction on
 			 * le tourne dans la bonne direction

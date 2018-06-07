@@ -63,21 +63,7 @@ public class View extends GameView {
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		int rectWidth = 32;
-		int rectHeight = 32;
-
-		/*g.setColor(m_line);
-		
-		 * for (int i = 0; i < NBRE_ROW; i++) { g.drawLine(0, i * rectHeight,
-		 * getWidth(), i * rectHeight); } for (int j = 0; j < NBRE_COL; j++) {
-		 * g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight()); }
-		 */
-		
-		m_model.t4.paint(g, m_model.t4.dir);
-		m_model.t2.paint(g, m_model.t2.dir);
-		for (int i = 0; i < 2; i++) {
-			m_model.ent[i].paint(g, m_model.ent[i].dir);
-		}
-		
+		int rectHeight = 32;		
 		
         //	Parcours de notre tableau color (contenu dans map)
 		for(int k = 0; k < NBRE_ROW; k++) {
@@ -110,8 +96,12 @@ public class View extends GameView {
 		m_model.t4.paint(g, m_model.t4.dir);
 		m_model.t2.paint(g, m_model.t2.dir);
 		
-		for (int i = 0; i < m_model.nent; i++) {
-			m_model.ent[i].paint(g, m_model.ent[i].dir);
+		for (int i = 0; i < m_model.nsbire; i++) {
+			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
+		}
+		
+		for (int i = 0; i < m_model.nbullet; i++) {
+			m_model.bullets[i].paint(g, m_model.bullets[i].dir);
 		}
 
 		

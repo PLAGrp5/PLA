@@ -5,6 +5,8 @@ package onscreen;
  */
 public class Bullet extends Entity {
 
+		public Automate comport;
+		
     public Bullet(Entity e) {
         super('B', e.p.i, e.p.j, e.dir);
         switch (this.dir) {
@@ -21,7 +23,6 @@ public class Bullet extends Entity {
             p.i--;
             break;
         }
-        aut = true;
         e.m_map.insert(this);
     }
 
@@ -41,7 +42,6 @@ public class Bullet extends Entity {
             p.i--;
             break;
         }
-        aut = true;
         courant = s;
         comport = a;
         e.m_map.insert(this);

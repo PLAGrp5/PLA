@@ -40,9 +40,13 @@ public class Automate {
 			i++;
 		}
 		if (i < t.length) {
-			if (t[i].act instanceof Explode)
-				t[i].act.execute(e.comport.model, e);
-			else {
+			if (t[i].act instanceof Explode) {
+				if(e instanceof Bullet)
+					t[i].act.execute(((Bullet)e).comport.model, e);
+				else
+					t[i].act.execute(((Sbire)e).comport.model, e);
+				e.courant = t[i].dest;
+			} else {
 				t[i].act.execute(e);
 				e.courant = t[i].dest;
 			}
