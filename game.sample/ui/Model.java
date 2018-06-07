@@ -40,7 +40,9 @@ public class Model extends GameModel {
 	BufferedImage m_charrougeSprite;
 	BufferedImage m_mur;
 	BufferedImage m_mine;
+	public BufferedImage m_bullet;
 	// Cowboy[] m_cowboys;
+	public Map m;
 
 	public int nsbire = 2;
 	public Sbire[] sbires = new Sbire[nsbire];
@@ -51,7 +53,6 @@ public class Model extends GameModel {
 	/*public int nent = 2;
 	public Entity[] ent = new Entity[nent];*/
 
-	public Map m;
 	public Automate[] automates = new Automate[2];
 	Tank t2, t4;
 	Sbire s, s3;
@@ -239,10 +240,18 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/mine.png");
 		try {
 			m_mine = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		imageFile = new File("game.sample/sprites/bullets.png");
+		try {
+			m_bullet = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);

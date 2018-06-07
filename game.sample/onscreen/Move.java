@@ -44,21 +44,21 @@ public class Move extends Action {
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
 	// bonus)
 	boolean canimove(Map m, int i, int j) {
-		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j);
+		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j);
 	}
 
 	public void caseBonus(Entity e) {
 		int bonus = (int) (Math.random() * ((1) + 1));
 		switch (bonus) {
-			case 0:
-				Vie v = new Vie();
-				if (!(v.prendre(e)))
-					System.out.println("Inventaire plein");
-				break;
-			case 1:
-				Mine mine = new Mine();
-				if (!(mine.prendre(e)))
-					System.out.println("Inventaire plein");
+		case 0:
+			Vie v = new Vie();
+			if (!(v.prendre(e)))
+				System.out.println("Inventaire plein");
+			break;
+		case 1:
+			Mine mine = new Mine();
+			if (!(mine.prendre(e)))
+				System.out.println("Inventaire plein");
 		}
 	}
 

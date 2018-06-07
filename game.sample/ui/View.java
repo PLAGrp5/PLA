@@ -63,20 +63,37 @@ public class View extends GameView {
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		int rectWidth = 32;
-		int rectHeight = 32;		
+		int rectHeight = 32;
+
+		/*
+		 * g.setColor(m_line);
+		 * 
+		 * for (int i = 0; i < NBRE_ROW; i++) { g.drawLine(0, i * rectHeight,
+		 * getWidth(), i * rectHeight); } for (int j = 0; j < NBRE_COL; j++) {
+		 * g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight()); }
+		 */
+
+		m_model.t4.paint(g, m_model.t4.dir);
+		m_model.t2.paint(g, m_model.t2.dir);
+		for (int i = 0; i < m_model.nsbire; i++) {
+			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
+		}
+		for (int i = 0; i < m_model.nbullet; i++) {
+			m_model.bullets[i].paint(g, m_model.bullets[i].dir);
+		}	
 		
         //	Parcours de notre tableau color (contenu dans map)
 		for(int k = 0; k < NBRE_ROW; k++) {
 			for (int l = 0; l < NBRE_COL; l++) {
-				
+
 				// Pour chaque case on colorie avec la texture associé
-				
+
 				if (m_model.m.color[k][l] == 'M') {
-					g.drawImage(m_model.m_mur, 32*l,32*k,32,32,null);
+					g.drawImage(m_model.m_mur, 32 * l, 32 * k, 32, 32, null);
 				}
 				if (m_model.m.color[k][l] == 'B') {
 					g.setColor(Color.cyan);
-					g.fillRect(l*32, k*32, 32, 32);
+					g.fillRect(l * 32, k * 32, 32, 32);
 				}
 				if (m_model.m.color[k][l] == 'R') {
 					g.setColor(Color.orange);
@@ -91,20 +108,18 @@ public class View extends GameView {
 				}
 			}
 		}
-		//m_model.m.print();
-		
+		// m_model.m.print();
+
 		m_model.t4.paint(g, m_model.t4.dir);
 		m_model.t2.paint(g, m_model.t2.dir);
 		
 		for (int i = 0; i < m_model.nsbire; i++) {
 			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
 		}
-		
 		for (int i = 0; i < m_model.nbullet; i++) {
 			m_model.bullets[i].paint(g, m_model.bullets[i].dir);
 		}
 
-		
 		g.setColor(m_line);
 		for (int i = 0; i < NBRE_ROW; i++) {
 			for (int j = 0; j < NBRE_COL; j++) {

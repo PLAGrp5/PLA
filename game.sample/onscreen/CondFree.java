@@ -18,6 +18,8 @@ public class CondFree extends Condition{
 			return (m.isfree(ent.p.i, ent.p.j+1));
 		default:
 			return false;
+
+		
 		}
 	}	
 }
