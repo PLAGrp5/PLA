@@ -17,9 +17,13 @@ public class Entity {
 	BufferedImage m_sprite;
 	Map m_map;
 	public long m_lastMove;
-	public Automate comport;
-	public boolean aut;
+	
+	public Automate comport_bonus;
+	public boolean aut_bonus;
+	public State courant_bonus;
+	
 	public State courant;
+	
 	int vie;
 	int vie_max;
 	public BonusEtMalusFixes[] inventaire = new BonusEtMalusFixes[3];
@@ -68,7 +72,9 @@ public class Entity {
 	}
 
 	public void hit(Model model) {
-		new Hit().execute(model, this);
+		Hit h = new Hit();
+		if (h.canihit(model, this))
+			new Hit().execute(model, this);
 	}
 
 	public void explode(Model model) {
