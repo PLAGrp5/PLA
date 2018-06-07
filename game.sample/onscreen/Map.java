@@ -115,7 +115,7 @@ public class Map {
 
     //retourn vrai si la case (i,j) est de type 'B' (bonus)
     public boolean isbonus(int i, int j) {
-        return this.map[i][j].type == 'B';
+        return this.map[i][j].type == 'I';
     }
 
     //insere une case de type 'F' (free) à l'emplacement (i,j)
