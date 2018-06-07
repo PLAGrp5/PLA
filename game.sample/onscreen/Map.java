@@ -72,6 +72,8 @@ public class Map {
         			this.color[c][l] = 'M';
         		}else if(this.map[c][l].type == 'T') {
         			this.color[c][l] = 'W';
+        		}else if(this.map[c][l].type == 'I') {
+        			this.color[c][l] = 'I';
         		}
         	}
         }
@@ -115,7 +117,7 @@ public class Map {
 
     //retourn vrai si la case (i,j) est de type 'B' (bonus)
     public boolean isbonus(int i, int j) {
-        return this.map[i][j].type == 'B';
+        return this.map[i][j].type == 'I';
     }
 
     //insere une case de type 'F' (free) à l'emplacement (i,j)
@@ -127,6 +129,23 @@ public class Map {
     public void insert(Entity e) {
         map[e.p.i][e.p.j] = e;
     }
+    
+	public boolean ismine(int i, int j) {
+		return this.map[i][j].type == 'M';
+	}
+    
+    public boolean insertMineOK(Entity e) {
+		switch (e.dir) {
+			case 'D':
+				return isfree(e.p.i-1,e.p.j);
+			case 'L':
+				return isfree(e.p.i,e.p.j+1);
+			case 'R':
+				return isfree(e.p.i,e.p.j-1);
+			default:
+				return isfree(e.p.i+1,e.p.j);
+		}
+	}
 
     //affichage dans la console
     public void print() {

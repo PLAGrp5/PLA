@@ -1,5 +1,6 @@
 package onscreen;
 
+import ui.*;
 /*
  * c'est une classe mère englobant toutes les actions
  * par exemple Move, Pop et Wizz
@@ -7,10 +8,12 @@ package onscreen;
  */
 
 public class Action {
-		char dir;
-		Map m;
-		
-		public void execute(Entity e) {
-			
-		}
+	char dir;
+	Map m;
+
+	public void execute(Entity e) {
+	}
+
+	public void execute(Model model, Entity e) {
+	}
 }
