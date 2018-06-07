@@ -40,12 +40,16 @@ public class Model extends GameModel {
 	BufferedImage m_charrougeSprite;
 	BufferedImage m_mur;
 	BufferedImage m_mine;
+	public BufferedImage m_bullet;
 	// Cowboy[] m_cowboys;
-
-	public int nent = 2;
-	public Entity[] ent = new Entity[nent];
-
 	public Map m;
+
+	public int nsbire = 2;
+	public Entity[] sbires = new Entity[nsbire];
+
+	public int nbullet = 0;
+	public Bullet[] bullets = new Bullet[nbullet];
+
 	public Automate[] automates = new Automate[2];
 	Tank t, t2, t3, t4;
 	Random rand = new Random();
@@ -73,8 +77,8 @@ public class Model extends GameModel {
 
 		Condition cond = new CondFree(m);
 		Condition cond1 = new CondDefault(m);
-		
-		Action act = new Move( m);
+
+		Action act = new Move(m);
 		Action act1 = new Turn();
 
 		Transition[] trans = new Transition[2];
@@ -86,15 +90,15 @@ public class Model extends GameModel {
 		t.comport = a;
 		t.courant = e;
 		t.aut = true;
-		ent[0] = t;
-		
-		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, 30 , colort2);
+		sbires[0] = t;
+
+		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, 30, colort2);
 		t2.aut = false;
 
 		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'L', 1F, 30, colort);
 		t4.aut = false;
 
-		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F, 30,coloria);
+		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F, 30, coloria);
 
 		/*
 		 * Action act1 = new Move('L', m); Transition trans1 = new Transition(e, e,
@@ -104,7 +108,7 @@ public class Model extends GameModel {
 		t3.comport = a;
 		t3.courant = e;
 		t3.aut = true;
-		ent[1] = t3;
+		sbires[1] = t3;
 
 		// Parte test Bullet
 
@@ -121,23 +125,37 @@ public class Model extends GameModel {
 	}
 
 	public void add(Entity e) {
-		nent++;
-		if (nent > ent.length) {
-			Entity[] tmp = new Entity[2 * nent];
-			System.arraycopy(ent, 0, tmp, 0, ent.length);
-			ent = tmp;
+		if (e instanceof Bullet) {
+			nbullet++;
+			if (nbullet > bullets.length) {
+				Bullet[] tmp = new Bullet[2 * nbullet];
+				System.arraycopy(bullets, 0, tmp, 0, bullets.length);
+				bullets = tmp;
+			}
+			bullets[nbullet - 1] = (Bullet) e;
+		} else if (e instanceof Tank) {
+			nsbire++;
+			if (nsbire > sbires.length) {
+				Entity[] tmp = new Entity[2 * nsbire];
+				System.arraycopy(sbires, 0, tmp, 0, sbires.length);
+				sbires = tmp;
+			}
+			sbires[nsbire - 1] = e;
 		}
-		ent[nent - 1] = e;
 	}
 
 	public void del(Entity e) {
 		m.free(e.p.i, e.p.j);
-		for (int i = 0; i < nent && ent[i].equals(e); i++)
-			if (i < nent) {
-				nent--;
-				for (; i < nent; i++)
-					ent[i] = ent[i + 1];
+		if (e instanceof Bullet) {
+			int i;
+			for (i = 0; i < nbullet && !bullets[i].equals(e); i++)
+				;
+			if (i < nbullet) {
+				nbullet--;
+				for (; i < nbullet; i++)
+					bullets[i] = bullets[i + 1];
 			}
+		}
 	}
 
 	/*
@@ -156,11 +174,17 @@ public class Model extends GameModel {
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-		int i;
-		for (i = 0; i < nent; i++) {
-			if (now - ent[i].m_lastMove > 200L) {
-				ent[i].comport.step(ent[i]);
-				ent[i].m_lastMove = now;
+		for (int i = 0; i < nsbire; i++) {
+			if (now - sbires[i].m_lastMove > 200L) {
+				sbires[i].comport.step(sbires[i]);
+				sbires[i].m_lastMove = now;
+			}
+		}
+
+		for (int i = 0; i < nbullet; i++) {
+			if (now - bullets[i].m_lastMove > 100L) {
+				bullets[i].comport.step(bullets[i]);
+				bullets[i].m_lastMove = now;
 			}
 		}
 
@@ -213,10 +237,18 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/mine.png");
 		try {
 			m_mine = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		imageFile = new File("game.sample/sprites/bullets.png");
+		try {
+			m_bullet = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
