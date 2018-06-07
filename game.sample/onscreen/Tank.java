@@ -70,7 +70,7 @@ public class Tank extends Entity {
 					case 'D' : 
 						a = new Move('D', m_map);
 						break;
-					case 'L' : 
+					case 'L' :
 						a = new Move('L', m_map);
 						break;
 					case 'R' : 

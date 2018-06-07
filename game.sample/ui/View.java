@@ -81,6 +81,7 @@ public class View extends GameView {
 		
 		Graphics2D g2d = (Graphics2D) g.create();
 		TexturePaint texture_mur = new TexturePaint(m_model.m_mur, new Rectangle(0, 0, 32, 32));
+		TexturePaint texture_mine = new TexturePaint(m_model.m_mine, new Rectangle(0, 0, 32, 32));
         
 		for(int k = 0; k < NBRE_ROW; k++) {
 			for (int l = 0; l < NBRE_COL; l++) {
@@ -90,6 +91,10 @@ public class View extends GameView {
 				}
 				else if (m_model.m.map[k][l].type == 'B') {
 					g2d.setPaint(Color.red);
+			        g2d.fillRect(l*32, k*32, 32, 32);
+				}
+				else if (m_model.m.map[k][l].type == 'M') {
+					g2d.setPaint(texture_mine);
 			        g2d.fillRect(l*32, k*32, 32, 32);
 				}
 			}

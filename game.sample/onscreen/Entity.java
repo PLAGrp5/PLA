@@ -23,7 +23,7 @@ public class Entity {
 	Color m_tank;
 	int vie;
 	int vie_max;
-	BonusEtMalusFixes[] inventaire = new BonusEtMalusFixes[3];
+	public BonusEtMalusFixes[] inventaire = new BonusEtMalusFixes[3];
 
 	public Entity(char type, int i, int j, char dir) {
 		this.type = type;
@@ -79,21 +79,19 @@ public class Entity {
 	}
 	
 	public void initinventaire() {
-		this.inventaire[0] = null;
-		this.inventaire[1] = null;
-		this.inventaire[2] = null;
+		for(int i = 0; i < 3; i++)
+			this.inventaire[i] = null;
 	}
-
-	//renvoie false si inventaire plein
-	public boolean setinventaire(BonusEtMalusFixes b) {
-		if (this.inventaire[0] == null)
-			this.inventaire[0] = b;
-		else if (this.inventaire[1] == null)
-			this.inventaire[1] = b;
-		else if (this.inventaire[2] == null)
-			this.inventaire[2] = b;
-		else
-			return false;
-		return true;
+	
+	public void afficherInventaire() {
+		for(int i = 0; i < 3; i++)
+			if(this.inventaire[i] != null)
+				System.out.println(this.inventaire[i].type);
+			else
+				System.out.println("null");
+	}
+	
+	public boolean inventaireVide() {
+		return this.inventaire[0] == null;
 	}
 }

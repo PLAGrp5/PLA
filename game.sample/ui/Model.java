@@ -39,6 +39,7 @@ public class Model extends GameModel {
 	BufferedImage m_charbleuSprite;
 	BufferedImage m_charrougeSprite;
 	BufferedImage m_mur;
+	BufferedImage m_mine;
 	// Cowboy[] m_cowboys;
 
 	Entity[] ent = new Entity[2];
@@ -180,6 +181,14 @@ public class Model extends GameModel {
 		imageFile = new File("game.sample/sprites/mur.png");
 		try {
 			m_mur = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/mine.png");
+		try {
+			m_mine = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
