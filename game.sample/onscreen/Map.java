@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Scanner;
 
 /*
-Class Map nous permet de représenter a carte de jeu
+Class Map nous permet de représenter la carte de jeu
  */
 
 public class Map {
@@ -13,6 +13,11 @@ public class Map {
     public Entity map[][];
     public char color[][];
 
+    /*
+     * Constructeur de base créant une carte
+     * Les limites du terrains ( premiere colonne, derniere colonne, premiere ligne, derniere ligne)
+     * sont des murs, le reste sont des case libres (free)
+     */
     public Map(int n) {
         this.n = n;
         this.map = new Entity[n][n];
@@ -35,6 +40,9 @@ public class Map {
 
     }
 
+    /*
+     * Création d'une carte à partir d'un fichier txt filepath
+     */
     public Map(String filepath) {
         File f = null;
         Scanner scan = null;
@@ -70,6 +78,10 @@ public class Map {
 
     }
 
+    /*
+     * Remplissage aléatoire de la carte, la carte est rempli d'un pourcentage de mur
+     * Remarque ici aucun test n'est réalisé pour vérifier que les tanks ne soient bloqué
+     */
     public Map(int n, int percentage) {
         this.n = n;
         this.map = new Entity[n][n];
@@ -96,26 +108,27 @@ public class Map {
             this.insert(new Entity('W', i, j));
     }
 
+    //retourn vrai si la case (i,j) est de type 'F' (free)
     public boolean isfree(int i, int j) {
         return this.map[i][j].type == 'F';
     }
 
+    //retourn vrai si la case (i,j) est de type 'B' (bonus)
     public boolean isbonus(int i, int j) {
         return this.map[i][j].type == 'B';
     }
 
+    //insere une case de type 'F' (free) à l'emplacement (i,j)
     public void free(int i, int j) {
         this.insert(new Entity('F', i, j));
     }
     
-    public void color(int i, int j) {
-    	
-    }
-
+    //Place l'entité e dans la map en fonction de ces coordonné (contenu dans e)
     public void insert(Entity e) {
         map[e.p.i][e.p.j] = e;
     }
 
+    //affichage dans la console
     public void print() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {

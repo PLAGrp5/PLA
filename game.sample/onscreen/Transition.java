@@ -1,5 +1,9 @@
 package onscreen;
 
+/*
+ * la classe transition sert à décrire un automate (=ensemble de transition)
+ */
+
 public class Transition {
 
 	public State src;
