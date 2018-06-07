@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
@@ -79,6 +80,7 @@ public class GameUI {
 
     // create the main window and the periodic timer
     // to drive the overall clock of the simulation.
+    createMenu(d);
     createWindow(d);
     createTimer();
   }
@@ -106,6 +108,21 @@ public class GameUI {
   }
   public void addEast(Component c) {
     m_frame.add(c,BorderLayout.EAST);
+  }
+  
+  
+  private void createMenu(Dimension d) {
+	  JButton bouton = new JButton("Mon Bouton");
+	    m_frame = new JFrame();
+	    m_frame.setTitle("Game of Tank"); // Nom de la fenêtre
+	    m_frame.setLayout(new BorderLayout());
+	    m_frame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage()); // Icone du jeu
+	    m_frame.setSize(d);
+	    m_frame.add(bouton);
+	    m_frame.setVisible(true);
+	    boolean i = false;
+	    while (i != true) {};
+	    
   }
 
   private void createWindow(Dimension d) {
