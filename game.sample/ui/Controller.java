@@ -29,6 +29,9 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 
 import framework.*;
+import onscreen.Bullet;
+import onscreen.Hit;
+import onscreen.Move;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -43,173 +46,244 @@ import framework.*;
 
 public class Controller extends GameController implements ActionListener {
 
-  Model m_model;
-  Button m_cowboysOn;
-  Button m_explosionsOn;
-  Button m_strobesOn;
-  Button m_plus, m_minus;
-  Music m_player;
-  //Map m = new Map(30);
+	Model m_model;
+	Button m_cowboysOn;
+	Button m_explosionsOn;
+	Button m_strobesOn;
+	Button m_plus, m_minus;
+	Music m_player;
+	// Map m = new Map(30);
 
-  public Controller(Model m) {
-    m_model = m;
-  }
+	public Controller(Model m) {
+		m_model = m;
+	}
 
-  /**
-   * Simulation step. Warning: the model has already executed its step.
-   * 
-   * @param now
-   *          is the current time in milliseconds.
-   */
-  @Override
-  public void step(long now) {
-  }
+	/**
+	 * Simulation step. Warning: the model has already executed its step.
+	 * 
+	 * @param now
+	 *            is the current time in milliseconds.
+	 */
+	@Override
+	public void step(long now) {
+	}
 
-  @Override
-  public void keyTyped(KeyEvent e) {
-//    if (Options.ECHO_KEYBOARD)
-//      System.out.println("KeyTyped: " + e);
-    if (e.getKeyChar() == ' ') {
-      try {
-        /*
-         * NEVER, EVER, DO THIS!
-         * NEVER LOOP FOR LONG, NEVER BLOCK, OR NEVER SLEEP,
-         * YOU WILL BLOCK EVERYTHING.
-         */
-        System.err.println("You should not have done that!");
-        System.out.println("ZZzzz....");
-        Thread.sleep(3000);
-        System.out.println("Hey! I am back");
-      } catch (InterruptedException ex) {
-      }
-    } else if (e.getKeyChar() == '+') {
-      Overhead h = m_model.getOverhead();
-      h.inc();
-    } else if (e.getKeyChar() == '-') {
-      Overhead h = m_model.getOverhead();
-      h.dec();
-    }
-  }
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// if (Options.ECHO_KEYBOARD)
+		// System.out.println("KeyTyped: " + e);
+		if (e.getKeyChar() == ' ') {
+			try {
+				/*
+				 * NEVER, EVER, DO THIS! NEVER LOOP FOR LONG, NEVER BLOCK, OR NEVER SLEEP, YOU
+				 * WILL BLOCK EVERYTHING.
+				 */
+				System.err.println("You should not have done that!");
+				System.out.println("ZZzzz....");
+				Thread.sleep(3000);
+				System.out.println("Hey! I am back");
+			} catch (InterruptedException ex) {
+			}
+		} else if (e.getKeyChar() == '+') {
+			Overhead h = m_model.getOverhead();
+			h.inc();
+		} else if (e.getKeyChar() == '-') {
+			Overhead h = m_model.getOverhead();
+			h.dec();
+		}
+	}
 
-  @Override
-  public void keyPressed(KeyEvent e) {
-    if (Options.ECHO_KEYBOARD)
-      System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-    	if( e.getKeyChar() == 'Z' || e.getKeyChar() == 'z') {
-    		m_model.t2.step(m_model.m,'U');
-    	}else if( e.getKeyChar() == 'Q' || e.getKeyChar() == 'q') {
-    		m_model.t2.step(m_model.m,'L');
-    	}else if( e.getKeyChar() == 'D' || e.getKeyChar() == 'd') {
-    		m_model.t2.step(m_model.m,'R');
-    	}else if( e.getKeyChar() == 'S' || e.getKeyChar() == 's') {
-    		m_model.t2.step(m_model.m,'D');
-    	}else if( e.getKeyCode() == 37 ) {
-    		m_model.t4.step(m_model.m,'L');
-    	}else if( e.getKeyCode() == 38 ) {
-    		m_model.t4.step(m_model.m,'U');
-    	}else if( e.getKeyCode() == 39) {
-    		m_model.t4.step(m_model.m,'R');
-    	}else if( e.getKeyCode() == 40) {
-    		m_model.t4.step(m_model.m,'D');
-    	}
-  }
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (Options.ECHO_KEYBOARD)
+			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		switch (e.getKeyChar()) {
+		// move Joueur 1
+		case 'Z':
+			m_model.t2.step(m_model.m, 'U', 'm');
+			break;
+		case 'z':
+			m_model.t2.step(m_model.m, 'U', 'm');
+			break;
+		case 'Q':
+			m_model.t2.step(m_model.m, 'L', 'm');
+			break;
+		case 'q':
+			m_model.t2.step(m_model.m, 'L', 'm');
+			break;
+		case 'D':
+			m_model.t2.step(m_model.m, 'R', 'm');
+			break;
+		case 'd':
+			m_model.t2.step(m_model.m, 'R', 'm');
+			break;
+		case 'S':
+			m_model.t2.step(m_model.m, 'D', 'm');
+			break;
+		case 's':
+			m_model.t2.step(m_model.m, 'D', 'm');
+			break;
+		case 8:
+			if (!(m_model.t2.inventaireVide()))
+				m_model.t2.inventaire[0].jeter(m_model.m, m_model.t2);
+			else
+				System.out.println("Inventaire Vide");
+			break;
 
-  @Override
-  public void keyReleased(KeyEvent e) {
-    if (Options.ECHO_KEYBOARD)
-      System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
-  }
+		// Pop Joueur 1
+		case 'w':
+			m_model.t2.step(m_model.m, 'U', 'p');
+			break;
+		case 'W':
+			m_model.t2.step(m_model.m, 'U', 'p');
+			break;
 
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    if (Options.ECHO_MOUSE)
-      System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-  }
+		// Wizz Joueur 1
+		case 'x':
+			m_model.t2.step(m_model.m, 'U', 'w');
+			break;
+		case 'X':
+			m_model.t2.step(m_model.m, 'U', 'w');
+			break;
 
-  @Override
-  public void mousePressed(MouseEvent e) {
-    if (Options.ECHO_MOUSE)
-      System.out.println("MousePressed: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-  }
+		// Pop Joueur 2
+		case 'l':
+			m_model.t4.step(m_model.m, 'U', 'p');
+			break;
+		case 'L':
+			m_model.t4.step(m_model.m, 'U', 'p');
+			break;
 
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    if (Options.ECHO_MOUSE)
-      System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-  }
+		// Wizz Joueur 2
+		case 'm':
+			m_model.t4.step(m_model.m, 'U', 'w');
+			break;
+		case 'M':
+			m_model.t4.step(m_model.m, 'U', 'w');
+			break;
 
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    if (Options.ECHO_MOUSE_MOTION)
-      System.out.println("MouseEntered: (" + e.getX() + "," + e.getY());
-  }
+		default:
+			break;
+		}
+		switch (e.getKeyCode()) {
+		// Move Joueur 2
+		case 37:
+			m_model.t4.step(m_model.m, 'L', 'm');
+			break;
+		case 38:
+			m_model.t4.step(m_model.m, 'U', 'm');
+			break;
+		case 39:
+			m_model.t4.step(m_model.m, 'R', 'm');
+			break;
+		case 40:
+			m_model.t4.step(m_model.m, 'D', 'm');
+			break;
+		case 96:
+			m_model.t4.hit(m_model);
+			break;
+		case 10:
+			if (!(m_model.t4.inventaireVide()))
+				m_model.t4.inventaire[0].jeter(m_model.m, m_model.t4);
+			else
+				System.out.println("Inventaire Vide");
+			break;
+		}
+	}
 
-  @Override
-  public void mouseExited(MouseEvent e) {
-    if (Options.ECHO_MOUSE_MOTION)
-      System.out.println("MouseExited: (" + e.getX() + "," + e.getY());
-  }
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (Options.ECHO_KEYBOARD)
+			System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
+	}
 
-  @Override
-  public void mouseDragged(MouseEvent e) {
-    if (Options.ECHO_MOUSE_MOTION)
-      System.out.println("MouseDragged: (" + e.getX() + "," + e.getY());
-  }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (Options.ECHO_MOUSE)
+			System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+	}
 
-  @Override
-  public void mouseMoved(MouseEvent e) {
-    if (Options.ECHO_MOUSE_MOTION)
-      System.out.println("MouseMoved: (" + e.getX() + "," + e.getY());
-  }
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (Options.ECHO_MOUSE)
+			System.out.println("MousePressed: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+	}
 
-  public void notifyVisible() {
-    Container cont = new Container();
-    cont.setLayout(new FlowLayout());
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (Options.ECHO_MOUSE)
+			System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+	}
 
-    m_strobesOn = new Button("Strobes");
-    m_strobesOn.addActionListener(this);
-    cont.add(m_strobesOn);
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		if (Options.ECHO_MOUSE_MOTION)
+			System.out.println("MouseEntered: (" + e.getX() + "," + e.getY());
+	}
 
-    m_cowboysOn = new Button("Cowboys");
-    m_cowboysOn.addActionListener(this);
-    cont.add(m_cowboysOn);
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if (Options.ECHO_MOUSE_MOTION)
+			System.out.println("MouseExited: (" + e.getX() + "," + e.getY());
+	}
 
-    m_plus = new Button("+");
-    m_plus.addActionListener(this);
-    cont.add(m_plus);
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (Options.ECHO_MOUSE_MOTION)
+			System.out.println("MouseDragged: (" + e.getX() + "," + e.getY());
+	}
 
-    m_minus = new Button("-");
-    m_minus.addActionListener(this);
-    cont.add(m_minus);
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		if (Options.ECHO_MOUSE_MOTION)
+			System.out.println("MouseMoved: (" + e.getX() + "," + e.getY());
+	}
 
-    m_explosionsOn = new Button("X");
-    m_explosionsOn.addActionListener(this);
-    cont.add(m_explosionsOn);
+	public void notifyVisible() {
+		Container cont = new Container();
+		cont.setLayout(new FlowLayout());
 
-    /*File file;
-    file = new File("game.sample/sprites/Future-RPG.wav");
-    //file = new File("game.sample/sprites/Runaway-Food-Truck.wav");
-    try {
-      //m_player = new Music(file);
-      cont.add(m_player.getControls());
-    } catch (Exception ex) {
-    }
-    m_game.addSouth(cont);*/
-  }
+		m_strobesOn = new Button("Strobes");
+		m_strobesOn.addActionListener(this);
+		cont.add(m_strobesOn);
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    Object s = e.getSource();
-    if (s == m_strobesOn)
-      Options.STROBBING_SQUARES = !Options.STROBBING_SQUARES;
-    else if (s == m_cowboysOn)
-      Options.SHOW_COWBOYS = !Options.SHOW_COWBOYS;
-    else if (s == m_explosionsOn)
-      Options.EXPLODE_COWBOYS = !Options.EXPLODE_COWBOYS;
-    else if (s == m_plus && Options.SHOW_NCOWBOYS < Options.MAX_NCOWBOYS)
-      Options.SHOW_NCOWBOYS++;
-    else if (s == m_minus && Options.SHOW_NCOWBOYS > 0)
-      Options.SHOW_NCOWBOYS--;
-  }
+		m_cowboysOn = new Button("Cowboys");
+		m_cowboysOn.addActionListener(this);
+		cont.add(m_cowboysOn);
+
+		m_plus = new Button("+");
+		m_plus.addActionListener(this);
+		cont.add(m_plus);
+
+		m_minus = new Button("-");
+		m_minus.addActionListener(this);
+		cont.add(m_minus);
+
+		m_explosionsOn = new Button("X");
+		m_explosionsOn.addActionListener(this);
+		cont.add(m_explosionsOn);
+
+		/*
+		 * File file; file = new File("game.sample/sprites/Future-RPG.wav"); //file =
+		 * new File("game.sample/sprites/Runaway-Food-Truck.wav"); try { //m_player =
+		 * new Music(file); cont.add(m_player.getControls()); } catch (Exception ex) { }
+		 * m_game.addSouth(cont);
+		 */
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object s = e.getSource();
+		if (s == m_strobesOn)
+			Options.STROBBING_SQUARES = !Options.STROBBING_SQUARES;
+		else if (s == m_cowboysOn)
+			Options.SHOW_COWBOYS = !Options.SHOW_COWBOYS;
+		else if (s == m_explosionsOn)
+			Options.EXPLODE_COWBOYS = !Options.EXPLODE_COWBOYS;
+		else if (s == m_plus && Options.SHOW_NCOWBOYS < Options.MAX_NCOWBOYS)
+			Options.SHOW_NCOWBOYS++;
+		else if (s == m_minus && Options.SHOW_NCOWBOYS > 0)
+			Options.SHOW_NCOWBOYS--;
+	}
 
 }
