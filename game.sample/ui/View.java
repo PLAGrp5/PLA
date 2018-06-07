@@ -80,15 +80,10 @@ public class View extends GameView {
 		}
 		for (int i = 0; i < m_model.nbullet; i++) {
 			m_model.bullets[i].paint(g, m_model.bullets[i].dir);
-		}
-
-		Graphics2D g2d = (Graphics2D) g.create();
-		// TexturePaint texture_mur = new TexturePaint(m_model.m_mur, new Rectangle(0,
-		// 0, 32, 32));
-		TexturePaint texture_mine = new TexturePaint(m_model.m_mine, new Rectangle(0, 0, 32, 32));
-
-		// Parcours de notre tableau color (contenu dans map)
-		for (int k = 0; k < NBRE_ROW; k++) {
+		}	
+		
+        //	Parcours de notre tableau color (contenu dans map)
+		for(int k = 0; k < NBRE_ROW; k++) {
 			for (int l = 0; l < NBRE_COL; l++) {
 
 				// Pour chaque case on colorie avec la texture associé
@@ -102,13 +97,14 @@ public class View extends GameView {
 				}
 				if (m_model.m.color[k][l] == 'R') {
 					g.setColor(Color.orange);
-					g.fillRect(l * 32, k * 32, 32, 32);
-				} else if (m_model.m.map[k][l].type == 'I') {
-					g2d.setPaint(Color.red);
-					g2d.fillRect(l * 32, k * 32, 32, 32);
-				} else if (m_model.m.map[k][l].type == 'M') {
-					g2d.setPaint(texture_mine);
-					g2d.fillRect(l * 32, k * 32, 32, 32);
+					g.fillRect(l*32, k*32, 32, 32);
+				}
+				else if (m_model.m.map[k][l].type == 'I') {
+					g.setColor(Color.red);
+			    g.fillRect(l*32, k*32, 32, 32);
+				}
+				else if (m_model.m.map[k][l].type == 'M') {
+					g.drawImage(m_model.m_mine, 32*l, 32*k, 32, 32, null);
 				}
 			}
 		}
@@ -116,6 +112,7 @@ public class View extends GameView {
 
 		m_model.t4.paint(g, m_model.t4.dir);
 		m_model.t2.paint(g, m_model.t2.dir);
+		
 		for (int i = 0; i < m_model.nsbire; i++) {
 			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
 		}

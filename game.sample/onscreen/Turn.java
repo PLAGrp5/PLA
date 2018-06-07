@@ -23,6 +23,6 @@ public class Turn extends Action{
 			default : 
 				return;
 		}
-		//e.comport.t[0].act.dir = e.dir;
+		//e.comport_bonus.t[0].act.dir = e.dir;
 	}
 }

@@ -11,9 +11,24 @@ import java.awt.image.BufferedImage;
 public class Bullet extends Entity {
     BufferedImage[] m_sprites;
 
+		public Automate comport;
+		
     public Bullet(Entity e) {
         super('B', e.p.i, e.p.j, e.dir);
-        aut = true;
+        switch (this.dir) {
+        case 'D':
+            p.i++;
+            break;
+        case 'L':
+            p.j--;
+            break;
+        case 'R':
+            p.j++;
+            break;
+        default:
+            p.i--;
+            break;
+        }
         e.m_map.insert(this);
     }
 
@@ -44,8 +59,7 @@ public class Bullet extends Entity {
 
         if (!e.m_map.isfree(p.i, p.j))
             return;
-
-        aut = true;
+      
         courant = s;
         comport = a;
         m_scale = scale;

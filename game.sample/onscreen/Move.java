@@ -1,8 +1,11 @@
 package onscreen;
 
+import java.awt.Color;
+
 public class Move extends Action {
 
 	public Move() {
+		this.dir = 'F';
 	}
 
 	public Move(char dir, Map m) {
@@ -22,18 +25,18 @@ public class Move extends Action {
 	Point nextstep(Entity e) {
 		Point p = new Point(e.p.i, e.p.j);
 		switch (this.dir) {
-		case 'D':
-			p.i++;
-			break;
-		case 'L':
-			p.j--;
-			break;
-		case 'R':
-			p.j++;
-			break;
-		default:
-			p.i--;
-			break;
+			case 'D':
+				p.i++;
+				break;
+			case 'L':
+				p.j--;
+				break;
+			case 'R':
+				p.j++;
+				break;
+			case 'U':
+				p.i--;
+				break;				
 		}
 		return p;
 	}
@@ -65,7 +68,8 @@ public class Move extends Action {
 	}
 
 	public void execute(Entity e) {
-		if (!e.aut) {
+		this.m = e.m_map;
+		if (e instanceof Tank) {
 			/*
 			 * Convention de notre jeu: lorsque le tank n'est pas dans la bonne direction on
 			 * le tourne dans la bonne direction
@@ -81,6 +85,13 @@ public class Move extends Action {
 					else if (m.ismine(p.i, p.j))
 						caseMine(e);
 					m.free(e.p.i, e.p.j);
+					if ((e.jauge_couleur > 0)) {
+						if (e.m_tank == Color.cyan) {
+							m.color[e.p.i][e.p.j] = 'B';
+						} else if (e.m_tank == Color.orange) {
+							m.color[e.p.i][e.p.j] = 'R';
+						}
+					}
 					e.p = p;
 					m.insert(e);
 				} else if (m.map[p.i][p.j].type == 'T') {

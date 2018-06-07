@@ -66,16 +66,18 @@ public class Map {
             }
         }
         for (int c = 0; c < this.n; c++) {
-            for (int l = 0; l < this.n; l++) {
-
-                if (this.map[c][l].type == 'F') {
-                    this.color[c][l] = 'W';
-                } else if (this.map[c][l].type == 'W') {
-                    this.color[c][l] = 'M';
-                } else if (this.map[c][l].type == 'T') {
-                    this.color[c][l] = 'W';
-                }
-            }
+        	for (int l = 0; l < this.n; l++) {
+        		
+        		if(this.map[c][l].type == 'F') {
+        			this.color[c][l] = 'W';
+        		}else if(this.map[c][l].type == 'W') {
+        			this.color[c][l] = 'M';
+        		}else if(this.map[c][l].type == 'T') {
+        			this.color[c][l] = 'W';
+        		}else if(this.map[c][l].type == 'I') {
+        			this.color[c][l] = 'I';
+        		}
+        	}
         }
 
     }

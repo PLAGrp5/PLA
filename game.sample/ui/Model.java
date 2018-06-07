@@ -45,13 +45,17 @@ public class Model extends GameModel {
 	public Map m;
 
 	public int nsbire = 2;
-	public Entity[] sbires = new Entity[nsbire];
+	public Sbire[] sbires = new Sbire[nsbire];
 
 	public int nbullet = 0;
 	public Bullet[] bullets = new Bullet[nbullet];
 
+	/*public int nent = 2;
+	public Entity[] ent = new Entity[nent];*/
+
 	public Automate[] automates = new Automate[2];
-	Tank t, t2, t3, t4;
+	Tank t2, t4;
+	Sbire s, s3;
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
@@ -71,14 +75,15 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-		t = new Tank(m, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
+		
+		s = new Sbire(m, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
 
 		State e = new State("1");
 
 		Condition cond = new CondFree(m);
 		Condition cond1 = new CondDefault(m);
-
-		Action act = new Move(m);
+		
+		Action act = new Move();
 		Action act1 = new Turn();
 
 		Transition[] trans = new Transition[2];
@@ -87,28 +92,26 @@ public class Model extends GameModel {
 
 		Automate a = new Automate(e, trans);
 
-		t.comport = a;
-		t.courant = e;
-		t.aut = true;
-		sbires[0] = t;
-
-		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, 30, colort2);
-		t2.aut = false;
+		s.comport = a;
+		s.courant = e;
+		sbires[0] = s;
+		
+		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, 30 , colort2);
+		t2.aut_bonus = false;
 
 		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'L', 1F, 30, colort);
-		t4.aut = false;
+		t4.aut_bonus = false;
 
-		t3 = new Tank(m, m_charbleuSprite, 6, 28, 'L', 1F, 30, coloria);
+		s3 = new Sbire(m, m_charbleuSprite, 6, 28, 'L', 1F, 30,coloria);
 
 		/*
 		 * Action act1 = new Move('L', m); Transition trans1 = new Transition(e, e,
 		 * act1, cond); Automate a1 = new Automate(e, trans1);
 		 */
 
-		t3.comport = a;
-		t3.courant = e;
-		t3.aut = true;
-		sbires[1] = t3;
+		s3.comport = a;
+		s3.courant = e;
+		sbires[1] = s3;
 
 		// Parte test Bullet
 
@@ -136,11 +139,11 @@ public class Model extends GameModel {
 		} else if (e instanceof Tank) {
 			nsbire++;
 			if (nsbire > sbires.length) {
-				Entity[] tmp = new Entity[2 * nsbire];
+				Sbire[] tmp = new Sbire[2 * nsbire];
 				System.arraycopy(sbires, 0, tmp, 0, sbires.length);
 				sbires = tmp;
 			}
-			sbires[nsbire - 1] = e;
+			sbires[nsbire - 1] = (Sbire)e;
 		}
 	}
 
