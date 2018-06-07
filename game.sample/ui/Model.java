@@ -105,10 +105,6 @@ public class Model extends GameModel {
 		ent[1] = t3;
 
 		// Parte test Bullet
-		State eb = new State("1");
-		Transition[] transitionsb = new Transition[1];
-		transitionsb[0] = new Transition(eb, eb, act, cond);
-		automates[0] = new Automate(e, transitionsb);
 
 		// m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
 	}
@@ -132,6 +128,16 @@ public class Model extends GameModel {
 		ent[nent - 1] = e;
 	}
 
+	public void del(Entity e) {
+		m.free(e.p.i, e.p.j);
+		for (int i = 0; i < nent && ent[i].equals(e); i++)
+			if (i < nent) {
+				nent--;
+				for (; i < nent; i++)
+					ent[i] = ent[i + 1];
+			}
+	}
+
 	/*
 	 * public Cowboy[] cowboys() { return m_cowboys; }
 	 * 
@@ -148,8 +154,8 @@ public class Model extends GameModel {
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-
-		for (int i = 0; i < nent; i++) {
+		int i;
+		for (i = 0; i < nent; i++) {
 			if (now - ent[i].m_lastMove > 2000L) {
 				ent[i].comport.step(ent[i]);
 				ent[i].m_lastMove = now;

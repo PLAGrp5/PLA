@@ -8,9 +8,16 @@ public class Hit extends Action {
 	}
 
 	public void execute(Model model, Entity e) {
-		model.add(new Bullet(e));
-		model.ent[model.nent - 1].comport = model.automates[0];
-		model.ent[model.nent - 1].comport.t[0].act = new Move(model.ent[model.nent - 1].dir, model.m);
+		State s = new State("1");
+		Transition[] transitionsb = new Transition[2];
+		Action mAction = new Move(e.dir, model.m);
+		Action eAction = new Explode();
+		Condition cond = new CondFree(model.m);
+		Condition cond1 = new CondDefault(model.m);
+		transitionsb[0] = new Transition(s, s, mAction, cond);
+		transitionsb[1] = new Transition(s, s, eAction, cond1);
+		Automate a = new Automate(model, s, transitionsb);
+		model.add(new Bullet(e, a, s));
 	}
 
 	/*

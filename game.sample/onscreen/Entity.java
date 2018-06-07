@@ -21,6 +21,7 @@ public class Entity {
     public boolean aut;
     public State courant;
     int lastj, lasti;
+    int PV, maxPV;
     Color color;
 
     public Entity(char type, int i, int j, char dir) {
@@ -69,6 +70,10 @@ public class Entity {
 
     public void hit(Model model) {
         new Hit().execute(model, this);
+    }
+
+    public void explode(Model model) {
+        new Explode().execute(model, this);
     }
 
     public void paint(Graphics g, char dir) {

@@ -1,6 +1,5 @@
 package onscreen;
 
-import ui.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,10 +12,14 @@ public class Tank extends Entity {
 
 	public Tank(int i, int j, char dir) {
 		super('T', i, j, dir);
+		maxPV = 15;
+		PV = 15;
 	}
 
 	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, Color color) {
 		super('T', i, j, dir);
+		maxPV = 15;
+		PV = 15;
 		m_map = m;
 		m_sprite = sprite;
 		m_scale = scale;
@@ -29,6 +32,8 @@ public class Tank extends Entity {
 
 	public Tank(Map m, BufferedImage sprite, int i, int j, char dir, float scale, Automate a) {
 		super('T', i, j, dir);
+		maxPV = 15;
+		PV = 15;
 		m_map = m;
 		m_sprite = sprite;
 		m_scale = scale;
