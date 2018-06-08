@@ -90,17 +90,15 @@ public class View extends GameView {
 					g.drawImage(m_model.m_sol, 32 * l, 32 * k, 32, 32, null);
 				}
 				if (m_model.m.color[k][l] == 'B') {
-					g.setColor(Color.cyan);
-					g.fillRect(l * 32, k * 32, 32, 32);
+					g.drawImage(m_model.m_blue, 32 * l, 32 * k, 32, 32, null);
 				}
 				if (m_model.m.color[k][l] == 'R') {
-					g.setColor(Color.orange);
-					g.fillRect(l*32, k*32, 32, 32);
+					g.drawImage(m_model.m_red, 32 * l, 32 * k, 32, 32, null);
 				}
-				else if (m_model.m.map[k][l].type == 'I') {
+				if (m_model.m.map[k][l].type == 'I') {
 					g.drawImage(m_model.m_item, 32 * l, 32 * k, 32, 32, null);
 				}
-				else if (m_model.m.map[k][l].type == 'M') {
+				if (m_model.m.map[k][l].type == 'M') {
 					g.drawImage(m_model.m_mine, 32*l, 32*k, 32, 32, null);
 				}
 			}
