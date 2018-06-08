@@ -40,6 +40,8 @@ public class Model extends GameModel {
 	BufferedImage m_charrougeSprite;
 	BufferedImage m_mur;
 	BufferedImage m_mine;
+	BufferedImage m_sol;
+	BufferedImage m_item;
 	public BufferedImage m_bullet;
 	// Cowboy[] m_cowboys;
 	public Map m;
@@ -252,6 +254,22 @@ public class Model extends GameModel {
 		imageFile = new File("game.sample/sprites/bullets.png");
 		try {
 			m_bullet = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/sol.png");
+		try {
+			m_sol = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/item.png");
+		try {
+			m_item = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);

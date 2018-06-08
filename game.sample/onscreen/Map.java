@@ -69,11 +69,11 @@ public class Map {
         	for (int l = 0; l < this.n; l++) {
         		
         		if(this.map[c][l].type == 'F') {
-        			this.color[c][l] = 'W';
+        			this.color[c][l] = 'F';
         		}else if(this.map[c][l].type == 'W') {
-        			this.color[c][l] = 'M';
-        		}else if(this.map[c][l].type == 'T') {
         			this.color[c][l] = 'W';
+        		}else if(this.map[c][l].type == 'T') {
+        			this.color[c][l] = 'T';
         		}else if(this.map[c][l].type == 'I') {
         			this.color[c][l] = 'I';
         		}
@@ -118,7 +118,7 @@ public class Map {
         return this.map[i][j].type == 'F';
     }
 
-    // retourn vrai si la case (i,j) est de type 'B' (bonus)
+    // retourn vrai si la case (i,j) est de type 'I' (bonus&malus)
     public boolean isbonus(int i, int j) {
         return this.map[i][j].type == 'I';
     }

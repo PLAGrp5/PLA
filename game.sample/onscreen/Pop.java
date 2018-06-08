@@ -22,7 +22,7 @@ public class Pop extends Action {
 			*/
 			
 			//La croix du bas
-			if (m.color[e.p.i-1][e.p.j] == 'W' || m.color[e.p.i-1][e.p.j] == 'B' || m.color[e.p.i-1][e.p.j] == 'R') {
+			if (m.color[e.p.i-1][e.p.j] == 'F' || m.color[e.p.i-1][e.p.j] == 'B' || m.color[e.p.i-1][e.p.j] == 'R') {
 				if ((e.m_tank == Color.cyan)&&(m.color[e.p.i-1][e.p.j] != 'B')){
 					m.color[e.p.i-1][e.p.j] = 'B';
 				}
@@ -32,7 +32,7 @@ public class Pop extends Action {
 			}
 			
 			//La croix du haut
-			if (m.color[e.p.i+1][e.p.j] == 'W' || m.color[e.p.i+1][e.p.j] == 'B' || m.color[e.p.i+1][e.p.j] == 'R') {
+			if (m.color[e.p.i+1][e.p.j] == 'F' || m.color[e.p.i+1][e.p.j] == 'B' || m.color[e.p.i+1][e.p.j] == 'R') {
 				if ((e.m_tank == Color.cyan)&&(m.color[e.p.i+1][e.p.j] != 'B')){
 					m.color[e.p.i+1][e.p.j] = 'B';
 				}
@@ -42,7 +42,7 @@ public class Pop extends Action {
 			}
 			
 			//La croix de gauche
-			if (m.color[e.p.i][e.p.j-1] == 'W' || m.color[e.p.i][e.p.j-1] == 'B' || m.color[e.p.i][e.p.j-1] == 'R') {
+			if (m.color[e.p.i][e.p.j-1] == 'F' || m.color[e.p.i][e.p.j-1] == 'B' || m.color[e.p.i][e.p.j-1] == 'R') {
 				if ((e.m_tank == Color.cyan)&&(m.color[e.p.i][e.p.j-1] != 'B')){
 					m.color[e.p.i][e.p.j-1] = 'B';
 				}
@@ -52,7 +52,7 @@ public class Pop extends Action {
 			}
 			
 			//La croix de droite
-			if (m.color[e.p.i][e.p.j+1] == 'W' || m.color[e.p.i][e.p.j+1] == 'B' || m.color[e.p.i][e.p.j+1] == 'R') {
+			if (m.color[e.p.i][e.p.j+1] == 'F' || m.color[e.p.i][e.p.j+1] == 'B' || m.color[e.p.i][e.p.j+1] == 'R') {
 				if ((e.m_tank == Color.cyan)&&(m.color[e.p.i][e.p.j+1] != 'B')){
 					m.color[e.p.i][e.p.j+1] = 'B';
 				}
