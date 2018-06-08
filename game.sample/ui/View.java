@@ -34,6 +34,9 @@ public class View extends GameView {
 	Color m_background = Color.white;
 	Color m_line = Color.black;
 	Color colorb = Color.cyan;
+	String vie = "Vie_0";
+	String mine = "mine_0";
+	String sbire = "peintureB";
 	long m_last;
 	int m_npaints;
 	int m_fps;
@@ -61,8 +64,9 @@ public class View extends GameView {
 		computeFPS();
 		// erase background
 		
-		m_game.drawPLayer1Panel(m_model.t4.vie, m_model.t4.jauge_couleur, m_model.m.scorebleu());
-		m_game.drawPLayer2Panel(m_model.t2.vie, m_model.t2.jauge_couleur, m_model.m.scorerouge());
+		
+		m_game.drawPLayer1Panel(m_model.t4, m_model.m.scorebleu(), vie, mine, sbire);
+		m_game.drawPLayer2Panel(m_model.t2, m_model.m.scorerouge(), vie, mine, sbire);
 		
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
