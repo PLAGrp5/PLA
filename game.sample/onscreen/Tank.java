@@ -58,7 +58,7 @@ public class Tank extends Entity {
 					}
 				}
 			}
-			
+
 			if (aut_bonus) {
 				comport_bonus.step(this);
 			} else {
@@ -69,21 +69,21 @@ public class Tank extends Entity {
 					a = new Wizz();
 				} else { // if(type_action == 'm')
 					switch (dir) {
-						case 'U':
-							a = new Move('U', m_map);
-							break;
-						case 'D':
-							a = new Move('D', m_map);
-							break;
-						case 'L':
-							a = new Move('L', m_map);
-							break;
-						case 'R':
-							a = new Move('R', m_map);
-							break;
-						default:
-							a = new Move('U', m_map);
-							break;
+					case 'U':
+						a = new Move('U', m_map);
+						break;
+					case 'D':
+						a = new Move('D', m_map);
+						break;
+					case 'L':
+						a = new Move('L', m_map);
+						break;
+					case 'R':
+						a = new Move('R', m_map);
+						break;
+					default:
+						a = new Move('U', m_map);
+						break;
 					}
 				}
 				a.execute(this);
@@ -106,20 +106,20 @@ public class Tank extends Entity {
 	public void paint(Graphics g, char dir) {
 		Image img;
 		switch (dir) {
-			case 'U':
-				img = m_sprites[1];
-				break;
-			case 'D':
-				img = m_sprites[3];
-				break;
-			case 'L':
-				img = m_sprites[0];
-				break;
-			case 'R':
-				img = m_sprites[2];
-				break;
-			default:
-				img = m_sprites[0];
+		case 'U':
+			img = m_sprites[1];
+			break;
+		case 'D':
+			img = m_sprites[3];
+			break;
+		case 'L':
+			img = m_sprites[0];
+			break;
+		case 'R':
+			img = m_sprites[2];
+			break;
+		default:
+			img = m_sprites[0];
 		}
 		int w = (int) (m_scale * 32);
 		int h = (int) (m_scale * 32);
