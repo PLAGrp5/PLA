@@ -22,6 +22,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -175,7 +176,7 @@ public class GameUI implements ActionListener{
 		    jmiPause.setActionCommand("PAUSE");
 		    jmiExit.setActionCommand("EXIT");
 		    
-		    jmiPause.setAccelerator(KeyStroke.getKeyStroke((char) 80));
+		    jmiPause.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_N));
 		    jmiExit.setAccelerator(KeyStroke.getKeyStroke((char) 27));
 		    
 		    

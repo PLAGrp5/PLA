@@ -29,7 +29,7 @@ public class Pause {
 
 	private void prepareGUI() {
 		pauseFrame = new JFrame("Gitank pause");
-		pauseFrame.setSize(1024, 1024);
+		pauseFrame.setSize(256, 128);
 		pauseFrame.setLayout(new GridLayout(3, 1));
 
 		headerLabel = new JLabel("", JLabel.CENTER);
