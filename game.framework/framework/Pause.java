@@ -77,9 +77,7 @@ public class Pause {
 				g_ui.createWindow(d);
 			} else if (command.equals("RESUME")) {
 				g_ui.setState(STATE.Game);
-				Dimension d = new Dimension(1024, 1024);
 				pauseFrame.dispose();
-				g_ui.createWindow(d);
 				g_ui.resumeTimer();
 			}
 		}
