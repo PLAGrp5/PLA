@@ -46,7 +46,7 @@ public class Tank extends Entity {
 			 * colorie la case précedente seulement si elle change de couleur
 			 */
 			if ((jauge_couleur > 0) && (type_action == 'm')) {
-				if (m.color[p.i][p.j] == 'W' || m.color[p.i][p.j] == 'B' || m.color[p.i][p.j] == 'R') {
+				if (m.color[p.i][p.j] == 'F' || m.color[p.i][p.j] == 'B' || m.color[p.i][p.j] == 'R') {
 					if ((m_tank == Color.cyan) && (m.color[p.i][p.j] != 'B')) {
 						m.color[p.i][p.j] = 'B';
 						jauge_couleur--;
