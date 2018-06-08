@@ -3,6 +3,8 @@ package onscreen;
 import java.io.File;
 import java.util.Scanner;
 
+//import com.sun.prism.paint.Color;
+
 /*
 Class Map nous permet de représenter la carte de jeu
  */
@@ -14,9 +16,9 @@ public class Map {
     public char color[][];
 
     /*
-     * Constructeur de base créant une carte
-     * Les limites du terrains ( premiere colonne, derniere colonne, premiere ligne, derniere ligne)
-     * sont des murs, le reste sont des case libres (free)
+     * Constructeur de base créant une carte Les limites du terrains ( premiere
+     * colonne, derniere colonne, premiere ligne, derniere ligne) sont des murs, le
+     * reste sont des case libres (free)
      */
     public Map(int n) {
         this.n = n;
@@ -72,6 +74,8 @@ public class Map {
         			this.color[c][l] = 'M';
         		}else if(this.map[c][l].type == 'T') {
         			this.color[c][l] = 'W';
+        		}else if(this.map[c][l].type == 'I') {
+        			this.color[c][l] = 'I';
         		}
         	}
         }
@@ -79,8 +83,9 @@ public class Map {
     }
 
     /*
-     * Remplissage aléatoire de la carte, la carte est rempli d'un pourcentage de mur
-     * Remarque ici aucun test n'est réalisé pour vérifier que les tanks ne soient bloqué
+     * Remplissage aléatoire de la carte, la carte est rempli d'un pourcentage de
+     * mur Remarque ici aucun test n'est réalisé pour vérifier que les tanks ne
+     * soient bloqué
      */
     public Map(int n, int percentage) {
         this.n = n;
@@ -108,44 +113,48 @@ public class Map {
             this.insert(new Entity('W', i, j));
     }
 
-    //retourn vrai si la case (i,j) est de type 'F' (free)
+    // retourn vrai si la case (i,j) est de type 'F' (free)
     public boolean isfree(int i, int j) {
         return this.map[i][j].type == 'F';
     }
 
-    //retourn vrai si la case (i,j) est de type 'B' (bonus)
+    // retourn vrai si la case (i,j) est de type 'B' (bonus)
     public boolean isbonus(int i, int j) {
         return this.map[i][j].type == 'I';
     }
 
-    //insere une case de type 'F' (free) à l'emplacement (i,j)
+    public boolean isbullet(int i, int j) {
+        return this.map[i][j].type == 'B';
+    }
+
+    // insere une case de type 'F' (free) à l'emplacement (i,j)
     public void free(int i, int j) {
         this.insert(new Entity('F', i, j));
     }
-    
-    //Place l'entité e dans la map en fonction de ces coordonné (contenu dans e)
+
+    // Place l'entité e dans la map en fonction de ces coordonné (contenu dans e)
     public void insert(Entity e) {
         map[e.p.i][e.p.j] = e;
     }
-    
-	public boolean ismine(int i, int j) {
-		return this.map[i][j].type == 'M';
-	}
-    
-    public boolean insertMineOK(Entity e) {
-		switch (e.dir) {
-			case 'D':
-				return isfree(e.p.i-1,e.p.j);
-			case 'L':
-				return isfree(e.p.i,e.p.j+1);
-			case 'R':
-				return isfree(e.p.i,e.p.j-1);
-			default:
-				return isfree(e.p.i+1,e.p.j);
-		}
-	}
 
-    //affichage dans la console
+    public boolean ismine(int i, int j) {
+        return this.map[i][j].type == 'M';
+    }
+
+    public boolean insertMineOK(Entity e) {
+        switch (e.dir) {
+        case 'D':
+            return isfree(e.p.i - 1, e.p.j);
+        case 'L':
+            return isfree(e.p.i, e.p.j + 1);
+        case 'R':
+            return isfree(e.p.i, e.p.j - 1);
+        default:
+            return isfree(e.p.i + 1, e.p.j);
+        }
+    }
+
+    // affichage dans la console
     public void print() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -170,5 +179,31 @@ public class Map {
             }
             System.out.print("\n");
         }
+    }
+    
+    public int scorebleu() {
+    	int nb_bleu = 0;
+    	for(int i=0; i<n ;i++) {
+    		for(int j=0; j<n ; j++) {
+    			if(color[i][j]=='B') {
+    				nb_bleu ++;
+    			}
+    		}
+    	}
+    	return nb_bleu;
+    	
+    }
+    
+    public int scorerouge() {
+    	int nb_rouge = 0;
+    	for(int i=0; i<n ;i++) {
+    		for(int j=0; j<n ; j++) {
+    			if(color[i][j]=='R') {
+    				nb_rouge ++;
+    			}
+    		}
+    	}
+    	return nb_rouge;
+    	
     }
 }

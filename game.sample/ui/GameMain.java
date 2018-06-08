@@ -22,37 +22,38 @@ import framework.*;
 import onscreen.*;
 
 public class GameMain {
+	
+  public static void main(String[] args) {
 
-	public static void main(String[] args) {
+    // construct the game elements: model, controller, and view.
+  	//initialisation aléatoire
+  	//Map m = new Map(30,50);
+  	//initialisation avec un fichier text
+  	Map m = new Map("game.sample/onscreen/map_test.txt");
+    Model model = new Model(m);
+    Controller controller = new Controller(model);
+    View view = new View(model,controller);
 
-		// construct the game elements: model, controller, and view.
-		// initialisation aléatoire
-		// Map m = new Map(30,50);
-		// initialisation avec un fichier text
-		Map m = new Map("game.sample/onscreen/map_test.txt");
-		Model model = new Model(m);
-		Controller controller = new Controller(model);
-		View view = new View(model, controller);
+  //récuperer la dimension de l'écran
+  //  Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
+ 
+    Dimension d = new Dimension(1447, 1024);
+    new GameUI(model,view,controller,d);
+    
+    // notice that the main thread will exit here,
+    // but not your program... hence the hooking
+    // of the window events to System.exit(0) when
+    // the window is closed. See class WindowListener.
 
-		// récuperer la dimension de l'écran
-		// Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
-
-		Dimension d = new Dimension(1024, 1024);
-		new GameUI(model, view, controller, d);
-
-		// notice that the main thread will exit here,
-		// but not your program... hence the hooking
-		// of the window events to System.exit(0) when
-		// the window is closed. See class WindowListener.
-
-		/*
-		 * *** WARNING *** WARNING *** WARNING *** WARNING *** If you do something here,
-		 * on this "main" thread, you will have parallelism and thus race conditions.
-		 * 
-		 * ONLY FOR ADVANCED DEVELOPERS
-		 * 
-		 * *** WARNING *** WARNING *** WARNING *** WARNING ***
-		 */
-		return;
-	}
+    /*
+     * *** WARNING *** WARNING *** WARNING *** WARNING ***
+     * If you do something here, on this "main" thread,
+     * you will have parallelism and thus race conditions.
+     * 
+     *           ONLY FOR ADVANCED DEVELOPERS
+     *           
+     * *** WARNING *** WARNING *** WARNING *** WARNING ***
+     */
+    return;
+  }
 }

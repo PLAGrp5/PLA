@@ -18,6 +18,8 @@
 package framework;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -31,6 +33,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
+import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.Timer;
 
 //import framework.GameUI.STATE;
@@ -82,6 +87,7 @@ public class GameUI implements ActionListener{
 	protected Help help;
 	protected Pause pause;
 	protected GameOver over;
+  
 	
 	public enum STATE {
 		Menu, Game, Help, Pause, Over
@@ -286,6 +292,60 @@ public class GameUI implements ActionListener{
 		m_fps = fps;
 		m_msg = msg;
 	}
+  
+  public void drawPLayer1Panel(int PV, int peinture, int score) {
+	  JPanel pan = new JPanel(new GridLayout(5,3));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Joueur 1"));
+	  pan.add(new JLabel(""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+	  pan.add(new JLabel(""+PV+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+	  pan.add(new JLabel(""+peinture+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Score :"));
+	  pan.add(new JLabel(""+score+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Inventaire :"));
+	  pan.add(new JLabel(""));
+	  
+	  pan.setBackground(Color.cyan);
+	  addWest(pan);
+  }
+
+  public void drawPLayer2Panel(int PV, int peinture, int score) {
+	  JPanel pan = new JPanel(new GridLayout(5,3));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Joueur 2"));
+	  pan.add(new JLabel(""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+	  pan.add(new JLabel(""+PV+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
+	  pan.add(new JLabel(""+peinture+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Score :"));
+	  pan.add(new JLabel(""+score+""));
+	  
+	  pan.add(new JLabel(""));
+	  pan.add(new JLabel("Inventaire :"));
+	  pan.add(new JLabel(""));
+	  
+	  pan.setBackground(Color.orange);
+	  addEast(pan);
+  }
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
