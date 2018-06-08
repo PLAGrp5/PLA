@@ -23,7 +23,9 @@ public class Menu {
 	JPanel controlPanel;
 	GameUI g_ui;
 	final JFileChooser fc = new JFileChooser();
-	ImageIcon imageicon = new ImageIcon("game.sample/sprites/fond.jpg");
+	ImageIcon imageicon = new ImageIcon("game.sample/sprites/landscape.jpg");
+	// L'image de fond est issue du site https://pixabay.com qui est une banque
+	// d'images libre de droits
 	Image image = imageicon.getImage();
 	public Menu(GameUI g) {
 		g_ui = g;
@@ -64,10 +66,15 @@ public class Menu {
 
 	public void showEvent() {
 
-		JButton StartButton = new JButton("START");
-		JButton HelpButton = new JButton("Règles et commandes");
-		JButton ExitButton = new JButton("EXIT");
-		JButton OpenButton = new JButton("OPEN");
+		MyButton StartButton = new MyButton("START", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+	//	JButton StartButton = new JButton("START");
+		MyButton HelpButton = new MyButton("HELP", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+		MyButton ExitButton = new MyButton("EXIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+		MyButton OpenButton = new MyButton("OPEN", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+
+	//	JButton HelpButton = new JButton("Règles et commandes");
+	//	JButton ExitButton = new JButton("EXIT");
+	//	JButton OpenButton = new JButton("OPEN");
 
 		StartButton.setActionCommand("START");
 		HelpButton.setActionCommand("HELP");
@@ -85,7 +92,9 @@ public class Menu {
 		ExitButton.setPreferredSize(new Dimension(350, 100));
 		
 		JLabel label = new JLabel(); // Création d'un JLabel contenant le logo du jeu
-		label.setIcon(new ImageIcon("game.sample/sprites/logo.png")); // Image du logo	
+		label.setIcon(new ImageIcon("game.sample/sprites/gitank.png")); // Image du logo
+		// Logo créé sur le site web https://cooltext.com
+		// Il est écrit que l'on peut utiliser les images créées sur leur site.
 		label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER); // Centrer le logo
 		
 		// On est obligé de créer un label pour chaque bouton afin de pouvoir les redimensionner
