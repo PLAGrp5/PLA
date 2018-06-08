@@ -93,7 +93,7 @@ public class GameUI implements ActionListener{
   
 	
 	public enum STATE {
-		Menu, Game, Help, Pause, Over
+		Menu, Game, Help, Pause, Over, Credit
 	};
 
 	public STATE state = STATE.Menu;
