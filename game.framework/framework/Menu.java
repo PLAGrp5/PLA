@@ -1,7 +1,5 @@
 package framework;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -19,14 +17,9 @@ import framework.GameUI.*;
 public class Menu {
 
 	JFrame menuFrame;
-	JLabel headerLabel;
 	JPanel controlPanel;
 	GameUI g_ui;
 	final JFileChooser fc = new JFileChooser();
-	ImageIcon imageicon = new ImageIcon("game.sample/sprites/landscape.jpg");
-	// L'image de fond est issue du site https://pixabay.com qui est une banque
-	// d'images libre de droits
-	Image image = imageicon.getImage();
 
 	public Menu(GameUI g) {
 		g_ui = g;
@@ -50,6 +43,11 @@ public class Menu {
 				System.exit(0);
 			}
 		});
+// Gestion image de fond
+		ImageIcon imageicon = new ImageIcon("game.sample/sprites/landscape.jpg");
+		// L'image de fond est issue du site https://pixabay.com qui est une banque
+		// d'images libre de droits
+		Image image = imageicon.getImage();
 
 		controlPanel = new JPanel() {
 			@Override
@@ -67,20 +65,17 @@ public class Menu {
 	public void showEvent() {
 
 		MyButton StartButton = new MyButton("START", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
-		// JButton StartButton = new JButton("START");
 		MyButton HelpButton = new MyButton("HELP", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 		MyButton ExitButton = new MyButton("EXIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 		MyButton OpenButton = new MyButton("OPEN", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 		MyButton CreditButton = new MyButton("CREDIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 
-		// JButton HelpButton = new JButton("Règles et commandes");
-		// JButton ExitButton = new JButton("EXIT");
-		// JButton OpenButton = new JButton("OPEN");
 
 		StartButton.setActionCommand("START");
 		HelpButton.setActionCommand("HELP");
 		ExitButton.setActionCommand("EXIT");
 		OpenButton.setActionCommand("OPEN");
+		CreditButton.setActionCommand("CREDIT");
 
 		StartButton.addActionListener(new ButtonClickListener());
 		HelpButton.addActionListener(new ButtonClickListener());

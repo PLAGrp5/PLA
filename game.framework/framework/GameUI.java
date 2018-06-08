@@ -90,6 +90,7 @@ public class GameUI implements ActionListener{
 	protected Help help;
 	protected Pause pause;
 	protected GameOver over;
+	protected Credit credit;
   
 	
 	public enum STATE {
@@ -217,6 +218,9 @@ public class GameUI implements ActionListener{
 		} else if (state == STATE.Menu) {
 			menu = new Menu(this);
 			menu.showEvent();
+		} else if (state == STATE.Credit) {
+			credit = new Credit(this);
+			credit.showEvent();
 		} else if (state == STATE.Help) {
 			help = new Help(this);
 			help.showEvent();
