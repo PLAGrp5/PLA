@@ -60,6 +60,10 @@ public class View extends GameView {
 	protected void _paint(Graphics g) {
 		computeFPS();
 		// erase background
+		
+		m_game.drawPLayer1Panel(m_model.t4.vie, m_model.t4.jauge_couleur, m_model.m.scorebleu());
+		m_game.drawPLayer2Panel(m_model.t2.vie, m_model.t2.jauge_couleur, m_model.m.scorerouge());
+		
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		int rectWidth = 32;
@@ -72,15 +76,6 @@ public class View extends GameView {
 		 * getWidth(), i * rectHeight); } for (int j = 0; j < NBRE_COL; j++) {
 		 * g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight()); }
 		 */
-
-		m_model.t4.paint(g, m_model.t4.dir);
-		m_model.t2.paint(g, m_model.t2.dir);
-		for (int i = 0; i < m_model.nsbire; i++) {
-			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
-		}
-		for (int i = 0; i < m_model.nbullet; i++) {
-			m_model.bullets[i].paint(g, m_model.bullets[i].dir);
-		}	
 		
         //	Parcours de notre tableau color (contenu dans map)
 		for(int k = 0; k < NBRE_ROW; k++) {
@@ -109,17 +104,16 @@ public class View extends GameView {
 			}
 		}
 		// m_model.m.print();
-
-		m_model.t4.paint(g, m_model.t4.dir);
-		m_model.t2.paint(g, m_model.t2.dir);
 		
+    	m_model.t4.paint(g, m_model.t4.dir);
+		m_model.t2.paint(g, m_model.t2.dir);
 		for (int i = 0; i < m_model.nsbire; i++) {
 			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
 		}
 		for (int i = 0; i < m_model.nbullet; i++) {
 			m_model.bullets[i].paint(g, m_model.bullets[i].dir);
-		}
-
+		}	
+    
 		g.setColor(m_line);
 		for (int i = 0; i < NBRE_ROW; i++) {
 			for (int j = 0; j < NBRE_COL; j++) {

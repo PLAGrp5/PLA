@@ -180,4 +180,30 @@ public class Map {
             System.out.print("\n");
         }
     }
+    
+    public int scorebleu() {
+    	int nb_bleu = 0;
+    	for(int i=0; i<n ;i++) {
+    		for(int j=0; j<n ; j++) {
+    			if(color[i][j]=='B') {
+    				nb_bleu ++;
+    			}
+    		}
+    	}
+    	return nb_bleu;
+    	
+    }
+    
+    public int scorerouge() {
+    	int nb_rouge = 0;
+    	for(int i=0; i<n ;i++) {
+    		for(int j=0; j<n ; j++) {
+    			if(color[i][j]=='R') {
+    				nb_rouge ++;
+    			}
+    		}
+    	}
+    	return nb_rouge;
+    	
+    }
 }
