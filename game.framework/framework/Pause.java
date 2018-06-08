@@ -22,7 +22,7 @@ public class Pause {
 	JPanel controlPanel;
 	GameUI g_ui;
 
-	public Pause (GameUI g) {
+	public Pause(GameUI g) {
 		g_ui = g;
 		prepareGUI();
 	}
@@ -51,17 +51,16 @@ public class Pause {
 	public void showEvent() {
 		headerLabel.setText("Pause");
 		JButton ExitButton = new JButton("EXIT");
-		ExitButton.setActionCommand("EXIT")
-		;
+		ExitButton.setActionCommand("EXIT");
 		JButton ResumeButton = new JButton("RESUME");
 		ResumeButton.setActionCommand("RESUME");
-		
+
 		ExitButton.addActionListener(new ButtonClickListener());
 		ResumeButton.addActionListener(new ButtonClickListener());
-		
+
 		controlPanel.add(ExitButton);
 		controlPanel.add(ResumeButton);
-		
+
 		pauseFrame.setVisible(true);
 	}
 
