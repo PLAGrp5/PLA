@@ -34,6 +34,9 @@ public class View extends GameView {
 	Color m_background = Color.white;
 	Color m_line = Color.black;
 	Color colorb = Color.cyan;
+	String vie = "Vie_0";
+	String mine = "mine_0";
+	String sbire = "peintureB";
 	long m_last;
 	int m_npaints;
 	int m_fps;
@@ -61,8 +64,9 @@ public class View extends GameView {
 		computeFPS();
 		// erase background
 		
-		m_game.drawPLayer1Panel(m_model.t4.vie, m_model.t4.jauge_couleur, m_model.m.scorebleu());
-		m_game.drawPLayer2Panel(m_model.t2.vie, m_model.t2.jauge_couleur, m_model.m.scorerouge());
+		
+		m_game.drawPLayer1Panel(m_model.t4, m_model.m.scorebleu(), vie, mine, sbire);
+		m_game.drawPLayer2Panel(m_model.t2, m_model.m.scorerouge(), vie, mine, sbire);
 		
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -90,17 +94,15 @@ public class View extends GameView {
 					g.drawImage(m_model.m_sol, 32 * l, 32 * k, 32, 32, null);
 				}
 				if (m_model.m.color[k][l] == 'B') {
-					g.setColor(Color.cyan);
-					g.fillRect(l * 32, k * 32, 32, 32);
+					g.drawImage(m_model.m_blue, 32 * l, 32 * k, 32, 32, null);
 				}
 				if (m_model.m.color[k][l] == 'R') {
-					g.setColor(Color.orange);
-					g.fillRect(l*32, k*32, 32, 32);
+					g.drawImage(m_model.m_red, 32 * l, 32 * k, 32, 32, null);
 				}
-				else if (m_model.m.map[k][l].type == 'I') {
+				if (m_model.m.map[k][l].type == 'I') {
 					g.drawImage(m_model.m_item, 32 * l, 32 * k, 32, 32, null);
 				}
-				else if (m_model.m.map[k][l].type == 'M') {
+				if (m_model.m.map[k][l].type == 'M') {
 					g.drawImage(m_model.m_mine, 32*l, 32*k, 32, 32, null);
 				}
 			}

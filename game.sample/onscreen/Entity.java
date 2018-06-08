@@ -115,6 +115,22 @@ public class Entity {
 	public boolean inventaireVide() {
 		return this.inventaire[0] == null;
 	}
+	
+	public boolean MineDansInventaire() {
+		for (int i = 0; i < 3; i++)
+			if (this.inventaire[i].type == 'M') {
+				return true;
+			}
+		return false;
+	}
+	
+	public boolean VieDansInventaire() {
+		for (int i = 0; i < 3; i++)
+			if (this.inventaire[i].type == 'V') {
+				return true;
+			}
+		return false;
+	}
 
 	public void updatevie(Model model, int vie) {
 		this.vie += vie;
