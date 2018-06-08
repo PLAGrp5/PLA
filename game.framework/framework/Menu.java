@@ -1,6 +1,7 @@
 package framework;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -28,11 +29,15 @@ public class Menu {
 
 	private void prepareGUI() {
 		menuFrame = new JFrame("Gitank Menu");
+		GridLayout grid = new GridLayout(5, 1);
+		grid.setVgap(20); // Espacement entre deux élément du layout
 		menuFrame.setSize(1024, 1024);
 		menuFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
-		menuFrame.setLayout(new GridLayout(5, 5));
+		menuFrame.setVisible(true);
+		//menuFrame.setLayout(new GridLayout(5, 5));
 
-		headerLabel = new JLabel("", JLabel.CENTER);
+		//headerLabel = new JLabel("", JLabel.CENTER);
+		
 
 		menuFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {
@@ -41,15 +46,16 @@ public class Menu {
 		});
 
 		controlPanel = new JPanel();
-		controlPanel.setLayout(new FlowLayout());
+		controlPanel.setBackground(Color.green);
+		controlPanel.setLayout(grid);
 
-		menuFrame.add(headerLabel);
-		menuFrame.add(controlPanel);
-		menuFrame.setVisible(true);
+		menuFrame.setContentPane(controlPanel);
+		//menuFrame.add(headerLabel);
+		//menuFrame.add(controlPanel);
 	}
 
 	public void showEvent() {
-		headerLabel.setText("Gitank");
+		//headerLabel.setText("Gitank");
 
 		JButton StartButton = new JButton("START");
 		JButton HelpButton = new JButton("HELP");
