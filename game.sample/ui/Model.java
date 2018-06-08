@@ -42,6 +42,8 @@ public class Model extends GameModel {
 	BufferedImage m_mine;
 	BufferedImage m_sol;
 	BufferedImage m_item;
+	BufferedImage m_blue;
+	BufferedImage m_red;
 	public BufferedImage m_bullet;
 	// Cowboy[] m_cowboys;
 	public Map m;
@@ -274,6 +276,21 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-
+		
+		imageFile = new File("game.sample/sprites/blue.png");
+		try {
+			m_blue = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/red.png");
+		try {
+			m_red = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 	}
 }
