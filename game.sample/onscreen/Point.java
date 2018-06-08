@@ -6,23 +6,23 @@ public class Point {
     public int i, j; // abscisse et ordonnée
 
     // Initialisation d'un point sans paramètre
-    Point() {
+    public Point() {
         this.i = 0;
         this.j = 0;
     }
 
     // Initialisation d'un point avec les paramètres (x,y)
-    Point(int i, int j) {
+    public Point(int i, int j) {
         this.i = i;
         this.j = j;
     }
 
-    Point(Point p) {
+    public Point(Point p) {
         i = p.i;
         j = p.j;
     }
 
-    Point nextPoint(char dir) {
+    public Point nextPoint(char dir) {
         Point p1 = new Point(i, j);
         switch (dir) {
         case 'D':
@@ -42,7 +42,7 @@ public class Point {
     }
 
     // modification d'un point par (newx,newy)
-    void translate(int newi, int newj) {
+    public void translate(int newi, int newj) {
         this.i += newi;
         this.j += newj;
     }

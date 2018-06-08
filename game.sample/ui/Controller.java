@@ -28,10 +28,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
+import automate.Hit;
+import automate.Move;
 import framework.*;
 import onscreen.Bullet;
-import onscreen.Hit;
-import onscreen.Move;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -100,19 +100,19 @@ public class Controller extends GameController implements ActionListener {
 		// move Joueur 1
 		case 'Z':
 		case 'z':
-			m_model.t2.step(m_model.m, 'U', 'm');
+			m_model.t2.move(m_model.m, 'U', 'm');
 			break;
 		case 'Q':
 		case 'q':
-			m_model.t2.step(m_model.m, 'L', 'm');
+			m_model.t2.move(m_model.m, 'L', 'm');
 			break;
 		case 'D':
 		case 'd':
-			m_model.t2.step(m_model.m, 'R', 'm');
+			m_model.t2.move(m_model.m, 'R', 'm');
 			break;
 		case 'S':
 		case 's':
-			m_model.t2.step(m_model.m, 'D', 'm');
+			m_model.t2.move(m_model.m, 'D', 'm');
 			break;
 		case 'a':
 			m_model.t2.hit(m_model);
@@ -127,25 +127,25 @@ public class Controller extends GameController implements ActionListener {
 		// Pop Joueur 1
 		case 'w':
 		case 'W':
-			m_model.t2.step(m_model.m, 'U', 'p');
+			m_model.t2.move(m_model.m, 'U', 'p');
 			break;
 
 		// Wizz Joueur 1
 		case 'x':
 		case 'X':
-			m_model.t2.step(m_model.m, 'U', 'w');
+			m_model.t2.move(m_model.m, 'U', 'w');
 			break;
 
 		// Pop Joueur 2
 		case 'l':
 		case 'L':
-			m_model.t4.step(m_model.m, 'U', 'p');
+			m_model.t4.move(m_model.m, 'U', 'p');
 			break;
 
 		// Wizz Joueur 2
 		case 'm':
 		case 'M':
-			m_model.t4.step(m_model.m, 'U', 'w');
+			m_model.t4.move(m_model.m, 'U', 'w');
 			break;
 
 		default:
@@ -154,16 +154,16 @@ public class Controller extends GameController implements ActionListener {
 		switch (e.getKeyCode()) {
 		// Move Joueur 2
 		case 37:
-			m_model.t4.step(m_model.m, 'L', 'm');
+			m_model.t4.move(m_model.m, 'L', 'm');
 			break;
 		case 38:
-			m_model.t4.step(m_model.m, 'U', 'm');
+			m_model.t4.move(m_model.m, 'U', 'm');
 			break;
 		case 39:
-			m_model.t4.step(m_model.m, 'R', 'm');
+			m_model.t4.move(m_model.m, 'R', 'm');
 			break;
 		case 40:
-			m_model.t4.step(m_model.m, 'D', 'm');
+			m_model.t4.move(m_model.m, 'D', 'm');
 			break;
 		case 96:
 			m_model.t4.hit(m_model);

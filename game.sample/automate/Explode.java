@@ -1,5 +1,7 @@
-package onscreen;
+package automate;
 
+import onscreen.Entity;
+import onscreen.Point;
 import ui.*;
 
 /**

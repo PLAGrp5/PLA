@@ -1,4 +1,8 @@
-package onscreen;
+package automate;
+
+import onscreen.Entity;
+import onscreen.Map;
+import onscreen.Sbire;
 
 public class CondFree extends Condition {
 

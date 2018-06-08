@@ -28,6 +28,15 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import automate.Action;
+import automate.Automate;
+import automate.CondDefault;
+import automate.CondFree;
+import automate.Condition;
+import automate.Move;
+import automate.State;
+import automate.Transition;
+import automate.Turn;
 import framework.*;
 import onscreen.*;
 

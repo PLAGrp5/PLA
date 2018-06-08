@@ -1,5 +1,7 @@
-package onscreen;
+package automate;
 
+import onscreen.Entity;
+import onscreen.Map;
 import ui.*;
 /*
  * c'est une classe mère englobant toutes les actions

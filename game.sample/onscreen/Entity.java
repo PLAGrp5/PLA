@@ -5,6 +5,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import automate.Automate;
+import automate.Explode;
+import automate.Hit;
+import automate.State;
+
 /*
  * Classe permettant de modéliser toutes les identités du jeu
 */
@@ -15,7 +20,7 @@ public class Entity {
 	public char type;
 	float m_scale;
 	BufferedImage m_sprite;
-	Map m_map;
+	public Map m_map;
 	public long m_lastMove;
 
 	public Automate comport_bonus;

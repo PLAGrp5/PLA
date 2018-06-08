@@ -1,6 +1,13 @@
-package onscreen;
+package automate;
 
 import java.awt.Color;
+
+import onscreen.Entity;
+import onscreen.Map;
+import onscreen.Mine;
+import onscreen.Point;
+import onscreen.Tank;
+import onscreen.Vie;
 
 public class Move extends Action {
 
