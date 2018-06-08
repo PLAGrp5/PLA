@@ -14,10 +14,10 @@ public class Automate {
 	// State courant;
 	public Transition[] t;
 	public Model model;
+	public State init;
 
 	public Automate(State e, Transition[] t) {
-		// courant = e;
-
+		init = e;
 		this.t = t;
 	}
 

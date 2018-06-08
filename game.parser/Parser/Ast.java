@@ -3,6 +3,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+import automate.*;
+
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
  *
  * Constructors of the Abstract Syntax Tree of Game Automata
@@ -35,7 +37,8 @@ public class Ast {
 	}
 	
 	public Object  make() {
-		  return null; // TODO à définir dans la plupart des classes internes ci-dessous.
+		  return this.make(); 
+		  // TODO à définir dans la plupart des classes internes ci-dessous.
 	}
 	
 	public static abstract class Expression extends Ast {}
@@ -49,6 +52,10 @@ public class Ast {
 
 		public String as_tree_son_of(Ast father) {
 			return Dot.terminal_edge(father.id, value);
+		}
+		
+		public String make() {
+			return value;
 		}
 	}
 
@@ -64,6 +71,7 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
+		
 	}
 
 	public static class Variable extends Expression {
@@ -206,6 +214,10 @@ public class Ast {
 		public String tree_edges() {
 			return name.as_tree_son_of(this);
 		}
+		
+		public String make() {
+			return name.make();
+		}
 	}
 
 	public static class AI_Definitions extends Ast {
@@ -234,6 +246,18 @@ public class Ast {
 		public String as_dot_automata() {
 			return Dot.graph("Automata", this.as_tree_node());
 		}
+		
+		public Automate[] make() {
+			Automate[] a = new Automate[10];
+			ListIterator<Automaton> Iter = this.automata.listIterator();
+			int i=0;
+			while (Iter.hasNext()) {
+				Automaton automaton = Iter.next();
+				a[i] = automaton.make();
+				i++;
+			}
+			return a;
+		}
 	}
 
 	public static class Automaton extends Ast {
@@ -259,6 +283,18 @@ public class Ast {
 				output += behaviour.as_tree_son_of(this);
 			}
 			return output;
+		}
+		
+		public Automate make() {
+			ListIterator<Behaviour> Iter = this.behaviours.listIterator();
+			automate.Transition[] trans;
+			int i=0;
+			while (Iter.hasNext()) {
+				Behaviour behaviour = Iter.next();
+				behaviour.make(trans, i);
+			}
+			automate.State e = new automate.State(entry.make());
+			return new Automate(e, trans);
 		}
 	}
 

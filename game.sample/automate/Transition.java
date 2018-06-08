@@ -13,6 +13,8 @@ public class Transition {
 	public Action act;
 	public Condition cond;
 	
+	public Transition() {
+	}
 	
 	public Transition(State sr, State des, Action ac, Condition con) {
 		this.src = sr;

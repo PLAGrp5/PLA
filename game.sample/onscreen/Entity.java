@@ -41,6 +41,12 @@ public class Entity {
 	public String printsbire = "fondpanel";
 	public int nbre_mine = 0;
 	public int nbre_vie = 0;
+	
+	public Entity(char type) {
+		this.type = type;
+		p.i=1;
+		p.j=1;
+	}
 
 	public Entity(char type, int i, int j, char dir) {
 		this.type = type;
