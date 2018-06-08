@@ -78,7 +78,7 @@ public class Entity {
 		else {
 			Point pe = new Point(p);
 			Point p = pe.nextPoint(dir);
-			model.m.map[p.i][p.j].updatevie(-1);
+			model.m.map[p.i][p.j].updatevie(model, -1);
 		}
 	}
 
@@ -116,7 +116,12 @@ public class Entity {
 		return this.inventaire[0] == null;
 	}
 
-	public void updatevie(int vie) {
+	public void updatevie(Model model, int vie) {
 		this.vie += vie;
+		if (this.vie < 1) {
+			this.vie = 0;
+			if (type != 'W')
+				model.del(this);
+		}
 	}
 }
