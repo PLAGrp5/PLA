@@ -17,11 +17,11 @@ public class Entity {
 	BufferedImage m_sprite;
 	Map m_map;
 	public long m_lastMove;
-	
+
 	public Automate comport_bonus;
 	public boolean aut_bonus;
 	public State courant_bonus;
-	
+
 	public State courant;
 
 	public int vie;
@@ -75,6 +75,11 @@ public class Entity {
 		Hit h = new Hit();
 		if (h.canihit(model, this))
 			new Hit().execute(model, this);
+		else {
+			Point pe = new Point(p);
+			Point p = pe.nextPoint(dir);
+			model.m.map[p.i][p.j].updatevie(model, -1);
+		}
 	}
 
 	public void explode(Model model) {
@@ -109,5 +114,30 @@ public class Entity {
 
 	public boolean inventaireVide() {
 		return this.inventaire[0] == null;
+	}
+	
+	public boolean MineDansInventaire() {
+		for (int i = 0; i < 3; i++)
+			if (this.inventaire[i].type == 'M') {
+				return true;
+			}
+		return false;
+	}
+	
+	public boolean VieDansInventaire() {
+		for (int i = 0; i < 3; i++)
+			if (this.inventaire[i].type == 'V') {
+				return true;
+			}
+		return false;
+	}
+
+	public void updatevie(Model model, int vie) {
+		this.vie += vie;
+		if (this.vie < 1) {
+			this.vie = 0;
+			if (type != 'W')
+				model.del(this);
+		}
 	}
 }

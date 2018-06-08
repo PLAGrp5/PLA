@@ -34,6 +34,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
+
+import onscreen.Tank;
+
 import javax.swing.JPanel;
 
 public class GameUI implements ActionListener{
@@ -285,8 +288,8 @@ public class GameUI implements ActionListener{
 		m_msg = msg;
 	}
   
-  public void drawPLayer1Panel(int PV, int peinture, int score) {
-	  JPanel pan = new JPanel(new GridLayout(5,3));
+  public void drawPLayer1Panel(Tank t, int score, String vie, String mine, String sbire) {
+	  JPanel pan = new JPanel(new GridLayout(6,3));
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel("Joueur 1"));
@@ -294,11 +297,11 @@ public class GameUI implements ActionListener{
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
-	  pan.add(new JLabel(""+PV+""));
+	  pan.add(new JLabel(""+t.vie+""));
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
-	  pan.add(new JLabel(""+peinture+""));
+	  pan.add(new JLabel(""+t.jauge_couleur+""));
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel("Score :"));
@@ -308,12 +311,16 @@ public class GameUI implements ActionListener{
 	  pan.add(new JLabel("Inventaire :"));
 	  pan.add(new JLabel(""));
 	  
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/"+vie+".png")));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/"+mine+".png")));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/"+sbire+".png")));
+	  
 	  pan.setBackground(Color.cyan);
 	  addWest(pan);
   }
 
-  public void drawPLayer2Panel(int PV, int peinture, int score) {
-	  JPanel pan = new JPanel(new GridLayout(5,3));
+  public void drawPLayer2Panel(Tank t, int score, String vie, String mine, String sbire) {
+	  JPanel pan = new JPanel(new GridLayout(6,3));
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel("Joueur 2"));
@@ -321,11 +328,11 @@ public class GameUI implements ActionListener{
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
-	  pan.add(new JLabel(""+PV+""));
+	  pan.add(new JLabel(""+t.vie+""));
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
-	  pan.add(new JLabel(""+peinture+""));
+	  pan.add(new JLabel(""+t.jauge_couleur+""));
 	  
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel("Score :"));
@@ -334,6 +341,10 @@ public class GameUI implements ActionListener{
 	  pan.add(new JLabel(""));
 	  pan.add(new JLabel("Inventaire :"));
 	  pan.add(new JLabel(""));
+	  
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/"+vie+".png")));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/"+mine+".png")));
+	  pan.add(new JLabel(new ImageIcon("game.sample/sprites/"+sbire+".png")));
 	  
 	  pan.setBackground(Color.orange);
 	  addEast(pan);
