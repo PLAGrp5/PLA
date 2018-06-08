@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import automate.Automate;
+
 public class Sbire extends Entity {
 	
 	BufferedImage[] m_sprites;

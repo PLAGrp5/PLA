@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import automate.*;
+
 /* Classe permettant de modéliser les tanks dans le jeu
  */
 public class Tank extends Entity {
@@ -33,7 +35,7 @@ public class Tank extends Entity {
 	 * Réalise l'action du tank Step est appelé depuis le controller en fonction des
 	 * touches enfoncé
 	 */
-	public void step(Map m, char dir, char type_action) {
+	public void move(Map m, char dir, char type_action) {
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;
 		if (elapsed > 100L) {

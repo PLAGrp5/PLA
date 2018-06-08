@@ -1,4 +1,6 @@
-package onscreen;
+package automate;
+
+import onscreen.Entity;
 
 public class Turn extends Action{
 

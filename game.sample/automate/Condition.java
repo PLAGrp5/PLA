@@ -1,7 +1,11 @@
-package onscreen;
+package automate;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import onscreen.Entity;
+import onscreen.Map;
+
 import java.lang.Object;
 
 public abstract class Condition {
