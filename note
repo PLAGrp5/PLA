@@ -1,0 +1,70 @@
+Présentation générale -> Jeu en 2D vue de dessus style Pac-man
+1vs1 ~~  -> 2 joueurs adverses
+barre de vie et peinture : détails, peut etre à enlever
+But du jeu : - peindre la plus grande surface avant la fin du temps imparti
+Bonus/Malus : modifie le comportement du joueur
+Ne pas parler d'automate ici
+
+
+Le tank colorie à chaque déplacement (enlever le pop)
+
+
+
+La vie du tank
+Parler que du tank et ajouter : les tanks sont controlés au clavier
+Expliquer PV
+Ne pas faire deux colonnes, les coller
+Faire tout verbe ou GN et pas les deux
+Enlever dernière ligne
+
+La vie des sbires
+Ajouter : les sbires sont controlés par des IA
+Supprimer ce transparent
+
+
+Les regles du jeu : les items
+Changer : comportement prédéfinis dans le jeu
+Soit verbe soit GN et pas les deux
+comportement chargés par des automatiques au lancement du jeu
+Peut etre faire 2 transparents : séparer comportements fixes et IA
+
+
+Représentation des données
+Point : ajouter coordonnées
+Tous les éléments du jeu sont des entités
+Type : tank, sbire, mur, ...
+Ajouter partie Carte : adaptée à la taille de l'écran ? Elle a des bords ?
+
+Automates/Clavier
+Pas parler des booleans
+Enlever la partie clavier car too obvious
+Augmenter partie automate : 200 ms -> temps minimum entre 2 actions
+	(peut etre laisser le choix du temps de rafraichissement au player)
+	->  Choix de difficulté
+
+
+Schéma : L'ordre est bizarre
+
+
+revoir le fait de dupliquer l'automate pour chaque entité.
+Beaucoup trop gourmand.
+Question : Est-ce que l'automate est copié ou il y a un  automate partagé ?
+
+
+
+Nouvelle diapo : changement de comportement
+Comment on fait ? Liste ?
+Bonus : 4 tours avec un comportement automate puis retour à la normale
+
+Planning de développement
+Interpretteur -> génération de l'automate
+Coloration -> Action de colorier
+Vie -> Gestion de la vie
+
+Contrat : 
+Résumé des fonctionnalités du jeu
+
+Extensions :
+Ne pas proposer quelque chose qui parait difficile
+-> Ne pas proposer l'adaptation à la résolution
+
