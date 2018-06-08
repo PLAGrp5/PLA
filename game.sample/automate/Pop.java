@@ -1,6 +1,9 @@
-package onscreen;
+package automate;
 
 import java.awt.Color;
+
+import onscreen.Entity;
+import onscreen.Map;
 
 public class Pop extends Action {
 

@@ -30,6 +30,18 @@ public class Mine extends BonusEtMalusFixes {
 			for (i = 0; i < 2; i++)
 				ent.inventaire[i] = ent.inventaire[i + 1];
 			ent.inventaire[i] = null;
+			ent.nbre_mine--;
+			if (ent.nbre_mine == 0) {
+				ent.printmine = "mine_0";
+			}
+			else if(ent.inventaire[0].type == 'V') {
+				ent.printvie = "Vie_1";
+				ent.printmine = "mine";
+			}
+			else if(ent.inventaire[0].type == 'M') {
+				ent.printmine = "mine_1";
+				ent.printvie = "Vie";
+			}
 			System.out.println("MINE POSÉE");
 		}
 	}

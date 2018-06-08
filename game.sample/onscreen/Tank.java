@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import automate.*;
+
 /* Classe permettant de modéliser les tanks dans le jeu
  */
 public class Tank extends Entity {
@@ -33,7 +35,7 @@ public class Tank extends Entity {
 	 * Réalise l'action du tank Step est appelé depuis le controller en fonction des
 	 * touches enfoncé
 	 */
-	public void step(Map m, char dir, char type_action) {
+	public void move(Map m, char dir, char type_action) {
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;
 		if (elapsed > 100L) {
@@ -56,7 +58,7 @@ public class Tank extends Entity {
 					}
 				}
 			}
-			
+
 			if (aut_bonus) {
 				comport_bonus.step(this);
 			} else {
@@ -67,21 +69,21 @@ public class Tank extends Entity {
 					a = new Wizz();
 				} else { // if(type_action == 'm')
 					switch (dir) {
-						case 'U':
-							a = new Move('U', m_map);
-							break;
-						case 'D':
-							a = new Move('D', m_map);
-							break;
-						case 'L':
-							a = new Move('L', m_map);
-							break;
-						case 'R':
-							a = new Move('R', m_map);
-							break;
-						default:
-							a = new Move('U', m_map);
-							break;
+					case 'U':
+						a = new Move('U', m_map);
+						break;
+					case 'D':
+						a = new Move('D', m_map);
+						break;
+					case 'L':
+						a = new Move('L', m_map);
+						break;
+					case 'R':
+						a = new Move('R', m_map);
+						break;
+					default:
+						a = new Move('U', m_map);
+						break;
 					}
 				}
 				a.execute(this);
@@ -104,20 +106,20 @@ public class Tank extends Entity {
 	public void paint(Graphics g, char dir) {
 		Image img;
 		switch (dir) {
-			case 'U':
-				img = m_sprites[1];
-				break;
-			case 'D':
-				img = m_sprites[3];
-				break;
-			case 'L':
-				img = m_sprites[0];
-				break;
-			case 'R':
-				img = m_sprites[2];
-				break;
-			default:
-				img = m_sprites[0];
+		case 'U':
+			img = m_sprites[1];
+			break;
+		case 'D':
+			img = m_sprites[3];
+			break;
+		case 'L':
+			img = m_sprites[0];
+			break;
+		case 'R':
+			img = m_sprites[2];
+			break;
+		default:
+			img = m_sprites[0];
 		}
 		int w = (int) (m_scale * 32);
 		int h = (int) (m_scale * 32);

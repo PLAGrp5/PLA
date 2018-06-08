@@ -1,5 +1,8 @@
-package onscreen;
+package automate;
 
+import onscreen.Bullet;
+import onscreen.Entity;
+import onscreen.Point;
 import ui.*;
 
 public class Hit extends Action {

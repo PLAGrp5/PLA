@@ -5,6 +5,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import automate.Automate;
+import automate.Explode;
+import automate.Hit;
+import automate.State;
+
 /*
  * Classe permettant de modéliser toutes les identités du jeu
 */
@@ -15,7 +20,7 @@ public class Entity {
 	public char type;
 	float m_scale;
 	BufferedImage m_sprite;
-	Map m_map;
+	public Map m_map;
 	public long m_lastMove;
 
 	public Automate comport_bonus;
@@ -30,6 +35,12 @@ public class Entity {
 	public int jauge_couleur;
 	public int lastj, lasti;
 	public Color m_tank;
+
+	public String printvie = "Vie_0";
+	public String printmine = "mine_0";
+	public String printsbire = "fondpanel";
+	public int nbre_mine = 0;
+	public int nbre_vie = 0;
 
 	public Entity(char type, int i, int j, char dir) {
 		this.type = type;
@@ -114,22 +125,6 @@ public class Entity {
 
 	public boolean inventaireVide() {
 		return this.inventaire[0] == null;
-	}
-	
-	public boolean MineDansInventaire() {
-		for (int i = 0; i < 3; i++)
-			if (this.inventaire[i].type == 'M') {
-				return true;
-			}
-		return false;
-	}
-	
-	public boolean VieDansInventaire() {
-		for (int i = 0; i < 3; i++)
-			if (this.inventaire[i].type == 'V') {
-				return true;
-			}
-		return false;
 	}
 
 	public void updatevie(Model model, int vie) {

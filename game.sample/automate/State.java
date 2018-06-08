@@ -1,4 +1,4 @@
-package onscreen;
+package automate;
 
 /*
  * Type d'un etat (chaine de caractere)
