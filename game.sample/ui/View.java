@@ -60,70 +60,71 @@ public class View extends GameView {
 	protected void _paint(Graphics g) {
 		computeFPS();
 		// erase background
+		
+		m_game.drawPLayer1Panel(m_model.t4.vie, m_model.t4.jauge_couleur, m_model.m.scorebleu());
+		m_game.drawPLayer2Panel(m_model.t2.vie, m_model.t2.jauge_couleur, m_model.m.scorerouge());
+		
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		int rectWidth = 32;
 		int rectHeight = 32;
 
-		/*g.setColor(m_line);
-		
+		/*
+		 * g.setColor(m_line);
+		 * 
 		 * for (int i = 0; i < NBRE_ROW; i++) { g.drawLine(0, i * rectHeight,
 		 * getWidth(), i * rectHeight); } for (int j = 0; j < NBRE_COL; j++) {
 		 * g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight()); }
 		 */
 		
-		m_model.t4.paint(g, m_model.t4.dir);
-		m_model.t2.paint(g, m_model.t2.dir);
-		for (int i = 0; i < 2; i++) {
-			m_model.ent[i].paint(g, m_model.ent[i].dir);
-		}
-		
-		
         //	Parcours de notre tableau color (contenu dans map)
 		for(int k = 0; k < NBRE_ROW; k++) {
 			for (int l = 0; l < NBRE_COL; l++) {
-				
+
 				// Pour chaque case on colorie avec la texture associé
-				
-				if (m_model.m.color[k][l] == 'M') {
-					g.drawImage(m_model.m_mur, 32*l,32*k,32,32,null);
+
+				if (m_model.m.color[k][l] == 'W') {
+					g.drawImage(m_model.m_mur, 32 * l, 32 * k, 32, 32, null);
+				}
+				if (m_model.m.color[k][l] == 'F') {
+					g.drawImage(m_model.m_sol, 32 * l, 32 * k, 32, 32, null);
 				}
 				if (m_model.m.color[k][l] == 'B') {
 					g.setColor(Color.cyan);
-					g.fillRect(l*32, k*32, 32, 32);
+					g.fillRect(l * 32, k * 32, 32, 32);
 				}
 				if (m_model.m.color[k][l] == 'R') {
 					g.setColor(Color.orange);
 					g.fillRect(l*32, k*32, 32, 32);
 				}
 				else if (m_model.m.map[k][l].type == 'I') {
-					g.setColor(Color.red);
-			    g.fillRect(l*32, k*32, 32, 32);
+					g.drawImage(m_model.m_item, 32 * l, 32 * k, 32, 32, null);
 				}
 				else if (m_model.m.map[k][l].type == 'M') {
 					g.drawImage(m_model.m_mine, 32*l, 32*k, 32, 32, null);
 				}
 			}
 		}
-		//m_model.m.print();
+		// m_model.m.print();
 		
-		m_model.t4.paint(g, m_model.t4.dir);
+    	m_model.t4.paint(g, m_model.t4.dir);
 		m_model.t2.paint(g, m_model.t2.dir);
-		
-		for (int i = 0; i < m_model.nent; i++) {
-			m_model.ent[i].paint(g, m_model.ent[i].dir);
+		for (int i = 0; i < m_model.nsbire; i++) {
+			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
 		}
-
-		
-		g.setColor(m_line);
+		for (int i = 0; i < m_model.nbullet; i++) {
+			m_model.bullets[i].paint(g, m_model.bullets[i].dir);
+		}	
+    
+		/*g.setColor(m_line);
 		for (int i = 0; i < NBRE_ROW; i++) {
 			for (int j = 0; j < NBRE_COL; j++) {
 				g.drawRect(i * 32, j * 32, 32, 32);
 				/*
 				 * if (i == j) { g.fillRect(i*32, j*32, 32, 32); }
 				 */
-			}
-		}
+			//}
+		//}
 	}
 
 }

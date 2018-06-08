@@ -22,8 +22,8 @@ public class Point {
         j = p.j;
     }
 
-    Point nextPoint(Point p, char dir) {
-        Point p1 = new Point(p);
+    Point nextPoint(char dir) {
+        Point p1 = new Point(i, j);
         switch (dir) {
         case 'D':
             p1.i++;

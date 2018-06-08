@@ -61,8 +61,7 @@ public class Controller extends GameController implements ActionListener {
 	/**
 	 * Simulation step. Warning: the model has already executed its step.
 	 * 
-	 * @param now
-	 *            is the current time in milliseconds.
+	 * @param now is the current time in milliseconds.
 	 */
 	@Override
 	public void step(long now) {
@@ -100,28 +99,23 @@ public class Controller extends GameController implements ActionListener {
 		switch (e.getKeyChar()) {
 		// move Joueur 1
 		case 'Z':
-			m_model.t2.step(m_model.m, 'U', 'm');
-			break;
 		case 'z':
 			m_model.t2.step(m_model.m, 'U', 'm');
 			break;
 		case 'Q':
-			m_model.t2.step(m_model.m, 'L', 'm');
-			break;
 		case 'q':
 			m_model.t2.step(m_model.m, 'L', 'm');
 			break;
 		case 'D':
-			m_model.t2.step(m_model.m, 'R', 'm');
-			break;
 		case 'd':
 			m_model.t2.step(m_model.m, 'R', 'm');
 			break;
 		case 'S':
-			m_model.t2.step(m_model.m, 'D', 'm');
-			break;
 		case 's':
 			m_model.t2.step(m_model.m, 'D', 'm');
+			break;
+		case 'a':
+			m_model.t2.hit(m_model);
 			break;
 		case 8:
 			if (!(m_model.t2.inventaireVide()))
@@ -132,32 +126,24 @@ public class Controller extends GameController implements ActionListener {
 
 		// Pop Joueur 1
 		case 'w':
-			m_model.t2.step(m_model.m, 'U', 'p');
-			break;
 		case 'W':
 			m_model.t2.step(m_model.m, 'U', 'p');
 			break;
 
 		// Wizz Joueur 1
 		case 'x':
-			m_model.t2.step(m_model.m, 'U', 'w');
-			break;
 		case 'X':
 			m_model.t2.step(m_model.m, 'U', 'w');
 			break;
 
 		// Pop Joueur 2
 		case 'l':
-			m_model.t4.step(m_model.m, 'U', 'p');
-			break;
 		case 'L':
 			m_model.t4.step(m_model.m, 'U', 'p');
 			break;
 
 		// Wizz Joueur 2
 		case 'm':
-			m_model.t4.step(m_model.m, 'U', 'w');
-			break;
 		case 'M':
 			m_model.t4.step(m_model.m, 'U', 'w');
 			break;

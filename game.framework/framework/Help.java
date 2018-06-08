@@ -9,7 +9,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,7 +22,6 @@ public class Help {
 	JLabel regleLabel;
 	JPanel controlPanel;
 	GameUI g_ui;
-	final JFileChooser fc = new JFileChooser();
 
 	public Help(GameUI g) {
 		g_ui = g;

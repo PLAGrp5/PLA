@@ -5,6 +5,7 @@ import java.awt.Color;
 public class Move extends Action {
 
 	public Move() {
+		this.dir = 'F';
 	}
 
 	public Move(char dir, Map m) {
@@ -33,9 +34,9 @@ public class Move extends Action {
 			case 'R':
 				p.j++;
 				break;
-			default:
+			case 'U':
 				p.i--;
-				break;
+				break;				
 		}
 		return p;
 	}
@@ -43,21 +44,21 @@ public class Move extends Action {
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
 	// bonus)
 	boolean canimove(Map m, int i, int j) {
-		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j);
+		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j);
 	}
 
 	public void caseBonus(Entity e) {
 		int bonus = (int) (Math.random() * ((1) + 1));
 		switch (bonus) {
-			case 0:
-				Vie v = new Vie();
-				if (!(v.prendre(e)))
-					System.out.println("Inventaire plein");
-				break;
-			case 1:
-				Mine mine = new Mine();
-				if (!(mine.prendre(e)))
-					System.out.println("Inventaire plein");
+		case 0:
+			Vie v = new Vie();
+			if (!(v.prendre(e)))
+				System.out.println("Inventaire plein");
+			break;
+		case 1:
+			Mine mine = new Mine();
+			if (!(mine.prendre(e)))
+				System.out.println("Inventaire plein");
 		}
 	}
 
@@ -67,7 +68,8 @@ public class Move extends Action {
 	}
 
 	public void execute(Entity e) {
-		if (!e.aut) {
+		this.m = e.m_map;
+		if (e instanceof Tank) {
 			/*
 			 * Convention de notre jeu: lorsque le tank n'est pas dans la bonne direction on
 			 * le tourne dans la bonne direction

@@ -15,73 +15,61 @@ import javax.swing.JPanel;
 
 import framework.GameUI.STATE;
 
-public class Pause {
+public class GameOver {
 
-	JFrame pauseFrame;
+	JFrame overFrame;
 	JLabel headerLabel;
 	JPanel controlPanel;
 	GameUI g_ui;
 
-	public Pause (GameUI g) {
+	public GameOver (GameUI g) {
 		g_ui = g;
 		prepareGUI();
 	}
-
-	private void prepareGUI() {
-		pauseFrame = new JFrame("Gitank pause");
-		pauseFrame.setSize(256, 128);
-		pauseFrame.setLayout(new GridLayout(3, 1));
+	
+	public void prepareGUI() {
+		overFrame = new JFrame("Game Over");
+		overFrame.setSize(1024, 1024);
+		overFrame.setLayout(new GridLayout(3, 1));
 
 		headerLabel = new JLabel("", JLabel.CENTER);
 
-		pauseFrame.addWindowListener(new WindowAdapter() {
+		overFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {
 				System.exit(0);
 			}
 		});
-
+		
 		controlPanel = new JPanel();
 		controlPanel.setLayout(new FlowLayout());
 
-		pauseFrame.add(headerLabel);
-		pauseFrame.add(controlPanel);
-		pauseFrame.setVisible(true);
+		overFrame.add(headerLabel);
+		overFrame.add(controlPanel);
+		overFrame.setVisible(true);
 	}
-
+	
 	public void showEvent() {
-		headerLabel.setText("Pause");
+		headerLabel.setText("Game Over");
 		JButton ExitButton = new JButton("EXIT");
-		ExitButton.setActionCommand("EXIT")
-		;
-		JButton ResumeButton = new JButton("RESUME");
-		ResumeButton.setActionCommand("RESUME");
+		ExitButton.setActionCommand("EXIT");
 		
 		ExitButton.addActionListener(new ButtonClickListener());
-		ResumeButton.addActionListener(new ButtonClickListener());
 		
 		controlPanel.add(ExitButton);
-		controlPanel.add(ResumeButton);
 		
-		pauseFrame.setVisible(true);
+		overFrame.setVisible(true);
 	}
-
+	
 	private class ButtonClickListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
 
 			if (command.equals("EXIT")) {
-				g_ui.setState(STATE.Over);
+				g_ui.setState(STATE.Menu);
 				Dimension d = new Dimension(1024, 1024);
-				pauseFrame.dispose();
-				g_ui.m_frame.dispose();
+				overFrame.dispose();
 				g_ui.createWindow(d);
-			} else if (command.equals("RESUME")) {
-				g_ui.setState(STATE.Game);
-				Dimension d = new Dimension(1024, 1024);
-				pauseFrame.dispose();
-				g_ui.createWindow(d);
-				g_ui.resumeTimer();
 			}
 		}
-	}
+	}	
 }
