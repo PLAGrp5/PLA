@@ -3,6 +3,7 @@ package framework;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -30,8 +31,10 @@ public class Help {
 
 	private void prepareGUI() {
 		helpFrame = new JFrame("Gitank Help");
-		helpFrame.setSize(400, 400);
+		helpFrame.setSize(1447, 1024);
 		helpFrame.setLayout(new GridLayout(3, 1));
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		helpFrame.setLocation(dim.width/2-helpFrame.getSize().width/2, dim.height/2-helpFrame.getSize().height/2);
 
 		headerLabel = new JLabel("", JLabel.CENTER);
 		regleLabel = new JLabel();

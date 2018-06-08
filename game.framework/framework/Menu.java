@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -28,9 +29,11 @@ public class Menu {
 
 	private void prepareGUI() {
 		menuFrame = new JFrame("Gitank Menu");
-		menuFrame.setSize(1024, 1024);
+		menuFrame.setSize(1447, 1024);
 		menuFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
 		menuFrame.setLayout(new GridLayout(5, 5));
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		menuFrame.setLocation(dim.width/2-menuFrame.getSize().width/2, dim.height/2-menuFrame.getSize().height/2);
 
 		headerLabel = new JLabel("", JLabel.CENTER);
 
@@ -93,13 +96,11 @@ public class Menu {
 			} else if (command.equals("EXIT")) {
 				System.exit(0);
 			} else if (command.equals("OPEN")) {
-				int returnVal = fc.showOpenDialog(menuFrame);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					java.io.File file = fc.getSelectedFile();
-					
-				} else {
-
-				}
+				g_ui.setState(STATE.Param);
+				Dimension d = new Dimension(1447, 1024);
+				menuFrame.dispose();
+				g_ui.createWindow(d);
+				g_ui.createTimer();
 			}
 		}
 

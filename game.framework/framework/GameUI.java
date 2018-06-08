@@ -35,11 +35,6 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.Timer;
-
-//import framework.GameUI.STATE;
-//import framework.Menu.ButtonClickListener;
 
 public class GameUI implements ActionListener{
 
@@ -87,10 +82,11 @@ public class GameUI implements ActionListener{
 	protected Help help;
 	protected Pause pause;
 	protected GameOver over;
+	protected Parametres param;
   
 	
 	public enum STATE {
-		Menu, Game, Help, Pause, Over
+		Menu, Game, Help, Pause, Over, Param
 	};
 
 	public STATE state = STATE.Menu;
@@ -167,9 +163,6 @@ public class GameUI implements ActionListener{
 			m_frame.pack();
 			m_frame.setLocationRelativeTo(null);
 			
-			//
-			//
-			//
 			JMenuBar jmb = new JMenuBar();
 			JMenu jmFile = new JMenu("Menu");
 		    JMenuItem jmiPause = new JMenuItem("Pause");
@@ -191,10 +184,6 @@ public class GameUI implements ActionListener{
 
 		    m_frame.setJMenuBar(jmb);
 		    m_frame.setVisible(true);
-		    
-		    //
-		    //
-		    //
 	
 			GameController ctr = getController();
 	
@@ -223,6 +212,9 @@ public class GameUI implements ActionListener{
 		} else if (state == STATE.Over) {
 			over = new GameOver(this);
 			over.showEvent();
+		} else if (state == STATE.Param) {
+			param = new Parametres(this);
+			param.showEvent();
 		}
 	}
 
