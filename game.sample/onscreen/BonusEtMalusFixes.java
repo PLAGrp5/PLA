@@ -1,7 +1,7 @@
 package onscreen;
 
 public abstract class BonusEtMalusFixes {
-	char type;
+	public char type;
 	//renvoie false si inventaire plein
 	public boolean prendre(Entity ent) {
 		if (ent.inventaire[0] == null)
