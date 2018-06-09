@@ -54,9 +54,6 @@ public class Sbire extends Entity {
 		case 'S':
 			img = m_sprites[3];
 			break;
-		case 'W':
-			img = m_sprites[0];
-			break;
 		case 'E':
 			img = m_sprites[2];
 			break;

@@ -73,9 +73,6 @@ public class Entity {
 		case 'E':
 			this.dir = 'W';
 			break;
-		case 'N':
-			this.dir = 'S';
-			break;
 		default:
 			this.dir = 'S';
 			break;

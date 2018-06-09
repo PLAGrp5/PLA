@@ -71,9 +71,6 @@ public class Tank extends Entity {
 					a = new Wizz();
 				} else { // if(type_action == 'm')
 					switch (dir) {
-					case 'N':
-						a = new Move(m_model, 'N');
-						break;
 					case 'S':
 						a = new Move(m_model, 'S');
 						break;
@@ -113,9 +110,6 @@ public class Tank extends Entity {
 			break;
 		case 'S':
 			img = m_sprites[3];
-			break;
-		case 'W':
-			img = m_sprites[0];
 			break;
 		case 'E':
 			img = m_sprites[2];

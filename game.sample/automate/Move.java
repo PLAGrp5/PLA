@@ -36,7 +36,7 @@ public class Move extends Action {
 		case 'E':
 			p.j++;
 			break;
-		case 'N':
+		default:
 			p.i--;
 			break;
 		}
