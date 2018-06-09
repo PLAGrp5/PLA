@@ -28,6 +28,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import Parser.*;
 import automate.Action;
 import automate.Automate;
 import automate.CondDefault;
@@ -39,8 +40,8 @@ import automate.Transition;
 import automate.Turn;
 import framework.*;
 import onscreen.*;
-
-public class Model extends GameModel {
+import Parser.*
+;public class Model extends GameModel {
 	// LinkedList<Square> m_squares;
 	// BufferedImage m_cowboySprite;
 	// BufferedImage m_explosionSprite;
@@ -92,7 +93,7 @@ public class Model extends GameModel {
 
 		s = new Sbire(this, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
 
-		State e = new State("1");
+		/*State e = new State("1");
 
 		Condition cond = new CondFree(m);
 		Condition cond1 = new CondDefault(m);
@@ -101,13 +102,15 @@ public class Model extends GameModel {
 		Action act1 = new Turn();
 
 		Transition[] trans = new Transition[2];
-		trans[0] = new Transition(e, e, act, cond);
-		trans[1] = new Transition(e, e, act1, cond1);
+		trans[0] = new Transition( e, act, cond);
+		trans[1] = new Transition(e, act1, cond1);
 
-		Automate a = new Automate(e, trans);
-
-		s.comport = a;
-		s.courant = e;
+		Automate a = new Automate(e, trans);*/
+		
+		Ast a = from_string("test5");
+		
+		s.comport = (Automate) a.make();
+		//s.courant = e;
 		sbires[0] = s;
 
 		t2 = new Tank(this, m_charrougeSprite, 5, 15, 'L', 1F, 30, colort2);
@@ -123,8 +126,8 @@ public class Model extends GameModel {
 		 * act1, cond); Automate a1 = new Automate(e, trans1);
 		 */
 
-		s3.comport = a;
-		s3.courant = e;
+		s3.comport = (Automate) a.make();
+		//s3.courant = e;
 		sbires[1] = s3;
 
 		// Parte test Bullet

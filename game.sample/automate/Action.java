@@ -11,7 +11,6 @@ import ui.*;
 public class Action {
 	char dir;
 	Model model;
-
 	public void execute(Entity e) {
 	}
 }
