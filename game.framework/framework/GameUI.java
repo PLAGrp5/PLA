@@ -262,6 +262,7 @@ public class GameUI implements ActionListener {
 	 */
 	private void tick() {
 		long now = System.currentTimeMillis() - m_start;
+		long tempsrestant = 10000 - now;
 		long elapsed = (now - m_lastTick);
 		m_elapsed += elapsed;
 		m_lastTick = now;
@@ -269,6 +270,13 @@ public class GameUI implements ActionListener {
 		m_model.step(now);
 		m_controller.step(now);
 
+		if(tempsrestant <=0) {
+			setState(STATE.Over);
+			m_frame.dispose();
+			Dimension d = new Dimension(1024, 1024);
+			createWindow(d);
+			stopTimer();
+		}
 		elapsed = now - m_lastRepaint;
 		if (elapsed > Options.REPAINT_DELAY) {
 			double tick = (double) m_elapsed / (double) m_nTicks;
@@ -282,15 +290,30 @@ public class GameUI implements ActionListener {
 			txt = txt + m_fps + " fps   ";
 			while (txt.length() < 25)
 				txt += " ";
-			if (m_msg != null)
-				txt += m_msg;
+			if (m_msg != null) {
+				//txt += m_msg;
+
+			}
 			// System.out.println(txt);
+			while (txt.length() < 150) {
+				txt += " ";
+			}
+			txt = txt + "Temps restant :   " + tempsrestant/1000;
+			while (txt.length() < 250) {
+				txt += " ";
+			}
+			if (m_msg != null) {
+				txt += m_msg;
+
+			}
 			m_text.setText(txt);
 			m_text.repaint();
 			m_view.paint();
 			m_lastRepaint = now;
 		}
+		//System.out.printf("Temps restant : " + tempsrestant/1000 + "\n");
 	}
+
 
 	public void setFPS(int fps, String msg) {
 		m_fps = fps;
