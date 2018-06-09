@@ -11,20 +11,22 @@ import ui.*;
 public class Automate {
 	// Nos automate sont partagé, ainsi ,l'état courant est directement contenu dans
 	// notre entité
-	// State courant;
-	public Transition[] t;
+	
+	//public Transition[] t;
 	public Model model;
 	public State init;
+	public behaviours[] b;
+	public String name;
 
-	public Automate(State e, Transition[] t) {
+	public Automate(String name, State e, behaviours[] t) {
+		this.name = name;
 		init = e;
-		this.t = t;
+		this.b = b;
 	}
 
-	public Automate(Model model, State e, Transition[] t) {
-		// courant = e;
+	public Automate(Model model, State e, behaviours[] t) {
 		this.model = model;
-		this.t = t;
+		this.b = b;
 	}
 
 	/*
@@ -35,7 +37,7 @@ public class Automate {
 	 * est possible)
 	 */
 
-	public void step(Entity e) {
+	/*public void step(Entity e) {
 		e.lasti = e.p.i;
 		e.lastj = e.p.j;
 		Transition[] t_ok = new Transition[t.length];
@@ -61,6 +63,14 @@ public class Automate {
 		} else {
 			t_ok[rand].act.execute(e);
 			e.courant = t_ok[rand].dest;
+		}
+	}*/
+	
+	public void step(Entity e) {
+		int i=0;
+		while(i < b.length) {
+			b[i].eval(e);
+			i++;
 		}
 	}
 }

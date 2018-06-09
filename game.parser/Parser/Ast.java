@@ -12,54 +12,75 @@ import automate.*;
 
 public class Ast {
 
-	/* All this is only for the graphical .dot output of the Abstract Syntax Tree */
-	public String kind; /* the name of the non-terminal node */
-	public int id = Id.fresh(); /* its unique id as a graph node */
+	// All this is only for the graphical .dot output of the Abstract Syntax Tree 
 
-	public String tree_edges() {
-		return "undefined";
+	public String kind; 	// the name of the non-terminal node 
+
+	public int id = Id.fresh(); // a unique id used as a graph node 
+
+	// AST as tree
+	
+	public String dot_id(){ 
+		return Dot.node_id(this.id) ;
 	}
-
+	
 	public String as_tree_son_of(Ast father) {
-		return Dot.edge(father.id, this.id) + as_dot_tree();
+		return Dot.edge(father.dot_id(), this.dot_id()) + this.as_dot_tree() ;
 	}
-
-	public String as_tree_node() {
-		return Dot.non_terminal_node(this.id, this.kind);
-	}
-
+	
 	public String as_dot_tree() {
 		return this.as_tree_node() + this.tree_edges();
 	}
-
-	public String as_dot_automata() {
-		return "undefined";
+	
+	public String as_tree_node() {
+		return Dot.declare_node(this.dot_id(), this.kind, "");
 	}
+	
+	public String tree_edges() {
+		return "undefined: tree_edges" ; 
+	}
+
+	// AST as automata in .dot format
+	
+	public String as_dot_automata() {
+		return "undefined: as_dot_automata";
+	}
+	
+
+	
+	// AST as active automata (interpreter of transitions)
 	
 	public Object  make() {
-		  return this.make(); 
-		  // TODO à définir dans la plupart des classes internes ci-dessous.
+		  return null; // TODO à définir dans la plupart des classes internes ci-dessous.
 	}
 	
-	public static abstract class Expression extends Ast {}
-
 	public static class Terminal extends Ast {
 		String value;
 
 		Terminal(String string) {
+			this.kind = "Terminal" ;
 			this.value = string;
 		}
 
-		public String as_tree_son_of(Ast father) {
-			return Dot.terminal_edge(father.id, value);
+		public String toString() {
+			return value ;
 		}
 		
+		public String tree_edges(){
+			String value_id = Dot.node_id( -this.id) ;
+			return Dot.declare_node( value_id, value, "shape=none, fontsize=10, fontcolor=blue" ) + Dot.edge(this.dot_id(), value_id) ;
+		}
+
 		public String make() {
 			return value;
 		}
 	}
 
-	public static class Constant extends Expression {
+	// Value = Constant U Variable
+	
+	public static abstract class Value extends Ast {}
+
+	public static class Constant extends Value {
 
 		Terminal value;
 
@@ -71,10 +92,9 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
-		
 	}
 
-	public static class Variable extends Expression {
+	public static class Variable extends Value {
 
 		Terminal name;
 
@@ -88,13 +108,27 @@ public class Ast {
 		}
 	}
 
-	public static class Direction extends Expression {
+	// Parameter = Underscore U Key U Direction U Entity 
+	// Parameter are not Expression (no recursion) 
+	
+	public static abstract class Parameter extends Ast {}
 
-		Expression value;
+	public static class Underscore extends Parameter {
+		Underscore(){
+			this.kind = "Any" ;
+		}
+		public String tree_edges() {
+			return "" ;
+		}
+	}
+	
+	public static class Key extends Parameter {
 
-		Direction(Expression expression) {
-			this.kind = "Direction";
-			this.value = expression;
+		Constant value;
+
+		Key(String string) {
+			this.kind = "Key";
+			this.value = new Constant(string);
 		}
 
 		public String tree_edges() {
@@ -102,11 +136,25 @@ public class Ast {
 		}
 	}
 
-	public static class Entity extends Expression {
+	public static class Direction extends Parameter {
 
-		Expression value;
+		Value value;
 
-		Entity(Expression expression) {
+		Direction(Value value) {
+			this.kind = "Direction";
+			this.value = value;
+		}
+
+		public String tree_edges() {
+			return value.as_tree_son_of(this);
+		}
+	}
+
+	public static class Entity extends Parameter {
+
+		Value value;
+
+		Entity(Value expression) {
 			this.kind = "Entity";
 			this.value = expression;
 		}
@@ -114,8 +162,16 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
+
+		public Object make() {
+			return value.make();
+		}
 	}
 
+	// Expression = UnaryOp Expression U  Expression BinaryOp Expression U FunCall(Parameters) 
+	
+	public static abstract class Expression extends Ast {}
+	
 	public static class UnaryOp extends Expression {
 
 		Terminal operator;
@@ -154,9 +210,9 @@ public class Ast {
 	public static class FunCall extends Expression {
 
 		Terminal name;
-		List<Expression> parameters;
+		List<Parameter> parameters;
 
-		FunCall(String name, List<Expression> parameters) {
+		FunCall(String name, List<Parameter> parameters) {
 			this.kind = "FunCall";
 			this.name = new Terminal(name);
 			this.parameters = parameters;
@@ -165,12 +221,23 @@ public class Ast {
 		public String tree_edges() {
 			String output = new String();
 			output += name.as_tree_son_of(this);
-			ListIterator<Expression> Iter = this.parameters.listIterator();
+			ListIterator<Parameter> Iter = this.parameters.listIterator();
 			while (Iter.hasNext()) {
-				Expression expression = Iter.next();
-				output += expression.as_tree_son_of(this);
+				Parameter parameter = Iter.next();
+				output += parameter.as_tree_son_of(this);
 			}
 			return output;
+		}
+
+		public Object make() {
+			switch (name.make()) {
+				case "Move" : 
+					return (Object) new Move();
+				case "Turn" : 
+					return (Object) new Turn();
+				default :
+					return null;
+			}
 		}
 	}
 
@@ -186,6 +253,11 @@ public class Ast {
 		public String tree_edges() {
 			return expression.as_tree_son_of(this);
 		}
+
+		public Object make() {
+			return expression.make();
+		}
+		
 	}
 
 	public static class Action extends Ast {
@@ -199,6 +271,10 @@ public class Ast {
 
 		public String tree_edges() {
 			return expression.as_tree_son_of(this);
+		}
+
+		public Object make() {
+			return expression.make();
 		}
 	}
 
@@ -215,6 +291,14 @@ public class Ast {
 			return name.as_tree_son_of(this);
 		}
 		
+		public String dot_id(Automaton automaton){ 
+			return Dot.name( automaton.id + "." + name.toString() ) ;
+		}
+		
+		public String as_node_of(Automaton automaton){ 
+			return this.dot_id(automaton) + Dot.node_label(name.toString(), "shape=circle, fontsize=4") ;
+		}
+
 		public String make() {
 			return name.make();
 		}
@@ -246,7 +330,7 @@ public class Ast {
 		public String as_dot_automata() {
 			return Dot.graph("Automata", this.as_tree_node());
 		}
-		
+
 		public Automate[] make() {
 			Automate[] a = new Automate[10];
 			ListIterator<Automaton> Iter = this.automata.listIterator();
@@ -285,16 +369,33 @@ public class Ast {
 			return output;
 		}
 		
+	/* HERE 
+		String state_to_instruction(int aut, State state, Behaviour behaviour){
+			String output = new String();
+			output += Dot.dot_edge( state.dot_id(aut) , behaviour.dot_id() ) ;
+			return output ;
+		}
+		instruction_to_state()
+		
+		public String as_dot_automata() {
+			String content = new String();
+			output += Terminal.as_dot_node() ;
+			ouput  += entry.as_state_of(this) ;
+			return Dot.subgraph(this.id, content) ;
+		}
+		*/
+
 		public Automate make() {
 			ListIterator<Behaviour> Iter = this.behaviours.listIterator();
-			automate.Transition[] trans;
+			behaviours[] b = new behaviours[10];
 			int i=0;
 			while (Iter.hasNext()) {
 				Behaviour behaviour = Iter.next();
-				behaviour.make(trans, i);
+				b[i] = behaviour.make();
+				i++;
 			}
 			automate.State e = new automate.State(entry.make());
-			return new Automate(e, trans);
+			return new Automate(name.make(), e, b);
 		}
 	}
 
@@ -319,6 +420,19 @@ public class Ast {
 			}
 			return output;
 		}
+
+		public behaviours make() {
+			automate.State s = new automate.State(source.make());
+			automate.Transition[] t = new automate.Transition[10];
+			int i = 0;
+			ListIterator<Transition> Iter = this.transitions.listIterator();
+			while (Iter.hasNext()) {
+				Transition transition = Iter.next();
+				t[i] = transition.make();
+				i++;
+			}
+			return new behaviours(s, t);
+		}
 	}
 
 	public static class Transition extends Ast {
@@ -336,6 +450,11 @@ public class Ast {
 
 		public String tree_edges() {
 			return condition.as_tree_son_of(this) + action.as_tree_son_of(this) + target.as_tree_son_of(this);
+		}
+
+		public automate.Transition make(){
+			automate.State des = new automate.State(target.make());
+			return new automate.Transition(des, (automate.Action)(action.make()),(automate.Condition) condition.make());
 		}
 	}
 }
