@@ -15,12 +15,12 @@ import automate.State;
 */
 public class Entity {
 
+	public Model m_model;
 	public Point p;
 	public char dir;
 	public char type;
 	float m_scale;
 	BufferedImage m_sprite;
-	public Map m_map;
 	public long m_lastMove;
 
 	public Automate comport_bonus;
@@ -59,8 +59,8 @@ public class Entity {
 		this.p = new Point(i, j);
 	}
 
-	public Entity(Map m, BufferedImage sprite, int x, int y, char dir, float scale) {
-		m_map = m;
+	public Entity(Model model, BufferedImage sprite, int x, int y, char dir, float scale) {
+		m_model = model;
 		m_sprite = sprite;
 		p.i = y;
 		p.j = x;
@@ -88,19 +88,19 @@ public class Entity {
 		}
 	}
 
-	public void hit(Model model) {
+	public void hit() {
 		Hit h = new Hit();
-		if (h.canihit(model, this))
-			new Hit().execute(model, this);
+		if (h.canihit(this))
+			new Hit().execute(this);
 		else {
 			Point pe = new Point(p);
 			Point p = pe.nextPoint(dir);
-			model.m.map[p.i][p.j].updatevie(model, -1);
+			m_model.m.map[p.i][p.j].updatevie(m_model, -1);
 		}
 	}
 
-	public void explode(Model model) {
-		new Explode().execute(model, this);
+	public void explode() {
+		new Explode().execute(this);
 	}
 
 	public void turn(char dir) {

@@ -1,7 +1,6 @@
 package automate;
 
-import onscreen.Entity;
-import onscreen.Map;
+import onscreen.*;
 import ui.*;
 /*
  * c'est une classe mère englobant toutes les actions
@@ -11,11 +10,7 @@ import ui.*;
 
 public class Action {
 	char dir;
-	Map m;
-	
+	Model model;
 	public void execute(Entity e) {
-	}
-
-	public void execute(Model model, Entity e) {
 	}
 }
