@@ -100,19 +100,19 @@ public class Controller extends GameController implements ActionListener {
 		// move Joueur 1
 		case 'Z':
 		case 'z':
-			m_model.t2.move('U', 'm');
+			m_model.t2.move('N', 'm');
 			break;
 		case 'Q':
 		case 'q':
-			m_model.t2.move('L', 'm');
+			m_model.t2.move('W', 'm');
 			break;
 		case 'D':
 		case 'd':
-			m_model.t2.move('R', 'm');
+			m_model.t2.move('E', 'm');
 			break;
 		case 'S':
 		case 's':
-			m_model.t2.move('D', 'm');
+			m_model.t2.move('S', 'm');
 			break;
 		case 'a':
 			m_model.t2.hit();
@@ -125,27 +125,27 @@ public class Controller extends GameController implements ActionListener {
 			break;
 
 		// Pop Joueur 1
-		case 'w':
 		case 'W':
-			m_model.t2.move('U', 'p');
+		case 'w':
+			m_model.t2.move('N', 'p');
 			break;
 
 		// Wizz Joueur 1
 		case 'x':
 		case 'X':
-			m_model.t2.move('U', 'w');
+			m_model.t2.move('N', 'w');
 			break;
 
 		// Pop Joueur 2
-		case 'l':
 		case 'L':
-			m_model.t4.move('U', 'p');
+		case 'l':
+			m_model.t4.move('N', 'p');
 			break;
 
 		// Wizz Joueur 2
 		case 'm':
 		case 'M':
-			m_model.t4.move('U', 'w');
+			m_model.t4.move('N', 'w');
 			break;
 
 		default:
@@ -154,16 +154,16 @@ public class Controller extends GameController implements ActionListener {
 		switch (e.getKeyCode()) {
 		// Move Joueur 2
 		case 37:
-			m_model.t4.move('L', 'm');
+			m_model.t4.move('W', 'm');
 			break;
 		case 38:
-			m_model.t4.move('U', 'm');
+			m_model.t4.move('N', 'm');
 			break;
 		case 39:
-			m_model.t4.move('R', 'm');
+			m_model.t4.move('E', 'm');
 			break;
 		case 40:
-			m_model.t4.move('D', 'm');
+			m_model.t4.move('S', 'm');
 			break;
 		case 96:
 			m_model.t4.hit();

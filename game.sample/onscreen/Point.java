@@ -25,13 +25,13 @@ public class Point {
     public Point nextPoint(char dir) {
         Point p1 = new Point(i, j);
         switch (dir) {
-        case 'D':
+        case 'S':
             p1.i++;
             break;
-        case 'L':
+        case 'W':
             p1.j--;
             break;
-        case 'R':
+        case 'E':
             p1.j++;
             break;
         default:

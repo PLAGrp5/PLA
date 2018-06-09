@@ -71,20 +71,20 @@ public class Tank extends Entity {
 					a = new Wizz();
 				} else { // if(type_action == 'm')
 					switch (dir) {
-					case 'U':
-						a = new Move(m_model, 'U');
+					case 'N':
+						a = new Move(m_model, 'N');
 						break;
-					case 'D':
-						a = new Move(m_model, 'D');
+					case 'S':
+						a = new Move(m_model, 'S');
 						break;
-					case 'L':
-						a = new Move(m_model, 'L');
+					case 'W':
+						a = new Move(m_model, 'W');
 						break;
-					case 'R':
-						a = new Move(m_model, 'R');
+					case 'E':
+						a = new Move(m_model, 'E');
 						break;
 					default:
-						a = new Move(m_model, 'U');
+						a = new Move(m_model, 'N');
 						break;
 					}
 				}
@@ -108,16 +108,16 @@ public class Tank extends Entity {
 	public void paint(Graphics g, char dir) {
 		Image img;
 		switch (dir) {
-		case 'U':
+		case 'N':
 			img = m_sprites[1];
 			break;
-		case 'D':
+		case 'S':
 			img = m_sprites[3];
 			break;
-		case 'L':
+		case 'W':
 			img = m_sprites[0];
 			break;
-		case 'R':
+		case 'E':
 			img = m_sprites[2];
 			break;
 		default:

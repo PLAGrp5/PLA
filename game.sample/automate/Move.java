@@ -27,16 +27,16 @@ public class Move extends Action {
 	Point nextstep(Entity e) {
 		Point p = new Point(e.p.i, e.p.j);
 		switch (this.dir) {
-		case 'D':
+		case 'S':
 			p.i++;
 			break;
-		case 'L':
+		case 'W':
 			p.j--;
 			break;
-		case 'R':
+		case 'E':
 			p.j++;
 			break;
-		case 'U':
+		case 'N':
 			p.i--;
 			break;
 		}

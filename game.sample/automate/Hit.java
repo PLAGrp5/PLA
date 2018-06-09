@@ -13,13 +13,13 @@ public class Hit extends Action {
 		Point p = new Point(e.p);
 
 		switch (e.dir) {
-		case 'D':
+		case 'S':
 			p.i++;
 			break;
-		case 'L':
+		case 'W':
 			p.j--;
 			break;
-		case 'R':
+		case 'E':
 			p.j++;
 			break;
 		default:

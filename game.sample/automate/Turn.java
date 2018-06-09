@@ -10,17 +10,17 @@ public class Turn extends Action{
 	
 	public void execute(Entity e) {
 		switch (e.dir) {
-			case 'U' : 
-				e.dir = 'R';
+			case 'N' : 
+				e.dir = 'E';
 				break;
-			case 'R' : 
-				e.dir = 'D';
+			case 'E' : 
+				e.dir = 'S';
 				break;
-			case 'D' : 
-				e.dir = 'L';
+			case 'S' : 
+				e.dir = 'W';
 				break;
-			case 'L' : 
-				e.dir = 'U';
+			case 'W' : 
+				e.dir = 'N';
 				break;
 			default : 
 				return;

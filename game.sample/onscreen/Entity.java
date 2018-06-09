@@ -64,20 +64,20 @@ public class Entity {
 
 	public void opposite() {
 		switch (this.dir) {
-		case 'D':
-			this.dir = 'U';
+		case 'S':
+			this.dir = 'N';
 			break;
-		case 'L':
-			this.dir = 'R';
+		case 'W':
+			this.dir = 'E';
 			break;
-		case 'R':
-			this.dir = 'L';
+		case 'E':
+			this.dir = 'W';
 			break;
-		case 'U':
-			this.dir = 'D';
+		case 'N':
+			this.dir = 'S';
 			break;
 		default:
-			this.dir = 'D';
+			this.dir = 'S';
 			break;
 		}
 	}

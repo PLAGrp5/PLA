@@ -19,13 +19,13 @@ public class Bullet extends Entity {
     public Bullet(Entity e) {
         super('B', e.p.i, e.p.j, e.dir);
         switch (this.dir) {
-        case 'D':
+        case 'S':
             p.i++;
             break;
-        case 'L':
+        case 'W':
             p.j--;
             break;
-        case 'R':
+        case 'E':
             p.j++;
             break;
         default:
@@ -46,13 +46,13 @@ public class Bullet extends Entity {
         super('B', e.p.i, e.p.j, e.dir);
         this.m_model = model;
         switch (dir) {
-        case 'D':
+        case 'S':
             p.i++;
             break;
-        case 'L':
+        case 'W':
             p.j--;
             break;
-        case 'R':
+        case 'E':
             p.j++;
             break;
         default:
@@ -84,13 +84,13 @@ public class Bullet extends Entity {
     public void paint(Graphics g, char dir) {
         Image img;
         switch (dir) {
-        case 'U':
+        case 'N':
             img = m_sprites[1];
             break;
-        case 'D':
+        case 'S':
             img = m_sprites[3];
             break;
-        case 'R':
+        case 'E':
             img = m_sprites[2];
             break;
         default:
