@@ -1,13 +1,8 @@
 package automate;
 
 import java.awt.Color;
-
-import onscreen.Entity;
-import onscreen.Map;
-import onscreen.Mine;
-import onscreen.Point;
-import onscreen.Tank;
-import onscreen.Vie;
+import ui.*;
+import onscreen.*;
 
 public class Move extends Action {
 
@@ -15,13 +10,13 @@ public class Move extends Action {
 		this.dir = 'F';
 	}
 
-	public Move(char dir, Map m) {
+	public Move(Model model, char dir) {
 		this.dir = dir;
-		this.m = m;
+		this.model = model;
 	}
 
-	public Move(Map m) {
-		this.m = m;
+	public Move(Model model) {
+		this.model = model;
 	}
 
 	/*
@@ -32,18 +27,18 @@ public class Move extends Action {
 	Point nextstep(Entity e) {
 		Point p = new Point(e.p.i, e.p.j);
 		switch (this.dir) {
-			case 'D':
-				p.i++;
-				break;
-			case 'L':
-				p.j--;
-				break;
-			case 'R':
-				p.j++;
-				break;
-			case 'U':
-				p.i--;
-				break;				
+		case 'D':
+			p.i++;
+			break;
+		case 'L':
+			p.j--;
+			break;
+		case 'R':
+			p.j++;
+			break;
+		case 'U':
+			p.i--;
+			break;
 		}
 		return p;
 	}
@@ -70,12 +65,12 @@ public class Move extends Action {
 	}
 
 	public void caseMine(Entity e) {
-		e.vie -= 3;
+		e.updatevie(e.m_model, -3);
 		System.out.println("AIE UNE MINE | VIE : " + e.vie);
 	}
 
 	public void execute(Entity e) {
-		this.m = e.m_map;
+		this.model = e.m_model;
 		if (e instanceof Tank) {
 			/*
 			 * Convention de notre jeu: lorsque le tank n'est pas dans la bonne direction on
@@ -86,22 +81,24 @@ public class Move extends Action {
 			// Sinon on effectue l'action move
 			else {
 				Point p = nextstep(e); // calcul nouvel coordonnées
-				if (canimove(m, p.i, p.j)) {
-					if (m.isbonus(p.i, p.j))
+				if (canimove(model.m, p.i, p.j)) {
+					if (model.m.isbonus(p.i, p.j))
 						caseBonus(e);
-					else if (m.ismine(p.i, p.j))
+					else if (model.m.ismine(p.i, p.j))
 						caseMine(e);
-					m.free(e.p.i, e.p.j);
+					model.m.free(e.p.i, e.p.j);
 					if ((e.jauge_couleur > 0)) {
 						if (e.m_tank == Color.cyan) {
-							m.color[e.p.i][e.p.j] = 'B';
+							model.m.color[e.p.i][e.p.j] = 'B';
 						} else if (e.m_tank == Color.orange) {
-							m.color[e.p.i][e.p.j] = 'R';
+							model.m.color[e.p.i][e.p.j] = 'R';
 						}
 					}
 					e.p = p;
-					m.insert(e);
-				} else if (m.map[p.i][p.j].type == 'T') {
+					model.m.insert(e);
+				} else if (model.m.map[p.i][p.j].type == 'T') {
+					e.updatevie(e.m_model, -1);
+					model.m.map[p.i][p.j].updatevie(e.m_model, -1);
 					e.opposite();
 					this.dir = e.dir;
 				}
@@ -109,14 +106,14 @@ public class Move extends Action {
 		} else {
 			this.dir = e.dir;
 			Point p = nextstep(e); // calcul nouvel coordonnées
-			if (canimove(m, p.i, p.j)) {
-				if (m.isbonus(p.i, p.j))
+			if (canimove(model.m, p.i, p.j)) {
+				if (model.m.isbonus(p.i, p.j))
 					caseBonus(e);
-				else if (m.ismine(p.i, p.j))
+				else if (model.m.ismine(p.i, p.j))
 					caseMine(e);
-				m.free(e.p.i, e.p.j);
+				model.m.free(e.p.i, e.p.j);
 				e.p = p;
-				m.insert(e);
+				model.m.insert(e);
 			}
 
 		}

@@ -1,8 +1,6 @@
 package automate;
 
-import onscreen.Bullet;
-import onscreen.Entity;
-import onscreen.Sbire;
+import onscreen.*;
 import ui.*;
 
 /*
@@ -54,9 +52,9 @@ public class Automate {
 		int rand = (int) (Math.random() * nb_trans);
 		if (t_ok[rand].act instanceof Explode) {
 			if (e instanceof Bullet)
-				t_ok[rand].act.execute(((Bullet) e).comport.model, e);
+				t_ok[rand].act.execute(e);
 			else
-				t_ok[rand].act.execute(((Sbire) e).comport.model, e);
+				t_ok[rand].act.execute(e);
 			e.courant = t_ok[rand].dest;
 		} else {
 			t_ok[rand].act.execute(e);
