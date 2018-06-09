@@ -85,6 +85,7 @@ public class GameUI implements ActionListener {
 	long m_elapsed;
 	long m_lastRepaint;
 	long m_lastTick;
+	long temps_de_pause;
 	int m_nTicks;
 	protected Menu menu;
 	protected Help help;
@@ -236,6 +237,7 @@ public class GameUI implements ActionListener {
 	 */
 	void createTimer() {
 		if (state == STATE.Game) {
+			temps_de_pause = 0;
 			int tick = 1; // one millisecond
 			m_start = System.currentTimeMillis();
 			m_lastTick = m_start;
@@ -262,7 +264,7 @@ public class GameUI implements ActionListener {
 	 */
 	private void tick() {
 		long now = System.currentTimeMillis() - m_start;
-		long tempsrestant = 10000 - now;
+		long tempsrestant = 10000 - now + temps_de_pause;
 		long elapsed = (now - m_lastTick);
 		m_elapsed += elapsed;
 		m_lastTick = now;
@@ -407,6 +409,7 @@ public class GameUI implements ActionListener {
 			Dimension d = new Dimension(1024, 1024);
 			createWindow(d);
 			stopTimer();
+			temps_de_pause -= System.currentTimeMillis() - m_start;
 		}
 	}
 }

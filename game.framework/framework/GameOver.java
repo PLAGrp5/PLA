@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import framework.GameUI.STATE;
+import ui.*;
 
 public class GameOver {
 
@@ -50,6 +51,21 @@ public class GameOver {
 	
 	public void showEvent() {
 		headerLabel.setText("Game Over");
+		Model mod = (Model)g_ui.m_model;
+		int scorebleu = mod.m.scorebleu();
+		int scorerouge = mod.m.scorerouge();
+		if(scorebleu>scorerouge) {
+			headerLabel.setText("Bleu gagne la partie      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
+
+		}
+		else if (scorerouge>scorebleu){
+			headerLabel.setText("Rouge gagne la partie      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
+
+		}
+		else {
+			headerLabel.setText("Egalité      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
+
+		}
 		JButton ExitButton = new JButton("EXIT");
 		ExitButton.setActionCommand("EXIT");
 		
