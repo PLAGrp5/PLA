@@ -5,12 +5,13 @@ import java.lang.reflect.Method;
 
 import onscreen.Entity;
 import onscreen.Map;
+import ui.Model;
 
 import java.lang.Object;
 
 public abstract class Condition {
 
-	Map m;
+	Model m;
 	public abstract boolean eval(Entity ent);
 	
 	/*public String cond_met1;

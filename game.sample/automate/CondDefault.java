@@ -2,10 +2,11 @@ package automate;
 
 import onscreen.Entity;
 import onscreen.Map;
+import ui.Model;
 
 public class CondDefault extends Condition {
 
-	public CondDefault(Map m) {
+	public CondDefault(Model m) {
 		this.m = m;
 	}
 

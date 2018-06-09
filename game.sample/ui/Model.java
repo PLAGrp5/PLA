@@ -19,8 +19,10 @@ package ui;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -40,8 +42,9 @@ import automate.Transition;
 import automate.Turn;
 import framework.*;
 import onscreen.*;
-import Parser.*
-;public class Model extends GameModel {
+import Parser.*;
+
+public class Model extends GameModel {
 	// LinkedList<Square> m_squares;
 	// BufferedImage m_cowboySprite;
 	// BufferedImage m_explosionSprite;
@@ -68,13 +71,13 @@ import Parser.*
 	 * public int nent = 2; public Entity[] ent = new Entity[nent];
 	 */
 
-	public Automate[] automates = new Automate[2];
+	public Automate[] automates = new Automate[30];
 	Tank t2, t4;
 	Sbire s, s3;
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
-	public Model(Map m) {
+	public Model(Map m) throws  ParseException, FileNotFoundException {
 		this.m = m;
 
 		loadSprites();
@@ -93,24 +96,24 @@ import Parser.*
 
 		s = new Sbire(this, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
 
-		/*State e = new State("1");
+		/*
+		 * State e = new State("1");
+		 * 
+		 * Condition cond = new CondFree(m); Condition cond1 = new CondDefault(m);
+		 * 
+		 * Action act = new Move(); Action act1 = new Turn();
+		 * 
+		 * Transition[] trans = new Transition[2]; trans[0] = new Transition( e, act,
+		 * cond); trans[1] = new Transition(e, act1, cond1);
+		 * 
+		 * Automate a = new Automate(e, trans);
+		 */
 
-		Condition cond = new CondFree(m);
-		Condition cond1 = new CondDefault(m);
-
-		Action act = new Move();
-		Action act1 = new Turn();
-
-		Transition[] trans = new Transition[2];
-		trans[0] = new Transition( e, act, cond);
-		trans[1] = new Transition(e, act1, cond1);
-
-		Automate a = new Automate(e, trans);*/
-		
-		Ast a = from_string("test5");
-		
-		s.comport = (Automate) a.make();
-		//s.courant = e;
+		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
+		//Ast a = new AutomataParser(new java.io.StringReader("test5")).Run() ;
+		automates = (Automate[]) a.make();
+		s.comport = automates[0];
+		// s.courant = e;
 		sbires[0] = s;
 
 		t2 = new Tank(this, m_charrougeSprite, 5, 15, 'L', 1F, 30, colort2);
@@ -126,8 +129,8 @@ import Parser.*
 		 * act1, cond); Automate a1 = new Automate(e, trans1);
 		 */
 
-		s3.comport = (Automate) a.make();
-		//s3.courant = e;
+		s3.comport = automates[0];
+		// s3.courant = e;
 		sbires[1] = s3;
 
 		// Parte test Bullet
@@ -186,7 +189,8 @@ import Parser.*
 	/**
 	 * Simulation step.
 	 * 
-	 * @param now is the current time in milliseconds.
+	 * @param now
+	 *          is the current time in milliseconds.
 	 */
 	@Override
 	public void step(long now) {

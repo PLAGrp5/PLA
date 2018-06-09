@@ -30,7 +30,7 @@ public class Hit extends Action {
 	}
 
 	public void execute(Entity e) {
-		State s = new State("1");
+		/*State s = new State("1");
 		Transition[] transitionsb = new Transition[2];
 		Action mAction = new Move();
 		Action eAction = new Explode();
@@ -38,8 +38,8 @@ public class Hit extends Action {
 		Condition cond1 = new CondDefault(e.m_model.m);
 		transitionsb[0] = new Transition(s, s, mAction, cond);
 		transitionsb[1] = new Transition(s, s, eAction, cond1);
-		Automate a = new Automate(model, s, transitionsb);
-		Bullet b = new Bullet(e.m_model, e.m_model.m_bullet, 1L, e, a, s);
+		Automate a = new Automate(model, s, transitionsb);*/
+		Bullet b = new Bullet(e, e.m_model.automates[1]);
 		e.m_model.add(b);
 	}
 }

@@ -18,12 +18,15 @@
 package ui;
 
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
+
+import Parser.ParseException;
 import framework.*;
 import onscreen.*;
 
 public class GameMain {
 	
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException, ParseException {
 
     // construct the game elements: model, controller, and view.
   	//initialisation aléatoire

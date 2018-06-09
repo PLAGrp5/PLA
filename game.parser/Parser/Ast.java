@@ -92,6 +92,10 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
+		
+		public Object make() {
+			return value.make();
+		}
 	}
 
 	public static class Variable extends Value {
@@ -105,6 +109,10 @@ public class Ast {
 
 		public String tree_edges() {
 			return name.as_tree_son_of(this);
+		}
+		
+		public Object make() {
+			return name.make();
 		}
 	}
 
@@ -120,6 +128,10 @@ public class Ast {
 		public String tree_edges() {
 			return "" ;
 		}
+		
+		public Object make() {
+			return null;
+		}
 	}
 	
 	public static class Key extends Parameter {
@@ -134,6 +146,10 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
+		
+		public Object make() {
+			return value.make();
+		}
 	}
 
 	public static class Direction extends Parameter {
@@ -147,6 +163,10 @@ public class Ast {
 
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
+		}
+		
+		public Object make() {
+			return value.make();
 		}
 	}
 
@@ -230,11 +250,21 @@ public class Ast {
 		}
 
 		public Object make() {
+			int i=0;
+			Object[] t = new Object[4];
+			ListIterator<Parameter> Iter = this.parameters.listIterator();
+			while (Iter.hasNext()) {
+				Parameter parameter = Iter.next();
+				t[i] = (char)parameter.make();
+				i++;
+			}
 			switch (name.make()) {
 				case "Move" : 
 					return (Object) new Move();
 				case "Turn" : 
 					return (Object) new Turn();
+				case "CondFree" :
+					return (Object) new CondFree((onscreen.Entity)t[i]);
 				default :
 					return null;
 			}
