@@ -63,8 +63,9 @@ public class Model extends GameModel {
 	public int nbullet = 0;
 	public Bullet[] bullets = new Bullet[nbullet];
 
-	/*public int nent = 2;
-	public Entity[] ent = new Entity[nent];*/
+	/*
+	 * public int nent = 2; public Entity[] ent = new Entity[nent];
+	 */
 
 	public Automate[] automates = new Automate[2];
 	Tank t2, t4;
@@ -88,14 +89,14 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-		
-		s = new Sbire(m, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
+
+		s = new Sbire(this, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
 
 		State e = new State("1");
 
 		Condition cond = new CondFree(m);
 		Condition cond1 = new CondDefault(m);
-		
+
 		Action act = new Move();
 		Action act1 = new Turn();
 
@@ -108,14 +109,14 @@ public class Model extends GameModel {
 		s.comport = a;
 		s.courant = e;
 		sbires[0] = s;
-		
-		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, 30 , colort2);
+
+		t2 = new Tank(this, m_charrougeSprite, 5, 15, 'L', 1F, 30, colort2);
 		t2.aut_bonus = false;
 
-		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'L', 1F, 30, colort);
+		t4 = new Tank(this, m_charbleuSprite, 8, 19, 'L', 1F, 30, colort);
 		t4.aut_bonus = false;
 
-		s3 = new Sbire(m, m_charbleuSprite, 6, 28, 'L', 1F, 30,coloria);
+		s3 = new Sbire(this, m_charbleuSprite, 6, 28, 'L', 1F, 30, coloria);
 
 		/*
 		 * Action act1 = new Move('L', m); Transition trans1 = new Transition(e, e,
@@ -156,7 +157,7 @@ public class Model extends GameModel {
 				System.arraycopy(sbires, 0, tmp, 0, sbires.length);
 				sbires = tmp;
 			}
-			sbires[nsbire - 1] = (Sbire)e;
+			sbires[nsbire - 1] = (Sbire) e;
 		}
 	}
 
@@ -269,7 +270,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/sol.png");
 		try {
 			m_sol = ImageIO.read(imageFile);
@@ -277,7 +278,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/item.png");
 		try {
 			m_item = ImageIO.read(imageFile);
@@ -285,7 +286,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/blue.png");
 		try {
 			m_blue = ImageIO.read(imageFile);
@@ -293,7 +294,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/red.png");
 		try {
 			m_red = ImageIO.read(imageFile);

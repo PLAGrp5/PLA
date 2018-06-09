@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import automate.Automate;
-import automate.State;
+import automate.*;
+import ui.*;
 
 /**
  * Bullet
@@ -14,8 +14,8 @@ import automate.State;
 public class Bullet extends Entity {
     BufferedImage[] m_sprites;
 
-		public Automate comport;
-		
+    public Automate comport;
+
     public Bullet(Entity e) {
         super('B', e.p.i, e.p.j, e.dir);
         switch (this.dir) {
@@ -32,19 +32,19 @@ public class Bullet extends Entity {
             p.i--;
             break;
         }
-        e.m_map.insert(this);
+        e.m_model.m.insert(this);
     }
 
     public Bullet(Entity e, Automate a, State s) {
         super('B', e.p.i, e.p.j, e.dir);
         courant = s;
         comport = a;
-        e.m_map.insert(this);
+        e.m_model.m.insert(this);
     }
 
-    public Bullet(Map m, BufferedImage sprite, float scale, Entity e, Automate a, State s) {
+    public Bullet(Model model, BufferedImage sprite, float scale, Entity e, Automate a, State s) {
         super('B', e.p.i, e.p.j, e.dir);
-        this.m_map = m;
+        this.m_model = model;
         switch (dir) {
         case 'D':
             p.i++;
@@ -60,15 +60,15 @@ public class Bullet extends Entity {
             break;
         }
 
-        if (!e.m_map.isfree(p.i, p.j))
+        if (!e.m_model.m.isfree(p.i, p.j))
             return;
-      
+
         courant = s;
         comport = a;
         m_scale = scale;
         m_sprite = sprite;
         splitBulletSprite();
-        e.m_map.insert(this);
+        e.m_model.m.insert(this);
     }
 
     void splitBulletSprite() {
