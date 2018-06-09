@@ -271,6 +271,11 @@ public class GameUI implements ActionListener {
 		m_controller.step(now);
 
 		if(tempsrestant <=0) {
+			setState(STATE.Over);
+			m_frame.dispose();
+			Dimension d = new Dimension(1024, 1024);
+			createWindow(d);
+			stopTimer();
 		}
 		elapsed = now - m_lastRepaint;
 		if (elapsed > Options.REPAINT_DELAY) {
