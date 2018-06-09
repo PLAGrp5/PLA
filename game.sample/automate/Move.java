@@ -10,6 +10,10 @@ public class Move extends Action {
 		this.dir = 'F';
 	}
 
+	public Move(char dir) {
+		this.dir = dir;
+	}
+
 	public Move(Model model, char dir) {
 		this.dir = dir;
 		this.model = model;
@@ -50,18 +54,26 @@ public class Move extends Action {
 	}
 
 	public void caseBonus(Entity e) {
-		int bonus = (int) (Math.random() * ((1) + 1));
-		switch (bonus) {
-		case 0:
-			Vie v = new Vie();
-			if (!(v.prendre(e)))
-				System.out.println("Inventaire plein");
-			break;
-		case 1:
-			Mine mine = new Mine();
-			if (!(mine.prendre(e)))
-				System.out.println("Inventaire plein");
-		}
+		/*
+		 * int bonus = (int) (Math.random() * ((1) + 1)); switch (bonus) { case 0: Vie v
+		 * = new Vie(); if (!(v.prendre(e))) System.out.println("Inventaire plein");
+		 * break; case 1: Mine mine = new Mine(); if (!(mine.prendre(e)))
+		 * System.out.println("Inventaire plein"); }
+		 */
+
+		State s = new State("1");
+		Transition[] transitionsb = new Transition[2];
+		Action mAction = new Move(e.dir);
+		Action eAction = new Turn();
+		Condition cond = new CondFree(e.m_model.m);
+		Condition cond1 = new CondDefault(e.m_model.m);
+		transitionsb[0] = new Transition(s, s, mAction, cond);
+		transitionsb[1] = new Transition(s, s, eAction, cond1);
+		Automate a = new Automate(model, s, transitionsb);
+		e.aut_bonus = true;
+		e.comport = a;
+		e.courant = s;
+		e.m_lastMove = 0L;
 	}
 
 	public void caseMine(Entity e) {
@@ -71,7 +83,7 @@ public class Move extends Action {
 
 	public void execute(Entity e) {
 		this.model = e.m_model;
-		if (e instanceof Tank) {
+		if (e instanceof Tank && !e.aut_bonus) {
 			/*
 			 * Convention de notre jeu: lorsque le tank n'est pas dans la bonne direction on
 			 * le tourne dans la bonne direction

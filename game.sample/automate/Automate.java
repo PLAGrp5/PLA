@@ -38,27 +38,15 @@ public class Automate {
 		e.lastj = e.p.j;
 		Transition[] t_ok = new Transition[t.length];
 		int nb_trans = 0;
-		int i = 0;
-		while (i < t.length) {
-			if (t[i].eval(e)) {
-				t_ok[nb_trans] = t[i];
-				nb_trans++;
-			}
-			i++;
+		for (int i = 0; i < t.length; i++) {
+			if (t[i].eval(e))
+				t_ok[nb_trans++] = t[i];
 		}
-		if (nb_trans == 0) {
+		if (nb_trans == 0)
 			t_ok[nb_trans++] = t[t.length - 1];
-		}
+
 		int rand = (int) (Math.random() * nb_trans);
-		if (t_ok[rand].act instanceof Explode) {
-			if (e instanceof Bullet)
-				t_ok[rand].act.execute(e);
-			else
-				t_ok[rand].act.execute(e);
-			e.courant = t_ok[rand].dest;
-		} else {
-			t_ok[rand].act.execute(e);
-			e.courant = t_ok[rand].dest;
-		}
+		t_ok[rand].act.execute(e);
+		e.courant = t_ok[rand].dest;
 	}
 }

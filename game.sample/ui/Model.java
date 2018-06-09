@@ -63,6 +63,9 @@ public class Model extends GameModel {
 	public int nbullet = 0;
 	public Bullet[] bullets = new Bullet[nbullet];
 
+	public int ntank = 2;
+	public Tank[] tanks = new Tank[ntank];
+
 	/*
 	 * public int nent = 2; public Entity[] ent = new Entity[nent];
 	 */
@@ -127,6 +130,9 @@ public class Model extends GameModel {
 		s3.courant = e;
 		sbires[1] = s3;
 
+		tanks[0] = t2;
+		tanks[1] = t4;
+
 		// Parte test Bullet
 
 		// m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
@@ -150,7 +156,7 @@ public class Model extends GameModel {
 				bullets = tmp;
 			}
 			bullets[nbullet - 1] = (Bullet) e;
-		} else if (e instanceof Tank) {
+		} else if (e instanceof Sbire) {
 			nsbire++;
 			if (nsbire > sbires.length) {
 				Sbire[] tmp = new Sbire[2 * nsbire];
@@ -191,14 +197,28 @@ public class Model extends GameModel {
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-		for (int i = 0; i < nsbire; i++) {
+
+		int i;
+
+		for (i = 0; i < ntank; i++) {
+			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 100L) {
+				tanks[i].comport.step(tanks[i]);
+				tanks[i].m_lastMove = now;
+				if (++tanks[i].nstep > tanks[i].maxnstep) {
+					tanks[i].nstep = 0;
+					tanks[i].aut_bonus = false;
+				}
+			}
+		}
+
+		for (i = 0; i < nsbire; i++) {
 			if (now - sbires[i].m_lastMove > 200L) {
 				sbires[i].comport.step(sbires[i]);
 				sbires[i].m_lastMove = now;
 			}
 		}
 
-		for (int i = 0; i < nbullet; i++) {
+		for (i = 0; i < nbullet; i++) {
 			if (now - bullets[i].m_lastMove > 100L) {
 				bullets[i].comport.step(bullets[i]);
 				bullets[i].m_lastMove = now;
