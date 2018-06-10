@@ -61,7 +61,7 @@ public class View extends GameView {
 		computeFPS();
 		// erase background
 
-		m_game.drawPLayer1Panel(m_model.t4, m_model.m.scorebleu(), m_model.t4.printvie, m_model.t4.printmine,
+		m_game.drawPLayer1Panel(m_model.t4, m_model.s, m_model.s3, m_model.m.scorebleu(), m_model.t4.printvie, m_model.t4.printmine,
 				m_model.t4.printsbire, m_model.t4.nbre_mine, m_model.t4.nbre_vie);
 		m_game.drawPLayer2Panel(m_model.t2, m_model.m.scorerouge(), m_model.t2.printvie, m_model.t2.printmine,
 				m_model.t2.printsbire, m_model.t2.nbre_mine, m_model.t2.nbre_vie);

@@ -35,6 +35,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
+import onscreen.Sbire;
 import onscreen.Tank;
 
 import javax.swing.JPanel;
@@ -148,7 +149,7 @@ public class GameUI implements ActionListener {
 	void createWindow(Dimension d) {
 		if (state == STATE.Game) {
 			m_frame = new JFrame();
-			m_frame.setTitle("Game of Tank"); // Nom de la fenêtre
+			m_frame.setTitle("Gitank"); // Nom de la fenêtre
 			m_frame.setLayout(new BorderLayout());
 			m_frame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage()); // Icone du jeu
 
@@ -297,9 +298,17 @@ public class GameUI implements ActionListener {
 		m_msg = msg;
 	}
 
-	public void drawPLayer1Panel(Tank t, int score, String vie, String mine, String sbire, int nbre_mine,
+	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire, int nbre_mine,
 			int nbre_vie) {
-		JPanel pan = new JPanel(new GridLayout(7, 3));
+		JPanel pan = new JPanel(new GridLayout(16	, 3));
+		
+		pan.add(new JLabel(""));
+		pan.add(new JLabel("Score :"));
+		pan.add(new JLabel("" + score + ""));
+		
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Joueur 1"));
@@ -313,21 +322,49 @@ public class GameUI implements ActionListener {
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
 		pan.add(new JLabel("" + t.jauge_couleur + ""));
 
-		pan.add(new JLabel(""));
-		pan.add(new JLabel("Score :"));
-		pan.add(new JLabel("" + score + ""));
-
-		pan.add(new JLabel(""));
-		pan.add(new JLabel("Inventaire :"));
-		pan.add(new JLabel(""));
-
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + vie + ".png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + mine + ".png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + sbire + ".png")));
 
+		pan.add(new JLabel(""));
 		pan.add(new JLabel("" + nbre_vie + ""));
 		pan.add(new JLabel("" + nbre_mine + ""));
+		
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		
 		pan.add(new JLabel(""));
+		pan.add(new JLabel("Sbire 1"));
+		pan.add(new JLabel(""));
+
+		pan.add(new JLabel(""));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel("" + s1.vie + ""));
+
+		pan.add(new JLabel(""));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+		pan.add(new JLabel("" + s1.jauge_couleur + ""));
+		
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		
+		pan.add(new JLabel(""));
+		pan.add(new JLabel("Sbire 2"));
+		pan.add(new JLabel(""));
+
+		pan.add(new JLabel(""));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel("" + s2.vie + ""));
+
+		pan.add(new JLabel(""));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+		pan.add(new JLabel("" + s2.jauge_couleur + ""));
+		
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 
 		pan.setBackground(Color.cyan);
 		addWest(pan);
@@ -335,8 +372,16 @@ public class GameUI implements ActionListener {
 
 	public void drawPLayer2Panel(Tank t, int score, String vie, String mine, String sbire, int nbre_mine,
 			int nbre_vie) {
-		JPanel pan = new JPanel(new GridLayout(7, 3));
+		JPanel pan = new JPanel(new GridLayout(16, 3));
 
+		pan.add(new JLabel(""));
+		pan.add(new JLabel("Score :"));
+		pan.add(new JLabel("" + score + ""));
+		
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Joueur 2"));
 		pan.add(new JLabel(""));
@@ -349,21 +394,49 @@ public class GameUI implements ActionListener {
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
 		pan.add(new JLabel("" + t.jauge_couleur + ""));
 
-		pan.add(new JLabel(""));
-		pan.add(new JLabel("Score :"));
-		pan.add(new JLabel("" + score + ""));
-
-		pan.add(new JLabel(""));
-		pan.add(new JLabel("Inventaire :"));
-		pan.add(new JLabel(""));
-
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + vie + ".png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + mine + ".png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + sbire + ".png")));
 
+		pan.add(new JLabel(""));
 		pan.add(new JLabel("" + nbre_vie + ""));
 		pan.add(new JLabel("" + nbre_mine + ""));
+		
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		
 		pan.add(new JLabel(""));
+		pan.add(new JLabel("Sbire 1"));
+		pan.add(new JLabel(""));
+
+		pan.add(new JLabel(""));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel("" + t.vie + ""));
+
+		pan.add(new JLabel(""));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
+		pan.add(new JLabel("" + t.jauge_couleur + ""));
+		
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		
+		pan.add(new JLabel(""));
+		pan.add(new JLabel("Sbire 2"));
+		pan.add(new JLabel(""));
+
+		pan.add(new JLabel(""));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel("" + t.vie + ""));
+
+		pan.add(new JLabel(""));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
+		pan.add(new JLabel("" + t.jauge_couleur + ""));
+		
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 
 		pan.setBackground(Color.orange);
 		addEast(pan);

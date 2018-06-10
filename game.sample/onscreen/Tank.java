@@ -48,7 +48,6 @@ public class Tank extends Entity {
 			lastj = p.j;
 			lasti = p.i;
 			m_lastMove = now;
-		}
 
 		/*
 		 * Si notre jauge de couleur n'est pas vide et que l'action est un mouvement On
@@ -69,6 +68,7 @@ public class Tank extends Entity {
 
 		new Move(m_model, dir).execute(this);
 
+	}
 	}
 
 	// Récuperation des différente images du tank dans un tableau à partir des
