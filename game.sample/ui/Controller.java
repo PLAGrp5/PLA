@@ -100,52 +100,52 @@ public class Controller extends GameController implements ActionListener {
 		// move Joueur 1
 		case 'Z':
 		case 'z':
-			m_model.t2.move(m_model.m, 'U', 'm');
+			m_model.t2.move('N');
 			break;
 		case 'Q':
 		case 'q':
-			m_model.t2.move(m_model.m, 'L', 'm');
+			m_model.t2.move('W');
 			break;
 		case 'D':
 		case 'd':
-			m_model.t2.move(m_model.m, 'R', 'm');
+			m_model.t2.move('E');
 			break;
 		case 'S':
 		case 's':
-			m_model.t2.move(m_model.m, 'D', 'm');
+			m_model.t2.move('S');
 			break;
 		case 'a':
-			m_model.t2.hit(m_model);
+			m_model.t2.hit();
 			break;
 		case 8:
 			if (!(m_model.t2.inventaireVide()))
-				m_model.t2.inventaire[0].jeter(m_model.m, m_model.t2);
+				m_model.t2.inventaire[0].jeter(m_model, m_model.t2);
 			else
 				System.out.println("Inventaire Vide");
 			break;
 
 		// Pop Joueur 1
-		case 'w':
 		case 'W':
-			m_model.t2.move(m_model.m, 'U', 'p');
+		case 'w':
+			m_model.t2.pop();
 			break;
 
 		// Wizz Joueur 1
 		case 'x':
 		case 'X':
-			m_model.t2.move(m_model.m, 'U', 'w');
+			m_model.t2.wizz();
 			break;
 
 		// Pop Joueur 2
-		case 'l':
 		case 'L':
-			m_model.t4.move(m_model.m, 'U', 'p');
+		case 'l':
+			m_model.t4.pop();
 			break;
 
 		// Wizz Joueur 2
 		case 'm':
 		case 'M':
-			m_model.t4.move(m_model.m, 'U', 'w');
+			m_model.t4.wizz();
 			break;
 
 		default:
@@ -154,23 +154,23 @@ public class Controller extends GameController implements ActionListener {
 		switch (e.getKeyCode()) {
 		// Move Joueur 2
 		case 37:
-			m_model.t4.move(m_model.m, 'L', 'm');
+			m_model.t4.move('W');
 			break;
 		case 38:
-			m_model.t4.move(m_model.m, 'U', 'm');
+			m_model.t4.move('N');
 			break;
 		case 39:
-			m_model.t4.move(m_model.m, 'R', 'm');
+			m_model.t4.move('E');
 			break;
 		case 40:
-			m_model.t4.move(m_model.m, 'D', 'm');
+			m_model.t4.move('S');
 			break;
 		case 96:
-			m_model.t4.hit(m_model);
+			m_model.t4.hit();
 			break;
 		case 10:
 			if (!(m_model.t4.inventaireVide()))
-				m_model.t4.inventaire[0].jeter(m_model.m, m_model.t4);
+				m_model.t4.inventaire[0].jeter(m_model, m_model.t4);
 			else
 				System.out.println("Inventaire Vide");
 			break;

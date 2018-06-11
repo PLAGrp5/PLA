@@ -1,5 +1,7 @@
 package onscreen;
 
+import ui.*;
+
 public abstract class BonusEtMalusFixes {
 	public char type;
 
@@ -17,18 +19,16 @@ public abstract class BonusEtMalusFixes {
 		} else if (ent.inventaire[1] == null) {
 			ent.inventaire[1] = this;
 			if (this.type == 'M') {
-				if(ent.inventaire[0].type == 'M') {
+				if (ent.inventaire[0].type == 'M') {
 					ent.nbre_mine++;
-				}
-				else {
+				} else {
 					ent.printmine = "mine";
 					ent.nbre_mine++;
 				}
 			} else if (this.type == 'V') {
-				if(ent.inventaire[0].type == 'V') {
+				if (ent.inventaire[0].type == 'V') {
 					ent.nbre_vie++;
-				}
-				else {
+				} else {
 					ent.printvie = "Vie";
 					ent.nbre_vie++;
 				}
@@ -36,18 +36,16 @@ public abstract class BonusEtMalusFixes {
 		} else if (ent.inventaire[2] == null) {
 			ent.inventaire[2] = this;
 			if (this.type == 'M') {
-				if(ent.inventaire[0].type == 'M' || ent.inventaire[1].type == 'M') {
+				if (ent.inventaire[0].type == 'M' || ent.inventaire[1].type == 'M') {
 					ent.nbre_mine++;
-				}
-				else {
+				} else {
 					ent.printmine = "mine";
 					ent.nbre_mine++;
 				}
 			} else if (this.type == 'V') {
-				if(ent.inventaire[0].type == 'V' || ent.inventaire[1].type == 'V') {
+				if (ent.inventaire[0].type == 'V' || ent.inventaire[1].type == 'V') {
 					ent.nbre_vie++;
-				}
-				else {
+				} else {
 					ent.printvie = "Vie";
 					ent.nbre_vie++;
 				}
@@ -57,5 +55,5 @@ public abstract class BonusEtMalusFixes {
 		return true;
 	}
 
-	public abstract void jeter(Map m, Entity ent);
+	public abstract void jeter(Model model, Entity ent);
 }
