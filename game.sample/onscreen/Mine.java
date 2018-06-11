@@ -1,32 +1,30 @@
 package onscreen;
 
-import ui.*;
-
-public class Mine extends BonusEtMalusFixes {
+public class Mine extends BonusEtMalus {
 
 	public Mine() {
 		this.type = 'M';
 	}
 
-	public void jeter(Model model, Entity e) {
+	public void jeter(Entity e) {
 		if (!(e.inventaireVide())) {
 			int i;
 			switch (e.dir) {
-			case 'U':
-				if (e.m_model.m.insertMineOK(e))
-					e.m_model.m.insert(new Entity('M', e.p.i + 1, e.p.j));
+			case 'N':
+				if (e.m_model.m_Map.insertMineOK(e))
+					e.m_model.m_Map.insert(new Entity('M', e.p.i + 1, e.p.j));
 				break;
-			case 'D':
-				if (e.m_model.m.insertMineOK(e))
-					e.m_model.m.insert(new Entity('M', e.p.i - 1, e.p.j));
+			case 'S':
+				if (e.m_model.m_Map.insertMineOK(e))
+					e.m_model.m_Map.insert(new Entity('M', e.p.i - 1, e.p.j));
 				break;
-			case 'L':
-				if (e.m_model.m.insertMineOK(e))
-					e.m_model.m.insert(new Entity('M', e.p.i, e.p.j + 1));
+			case 'W':
+				if (e.m_model.m_Map.insertMineOK(e))
+					e.m_model.m_Map.insert(new Entity('M', e.p.i, e.p.j + 1));
 				break;
-			case 'R':
-				if (e.m_model.m.insertMineOK(e))
-					e.m_model.m.insert(new Entity('M', e.p.i, e.p.j - 1));
+			case 'E':
+				if (e.m_model.m_Map.insertMineOK(e))
+					e.m_model.m_Map.insert(new Entity('M', e.p.i, e.p.j - 1));
 				break;
 			}
 			for (i = 0; i < 2; i++)

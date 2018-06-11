@@ -9,37 +9,15 @@ public class Hit extends Action {
 	public Hit() {
 	}
 
-	public boolean canihit(Entity e) {
-		Point p = new Point(e.p);
-
-		switch (e.dir) {
-		case 'D':
-			p.i++;
-			break;
-		case 'L':
-			p.j--;
-			break;
-		case 'R':
-			p.j++;
-			break;
-		default:
-			p.i--;
-			break;
-		}
-		return e.m_model.m.map[p.i][p.j].type == 'F';
-	}
-
 	public void execute(Entity e) {
-		State s = new State("1");
-		Transition[] transitionsb = new Transition[2];
-		Action mAction = new Move();
-		Action eAction = new Explode();
-		Condition cond = new CondFree(e.m_model.m);
-		Condition cond1 = new CondDefault(e.m_model.m);
-		transitionsb[0] = new Transition(s, s, mAction, cond);
-		transitionsb[1] = new Transition(s, s, eAction, cond1);
-		Automate a = new Automate(model, s, transitionsb);
-		Bullet b = new Bullet(e.m_model, e.m_model.m_bullet, 1L, e, a, s);
+
+		// Blesse l'entité en face directement
+		if (!e.canihit()) {
+			Point p = new Point(e.p).nextPoint(e.dir);
+			e.m_model.GetEntity(p).updatevie(e.m_model, -1);
+			return;
+		}
+		Bullet b = new Bullet(e.m_model, e.m_model.m_bullet, 1L, e, e.m_model.automates[0], e.m_model.automates[0].init);
 		e.m_model.add(b);
 	}
 }

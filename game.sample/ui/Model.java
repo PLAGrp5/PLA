@@ -19,8 +19,10 @@ package ui;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -34,14 +36,16 @@ import automate.Automate;
 import automate.CondDefault;
 import automate.CondFree;
 import automate.Condition;
+import automate.Hit;
 import automate.Move;
 import automate.State;
 import automate.Transition;
 import automate.Turn;
 import framework.*;
 import onscreen.*;
-import Parser.*
-;public class Model extends GameModel {
+import Parser.*;
+
+public class Model extends GameModel {
 	// LinkedList<Square> m_squares;
 	// BufferedImage m_cowboySprite;
 	// BufferedImage m_explosionSprite;
@@ -55,8 +59,8 @@ import Parser.*
 	BufferedImage m_blue;
 	BufferedImage m_red;
 	public BufferedImage m_bullet;
-	// Cowboy[] m_cowboys;
-	public Map m;
+
+	public Map m_Map;
 
 	public int nsbire = 2;
 	public Sbire[] sbires = new Sbire[nsbire];
@@ -64,18 +68,19 @@ import Parser.*
 	public int nbullet = 0;
 	public Bullet[] bullets = new Bullet[nbullet];
 
-	/*
-	 * public int nent = 2; public Entity[] ent = new Entity[nent];
-	 */
+	public int ntank = 2;
+	public Tank[] tanks = new Tank[ntank];
 
-	public Automate[] automates = new Automate[2];
-	Tank t2, t4;
-	Sbire s, s3;
+	public int nautomate = 2;
+	public Automate[] automates = new Automate[nautomate];
+
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
-	public Model(Map m) {
-		this.m = m;
+	public Model(Map m) throws  ParseException, FileNotFoundException {
+		this.m_Map = m;
+		Tank j1, j2;
+		Sbire s11, s21;
 
 		loadSprites();
 		/*
@@ -91,53 +96,49 @@ import Parser.*
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
 
-		s = new Sbire(this, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
+		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
+		s21 = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
 
-		/*State e = new State("1");
+/*
+		State e = new State("1");
 
-		Condition cond = new CondFree(m);
-		Condition cond1 = new CondDefault(m);
+		Condition cond = new CondFree();
+		Condition cond1 = new CondDefault();
 
 		Action act = new Move();
-		Action act1 = new Turn();
+		Action act1 = new Turn('R');
+		Action act2 = new Hit();
 
 		Transition[] trans = new Transition[2];
-		trans[0] = new Transition( e, act, cond);
-		trans[1] = new Transition(e, act1, cond1);
+		trans[0] = new Transition(e, e, act, cond);
+		trans[1] = new Transition(e, e, act1, cond1);
 
-		Automate a = new Automate(e, trans);*/
-		
-		Ast a = from_string("test5");
-		
-		s.comport = (Automate) a.make();
-		//s.courant = e;
-		sbires[0] = s;
+		Transition[] trans1 = new Transition[2];
+		trans1[0] = new Transition(e, e, act2, cond);
+		trans1[1] = new Transition(e, e, act1, cond1);
+*/
 
-		t2 = new Tank(this, m_charrougeSprite, 5, 15, 'L', 1F, 30, colort2);
-		t2.aut_bonus = false;
+		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
+	
+		automates = (Automate[]) a.make();
+		s11.comport = automates[0];
+		s11.courant = automates[0].init;
+		sbires[0] = s11;
+    
+		s21.comport = automates[1];
+		s21.courant = automates[1].init;
+		sbires[1] = s21;
 
-		t4 = new Tank(this, m_charbleuSprite, 8, 19, 'L', 1F, 30, colort);
-		t4.aut_bonus = false;
+		j1 = new Tank(this, m_charbleuSprite, 5, 15, 'W', 1F, 30, colort);
+		j2 = new Tank(this, m_charrougeSprite, 8, 19, 'W', 1F, 30, colort2);
 
-		s3 = new Sbire(this, m_charbleuSprite, 6, 28, 'L', 1F, 30, coloria);
+		tanks[0] = j1;
+		tanks[1] = j2;
 
-		/*
-		 * Action act1 = new Move('L', m); Transition trans1 = new Transition(e, e,
-		 * act1, cond); Automate a1 = new Automate(e, trans1);
-		 */
-
-		s3.comport = (Automate) a.make();
-		//s3.courant = e;
-		sbires[1] = s3;
-
-		// Parte test Bullet
-
-		// m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
 	}
 
 	@Override
 	public void shutdown() {
-
 	}
 
 	public Overhead getOverhead() {
@@ -153,7 +154,7 @@ import Parser.*
 				bullets = tmp;
 			}
 			bullets[nbullet - 1] = (Bullet) e;
-		} else if (e instanceof Tank) {
+		} else if (e instanceof Sbire) {
 			nsbire++;
 			if (nsbire > sbires.length) {
 				Sbire[] tmp = new Sbire[2 * nsbire];
@@ -165,7 +166,7 @@ import Parser.*
 	}
 
 	public void del(Entity e) {
-		m.free(e.p.i, e.p.j);
+		m_Map.free(e.p.i, e.p.j);
 		if (e instanceof Bullet) {
 			int i;
 			for (i = 0; i < nbullet && !bullets[i].equals(e); i++)
@@ -186,7 +187,8 @@ import Parser.*
 	/**
 	 * Simulation step.
 	 * 
-	 * @param now is the current time in milliseconds.
+	 * @param now
+	 *          is the current time in milliseconds.
 	 */
 	@Override
 	public void step(long now) {
@@ -194,14 +196,36 @@ import Parser.*
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-		for (int i = 0; i < nsbire; i++) {
+
+		int i;
+
+		for (i = 0; i < ntank; i++) {
+			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 100L) {
+				tanks[i].comport_bonus.step(tanks[i]);
+				tanks[i].m_lastMove = now;
+				if (++tanks[i].nstep > tanks[i].maxnstep) {
+					tanks[i].nstep = 0;
+					tanks[i].aut_bonus = false;
+					tanks[i].courant = tanks[i].courant_bonus;
+				}
+			}
+		}
+
+		for (i = 0; i < nsbire; i++) {
 			if (now - sbires[i].m_lastMove > 200L) {
-				sbires[i].comport.step(sbires[i]);
+				if (sbires[i].aut_bonus) {
+					sbires[i].comport_bonus.step(sbires[i]);
+					if (++sbires[i].nstep > sbires[i].maxnstep) {
+						sbires[i].nstep = 0;
+						sbires[i].aut_bonus = false;
+					}
+				} else
+					sbires[i].comport.step(sbires[i]);
 				sbires[i].m_lastMove = now;
 			}
 		}
 
-		for (int i = 0; i < nbullet; i++) {
+		for (i = 0; i < nbullet; i++) {
 			if (now - bullets[i].m_lastMove > 100L) {
 				bullets[i].comport.step(bullets[i]);
 				bullets[i].m_lastMove = now;
@@ -216,6 +240,10 @@ import Parser.*
 		 * s = iter.next(); s.step(now); } for (int i = 0; i < m_cowboys.length; i++)
 		 * m_cowboys[i].step(now);
 		 */
+	}
+
+	public Entity GetEntity(Point p) {
+		return m_Map.map[p.i][p.j];
 	}
 
 	private void loadSprites() {

@@ -1,14 +1,10 @@
 package onscreen;
 
-import ui.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import automate.Automate;
-import automate.Explode;
-import automate.Hit;
-import automate.State;
+import ui.*;
+import automate.*;
 
 /*
  * Classe permettant de modéliser toutes les identités du jeu
@@ -21,17 +17,21 @@ public class Entity {
 	public char type;
 	float m_scale;
 	BufferedImage m_sprite;
+	public BufferedImage[] m_sprites;
 	public long m_lastMove;
 
+	public Automate comport;
 	public Automate comport_bonus;
 	public boolean aut_bonus;
 	public State courant_bonus;
-
 	public State courant;
+	public int nstep;
+	public int maxnstep;
 
 	public int vie;
 	int vie_max;
-	public BonusEtMalusFixes[] inventaire = new BonusEtMalusFixes[3];
+
+	public BonusEtMalus[] inventaire = new BonusEtMalus[3];
 	public int jauge_couleur;
 	public int lastj, lasti;
 	public Color m_tank;
@@ -70,33 +70,42 @@ public class Entity {
 
 	public void opposite() {
 		switch (this.dir) {
-		case 'D':
-			this.dir = 'U';
+		case 'S':
+			this.dir = 'N';
 			break;
-		case 'L':
-			this.dir = 'R';
+		case 'W':
+			this.dir = 'E';
 			break;
-		case 'R':
-			this.dir = 'L';
-			break;
-		case 'U':
-			this.dir = 'D';
+		case 'E':
+			this.dir = 'W';
 			break;
 		default:
-			this.dir = 'D';
+			this.dir = 'S';
 			break;
 		}
 	}
 
+	public boolean canimove() {
+		Point p = new Point(this.p).nextPoint(dir);
+		return m_model.m_Map.isfree(p.i, p.j) || m_model.m_Map.isbonus(p.i, p.j) || m_model.m_Map.ismine(p.i, p.j)
+				|| m_model.m_Map.isbullet(p.i, p.j);
+	}
+
+	public boolean canihit() {
+		Point p1 = new Point(this.p).nextPoint(dir);
+		return m_model.GetEntity(p1).type == 'F';
+	}
+
+	public void pop() {
+		new Pop().execute(this);
+	}
+
+	public void wizz() {
+		new Wizz().execute(this);
+	}
+
 	public void hit() {
-		Hit h = new Hit();
-		if (h.canihit(this))
-			new Hit().execute(this);
-		else {
-			Point pe = new Point(p);
-			Point p = pe.nextPoint(dir);
-			m_model.m.map[p.i][p.j].updatevie(m_model, -1);
-		}
+		new Hit().execute(this);
 	}
 
 	public void explode() {
@@ -108,7 +117,6 @@ public class Entity {
 	}
 
 	public void paint(Graphics g, char dir) {
-
 	}
 
 	public void setvie(int vie) {

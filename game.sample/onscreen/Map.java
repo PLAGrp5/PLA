@@ -145,11 +145,11 @@ public class Map {
 
 	public boolean insertMineOK(Entity e) {
 		switch (e.dir) {
-		case 'D':
+		case 'S':
 			return isfree(e.p.i - 1, e.p.j);
-		case 'L':
+		case 'W':
 			return isfree(e.p.i, e.p.j + 1);
-		case 'R':
+		case 'E':
 			return isfree(e.p.i, e.p.j - 1);
 		default:
 			return isfree(e.p.i + 1, e.p.j);
@@ -162,13 +162,13 @@ public class Map {
 			for (int j = 0; j < n; j++) {
 				if (map[i][j].type == 'T') {
 					switch (map[i][j].dir) {
-					case 'D':
+					case 'S':
 						System.out.printf("v ");
 						break;
-					case 'L':
+					case 'W':
 						System.out.printf("< ");
 						break;
-					case 'R':
+					case 'E':
 						System.out.printf("> ");
 						break;
 					default:

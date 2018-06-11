@@ -23,7 +23,7 @@ public class Transition {
 	
 	
 	public boolean eval(Entity e) {
-		return (this.cond.eval(e) && !(this.cond instanceof CondDefault));
+		return (this.cond.eval(e) && !(this.cond instanceof True));
 	}
 	
 }
