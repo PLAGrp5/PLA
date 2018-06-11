@@ -1,28 +1,29 @@
 package onscreen;
 
-import ui.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import ui.*;
+import automate.*;
 
 /*
  * Classe permettant de modéliser toutes les identités du jeu
 */
 public class Entity {
 
+	public Model m_model;
 	public Point p;
 	public char dir;
 	public char type;
 	float m_scale;
 	BufferedImage m_sprite;
-	Map m_map;
 	public long m_lastMove;
 
-	public Automate comport_bonus;
+	public Automate comport;
 	public boolean aut_bonus;
-	public State courant_bonus;
-
 	public State courant;
+	public int nstep;
+	public int maxnstep;
 
 	public int vie;
 	int vie_max;
@@ -30,6 +31,12 @@ public class Entity {
 	public int jauge_couleur;
 	public int lastj, lasti;
 	public Color m_tank;
+
+	public String printvie = "Vie_0";
+	public String printmine = "mine_0";
+	public String printsbire = "fondpanel";
+	public int nbre_mine = 0;
+	public int nbre_vie = 0;
 
 	public Entity(char type, int i, int j, char dir) {
 		this.type = type;
@@ -42,8 +49,8 @@ public class Entity {
 		this.p = new Point(i, j);
 	}
 
-	public Entity(Map m, BufferedImage sprite, int x, int y, char dir, float scale) {
-		m_map = m;
+	public Entity(Model model, BufferedImage sprite, int x, int y, char dir, float scale) {
+		m_model = model;
 		m_sprite = sprite;
 		p.i = y;
 		p.j = x;
@@ -53,37 +60,42 @@ public class Entity {
 
 	public void opposite() {
 		switch (this.dir) {
-		case 'D':
-			this.dir = 'U';
+		case 'S':
+			this.dir = 'N';
 			break;
-		case 'L':
-			this.dir = 'R';
+		case 'W':
+			this.dir = 'E';
 			break;
-		case 'R':
-			this.dir = 'L';
-			break;
-		case 'U':
-			this.dir = 'D';
+		case 'E':
+			this.dir = 'W';
 			break;
 		default:
-			this.dir = 'D';
+			this.dir = 'S';
 			break;
 		}
 	}
 
-	public void hit(Model model) {
+	public void pop() {
+		new Pop(m_model).execute(this);
+	}
+
+	public void wizz() {
+		new Wizz().execute(this);
+	}
+
+	public void hit() {
 		Hit h = new Hit();
-		if (h.canihit(model, this))
-			new Hit().execute(model, this);
+		if (h.canihit(this))
+			new Hit().execute(this);
 		else {
 			Point pe = new Point(p);
 			Point p = pe.nextPoint(dir);
-			model.m.map[p.i][p.j].updatevie(model, -1);
+			m_model.m.map[p.i][p.j].updatevie(m_model, -1);
 		}
 	}
 
-	public void explode(Model model) {
-		new Explode().execute(model, this);
+	public void explode() {
+		new Explode().execute(this);
 	}
 
 	public void turn(char dir) {
@@ -114,22 +126,6 @@ public class Entity {
 
 	public boolean inventaireVide() {
 		return this.inventaire[0] == null;
-	}
-	
-	public boolean MineDansInventaire() {
-		for (int i = 0; i < 3; i++)
-			if (this.inventaire[i].type == 'M') {
-				return true;
-			}
-		return false;
-	}
-	
-	public boolean VieDansInventaire() {
-		for (int i = 0; i < 3; i++)
-			if (this.inventaire[i].type == 'V') {
-				return true;
-			}
-		return false;
 	}
 
 	public void updatevie(Model model, int vie) {

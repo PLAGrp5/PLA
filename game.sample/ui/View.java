@@ -34,9 +34,6 @@ public class View extends GameView {
 	Color m_background = Color.white;
 	Color m_line = Color.black;
 	Color colorb = Color.cyan;
-	String vie = "Vie_0";
-	String mine = "mine_0";
-	String sbire = "peintureB";
 	long m_last;
 	int m_npaints;
 	int m_fps;
@@ -63,11 +60,12 @@ public class View extends GameView {
 	protected void _paint(Graphics g) {
 		computeFPS();
 		// erase background
-		
-		
-		m_game.drawPLayer1Panel(m_model.t4, m_model.m.scorebleu(), vie, mine, sbire);
-		m_game.drawPLayer2Panel(m_model.t2, m_model.m.scorerouge(), vie, mine, sbire);
-		
+
+		m_game.drawPLayer1Panel(m_model.t4, m_model.s, m_model.s3, m_model.m.scorebleu(), m_model.t4.printvie, m_model.t4.printmine,
+				m_model.t4.printsbire, m_model.t4.nbre_mine, m_model.t4.nbre_vie);
+		m_game.drawPLayer2Panel(m_model.t2, m_model.m.scorerouge(), m_model.t2.printvie, m_model.t2.printmine,
+				m_model.t2.printsbire, m_model.t2.nbre_mine, m_model.t2.nbre_vie);
+
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		int rectWidth = 32;
@@ -80,9 +78,9 @@ public class View extends GameView {
 		 * getWidth(), i * rectHeight); } for (int j = 0; j < NBRE_COL; j++) {
 		 * g.drawLine(j * rectWidth, 0, j * rectWidth, getHeight()); }
 		 */
-		
-        //	Parcours de notre tableau color (contenu dans map)
-		for(int k = 0; k < NBRE_ROW; k++) {
+
+		// Parcours de notre tableau color (contenu dans map)
+		for (int k = 0; k < NBRE_ROW; k++) {
 			for (int l = 0; l < NBRE_COL; l++) {
 
 				// Pour chaque case on colorie avec la texture associé
@@ -103,30 +101,28 @@ public class View extends GameView {
 					g.drawImage(m_model.m_item, 32 * l, 32 * k, 32, 32, null);
 				}
 				if (m_model.m.map[k][l].type == 'M') {
-					g.drawImage(m_model.m_mine, 32*l, 32*k, 32, 32, null);
+					g.drawImage(m_model.m_mine, 32 * l, 32 * k, 32, 32, null);
 				}
 			}
 		}
 		// m_model.m.print();
-		
-    	m_model.t4.paint(g, m_model.t4.dir);
+
+		m_model.t4.paint(g, m_model.t4.dir);
 		m_model.t2.paint(g, m_model.t2.dir);
 		for (int i = 0; i < m_model.nsbire; i++) {
 			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
 		}
 		for (int i = 0; i < m_model.nbullet; i++) {
 			m_model.bullets[i].paint(g, m_model.bullets[i].dir);
-		}	
-    
-		/*g.setColor(m_line);
-		for (int i = 0; i < NBRE_ROW; i++) {
-			for (int j = 0; j < NBRE_COL; j++) {
-				g.drawRect(i * 32, j * 32, 32, 32);
-				/*
-				 * if (i == j) { g.fillRect(i*32, j*32, 32, 32); }
-				 */
-			//}
-		//}
+		}
+
+		/*
+		 * g.setColor(m_line); for (int i = 0; i < NBRE_ROW; i++) { for (int j = 0; j <
+		 * NBRE_COL; j++) { g.drawRect(i * 32, j * 32, 32, 32); /* if (i == j) {
+		 * g.fillRect(i*32, j*32, 32, 32); }
+		 */
+		// }
+		// }
 	}
 
 }

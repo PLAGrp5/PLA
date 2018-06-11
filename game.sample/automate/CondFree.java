@@ -1,4 +1,8 @@
-package onscreen;
+package automate;
+
+import onscreen.Entity;
+import onscreen.Map;
+import onscreen.Sbire;
 
 public class CondFree extends Condition {
 
@@ -15,26 +19,26 @@ public class CondFree extends Condition {
 	public boolean eval(Entity ent) {
 		if (ent instanceof Sbire) {
 			switch (ent.dir) {
-				case 'U':
+				case 'N':
 					return (canimove(m, ent.p.i - 1, ent.p.j));
-				case 'D':
+				case 'S':
 					return (canimove(m, ent.p.i + 1, ent.p.j));
-				case 'L':
+				case 'W':
 					return (canimove(m, ent.p.i, ent.p.j - 1));
-				case 'R':
+				case 'E':
 					return (canimove(m, ent.p.i, ent.p.j + 1));
 				default:
 					return false;
 			}
 		} else {
 			switch (ent.dir) {
-				case 'U':
+				case 'N':
 					return (m.isfree(ent.p.i - 1, ent.p.j));
-				case 'D':
+				case 'S':
 					return (m.isfree(ent.p.i + 1, ent.p.j));
-				case 'L':
+				case 'W':
 					return (m.isfree(ent.p.i, ent.p.j - 1));
-				case 'R':
+				case 'E':
 					return (m.isfree(ent.p.i, ent.p.j + 1));
 				default:
 					return false;
