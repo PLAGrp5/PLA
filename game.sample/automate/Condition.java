@@ -10,7 +10,7 @@ import java.lang.Object;
 
 public abstract class Condition {
 
-	Map m;
+	char dir;
 	public abstract boolean eval(Entity ent);
 	
 	/*public String cond_met1;

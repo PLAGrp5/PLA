@@ -58,8 +58,8 @@ public class GameOver {
 		JButton ExitButton = new JButton("MENU");
 
 		Model mod = (Model)g_ui.m_model;
-		int scorebleu = mod.m.scorebleu();
-		int scorerouge = mod.m.scorerouge();
+		int scorebleu = mod.m_Map.scorebleu();
+		int scorerouge = mod.m_Map.scorerouge();
 		if(scorebleu>scorerouge) {
 			headerLabel.setText("Bleu gagne la partie      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
 

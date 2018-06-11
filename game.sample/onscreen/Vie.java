@@ -1,14 +1,12 @@
 package onscreen;
 
-import ui.*;
-
-public class Vie extends BonusEtMalusFixes {
+public class Vie extends BonusEtMalus {
 
 	public Vie() {
 		this.type = 'V';
 	}
 
-	public void jeter(Model model, Entity e) {
+	public void jeter(Entity e) {
 		if (!(e.inventaireVide())) {
 			int i;
 			if (e.vie + 5 >= e.vie_max)

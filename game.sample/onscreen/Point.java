@@ -40,10 +40,4 @@ public class Point {
         }
         return p1;
     }
-
-    // modification d'un point par (newx,newy)
-    public void translate(int newi, int newj) {
-        this.i += newi;
-        this.j += newj;
-    }
 }
