@@ -333,7 +333,8 @@ public class GameUI implements ActionListener {
 		m_fps = fps;
 		m_msg = msg;
 	}
-
+	
+	
 	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire, int nbre_mine,
 			int nbre_vie) {
 		JPanel pan = new JPanel(new GridLayout(16	, 3));

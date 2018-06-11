@@ -48,15 +48,13 @@ public class Menu {
 		// L'image de fond est issue du site https://pixabay.com qui est une banque
 		// d'images libre de droits
 		Image image = imageicon.getImage();
-		
 		controlPanel = new JPanel() {            
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void paintComponent(Graphics g) {
+		@Override
+		protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.drawImage(image, 0, 0, null);
 			}

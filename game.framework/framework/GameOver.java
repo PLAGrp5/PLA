@@ -55,6 +55,7 @@ public class GameOver {
 	public void showEvent() {
 		headerLabel.setText("Game Over");
 		JButton ExitButton = new JButton("MENU");
+		
 		Model mod = (Model)g_ui.m_model;
 		int scorebleu = mod.m.scorebleu();
 		int scorerouge = mod.m.scorerouge();
