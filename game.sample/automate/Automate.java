@@ -1,7 +1,6 @@
 package automate;
 
 import onscreen.*;
-import ui.*;
 
 /*
  * Classe qui désigne un automate, elle contient un tableau de transition
@@ -11,20 +10,15 @@ public class Automate {
 	// notre entité
 	// State courant;
 	public Transition[] t;
-	public Model model;
 
 	public Automate(State e, Transition[] t) {
-		// courant = e;
-
 		this.t = t;
 	}
 
-	public Automate(Model model, State e, Transition[] t) {
-		// courant = e;
-		this.model = model;
-		this.t = t;
-	}
-
+	/*
+	 * public Automate(Model model, State e, Transition[] t) { // courant = e;
+	 * this.model = model; this.t = t; }
+	 */
 	/*
 	 * Execution de la première transition possible cad que: - l'etat source
 	 * necessaire à la transition est notre etat courant - la condition pour

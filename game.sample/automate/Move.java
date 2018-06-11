@@ -1,27 +1,22 @@
 package automate;
 
 import java.awt.Color;
-import ui.*;
 import onscreen.*;
 
 public class Move extends Action {
 
 	public Move() {
-		this.dir = 'F';
 	}
 
 	public Move(char dir) {
 		this.dir = dir;
 	}
 
-	public Move(Model model, char dir) {
-		this.dir = dir;
-		this.model = model;
-	}
-
-	public Move(Model model) {
-		this.model = model;
-	}
+	/*
+	 * public Move(Model model, char dir) { this.dir = dir; this.model = model; }
+	 * 
+	 * public Move(Model model) { this.model = model; }
+	 */
 
 	/*
 	 * retourne les coordonné du point devant en fonction des coordonnées du point
@@ -29,28 +24,13 @@ public class Move extends Action {
 	 */
 
 	Point nextstep(Entity e) {
-		Point p = new Point(e.p.i, e.p.j);
-		switch (this.dir) {
-		case 'S':
-			p.i++;
-			break;
-		case 'W':
-			p.j--;
-			break;
-		case 'E':
-			p.j++;
-			break;
-		default:
-			p.i--;
-			break;
-		}
-		return p;
+		return e.p.nextPoint(e.dir);
 	}
 
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
 	// bonus)
-	boolean canimove(Map m, int i, int j) {
-		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j);
+	boolean canimove(Map map, int i, int j) {
+		return map.isfree(i, j) || map.isbonus(i, j) || map.ismine(i, j) || map.isbullet(i, j);
 	}
 
 	public void caseBonus(Entity e) {
@@ -68,21 +48,13 @@ public class Move extends Action {
 				System.out.println("Inventaire plein");
 			break;
 		case 2:
-			State s = new State("1");
-			Transition[] transitionsb = new Transition[2];
-			Action mAction = new Move(e.dir);
-			Action eAction = new Turn();
-			Condition cond = new CondFree(e.m_model.m);
-			Condition cond1 = new CondDefault(e.m_model.m);
-			transitionsb[0] = new Transition(s, s, mAction, cond);
-			transitionsb[1] = new Transition(s, s, eAction, cond1);
-			Automate a = new Automate(model, s, transitionsb);
 			e.aut_bonus = true;
-			e.comport = a;
-			e.courant = s;
+			e.comport_bonus = e.m_model.automates[1];
+			e.courant_bonus = e.m_model.automates[1].t[0].src;
 			e.m_lastMove = 0L;
 			break;
 		}
+
 	}
 
 	public void caseMine(Entity e) {
@@ -91,16 +63,15 @@ public class Move extends Action {
 	}
 
 	public void execute(Entity e) {
-		this.model = e.m_model;
 
 		if (e instanceof Tank && e.jauge_couleur > 0) {
-			if (e.m_model.m.color[e.p.i][e.p.j] == 'F' || e.m_model.m.color[e.p.i][e.p.j] == 'B'
-					|| e.m_model.m.color[e.p.i][e.p.j] == 'R') {
-				if ((e.m_tank == Color.cyan) && (e.m_model.m.color[e.p.i][e.p.j] != 'B')) {
-					e.m_model.m.color[e.p.i][e.p.j] = 'B';
+			if (e.m_model.m_Map.color[e.p.i][e.p.j] == 'F' || e.m_model.m_Map.color[e.p.i][e.p.j] == 'B'
+					|| e.m_model.m_Map.color[e.p.i][e.p.j] == 'R') {
+				if ((e.m_tank == Color.cyan) && (e.m_model.m_Map.color[e.p.i][e.p.j] != 'B')) {
+					e.m_model.m_Map.color[e.p.i][e.p.j] = 'B';
 					e.jauge_couleur--;
-				} else if ((e.m_tank == Color.orange) && (e.m_model.m.color[e.p.i][e.p.j] != 'R')) {
-					e.m_model.m.color[e.p.i][e.p.j] = 'R';
+				} else if ((e.m_tank == Color.orange) && (e.m_model.m_Map.color[e.p.i][e.p.j] != 'R')) {
+					e.m_model.m_Map.color[e.p.i][e.p.j] = 'R';
 					e.jauge_couleur--;
 				}
 			}
@@ -116,24 +87,24 @@ public class Move extends Action {
 			// Sinon on effectue l'action move
 			else {
 				Point p = nextstep(e); // calcul nouvel coordonnées
-				if (canimove(model.m, p.i, p.j)) {
-					if (model.m.isbonus(p.i, p.j))
+				if (canimove(e.m_model.m_Map, p.i, p.j)) {
+					if (e.m_model.m_Map.isbonus(p.i, p.j))
 						caseBonus(e);
-					else if (model.m.ismine(p.i, p.j))
+					else if (e.m_model.m_Map.ismine(p.i, p.j))
 						caseMine(e);
-					model.m.free(e.p.i, e.p.j);
+					e.m_model.m_Map.free(e.p.i, e.p.j);
 					if ((e.jauge_couleur > 0)) {
 						if (e.m_tank == Color.cyan) {
-							model.m.color[e.p.i][e.p.j] = 'B';
+							e.m_model.m_Map.color[e.p.i][e.p.j] = 'B';
 						} else if (e.m_tank == Color.orange) {
-							model.m.color[e.p.i][e.p.j] = 'R';
+							e.m_model.m_Map.color[e.p.i][e.p.j] = 'R';
 						}
 					}
 					e.p = p;
-					model.m.insert(e);
-				} else if (model.m.map[p.i][p.j].type == 'T') {
+					e.m_model.m_Map.insert(e);
+				} else if (e.m_model.m_Map.map[p.i][p.j].type == 'T') {
 					e.updatevie(e.m_model, -1);
-					model.m.map[p.i][p.j].updatevie(e.m_model, -1);
+					e.m_model.m_Map.map[p.i][p.j].updatevie(e.m_model, -1);
 					e.opposite();
 					this.dir = e.dir;
 				}
@@ -141,14 +112,14 @@ public class Move extends Action {
 		} else {
 			this.dir = e.dir;
 			Point p = nextstep(e); // calcul nouvel coordonnées
-			if (canimove(model.m, p.i, p.j)) {
-				if (model.m.isbonus(p.i, p.j))
+			if (canimove(e.m_model.m_Map, p.i, p.j)) {
+				if (e.m_model.m_Map.isbonus(p.i, p.j))
 					caseBonus(e);
-				else if (model.m.ismine(p.i, p.j))
+				else if (e.m_model.m_Map.ismine(p.i, p.j))
 					caseMine(e);
-				model.m.free(e.p.i, e.p.j);
+				e.m_model.m_Map.free(e.p.i, e.p.j);
 				e.p = p;
-				model.m.insert(e);
+				e.m_model.m_Map.insert(e);
 			}
 
 		}

@@ -23,7 +23,7 @@ public class Transition {
 	
 	
 	public boolean eval(Entity e) {
-		return (src == e.courant && this.cond.eval(e) && !(this.cond instanceof CondDefault));
+		return (src == e.courant && this.cond.eval(e) && !(cond instanceof CondDefault));
 	}
 	
 }

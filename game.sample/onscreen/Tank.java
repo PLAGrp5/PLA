@@ -11,7 +11,6 @@ import ui.*;
 /* Classe permettant de modéliser les tanks dans le jeu
  */
 public class Tank extends Entity {
-	BufferedImage[] m_sprites;
 
 	public Tank(int i, int j, char dir) {
 		super('T', i, j, dir);
@@ -19,18 +18,19 @@ public class Tank extends Entity {
 
 	public Tank(Model model, BufferedImage sprite, int i, int j, char dir, float scale, int dose_couleur, Color color) {
 		super('T', i, j, dir);
+		aut_bonus = false;
 		m_model = model;
 		m_sprite = sprite;
 		m_scale = scale;
 		lastj = p.j;
 		lasti = p.i;
-		m_model.m.insert(this);
+		m_model.m_Map.insert(this);
 		m_tank = color;
 		jauge_couleur = dose_couleur;
 		maxnstep = 10;
 		splitTankSprite();
-		this.setvie(15);
-		this.initinventaire();
+		setvie(15);
+		initinventaire();
 	}
 
 	/*
@@ -49,14 +49,14 @@ public class Tank extends Entity {
 			lasti = p.i;
 			m_lastMove = now;
 
-		/*
-		 * Si notre jauge de couleur n'est pas vide et que l'action est un mouvement On
-		 * colorie la case précedente seulement si elle change de couleur
-		 */
+			/*
+			 * Si notre jauge de couleur n'est pas vide et que l'action est un mouvement On
+			 * colorie la case précedente seulement si elle change de couleur
+			 */
 
-		new Move(m_model, dir).execute(this);
+			new Move(dir).execute(this);
 
-	}
+		}
 	}
 
 	// Récuperation des différente images du tank dans un tableau à partir des

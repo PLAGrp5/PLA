@@ -1,12 +1,10 @@
 package automate;
 
-import onscreen.Entity;
-import onscreen.Map;
+import onscreen.*;
 
 public class CondDefault extends Condition {
 
-	public CondDefault(Map m) {
-		this.m = m;
+	public CondDefault() {
 	}
 
 	public boolean eval(Entity ent) {
