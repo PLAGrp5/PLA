@@ -29,8 +29,6 @@ public class Menu {
 	private void prepareGUI() {
 		menuFrame = new JFrame();
 		menuFrame.setTitle("Gitank Menu");
-		GridLayout grid = new GridLayout(5, 1);
-		grid.setVgap(20); // Espacement entre deux élément du layout
 		menuFrame.setSize(1024, 1024);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		menuFrame.setLocation(dim.width / 2 - menuFrame.getSize().width / 2,
@@ -60,6 +58,8 @@ public class Menu {
 			}
 		};
 
+		GridLayout grid = new GridLayout(5, 1);
+		grid.setVgap(20); // Espacement entre deux élément du layout
 		controlPanel.setLayout(grid);
 
 		menuFrame.setContentPane(controlPanel);

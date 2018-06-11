@@ -1,7 +1,11 @@
 package framework;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +15,6 @@ import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -51,10 +54,10 @@ public class Parametres {
 	}
 
 	private void prepareGUI() {
-		paramFrame = new JFrame("Gitank param");
-		paramFrame.setSize(1447, 1024);
+		paramFrame = new JFrame("Gitank paramètres");
+		paramFrame.setSize(1447, 900);
 		paramFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
-		paramFrame.setLayout(new GridLayout(4,3));
+	//	paramFrame.setLayout(new GridLayout(4,3));
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		paramFrame.setLocation(dim.width/2-paramFrame.getSize().width/2, dim.height/2-paramFrame.getSize().height/2);
 
@@ -67,50 +70,77 @@ public class Parametres {
 		});
 
 		controlPanel = new JPanel();
+		controlPanel.setOpaque(false);
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
 		Sbire_1 = new JPanel();
-		Sbire_1.setLayout(new BoxLayout(Sbire_1, BoxLayout.X_AXIS));
+		Sbire_1.setOpaque(false);
+		Sbire_1.setLayout(new GridLayout(1,2));
+		
 		Sbire_2 = new JPanel();
-		Sbire_2.setLayout(new BoxLayout(Sbire_2, BoxLayout.X_AXIS));
+		Sbire_2.setOpaque(false);
+		Sbire_2.setLayout(new GridLayout(1,2));
+		
 		Carte = new JPanel();
-		Carte.setLayout(new BoxLayout(Carte, BoxLayout.X_AXIS));
+		Carte.setOpaque(false);
+		Carte.setLayout(new GridLayout(1,2));
+		
+		Font font = new Font("Arial", Font.BOLD, 25); // Choix police plus taille
 		
 		sb1_1 = new JLabel("Sbire 1_1 : " + sbire1_1.getName(), JLabel.CENTER);
+		sb1_1.setFont(font);
 		sb1_2 = new JLabel("Sbire 1_2 : " + sbire1_2.getName(), JLabel.CENTER);
+		sb1_2.setFont(font);
 		sb2_1 = new JLabel("Sbire 2_1 : " + sbire2_1.getName(), JLabel.CENTER);
+		sb2_1.setFont(font);
 		sb2_2 = new JLabel("Sbire 2_2 : " + sbire2_2.getName(), JLabel.CENTER);
+		sb2_2.setFont(font);
 		map = new JLabel("Carte : " + carte.getName(), JLabel.CENTER);
+		map.setFont(font);
 		JLabel f = new JLabel("",JLabel.CENTER);
 		JLabel g = new JLabel("",JLabel.CENTER);
 		
-		paramFrame.add(f);
-		paramFrame.add(headerLabel);
-		paramFrame.add(g);
-		paramFrame.add(sb1_1);
-		paramFrame.add(Sbire_1);
-		paramFrame.add(sb2_1);
-		paramFrame.add(sb1_2);
-		paramFrame.add(Sbire_2);
-		paramFrame.add(sb2_2);
-		paramFrame.add(map);
-		paramFrame.add(Carte);
-		paramFrame.add(controlPanel);
+		// Gestion image de fond
+		ImageIcon imageicon = new ImageIcon("game.sample/sprites/landscape.jpg");
+		// L'image de fond est issue du site https://pixabay.com qui est une banque
+		// d'images libre de droits
+		Image image = imageicon.getImage();
 		
+		JPanel paramPanel = new JPanel() {
+			private static final long serialVersionUID = 1L;
+		@Override
+		protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.drawImage(image, 0, 0, null);
+			}
+		};
+		
+		paramPanel.setLayout(new GridLayout(4,3));
+		paramPanel.add(f);
+		paramPanel.add(headerLabel);
+		paramPanel.add(g);
+		paramPanel.add(sb1_1);
+		paramPanel.add(Sbire_1);
+		paramPanel.add(sb2_1);
+		paramPanel.add(sb1_2);
+		paramPanel.add(Sbire_2);
+		paramPanel.add(sb2_2);
+		paramPanel.add(map);
+		paramPanel.add(Carte);
+		paramPanel.add(controlPanel);
+		
+		paramFrame.setContentPane(paramPanel);
 		paramFrame.setVisible(true);
 	}
 
 	public void showEvent() {
-		headerLabel.setText("Choix des Automates et de la Carte");
-
-		JButton Sb1_1Button = new JButton("Choisir 1_1");
-		JButton Sb1_2Button = new JButton("Choisir 1_2");
-		JButton Sb2_1Button = new JButton("Choisir 2_1");
-		JButton Sb2_2Button = new JButton("Choisir 2_2");
-		JButton CarteButton = new JButton("Choisir carte");
-		JButton ExitButton = new JButton("EXIT");
-		JLabel a = new JLabel("                                                                 ");
-		JLabel b = new JLabel("                                                                 ");
-		JLabel c = new JLabel("                                                                 ");
+		headerLabel.setText("Choix des Automates");
+		headerLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		MyButton Sb1_1Button = new MyButton("Choisir 1_1", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+		MyButton Sb1_2Button = new MyButton("Choisir 1_2", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+		MyButton Sb2_1Button = new MyButton("Choisir 2_1", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+		MyButton Sb2_2Button = new MyButton("Choisir 2_2", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+		MyButton CarteButton = new MyButton("Carte", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+		MyButton ExitButton = new MyButton("EXIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 
 		Sb1_1Button.setActionCommand("SB1_1");
 		Sb1_2Button.setActionCommand("SB1_2");
@@ -126,15 +156,56 @@ public class Parametres {
 		CarteButton.addActionListener(new ButtonClickListener());
 		ExitButton.addActionListener(new ButtonClickListener());
 
-		Sbire_1.add(Sb1_1Button);
-		Sbire_1.add(a);
-		Sbire_2.add(Sb1_2Button);
-		Sbire_1.add(Sb2_1Button);
-		Sbire_2.add(b);
-		Sbire_2.add(Sb2_2Button);
-		Carte.add(CarteButton);
-		controlPanel.add(c);
-		controlPanel.add(ExitButton);
+		Sb1_1Button.setPreferredSize(new Dimension(120, 30));
+		Sb1_2Button.setPreferredSize(new Dimension(120, 30));
+		Sb2_1Button.setPreferredSize(new Dimension(120, 30));
+		Sb2_2Button.setPreferredSize(new Dimension(120, 30));
+		CarteButton.setPreferredSize(new Dimension(120, 30));
+		ExitButton.setPreferredSize(new Dimension(250, 100));
+		
+
+		JPanel bouton1 = new JPanel(new GridBagLayout());
+		//GridBagConstraints gbc = new GridBagConstraints();
+		//gbc.gridx = 0;
+		//gbc.gridy = GridBagConstraints.RELATIVE;	 
+		//gbc.fill = GridBagConstraints.HORIZONTAL;
+		//gbc.insets = new Insets(30, 30, 30, 30);
+		bouton1.setOpaque(false);
+		bouton1.add(Sb1_1Button);
+		
+		JPanel bouton2 = new JPanel(new GridBagLayout());
+		bouton2.setOpaque(false);
+		bouton2.add(Sb1_2Button);
+		
+		JPanel bouton3 = new JPanel(new GridBagLayout());
+		bouton3.setOpaque(false);
+		bouton3.add(Sb2_1Button);
+		
+		JPanel bouton4 = new JPanel(new GridBagLayout());
+		bouton4.setOpaque(false);
+		bouton4.add(Sb2_2Button);
+		
+		JPanel bouton5 = new JPanel(new GridBagLayout());
+		bouton5.setOpaque(false);
+		bouton5.add(CarteButton);
+		
+		JPanel bouton6 = new JPanel(new GridBagLayout());
+		bouton6.setOpaque(false);
+		bouton6.add(ExitButton);
+		
+		// Panel vide pour combler trou
+		JPanel test = new JPanel(new GridLayout());
+		test.setOpaque(false);
+		
+		
+
+		Sbire_1.add(bouton1);
+		Sbire_2.add(bouton2);
+		Sbire_1.add(bouton3);
+		Sbire_2.add(bouton4);
+		Carte.add(bouton5);
+		Carte.add(test);
+		controlPanel.add(bouton6);
 
 		paramFrame.setVisible(true);
 	}
