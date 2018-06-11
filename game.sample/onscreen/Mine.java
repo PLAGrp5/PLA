@@ -12,19 +12,19 @@ public class Mine extends BonusEtMalusFixes {
 		if (!(e.inventaireVide())) {
 			int i;
 			switch (e.dir) {
-			case 'U':
+			case 'N':
 				if (e.m_model.m.insertMineOK(e))
 					e.m_model.m.insert(new Entity('M', e.p.i + 1, e.p.j));
 				break;
-			case 'D':
+			case 'S':
 				if (e.m_model.m.insertMineOK(e))
 					e.m_model.m.insert(new Entity('M', e.p.i - 1, e.p.j));
 				break;
-			case 'L':
+			case 'W':
 				if (e.m_model.m.insertMineOK(e))
 					e.m_model.m.insert(new Entity('M', e.p.i, e.p.j + 1));
 				break;
-			case 'R':
+			case 'E':
 				if (e.m_model.m.insertMineOK(e))
 					e.m_model.m.insert(new Entity('M', e.p.i, e.p.j - 1));
 				break;

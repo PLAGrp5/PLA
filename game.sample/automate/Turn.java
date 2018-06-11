@@ -2,29 +2,27 @@ package automate;
 
 import onscreen.Entity;
 
-public class Turn extends Action{
+public class Turn extends Action {
 
 	public Turn() {
-		
+
 	}
-	
+
 	public void execute(Entity e) {
 		switch (e.dir) {
-			case 'U' : 
-				e.dir = 'R';
-				break;
-			case 'R' : 
-				e.dir = 'D';
-				break;
-			case 'D' : 
-				e.dir = 'L';
-				break;
-			case 'L' : 
-				e.dir = 'U';
-				break;
-			default : 
-				return;
+		case 'N':
+			e.dir = 'E';
+			break;
+		case 'E':
+			e.dir = 'S';
+			break;
+		case 'S':
+			e.dir = 'W';
+			break;
+		default:
+			e.dir = 'N';
+			break;
 		}
-		//e.comport_bonus.t[0].act.dir = e.dir;
+		// e.comport_bonus.t[0].act.dir = e.dir;
 	}
 }

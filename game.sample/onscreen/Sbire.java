@@ -48,16 +48,13 @@ public class Sbire extends Entity {
 	public void paint(Graphics g, char dir) {
 		Image img;
 		switch (dir) {
-		case 'U':
+		case 'N':
 			img = m_sprites[1];
 			break;
-		case 'D':
+		case 'S':
 			img = m_sprites[3];
 			break;
-		case 'L':
-			img = m_sprites[0];
-			break;
-		case 'R':
+		case 'E':
 			img = m_sprites[2];
 			break;
 		default:

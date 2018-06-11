@@ -1,14 +1,10 @@
 package onscreen;
 
-import ui.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import automate.Automate;
-import automate.Explode;
-import automate.Hit;
-import automate.State;
+import ui.*;
+import automate.*;
 
 /*
  * Classe permettant de modéliser toutes les identités du jeu
@@ -23,11 +19,11 @@ public class Entity {
 	BufferedImage m_sprite;
 	public long m_lastMove;
 
-	public Automate comport_bonus;
+	public Automate comport;
 	public boolean aut_bonus;
-	public State courant_bonus;
-
 	public State courant;
+	public int nstep;
+	public int maxnstep;
 
 	public int vie;
 	int vie_max;
@@ -64,22 +60,27 @@ public class Entity {
 
 	public void opposite() {
 		switch (this.dir) {
-		case 'D':
-			this.dir = 'U';
+		case 'S':
+			this.dir = 'N';
 			break;
-		case 'L':
-			this.dir = 'R';
+		case 'W':
+			this.dir = 'E';
 			break;
-		case 'R':
-			this.dir = 'L';
-			break;
-		case 'U':
-			this.dir = 'D';
+		case 'E':
+			this.dir = 'W';
 			break;
 		default:
-			this.dir = 'D';
+			this.dir = 'S';
 			break;
 		}
+	}
+
+	public void pop() {
+		new Pop(m_model).execute(this);
+	}
+
+	public void wizz() {
+		new Wizz().execute(this);
 	}
 
 	public void hit() {

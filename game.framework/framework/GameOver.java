@@ -1,8 +1,10 @@
 package framework;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -30,8 +32,10 @@ public class GameOver {
 	
 	public void prepareGUI() {
 		overFrame = new JFrame("Game Over");
-		overFrame.setSize(1024, 1024);
+		overFrame.setSize(1447, 1024);
 		overFrame.setLayout(new GridLayout(3, 1));
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		overFrame.setLocation(dim.width/2-overFrame.getSize().width/2, dim.height/2-overFrame.getSize().height/2);
 
 		headerLabel = new JLabel("", JLabel.CENTER);
 
@@ -51,22 +55,45 @@ public class GameOver {
 	
 	public void showEvent() {
 		headerLabel.setText("Game Over");
+
+		JButton ExitButton = new JButton("MENU");
+
 		Model mod = (Model)g_ui.m_model;
+		int parcourstank=0;
+		
+		boolean raisontrouve=false;
+		while(parcourstank < mod.ntank) {
+			if(mod.tanks[parcourstank].vie==0) {
+				raisontrouve=true;
+				//affichage tank mort
+				if(mod.tanks[parcourstank].m_tank==Color.cyan) {
+					headerLabel.setText("Rouge gagne la partie");
+
+				}else {
+					headerLabel.setText("Bleu gagne la partie");
+
+				}
+			}
+			parcourstank++;
+		}
 		int scorebleu = mod.m.scorebleu();
 		int scorerouge = mod.m.scorerouge();
-		if(scorebleu>scorerouge) {
-			headerLabel.setText("Bleu gagne la partie      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
-
+		
+		if(!raisontrouve) {
+			//temps écoulé
+			if(scorebleu>scorerouge) {
+				headerLabel.setText("Bleu gagne la partie      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
+	
+			}
+			else if (scorerouge>scorebleu){
+				headerLabel.setText("Rouge gagne la partie      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
+	
+			}
+			else {
+				headerLabel.setText("Egalité      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
+	
+			}
 		}
-		else if (scorerouge>scorebleu){
-			headerLabel.setText("Rouge gagne la partie      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
-
-		}
-		else {
-			headerLabel.setText("Egalité      Bleu : "+scorebleu+" / Rouge : "+scorerouge);
-
-		}
-		JButton ExitButton = new JButton("EXIT");
 		ExitButton.setActionCommand("EXIT");
 		
 		ExitButton.addActionListener(new ButtonClickListener());

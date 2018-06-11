@@ -27,6 +27,7 @@ public class Tank extends Entity {
 		m_model.m.insert(this);
 		m_tank = color;
 		jauge_couleur = dose_couleur;
+		maxnstep = 10;
 		splitTankSprite();
 		this.setvie(15);
 		this.initinventaire();
@@ -36,7 +37,11 @@ public class Tank extends Entity {
 	 * Réalise l'action du tank Step est appelé depuis le controller en fonction des
 	 * touches enfoncé
 	 */
-	public void move(char dir, char type_action) {
+	public void move(char dir) {
+
+		if (aut_bonus)
+			return;
+
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;
 		if (elapsed > 100L) {
@@ -44,53 +49,14 @@ public class Tank extends Entity {
 			lasti = p.i;
 			m_lastMove = now;
 
-			/*
-			 * Si notre jauge de couleur n'est pas vide et que l'action est un mouvement On
-			 * colorie la case précedente seulement si elle change de couleur
-			 */
-			if ((jauge_couleur > 0) && (type_action == 'm')) {
-				if (m_model.m.color[p.i][p.j] == 'F' || m_model.m.color[p.i][p.j] == 'B'
-						|| m_model.m.color[p.i][p.j] == 'R') {
-					if ((m_tank == Color.cyan) && (m_model.m.color[p.i][p.j] != 'B')) {
-						m_model.m.color[p.i][p.j] = 'B';
-						jauge_couleur--;
-					} else if ((m_tank == Color.orange) && (m_model.m.color[p.i][p.j] != 'R')) {
-						m_model.m.color[p.i][p.j] = 'R';
-						jauge_couleur--;
-					}
-				}
-			}
+		/*
+		 * Si notre jauge de couleur n'est pas vide et que l'action est un mouvement On
+		 * colorie la case précedente seulement si elle change de couleur
+		 */
 
-			if (aut_bonus) {
-				comport_bonus.step(this);
-			} else {
-				Action a;
-				if (type_action == 'p') {
-					a = new Pop(m_model);
-				} else if (type_action == 'w') {
-					a = new Wizz();
-				} else { // if(type_action == 'm')
-					switch (dir) {
-					case 'U':
-						a = new Move(m_model, 'U');
-						break;
-					case 'D':
-						a = new Move(m_model, 'D');
-						break;
-					case 'L':
-						a = new Move(m_model, 'L');
-						break;
-					case 'R':
-						a = new Move(m_model, 'R');
-						break;
-					default:
-						a = new Move(m_model, 'U');
-						break;
-					}
-				}
-				a.execute(this);
-			}
-		}
+		new Move(m_model, dir).execute(this);
+
+	}
 	}
 
 	// Récuperation des différente images du tank dans un tableau à partir des
@@ -108,16 +74,13 @@ public class Tank extends Entity {
 	public void paint(Graphics g, char dir) {
 		Image img;
 		switch (dir) {
-		case 'U':
+		case 'N':
 			img = m_sprites[1];
 			break;
-		case 'D':
+		case 'S':
 			img = m_sprites[3];
 			break;
-		case 'L':
-			img = m_sprites[0];
-			break;
-		case 'R':
+		case 'E':
 			img = m_sprites[2];
 			break;
 		default:

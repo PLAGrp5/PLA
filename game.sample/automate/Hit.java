@@ -13,13 +13,13 @@ public class Hit extends Action {
 		Point p = new Point(e.p);
 
 		switch (e.dir) {
-		case 'D':
+		case 'S':
 			p.i++;
 			break;
-		case 'L':
+		case 'W':
 			p.j--;
 			break;
-		case 'R':
+		case 'E':
 			p.j++;
 			break;
 		default:
@@ -32,7 +32,7 @@ public class Hit extends Action {
 	public void execute(Entity e) {
 		State s = new State("1");
 		Transition[] transitionsb = new Transition[2];
-		Action mAction = new Move();
+		Action mAction = new Move(e.dir);
 		Action eAction = new Explode();
 		Condition cond = new CondFree(e.m_model.m);
 		Condition cond1 = new CondDefault(e.m_model.m);

@@ -49,7 +49,11 @@ public class Menu {
 		// d'images libre de droits
 		Image image = imageicon.getImage();
 
-		controlPanel = new JPanel() {
+		controlPanel = new JPanel() {            
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -134,32 +138,30 @@ public class Menu {
 
 			if (command.equals("START")) {
 				g_ui.setState(STATE.Game);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("HELP")) {
 				g_ui.setState(STATE.Help);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("CREDIT")) {
 				g_ui.setState(STATE.Credit);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("EXIT")) {
 				System.exit(0);
 			} else if (command.equals("OPEN")) {
-				int returnVal = fc.showOpenDialog(menuFrame);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					java.io.File file = fc.getSelectedFile();
-
-				} else {
-
-				}
+				g_ui.setState(STATE.Param);
+				Dimension d = new Dimension(1447, 1024);
+				menuFrame.dispose();
+				g_ui.createWindow(d);
+				g_ui.createTimer();
 			}
 		}
 
