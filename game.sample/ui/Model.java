@@ -54,7 +54,7 @@ public class Model extends GameModel {
 	BufferedImage m_blue;
 	BufferedImage m_red;
 	public BufferedImage m_bullet;
-	// Cowboy[] m_cowboys;
+
 	public Map m;
 
 	public int nsbire = 2;
@@ -108,6 +108,7 @@ public class Model extends GameModel {
 		trans[1] = new Transition(e, e, act1, cond1);
 
 		Automate a = new Automate(e, trans);
+		automates[0] = a;
 
 		s.comport = a;
 		s.courant = e;

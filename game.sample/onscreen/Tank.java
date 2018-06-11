@@ -54,18 +54,6 @@ public class Tank extends Entity {
 		 * Si notre jauge de couleur n'est pas vide et que l'action est un mouvement On
 		 * colorie la case précedente seulement si elle change de couleur
 		 */
-		if (jauge_couleur > 0) {
-			if (m_model.m.color[p.i][p.j] == 'F' || m_model.m.color[p.i][p.j] == 'B'
-					|| m_model.m.color[p.i][p.j] == 'R') {
-				if ((m_tank == Color.cyan) && (m_model.m.color[p.i][p.j] != 'B')) {
-					m_model.m.color[p.i][p.j] = 'B';
-					jauge_couleur--;
-				} else if ((m_tank == Color.orange) && (m_model.m.color[p.i][p.j] != 'R')) {
-					m_model.m.color[p.i][p.j] = 'R';
-					jauge_couleur--;
-				}
-			}
-		}
 
 		new Move(m_model, dir).execute(this);
 

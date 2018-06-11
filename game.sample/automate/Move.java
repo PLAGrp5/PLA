@@ -54,26 +54,35 @@ public class Move extends Action {
 	}
 
 	public void caseBonus(Entity e) {
-		/*
-		 * int bonus = (int) (Math.random() * ((1) + 1)); switch (bonus) { case 0: Vie v
-		 * = new Vie(); if (!(v.prendre(e))) System.out.println("Inventaire plein");
-		 * break; case 1: Mine mine = new Mine(); if (!(mine.prendre(e)))
-		 * System.out.println("Inventaire plein"); }
-		 */
 
-		State s = new State("1");
-		Transition[] transitionsb = new Transition[2];
-		Action mAction = new Move(e.dir);
-		Action eAction = new Turn();
-		Condition cond = new CondFree(e.m_model.m);
-		Condition cond1 = new CondDefault(e.m_model.m);
-		transitionsb[0] = new Transition(s, s, mAction, cond);
-		transitionsb[1] = new Transition(s, s, eAction, cond1);
-		Automate a = new Automate(model, s, transitionsb);
-		e.aut_bonus = true;
-		e.comport = a;
-		e.courant = s;
-		e.m_lastMove = 0L;
+		int bonus = (int) (Math.random() * 3);
+		switch (bonus) {
+		case 0:
+			Vie v = new Vie();
+			if (!(v.prendre(e)))
+				System.out.println("Inventaire plein");
+			break;
+		case 1:
+			Mine mine = new Mine();
+			if (!(mine.prendre(e)))
+				System.out.println("Inventaire plein");
+			break;
+		case 2:
+			State s = new State("1");
+			Transition[] transitionsb = new Transition[2];
+			Action mAction = new Move(e.dir);
+			Action eAction = new Turn();
+			Condition cond = new CondFree(e.m_model.m);
+			Condition cond1 = new CondDefault(e.m_model.m);
+			transitionsb[0] = new Transition(s, s, mAction, cond);
+			transitionsb[1] = new Transition(s, s, eAction, cond1);
+			Automate a = new Automate(model, s, transitionsb);
+			e.aut_bonus = true;
+			e.comport = a;
+			e.courant = s;
+			e.m_lastMove = 0L;
+			break;
+		}
 	}
 
 	public void caseMine(Entity e) {
@@ -83,6 +92,20 @@ public class Move extends Action {
 
 	public void execute(Entity e) {
 		this.model = e.m_model;
+
+		if (e instanceof Tank && e.jauge_couleur > 0) {
+			if (e.m_model.m.color[e.p.i][e.p.j] == 'F' || e.m_model.m.color[e.p.i][e.p.j] == 'B'
+					|| e.m_model.m.color[e.p.i][e.p.j] == 'R') {
+				if ((e.m_tank == Color.cyan) && (e.m_model.m.color[e.p.i][e.p.j] != 'B')) {
+					e.m_model.m.color[e.p.i][e.p.j] = 'B';
+					e.jauge_couleur--;
+				} else if ((e.m_tank == Color.orange) && (e.m_model.m.color[e.p.i][e.p.j] != 'R')) {
+					e.m_model.m.color[e.p.i][e.p.j] = 'R';
+					e.jauge_couleur--;
+				}
+			}
+		}
+
 		if (e instanceof Tank && !e.aut_bonus) {
 			/*
 			 * Convention de notre jeu: lorsque le tank n'est pas dans la bonne direction on
