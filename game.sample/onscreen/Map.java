@@ -1,6 +1,7 @@
 package onscreen;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 //import com.sun.prism.paint.Color;
@@ -14,6 +15,7 @@ public class Map {
 	int n;
 	public Entity map[][];
 	public char color[][];
+	public Portail portail = new Portail();
 
 	/*
 	 * Constructeur de base créant une carte Les limites du terrains ( premiere
@@ -46,6 +48,7 @@ public class Map {
 	 * Création d'une carte à partir d'un fichier txt filepath
 	 */
 	public Map(String filepath) {
+		int k = 0;
 		File f = null;
 		Scanner scan = null;
 		try {
@@ -55,6 +58,48 @@ public class Map {
 			System.exit(0);
 		}
 
+		this.n = scan.nextInt();
+		this.map = new Entity[n][n];
+		this.color = new char[n][n];
+		String s;
+		for (int i = 0; i < this.n; i++) {
+			s = scan.next();
+			for (int j = 0; j < this.n; j++) {
+				insert(new Entity(s.charAt(j), i, j));
+				if (s.charAt(j) == 'P') {
+					portail.Add(new Point(i,j));
+				}
+			}
+		}
+		for (int c = 0; c < this.n; c++) {
+			for (int l = 0; l < this.n; l++) {
+
+				if (this.map[c][l].type == 'F') {
+					this.color[c][l] = 'F';
+				} else if (this.map[c][l].type == 'W') {
+					this.color[c][l] = 'W';
+				} else if (this.map[c][l].type == 'T') {
+					this.color[c][l] = 'F';
+				} else if (this.map[c][l].type == 'I') {
+					this.color[c][l] = 'F';
+				} else if (this.map[c][l].type == 'M') {
+					this.color[c][l] = 'F';
+				} else if (this.map[c][l].type == 'P') {
+					this.color[c][l] = 'P';
+				}
+			}
+		}
+
+	}
+	
+	public Map(File f) {
+		Scanner scan = null;
+		try {
+			scan = new Scanner(f);
+		} catch (FileNotFoundException e) {
+			System.out.println("Mauvais type de fichier de carte séléctionné");
+			System.exit(0);
+		}
 		this.n = scan.nextInt();
 		this.map = new Entity[n][n];
 		this.color = new char[n][n];
@@ -81,7 +126,6 @@ public class Map {
 				}
 			}
 		}
-
 	}
 
 	/*
@@ -141,6 +185,10 @@ public class Map {
 
 	public boolean ismine(int i, int j) {
 		return this.map[i][j].type == 'M';
+	}
+
+	public boolean isportail(int i, int j) {
+		return this.map[i][j].type == 'P';
 	}
 
 	public boolean insertMineOK(Entity e) {

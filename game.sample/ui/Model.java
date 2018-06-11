@@ -52,12 +52,15 @@ public class Model extends GameModel {
 	// Cowboy[] m_cowboys;
 	BufferedImage m_charbleuSprite;
 	BufferedImage m_charrougeSprite;
+	BufferedImage m_sbirebleuSprite;
+	BufferedImage m_sbirerougeSprite;
 	BufferedImage m_mur;
 	BufferedImage m_mine;
 	BufferedImage m_sol;
 	BufferedImage m_item;
 	BufferedImage m_blue;
 	BufferedImage m_red;
+	BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
 	public Map m_Map;
@@ -95,10 +98,8 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-
 		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
 		s21 = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
-
 /*
 		State e = new State("1");
 
@@ -117,7 +118,6 @@ public class Model extends GameModel {
 		trans1[0] = new Transition(e, e, act2, cond);
 		trans1[1] = new Transition(e, e, act1, cond1);
 */
-
 		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
 	
 		automates = (Automate[]) a.make();
@@ -277,6 +277,22 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
+		
+		imageFile = new File("game.sample/sprites/sbireb.png");
+		try {
+			m_sbirebleuSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		imageFile = new File("game.sample/sprites/sbirer.png");
+		try {
+			m_sbirerougeSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 
 		imageFile = new File("game.sample/sprites/mur.png");
 		try {
@@ -329,6 +345,14 @@ public class Model extends GameModel {
 		imageFile = new File("game.sample/sprites/red.png");
 		try {
 			m_red = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/portail.png");
+		try {
+			m_portail = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
