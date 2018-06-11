@@ -49,11 +49,11 @@ public class Move extends Action {
 
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
 	// bonus)
-	boolean canimove(Map m, int i, int j) {
+	boolean CanIMove(Map m, int i, int j) {
 		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j);
 	}
 
-	public void caseBonus(Entity e) {
+	public void CaseBonus(Entity e) {
 
 		int bonus = (int) (Math.random() * 3);
 		switch (bonus) {
@@ -85,9 +85,18 @@ public class Move extends Action {
 		}
 	}
 
-	public void caseMine(Entity e) {
+	public void CaseMine(Entity e) {
 		e.updatevie(e.m_model, -3);
 		System.out.println("AIE UNE MINE | VIE : " + e.vie);
+	}
+
+	public void Teleportation(Entity e) {
+		int i = (int) (Math.random() * 4);
+		System.out.println("Alea : " + i);
+		model.m.free(e.p.i, e.p.j);
+		e.p = model.m.portails[i];
+		System.out.println("Point : (" + e.p.i + " , " + e.p.j + ")");
+		model.m.insert(e);
 	}
 
 	public void execute(Entity e) {
@@ -116,11 +125,11 @@ public class Move extends Action {
 			// Sinon on effectue l'action move
 			else {
 				Point p = nextstep(e); // calcul nouvel coordonnées
-				if (canimove(model.m, p.i, p.j)) {
+				if (CanIMove(model.m, p.i, p.j)) {
 					if (model.m.isbonus(p.i, p.j))
-						caseBonus(e);
+						CaseBonus(e);
 					else if (model.m.ismine(p.i, p.j))
-						caseMine(e);
+						CaseMine(e);
 					model.m.free(e.p.i, e.p.j);
 					if ((e.jauge_couleur > 0)) {
 						if (e.m_tank == Color.cyan) {
@@ -136,20 +145,24 @@ public class Move extends Action {
 					model.m.map[p.i][p.j].updatevie(e.m_model, -1);
 					e.opposite();
 					this.dir = e.dir;
-				}
+				} else if (model.m.isportail(p.i, p.j))
+					Teleportation(e);
 			}
 		} else {
 			this.dir = e.dir;
 			Point p = nextstep(e); // calcul nouvel coordonnées
-			if (canimove(model.m, p.i, p.j)) {
+			if (CanIMove(model.m, p.i, p.j)) {
 				if (model.m.isbonus(p.i, p.j))
-					caseBonus(e);
+					CaseBonus(e);
 				else if (model.m.ismine(p.i, p.j))
-					caseMine(e);
+					CaseMine(e);
+				else if (model.m.isportail(p.i, p.j))
+					Teleportation(e);
 				model.m.free(e.p.i, e.p.j);
 				e.p = p;
 				model.m.insert(e);
-			}
+			} else if (model.m.isportail(p.i, p.j))
+				Teleportation(e);
 
 		}
 	}
