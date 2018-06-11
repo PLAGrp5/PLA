@@ -1,7 +1,6 @@
 package automate;
 
 import onscreen.*;
-import ui.*;
 /*
  * c'est une classe mère englobant toutes les actions
  * par exemple Move, Pop et Wizz
@@ -10,8 +9,7 @@ import ui.*;
 
 public class Action {
 	char dir;
-	Model model;
-
+	
 	public void execute(Entity e) {
 	}
 }

@@ -287,7 +287,23 @@ public class GameUI implements ActionListener {
 		m_nTicks++;
 		m_model.step(now);
 		m_controller.step(now);
-
+		
+		Model mod = (Model)m_model;
+		int parcourstank=0;
+		
+		while(parcourstank < mod.ntank) {
+			if(mod.tanks[parcourstank].vie==0) {
+				
+				setState(STATE.Over);
+				m_frame.dispose();
+				Dimension d = new Dimension(1024, 1024);
+				createWindow(d);
+				stopTimer();
+				
+			}
+			parcourstank++;
+		}
+		
 		if(tempsrestant <=0) {
 			setState(STATE.Over);
 			m_frame.dispose();
