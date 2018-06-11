@@ -114,6 +114,7 @@ public class View extends GameView {
 		m_model.tanks[0].paint(g, m_model.tanks[0].dir);
 		m_model.tanks[1].paint(g, m_model.tanks[1].dir);
 		for (int i = 0; i < m_model.nsbire; i++) {
+			//System.out.println(m_model.sbires[i].alive);
 			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
 		}
 		for (int i = 0; i < m_model.nbullet; i++) {

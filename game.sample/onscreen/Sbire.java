@@ -44,8 +44,9 @@ public class Sbire extends Entity {
 		jauge_couleur = dose_couleur;
 		maxnstep = 15;
 		splitSbiresSprite();
-		setvie(15);
-		initinventaire();
+		this.setvie(15);
+		alive = true;
+		this.initinventaire();
 	}
 
 	// Récuperation des différente images du sbire dans un tableau à partir des
@@ -61,24 +62,29 @@ public class Sbire extends Entity {
 
 	// Affichage d'un sbire
 	public void paint(Graphics g, char dir) {
-		Image img;
-		switch (dir) {
-		case 'N':
-			img = m_sprites[1];
-			break;
-		case 'S':
-			img = m_sprites[3];
-			break;
-		case 'E':
-			img = m_sprites[2];
-			break;
-		default:
-			img = m_sprites[0];
+		if(alive) {
+			
+			Image img;
+			switch (dir) {
+			case 'N':
+				img = m_sprites[1];
+				break;
+			case 'S':
+				img = m_sprites[3];
+				break;
+			case 'E':
+				img = m_sprites[2];
+				break;
+			default:
+				img = m_sprites[0];
+			}
+			int w = (int) (m_scale * 32);
+			int h = (int) (m_scale * 32);
+	
+			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
+		} else {
+			g.drawImage(m_model.m_mort, p.j * 32, p.i * 32, 32, 32, null);
 		}
-		int w = (int) (m_scale * 32);
-		int h = (int) (m_scale * 32);
-
-		g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
 	}
 
 }
