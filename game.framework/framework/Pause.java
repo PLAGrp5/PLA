@@ -78,6 +78,7 @@ public class Pause {
 				g_ui.setState(STATE.Game);
 				pauseFrame.dispose();
 				g_ui.resumeTimer();
+				g_ui.temps_de_pause += System.currentTimeMillis() - g_ui.m_start;
 			}
 		}
 	}
