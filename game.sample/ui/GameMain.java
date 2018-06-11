@@ -19,13 +19,15 @@ package ui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
 
+import Parser.ParseException;
 import framework.*;
 import onscreen.*;
 
 public class GameMain {
 	
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException, ParseException {
 
   //récuperer la dimension de l'écran
 	Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();

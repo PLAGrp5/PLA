@@ -17,17 +17,23 @@ public class Entity {
 	public char type;
 	float m_scale;
 	BufferedImage m_sprite;
+	public BufferedImage[] m_sprites;
 	public long m_lastMove;
 
 	public Automate comport;
+	public Automate comport_bonus;
 	public boolean aut_bonus;
+	public State courant_bonus;
 	public State courant;
 	public int nstep;
 	public int maxnstep;
 
 	public int vie;
 	int vie_max;
-	public BonusEtMalusFixes[] inventaire = new BonusEtMalusFixes[3];
+
+	public boolean alive;
+
+	public BonusEtMalus[] inventaire = new BonusEtMalus[3];
 	public int jauge_couleur;
 	public int lastj, lasti;
 	public Color m_tank;
@@ -37,6 +43,14 @@ public class Entity {
 	public String printsbire = "fondpanel";
 	public int nbre_mine = 0;
 	public int nbre_vie = 0;
+
+	public Sbire[] m_sbires = new Sbire[2];
+
+	public Entity(char type) {
+		this.type = type;
+		p.i = 1;
+		p.j = 1;
+	}
 
 	public Entity(char type, int i, int j, char dir) {
 		this.type = type;
@@ -60,23 +74,34 @@ public class Entity {
 
 	public void opposite() {
 		switch (this.dir) {
-		case 'S':
-			this.dir = 'N';
-			break;
-		case 'W':
-			this.dir = 'E';
-			break;
-		case 'E':
-			this.dir = 'W';
-			break;
-		default:
-			this.dir = 'S';
-			break;
+			case 'S':
+				this.dir = 'N';
+				break;
+			case 'W':
+				this.dir = 'E';
+				break;
+			case 'E':
+				this.dir = 'W';
+				break;
+			default:
+				this.dir = 'S';
+				break;
 		}
 	}
 
+	public boolean canimove() {
+		Point p = new Point(this.p).nextPoint(dir);
+		return m_model.m_Map.isfree(p.i, p.j) || m_model.m_Map.isbonus(p.i, p.j) || m_model.m_Map.ismine(p.i, p.j)
+				|| m_model.m_Map.isbullet(p.i, p.j);
+	}
+
+	public boolean canihit() {
+		Point p1 = new Point(this.p).nextPoint(dir);
+		return m_model.GetEntity(p1).type == 'F';
+	}
+
 	public void pop() {
-		new Pop(m_model).execute(this);
+		new Pop().execute(this);
 	}
 
 	public void wizz() {
@@ -84,13 +109,17 @@ public class Entity {
 	}
 
 	public void hit() {
-		Hit h = new Hit();
-		if (h.canihit(this))
-			new Hit().execute(this);
-		else {
-			Point pe = new Point(p);
-			Point p = pe.nextPoint(dir);
-			m_model.m.map[p.i][p.j].updatevie(m_model, -1);
+		long now = System.currentTimeMillis();
+		long elapsed = now - m_lastMove;
+		if (elapsed > 500L) {
+			m_lastMove = now;
+			if (canihit())
+				new Hit().execute(this);
+			else {
+				Point pe = new Point(p);
+				Point p = pe.nextPoint(dir);
+				m_model.m_Map.map[p.i][p.j].updatevie(m_model, -1);
+			}
 		}
 	}
 
@@ -103,7 +132,6 @@ public class Entity {
 	}
 
 	public void paint(Graphics g, char dir) {
-
 	}
 
 	public void setvie(int vie) {
@@ -132,7 +160,7 @@ public class Entity {
 		this.vie += vie;
 		if (this.vie < 1) {
 			this.vie = 0;
-			if (type != 'W')
+			if (type != 'W' && type != 'P')
 				model.del(this);
 		}
 	}

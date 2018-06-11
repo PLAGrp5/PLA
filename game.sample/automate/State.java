@@ -11,4 +11,8 @@ public class State {
 	public State(String nom) {
 		this.nom = nom;
 	}
+	
+	public boolean compare(String nom2) {
+		return nom.equals(nom2);
+	}
 }

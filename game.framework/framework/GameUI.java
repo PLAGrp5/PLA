@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -33,18 +34,20 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
+import Parser.ParseException;
 import onscreen.Map;
 import onscreen.Sbire;
 import onscreen.Tank;
-import ui.Controller;
 import ui.Model;
+import ui.Controller;
 import ui.View;
 
 import javax.swing.JPanel;
-import Parser.*;
+//import Parser.*;
 
 public class GameUI implements ActionListener {
 
@@ -104,6 +107,9 @@ public class GameUI implements ActionListener {
 	File sb2_2;
   
 	
+  
+  ImageIcon icon = new ImageIcon("game.sample/sprites/image.png");
+  
 	public enum STATE {
 		Menu, Game, Help, Pause, Over, Param, Credit
 	};
@@ -153,7 +159,14 @@ public class GameUI implements ActionListener {
 	void createWindow(Dimension d) {
 		if (state == STATE.Game) {
 			Map m = new Map(map);
-		    Model model = new Model(m);
+		    Model model;
+					try {
+						model = new Model(m);
+					} catch (FileNotFoundException | ParseException e) {
+						e.printStackTrace();
+						return;
+					}
+				
 		    Controller controller = new Controller(model);
 		    View view = new View(model,controller);
 		    
@@ -167,7 +180,7 @@ public class GameUI implements ActionListener {
 			m_frame = new JFrame();
 			m_frame.setTitle("Gitank"); // Nom de la fenêtre
 			m_frame.setLayout(new BorderLayout());
-			m_frame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage()); // Icone du jeu
+			m_frame.setIconImage(icon.getImage()); // Icone du jeu
 
 			m_frame.add(m_view, BorderLayout.CENTER);
 
@@ -287,7 +300,23 @@ public class GameUI implements ActionListener {
 		m_nTicks++;
 		m_model.step(now);
 		m_controller.step(now);
-
+		
+		Model mod = (Model)m_model;
+		int parcourstank=0;
+		
+		while(parcourstank < mod.ntank) {
+			if(mod.tanks[parcourstank].vie==0) {
+				
+				setState(STATE.Over);
+				m_frame.dispose();
+				Dimension d = new Dimension(1024, 1024);
+				createWindow(d);
+				stopTimer();
+				
+			}
+			parcourstank++;
+		}
+		
 		if(tempsrestant <=0) {
 			setState(STATE.Over);
 			m_frame.dispose();
@@ -488,11 +517,17 @@ public class GameUI implements ActionListener {
 		String command = ae.getActionCommand();
 
 		if (command.equals("EXIT")) {
+			int option = JOptionPane.showConfirmDialog(m_frame.getContentPane(), "Êtes-vous sûr ?", "Quitter ?",
+					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
+			if (option == JOptionPane.YES_OPTION) {
 			setState(STATE.Over);
 			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
 			m_model.shutdown();
 			createWindow(d);
+			createTimer();
+			}
+
 		} else if (command.equals("PAUSE")) {
 			setState(STATE.Pause);
 			Dimension d = new Dimension(1024, 1024);
