@@ -47,12 +47,14 @@ public class Model extends GameModel {
 	// Cowboy[] m_cowboys;
 	BufferedImage m_charbleuSprite;
 	BufferedImage m_charrougeSprite;
+	BufferedImage m_explosionSprite;
 	BufferedImage m_mur;
 	BufferedImage m_mine;
 	BufferedImage m_sol;
 	BufferedImage m_item;
 	BufferedImage m_blue;
 	BufferedImage m_red;
+	public BufferedImage m_mort;
 	public BufferedImage m_bullet;
 
 	public Map m;
@@ -134,6 +136,14 @@ public class Model extends GameModel {
 		tanks[0] = t2;
 		tanks[1] = t4;
 
+		s.m_sbires[0] = s;
+		s.m_sbires[1] = s;
+		s3.m_sbires[0] = s3;
+		s3.m_sbires[1] = s3;
+		t4.m_sbires[0] = s;
+		t4.m_sbires[1] = s3;
+		t2.m_sbires[0] = s;
+		t2.m_sbires[1] = s3;
 		// Parte test Bullet
 
 		// m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
@@ -190,7 +200,8 @@ public class Model extends GameModel {
 	/**
 	 * Simulation step.
 	 * 
-	 * @param now is the current time in milliseconds.
+	 * @param now
+	 *            is the current time in milliseconds.
 	 */
 	@Override
 	public void step(long now) {
@@ -246,13 +257,16 @@ public class Model extends GameModel {
 		 * m_cowboySprite = ImageIO.read(imageFile); } catch (IOException ex) {
 		 * ex.printStackTrace(); System.exit(-1); } /* Long explosion set; png file;
 		 * 64x64 px sprite size Krasi Wasilev ( http://freegameassets.blogspot.com)
-		 * 
-		 * imageFile = new File("game.sample/sprites/explosion01_set_64.png"); try {
-		 * m_explosionSprite = ImageIO.read(imageFile); } catch (IOException ex) {
-		 * ex.printStackTrace(); System.exit(-1); }
 		 */
+		File imageFile = new File("game.sample/sprites/explosion01_set_64.png");
+		try {
+			m_explosionSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 
-		File imageFile = new File("game.sample/sprites/charb.png");
+		imageFile = new File("game.sample/sprites/charb.png");
 		try {
 			m_charbleuSprite = ImageIO.read(imageFile);
 		} catch (IOException ex) {
@@ -319,6 +333,14 @@ public class Model extends GameModel {
 		imageFile = new File("game.sample/sprites/red.png");
 		try {
 			m_red = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/mort.png");
+		try {
+			m_mort = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);

@@ -1,5 +1,7 @@
 package automate;
 
+import java.awt.Color;
+
 import onscreen.Entity;
 import onscreen.Point;
 
@@ -16,6 +18,10 @@ public class Explode extends Action {
         Point p = pe.nextPoint(e.dir);
         Entity e1 = e.m_model.m.map[p.i][p.j];
         e1.updatevie(e.m_model, -1);
+        if (e1.vie <= 0) {
+        	e1.alive = false;
+        	e1.jauge_couleur = 0;
+        }
         e.m_model.del(e);
     }
 }

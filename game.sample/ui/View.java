@@ -110,6 +110,7 @@ public class View extends GameView {
 		m_model.t4.paint(g, m_model.t4.dir);
 		m_model.t2.paint(g, m_model.t2.dir);
 		for (int i = 0; i < m_model.nsbire; i++) {
+			//System.out.println(m_model.sbires[i].alive);
 			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
 		}
 		for (int i = 0; i < m_model.nbullet; i++) {

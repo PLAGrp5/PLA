@@ -7,7 +7,18 @@ public abstract class BonusEtMalusFixes {
 
 	// renvoie false si inventaire plein
 	public boolean prendre(Entity ent) {
-		if (ent.inventaire[0] == null) {
+		if ((!ent.m_sbires[0].alive) || (!ent.m_sbires[1].alive)) {
+			if(!ent.m_sbires[0].alive) {
+				ent.m_sbires[0].setvie(5);
+				ent.m_sbires[0].jauge_couleur = 15;
+				ent.m_sbires[0].alive = true;
+			} else {
+				ent.m_sbires[1].setvie(5);
+				ent.m_sbires[1].jauge_couleur = 15;
+				ent.m_sbires[1].alive = true;
+			}
+		}
+		else if (ent.inventaire[0] == null) {
 			ent.inventaire[0] = this;
 			if (this.type == 'M') {
 				ent.printmine = "mine_1";
