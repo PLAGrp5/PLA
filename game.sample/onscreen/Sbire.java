@@ -10,9 +10,6 @@ import ui.*;
 
 public class Sbire extends Entity {
 
-	BufferedImage[] m_sprites;
-	public Automate comport;
-
 	public Sbire(int i, int j, char dir) {
 		super('T', i, j, dir);
 	}
@@ -25,12 +22,30 @@ public class Sbire extends Entity {
 		m_scale = scale;
 		lastj = p.j;
 		lasti = p.i;
-		model.m.insert(this);
+		model.m_Map.insert(this);
 		m_tank = color;
 		jauge_couleur = dose_couleur;
+		maxnstep = 15;
 		splitSbiresSprite();
-		this.setvie(15);
-		this.initinventaire();
+		setvie(15);
+		initinventaire();
+	}
+
+	public Sbire(Model model, BufferedImage sprite, int i, int j, char dir, float scale, int dose_couleur,
+			Color color, Automate a, State s) {
+		super('T', i, j, dir);
+		m_model = model;
+		m_sprite = sprite;
+		m_scale = scale;
+		lastj = p.j;
+		lasti = p.i;
+		model.m_Map.insert(this);
+		m_tank = color;
+		jauge_couleur = dose_couleur;
+		maxnstep = 15;
+		splitSbiresSprite();
+		setvie(15);
+		initinventaire();
 	}
 
 	// Récuperation des différente images du sbire dans un tableau à partir des
