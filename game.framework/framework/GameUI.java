@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -153,7 +154,14 @@ public class GameUI implements ActionListener {
 	void createWindow(Dimension d) {
 		if (state == STATE.Game) {
 			Map m = new Map(map);
-		    Model model = new Model(m);
+		    Model model;
+				try {
+					model = new Model(m);
+				} catch (FileNotFoundException | ParseException e) {
+					e.printStackTrace();
+					return;
+				}
+				
 		    Controller controller = new Controller(model);
 		    View view = new View(model,controller);
 		    
