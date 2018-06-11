@@ -316,7 +316,7 @@ public class Ast {
 				case "Move":
 					return new Move();
 				case "Turn":
-					return new Turn();
+					return new Turn(t[0]);
 				default:
 					return null;
 			}

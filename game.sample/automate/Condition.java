@@ -13,6 +13,7 @@ import java.lang.Object;
 public abstract class Condition {
 
 	char dir;
+	char ent;
 	
 	public Point nextstep(Entity e) {
 		return e.p.nextPoint(e.dir);

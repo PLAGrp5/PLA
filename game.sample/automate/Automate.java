@@ -10,7 +10,6 @@ public class Automate {
 	// notre entité
 	
 	//public Transition[] t;
-	public Model model;
 	public State init;
 	public behaviours[] b;
 	public String name;
@@ -21,8 +20,7 @@ public class Automate {
 		this.b = t;
 	}
 
-	public Automate(Model model, State e, behaviours[] t) {
-		this.model = model;
+	public Automate(State e, behaviours[] t) {
 		this.b = t;
 	}
 

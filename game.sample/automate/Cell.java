@@ -10,7 +10,6 @@ public class Cell extends Condition {
 	}
 
 	public boolean eval(Entity ent) {
-		this.m = ent.m_model;
 		Point p;
 		if(dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W') {
 			p = ent.p.nextPoint(dir);
@@ -32,6 +31,6 @@ public class Cell extends Condition {
 				this.ent = 'F';
 				break;
 		}
-		return this.m.m.map[p.i][p.j].type == this.ent;
+		return ent.m_model.m_Map.map[p.i][p.j].type == this.ent;
 	}
 }

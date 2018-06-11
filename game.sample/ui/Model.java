@@ -206,6 +206,7 @@ public class Model extends GameModel {
 				if (++tanks[i].nstep > tanks[i].maxnstep) {
 					tanks[i].nstep = 0;
 					tanks[i].aut_bonus = false;
+					tanks[i].courant = tanks[i].courant_bonus;
 				}
 			}
 		}

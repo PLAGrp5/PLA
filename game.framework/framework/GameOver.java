@@ -82,8 +82,8 @@ public class GameOver {
 
 		Model mod = (Model) g_ui.m_model;
 
-		int scorebleu = mod.m.scorebleu(); // Score du joueur bleu
-		int scorerouge = mod.m.scorerouge(); // Score du joueur rouge
+		int scorebleu = mod.m_Map.scorebleu(); // Score du joueur bleu
+		int scorerouge = mod.m_Map.scorerouge(); // Score du joueur rouge
 		
 		JLabel gagnant = new JLabel();
 		JLabel score = new JLabel();

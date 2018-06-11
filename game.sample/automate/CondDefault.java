@@ -9,7 +9,6 @@ public class CondDefault extends Condition {
 	}
 
 	public boolean eval(Entity ent) {
-		this.m = ent.m_model;
 		return true;
 	}
 }

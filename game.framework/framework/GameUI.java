@@ -96,7 +96,7 @@ public class GameUI implements ActionListener {
 		Menu, Game, Help, Pause, Over, Param, Credit	
 	};
 
-	public STATE state = STATE.Over;
+	public STATE state = STATE.Menu;
 
 	public void setState(STATE g) {
 		state = g;
