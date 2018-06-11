@@ -5,51 +5,54 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import automate.*;
+import ui.*;
+
 /**
  * Bullet
  */
 public class Bullet extends Entity {
     BufferedImage[] m_sprites;
 
-		public Automate comport;
-		
+    public Automate comport;
+
     public Bullet(Entity e) {
         super('B', e.p.i, e.p.j, e.dir);
         switch (this.dir) {
-        case 'D':
+        case 'S':
             p.i++;
             break;
-        case 'L':
+        case 'W':
             p.j--;
             break;
-        case 'R':
+        case 'E':
             p.j++;
             break;
         default:
             p.i--;
             break;
         }
-        e.m_map.insert(this);
+        e.m_model.m.insert(this);
     }
 
     public Bullet(Entity e, Automate a, State s) {
         super('B', e.p.i, e.p.j, e.dir);
         courant = s;
         comport = a;
-        e.m_map.insert(this);
+        e.m_model.m.insert(this);
     }
 
-    public Bullet(Map m, BufferedImage sprite, float scale, Entity e, Automate a, State s) {
+    public Bullet(Model model, BufferedImage sprite, float scale, Entity e, Automate a, State s) {
         super('B', e.p.i, e.p.j, e.dir);
-        this.m_map = m;
+        this.m_model = model;
         switch (dir) {
-        case 'D':
+        case 'S':
             p.i++;
             break;
-        case 'L':
+        case 'W':
             p.j--;
             break;
-        case 'R':
+        case 'E':
             p.j++;
             break;
         default:
@@ -57,15 +60,15 @@ public class Bullet extends Entity {
             break;
         }
 
-        if (!e.m_map.isfree(p.i, p.j))
+        if (!e.m_model.m.isfree(p.i, p.j))
             return;
-      
+
         courant = s;
         comport = a;
         m_scale = scale;
         m_sprite = sprite;
         splitBulletSprite();
-        e.m_map.insert(this);
+        e.m_model.m.insert(this);
     }
 
     void splitBulletSprite() {
@@ -81,13 +84,13 @@ public class Bullet extends Entity {
     public void paint(Graphics g, char dir) {
         Image img;
         switch (dir) {
-        case 'U':
+        case 'N':
             img = m_sprites[1];
             break;
-        case 'D':
+        case 'S':
             img = m_sprites[3];
             break;
-        case 'R':
+        case 'E':
             img = m_sprites[2];
             break;
         default:

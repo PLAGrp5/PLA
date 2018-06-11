@@ -1,16 +1,19 @@
 package framework;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import framework.GameUI.STATE;
@@ -18,8 +21,6 @@ import framework.GameUI.STATE;
 public class Help {
 
 	JFrame helpFrame;
-	JLabel headerLabel;
-	JLabel regleLabel;
 	JPanel controlPanel;
 	GameUI g_ui;
 
@@ -30,11 +31,12 @@ public class Help {
 
 	private void prepareGUI() {
 		helpFrame = new JFrame("Gitank Help");
-		helpFrame.setSize(400, 400);
-		helpFrame.setLayout(new GridLayout(3, 1));
-
-		headerLabel = new JLabel("", JLabel.CENTER);
-		regleLabel = new JLabel();
+		helpFrame.setSize(1300, 700);
+		helpFrame.setResizable(false);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		helpFrame.setLocation(dim.width / 2 - helpFrame.getSize().width / 2,
+				dim.height / 2 - helpFrame.getSize().height / 2);
+		helpFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
 
 		helpFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {
@@ -42,22 +44,38 @@ public class Help {
 			}
 		});
 
-		controlPanel = new JPanel();
-		controlPanel.setLayout(new FlowLayout());
+		ImageIcon imageicon = new ImageIcon("game.sample/sprites/Help.jpg");
+		// L'image de fond est issue du site https://pixabay.com qui est une banque
+		// d'images libre de droits
+		Image image = imageicon.getImage();
 
-		helpFrame.add(headerLabel);
-		helpFrame.add(regleLabel);
-		helpFrame.add(controlPanel);
+		BorderLayout grid = new BorderLayout();
+		controlPanel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.drawImage(image, 0, 0, null);
+			}
+		};
+		controlPanel.setLayout(grid);
+
+		helpFrame.setContentPane(controlPanel);
 		helpFrame.setVisible(true);
 	}
 
 	public void showEvent() {
-		headerLabel.setText("Gitank Règles");
-		regleLabel.setText("Voici les règles de Gitank");
-		JButton ExitButton = new JButton("EXIT");
+		MyButton ExitButton = new MyButton("EXIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+
+		// JButton ExitButton = new JButton("EXIT");
 		ExitButton.setActionCommand("EXIT");
 		ExitButton.addActionListener(new ButtonClickListener());
-		controlPanel.add(ExitButton);
+		ExitButton.setPreferredSize(new Dimension(350, 100));
+
+		JPanel bouton1 = new JPanel();
+		bouton1.setOpaque(false);
+		bouton1.add(ExitButton);
+
+		controlPanel.add(bouton1, BorderLayout.SOUTH);
 		helpFrame.setVisible(true);
 	}
 
@@ -75,5 +93,5 @@ public class Help {
 		}
 
 	}
-	
+
 }
