@@ -317,6 +317,7 @@ public class GameUI implements ActionListener{
 	  
 	  pan.setBackground(Color.cyan);
 	  addWest(pan);
+	  
   }
 
   public void drawPLayer2Panel(Tank t, int score, String vie, String mine, String sbire) {

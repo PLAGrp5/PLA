@@ -53,7 +53,7 @@ public class GameOver {
 	
 	public void showEvent() {
 		headerLabel.setText("Game Over");
-		JButton ExitButton = new JButton("EXIT");
+		JButton ExitButton = new JButton("MENU");
 		ExitButton.setActionCommand("EXIT");
 		
 		ExitButton.addActionListener(new ButtonClickListener());
