@@ -70,7 +70,7 @@ public class Move extends Action {
 			i = (int) (Math.random() * (m.portail.NombrePortail()));
 		}
 		Point tmp = new Point(m.portail.Get(i)) ;
-		if (CanIMove(model.m, tmp.i - 1, tmp.j)) { // Vers le haut
+		if (CanIMove(m, tmp.i - 1, tmp.j)) { // Vers le haut
 			tmp.i--;
 			e.dir = 'N';
 		} else if (CanIMove(m, tmp.i + 1, tmp.j)) { // Vers le bas
@@ -112,14 +112,14 @@ public class Move extends Action {
 			// Sinon on effectue l'action move
 			else {
 				Point p = nextstep(e); // calcul nouvel coordonnées
-				if (CanIMove(model.m, p.i, p.j)) {
-					if (model.m.isportail(p.i, p.j))
-						p = Teleportation(model.m, e, p);
-					if (model.m.isbonus(p.i, p.j))
+				if (CanIMove(e.m_model.m_Map, p.i, p.j)) {
+					if (e.m_model.m_Map.isportail(p.i, p.j))
+						p = Teleportation(e.m_model.m_Map, e, p);
+					if (e.m_model.m_Map.isbonus(p.i, p.j))
 						CaseBonus(e);
-					else if (model.m.ismine(p.i, p.j))
+					else if (e.m_model.m_Map.ismine(p.i, p.j))
 						CaseMine(e);
-					model.m.free(e.p.i, e.p.j);
+					e.m_model.m_Map.free(e.p.i, e.p.j);
           
 					if ((e.jauge_couleur > 0)) {
 						if (e.m_tank == Color.cyan) {
@@ -140,14 +140,14 @@ public class Move extends Action {
 		} else {
 			this.dir = e.dir;
 			Point p = nextstep(e); // calcul nouvel coordonnées
-			if (CanIMove(model.m, p.i, p.j)) {
-				if (model.m.isportail(p.i, p.j))
-					p = Teleportation(model.m, e, p);
-				if (model.m.isbonus(p.i, p.j))
+			if (CanIMove(e.m_model.m_Map, p.i, p.j)) {
+				if (e.m_model.m_Map.isportail(p.i, p.j))
+					p = Teleportation(e.m_model.m_Map, e, p);
+				if (e.m_model.m_Map.isbonus(p.i, p.j))
 					CaseBonus(e);
-				else if (model.m.ismine(p.i, p.j))
+				else if (e.m_model.m_Map.ismine(p.i, p.j))
 					CaseMine(e);
-				model.m.free(e.p.i, e.p.j);
+				e.m_model.m_Map.free(e.p.i, e.p.j);
 				e.p = p;
 				e.m_model.m_Map.insert(e);
 			}
