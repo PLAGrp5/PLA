@@ -13,7 +13,7 @@ public class behaviours {
 
 	public void eval(Entity e) {
 		int i = 0;
-		if (src != e.courant) {
+		if (!src.compare(e.courant.nom)) {
 			return;
 		} else {
 			Transition[] t_ok = new Transition[t.length];

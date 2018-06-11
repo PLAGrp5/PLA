@@ -1,4 +1,5 @@
 package Parser;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -12,63 +13,62 @@ import automate.*;
 
 public class Ast {
 
-	// All this is only for the graphical .dot output of the Abstract Syntax Tree 
+	// All this is only for the graphical .dot output of the Abstract Syntax Tree
 
-	public String kind; 	// the name of the non-terminal node 
+	public String kind; // the name of the non-terminal node
 
-	public int id = Id.fresh(); // a unique id used as a graph node 
+	public int id = Id.fresh(); // a unique id used as a graph node
 
 	// AST as tree
-	
-	public String dot_id(){ 
-		return Dot.node_id(this.id) ;
+
+	public String dot_id() {
+		return Dot.node_id(this.id);
 	}
-	
+
 	public String as_tree_son_of(Ast father) {
-		return Dot.edge(father.dot_id(), this.dot_id()) + this.as_dot_tree() ;
+		return Dot.edge(father.dot_id(), this.dot_id()) + this.as_dot_tree();
 	}
-	
+
 	public String as_dot_tree() {
 		return this.as_tree_node() + this.tree_edges();
 	}
-	
+
 	public String as_tree_node() {
 		return Dot.declare_node(this.dot_id(), this.kind, "");
 	}
-	
+
 	public String tree_edges() {
-		return "undefined: tree_edges" ; 
+		return "undefined: tree_edges";
 	}
 
 	// AST as automata in .dot format
-	
+
 	public String as_dot_automata() {
 		return "undefined: as_dot_automata";
 	}
-	
 
-	
 	// AST as active automata (interpreter of transitions)
-	
-	public Object  make() {
-		  return null; // TODO à définir dans la plupart des classes internes ci-dessous.
+
+	public Object make() {
+		return null; // TODO à définir dans la plupart des classes internes ci-dessous.
 	}
-	
+
 	public static class Terminal extends Ast {
 		String value;
 
 		Terminal(String string) {
-			this.kind = "Terminal" ;
+			this.kind = "Terminal";
 			this.value = string;
 		}
 
 		public String toString() {
-			return value ;
+			return value;
 		}
-		
-		public String tree_edges(){
-			String value_id = Dot.node_id( -this.id) ;
-			return Dot.declare_node( value_id, value, "shape=none, fontsize=10, fontcolor=blue" ) + Dot.edge(this.dot_id(), value_id) ;
+
+		public String tree_edges() {
+			String value_id = Dot.node_id(-this.id);
+			return Dot.declare_node(value_id, value, "shape=none, fontsize=10, fontcolor=blue")
+					+ Dot.edge(this.dot_id(), value_id);
 		}
 
 		public String make() {
@@ -77,8 +77,12 @@ public class Ast {
 	}
 
 	// Value = Constant U Variable
-	
-	public static abstract class Value extends Ast {}
+
+	public static abstract class Value extends Ast {
+		public String make() {
+			return this.make();
+		}
+	}
 
 	public static class Constant extends Value {
 
@@ -92,8 +96,8 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
-		
-		public Object make() {
+
+		public String make() {
 			return value.make();
 		}
 	}
@@ -110,30 +114,35 @@ public class Ast {
 		public String tree_edges() {
 			return name.as_tree_son_of(this);
 		}
-		
-		public Object make() {
+
+		public String make() {
 			return name.make();
 		}
 	}
 
-	// Parameter = Underscore U Key U Direction U Entity 
-	// Parameter are not Expression (no recursion) 
-	
-	public static abstract class Parameter extends Ast {}
+	// Parameter = Underscore U Key U Direction U Entity
+	// Parameter are not Expression (no recursion)
 
-	public static class Underscore extends Parameter {
-		Underscore(){
-			this.kind = "Any" ;
-		}
-		public String tree_edges() {
-			return "" ;
-		}
-		
-		public Object make() {
-			return null;
+	public static abstract class Parameter extends Ast {
+		public String make() {
+			return this.make();
 		}
 	}
-	
+
+	public static class Underscore extends Parameter {
+		Underscore() {
+			this.kind = "Any";
+		}
+
+		public String tree_edges() {
+			return "";
+		}
+
+		public String make() {
+			return "";
+		}
+	}
+
 	public static class Key extends Parameter {
 
 		Constant value;
@@ -146,8 +155,8 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
-		
-		public Object make() {
+
+		public String make() {
 			return value.make();
 		}
 	}
@@ -164,8 +173,8 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
-		
-		public Object make() {
+
+		public String make() {
 			return value.make();
 		}
 	}
@@ -183,15 +192,24 @@ public class Ast {
 			return value.as_tree_son_of(this);
 		}
 
-		public Object make() {
+		public String make() {
 			return value.make();
 		}
 	}
 
-	// Expression = UnaryOp Expression U  Expression BinaryOp Expression U FunCall(Parameters) 
-	
-	public static abstract class Expression extends Ast {}
-	
+	// Expression = UnaryOp Expression U Expression BinaryOp Expression U
+	// FunCall(Parameters)
+
+	public static abstract class Expression extends Ast {
+		public automate.Action makeAction(){
+			return this.makeAction();
+		}
+		
+		public automate.Condition makeCondition(){
+			return this.makeCondition();
+		}
+	}
+
 	public static class UnaryOp extends Expression {
 
 		Terminal operator;
@@ -205,6 +223,21 @@ public class Ast {
 
 		public String tree_edges() {
 			return operator.as_tree_son_of(this) + operand.as_tree_son_of(this);
+		}
+
+		public automate.Action makeAction() {
+			System.out.println("Erreur operateur unaire interdit sur les actions");
+			return null;
+		}
+
+		public automate.Condition makeCondition() {
+			switch (operator.make()) {
+				/*case "/":
+					return new Not(operand.make());*/
+				default:
+					System.out.println("Erreur seul not est possible");
+					return null;
+			}
 		}
 	}
 
@@ -222,8 +255,29 @@ public class Ast {
 		}
 
 		public String tree_edges() {
-			return left_operand.as_tree_son_of(this) + operator.as_tree_son_of(this)
-					+ right_operand.as_tree_son_of(this);
+			return left_operand.as_tree_son_of(this) + operator.as_tree_son_of(this) + right_operand.as_tree_son_of(this);
+		}
+
+		public automate.Action makeAction() {
+			switch (operator.make()) {
+				/*case "/":
+					return new OrAction(left_operand.make(), right_operand.make());*/
+				default:
+					System.out.println("Erreur and de deux actions impossibles");
+					return null;
+			}
+		}
+
+		public automate.Condition makeCondition() {
+			switch (operator.make()) {
+				/*case "/":
+					return new OrCondition(left_operand.make(), right_operand.make());
+				case "&":
+					return new And(left_operand.make(), right_operand.make());*/
+				default:
+					System.out.println("Erreur seul and et or sont possibles");
+					return null;
+			}
 		}
 	}
 
@@ -249,24 +303,39 @@ public class Ast {
 			return output;
 		}
 
-		public Object make() {
-			int i=0;
-			Object[] t = new Object[4];
+		public automate.Action makeAction() {
+			int i = 0;
+			String[] t = new String[this.parameters.size()];
 			ListIterator<Parameter> Iter = this.parameters.listIterator();
 			while (Iter.hasNext()) {
 				Parameter parameter = Iter.next();
-				t[i] = (char)parameter.make();
+				t[i] = parameter.make();
 				i++;
 			}
 			switch (name.make()) {
-				case "Move" : 
-					return (Object) new Move();
-				case "Turn" : 
-					return (Object) new Turn();
-				case "CondFree" :
-					return (Object) new CondFree((onscreen.Entity)t[i]);
-				default :
+				case "Move":
+					return new Move();
+				case "Turn":
+					return new Turn();
+				default:
 					return null;
+			}
+		}
+
+		public automate.Condition makeCondition() {
+			int i = 0;
+			String[] t = new String[this.parameters.size()];
+			ListIterator<Parameter> Iter = this.parameters.listIterator();
+			while (Iter.hasNext()) {
+				Parameter parameter = Iter.next();
+				t[i] = parameter.make();
+				i++;
+			}
+			switch (name.make()) {
+				case "CondFree":
+					return new CondFree();
+				default:
+					return new CondDefault();
 			}
 		}
 	}
@@ -284,10 +353,10 @@ public class Ast {
 			return expression.as_tree_son_of(this);
 		}
 
-		public Object make() {
-			return expression.make();
+		public automate.Condition make() {
+			return expression.makeCondition();
 		}
-		
+
 	}
 
 	public static class Action extends Ast {
@@ -303,8 +372,8 @@ public class Ast {
 			return expression.as_tree_son_of(this);
 		}
 
-		public Object make() {
-			return expression.make();
+		public automate.Action make() {
+			return expression.makeAction();
 		}
 	}
 
@@ -320,13 +389,13 @@ public class Ast {
 		public String tree_edges() {
 			return name.as_tree_son_of(this);
 		}
-		
-		public String dot_id(Automaton automaton){ 
-			return Dot.name( automaton.id + "." + name.toString() ) ;
+
+		public String dot_id(Automaton automaton) {
+			return Dot.name(automaton.id + "." + name.toString());
 		}
-		
-		public String as_node_of(Automaton automaton){ 
-			return this.dot_id(automaton) + Dot.node_label(name.toString(), "shape=circle, fontsize=4") ;
+
+		public String as_node_of(Automaton automaton) {
+			return this.dot_id(automaton) + Dot.node_label(name.toString(), "shape=circle, fontsize=4");
 		}
 
 		public String make() {
@@ -362,9 +431,9 @@ public class Ast {
 		}
 
 		public Automate[] make() {
-			Automate[] a = new Automate[10];
+			Automate[] a = new Automate[this.automata.size()];
 			ListIterator<Automaton> Iter = this.automata.listIterator();
-			int i=0;
+			int i = 0;
 			while (Iter.hasNext()) {
 				Automaton automaton = Iter.next();
 				a[i] = automaton.make();
@@ -398,27 +467,21 @@ public class Ast {
 			}
 			return output;
 		}
-		
-	/* HERE 
-		String state_to_instruction(int aut, State state, Behaviour behaviour){
-			String output = new String();
-			output += Dot.dot_edge( state.dot_id(aut) , behaviour.dot_id() ) ;
-			return output ;
-		}
-		instruction_to_state()
-		
-		public String as_dot_automata() {
-			String content = new String();
-			output += Terminal.as_dot_node() ;
-			ouput  += entry.as_state_of(this) ;
-			return Dot.subgraph(this.id, content) ;
-		}
-		*/
+
+		/*
+		 * HERE String state_to_instruction(int aut, State state, Behaviour behaviour){
+		 * String output = new String(); output += Dot.dot_edge( state.dot_id(aut) ,
+		 * behaviour.dot_id() ) ; return output ; } instruction_to_state()
+		 * 
+		 * public String as_dot_automata() { String content = new String(); output +=
+		 * Terminal.as_dot_node() ; ouput += entry.as_state_of(this) ; return
+		 * Dot.subgraph(this.id, content) ; }
+		 */
 
 		public Automate make() {
 			ListIterator<Behaviour> Iter = this.behaviours.listIterator();
-			behaviours[] b = new behaviours[10];
-			int i=0;
+			behaviours[] b = new behaviours[this.behaviours.size()];
+			int i = 0;
 			while (Iter.hasNext()) {
 				Behaviour behaviour = Iter.next();
 				b[i] = behaviour.make();
@@ -453,7 +516,7 @@ public class Ast {
 
 		public behaviours make() {
 			automate.State s = new automate.State(source.make());
-			automate.Transition[] t = new automate.Transition[10];
+			automate.Transition[] t = new automate.Transition[this.transitions.size()];
 			int i = 0;
 			ListIterator<Transition> Iter = this.transitions.listIterator();
 			while (Iter.hasNext()) {
@@ -482,9 +545,9 @@ public class Ast {
 			return condition.as_tree_son_of(this) + action.as_tree_son_of(this) + target.as_tree_son_of(this);
 		}
 
-		public automate.Transition make(){
+		public automate.Transition make() {
 			automate.State des = new automate.State(target.make());
-			return new automate.Transition(des, (automate.Action)(action.make()),(automate.Condition) condition.make());
+			return new automate.Transition(des, action.make(), condition.make());
 		}
 	}
 }

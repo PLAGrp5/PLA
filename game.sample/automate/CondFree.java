@@ -10,6 +10,10 @@ public class CondFree extends Condition {
 	public CondFree(Entity e) {
 		this.m = e.m_model;
 	}
+	
+	public CondFree() {
+		
+	}
 
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
 	// bonus)
@@ -18,6 +22,7 @@ public class CondFree extends Condition {
 	}
 
 	public boolean eval(Entity ent) {
+		this.m = ent.m_model;
 		if (ent instanceof Sbire) {
 			switch (ent.dir) {
 				case 'U':

@@ -19,12 +19,12 @@ public class Automate {
 	public Automate(String name, State e, behaviours[] t) {
 		this.name = name;
 		init = e;
-		this.b = b;
+		this.b = t;
 	}
 
 	public Automate(Model model, State e, behaviours[] t) {
 		this.model = model;
-		this.b = b;
+		this.b = t;
 	}
 
 	/*
