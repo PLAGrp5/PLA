@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+
+// Classe trouvée sur Internet permettant de faire un bouton personnalisé
 public class MyButton extends JButton {
 	private static final long serialVersionUID = 1L;
 

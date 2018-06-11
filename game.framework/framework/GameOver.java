@@ -99,6 +99,7 @@ public class GameOver {
 		//raison.setForeground(Color.GRAY); // Choix couleur JLabel
 		gagnant.setFont(font);
 
+// Il peut y avoir deux façons de gagner et il faut trouver laquelle  a terminé la partie
 		int parcourstank = 0;
 
 		boolean raisontrouve = false; // On cherche la raison de fin de partie

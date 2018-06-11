@@ -34,18 +34,19 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 import onscreen.Map;
 import onscreen.Sbire;
 import onscreen.Tank;
-import ui.Controller;
 import ui.Model;
+import ui.Controller;
 import ui.View;
 
 import javax.swing.JPanel;
-import Parser.*;
+//import Parser.*;
 
 public class GameUI implements ActionListener {
 
@@ -105,6 +106,9 @@ public class GameUI implements ActionListener {
 	File sb2_2;
   
 	
+  
+  ImageIcon icon = new ImageIcon("game.sample/sprites/image.png");
+  
 	public enum STATE {
 		Menu, Game, Help, Pause, Over, Param, Credit
 	};
@@ -175,7 +179,7 @@ public class GameUI implements ActionListener {
 			m_frame = new JFrame();
 			m_frame.setTitle("Gitank"); // Nom de la fenêtre
 			m_frame.setLayout(new BorderLayout());
-			m_frame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage()); // Icone du jeu
+			m_frame.setIconImage(icon.getImage()); // Icone du jeu
 
 			m_frame.add(m_view, BorderLayout.CENTER);
 
@@ -512,11 +516,17 @@ public class GameUI implements ActionListener {
 		String command = ae.getActionCommand();
 
 		if (command.equals("EXIT")) {
+			int option = JOptionPane.showConfirmDialog(m_frame.getContentPane(), "Êtes-vous sûr ?", "Quitter ?",
+					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
+			if (option == JOptionPane.YES_OPTION) {
 			setState(STATE.Over);
 			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
 			m_model.shutdown();
 			createWindow(d);
+			createTimer();
+			}
+
 		} else if (command.equals("PAUSE")) {
 			setState(STATE.Pause);
 			Dimension d = new Dimension(1024, 1024);
