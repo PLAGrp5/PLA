@@ -129,8 +129,8 @@ public class Model extends GameModel {
 		 * act1, cond); Automate a1 = new Automate(e, trans1);
 		 */
 
-		s3.comport = automates[0];
-		s3.courant = automates[0].init;
+		s3.comport = automates[1];
+		s3.courant = automates[1].init;
 		sbires[1] = s3;
 
 		// Parte test Bullet

@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import onscreen.Entity;
 import onscreen.Map;
+import onscreen.Point;
 import ui.Model;
 
 import java.lang.Object;
@@ -12,6 +13,13 @@ import java.lang.Object;
 public abstract class Condition {
 
 	Model m;
+	char dir;
+	char ent;
+	
+	public Point nextstep(Entity e) {
+		return e.p.nextPoint(e.dir);
+	}
+	
 	public abstract boolean eval(Entity ent);
 	
 	/*public String cond_met1;

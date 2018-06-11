@@ -332,10 +332,10 @@ public class Ast {
 				i++;
 			}
 			switch (name.make()) {
-				case "CondFree":
-					return new CondFree();
+				case "Cell":
+					return new Cell(t[0], t[1]);
 				default:
-					return new CondDefault();
+					return new True();
 			}
 		}
 	}

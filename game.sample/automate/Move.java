@@ -25,22 +25,7 @@ public class Move extends Action {
 	 */
 
 	Point nextstep(Entity e) {
-		Point p = new Point(e.p.i, e.p.j);
-		switch (this.dir) {
-		case 'D':
-			p.i++;
-			break;
-		case 'L':
-			p.j--;
-			break;
-		case 'R':
-			p.j++;
-			break;
-		case 'U':
-			p.i--;
-			break;
-		}
-		return p;
+		return e.p.nextPoint(e.dir);
 	}
 
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
