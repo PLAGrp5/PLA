@@ -37,6 +37,7 @@ import javax.swing.Timer;
 
 import onscreen.Sbire;
 import onscreen.Tank;
+import ui.Model;
 
 import javax.swing.JPanel;
 
@@ -95,7 +96,7 @@ public class GameUI implements ActionListener {
 		Menu, Game, Help, Pause, Over, Param, Credit	
 	};
 
-	public STATE state = STATE.Menu;
+	public STATE state = STATE.Over;
 
 	public void setState(STATE g) {
 		state = g;
@@ -267,7 +268,23 @@ public class GameUI implements ActionListener {
 		m_nTicks++;
 		m_model.step(now);
 		m_controller.step(now);
-
+		
+		Model mod = (Model)m_model;
+		int parcourstank=0;
+		
+		while(parcourstank < mod.ntank) {
+			if(mod.tanks[parcourstank].vie==0) {
+				
+				setState(STATE.Over);
+				m_frame.dispose();
+				Dimension d = new Dimension(1024, 1024);
+				createWindow(d);
+				stopTimer();
+				
+			}
+			parcourstank++;
+		}
+		
 		if(tempsrestant <=0) {
 			setState(STATE.Over);
 			m_frame.dispose();
