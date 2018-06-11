@@ -1,7 +1,6 @@
 package framework;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -43,7 +42,7 @@ public class Parametres {
 	File sbire1_2 = new File("DefaultAut.txt");
 	File sbire2_1 = new File("DefaultAut.txt");
 	File sbire2_2 = new File("DefaultAut.txt");
-	File carte = new File("DefaultMap.txt");
+	File carte = new File("game.sample/onscreen/map_test.txt");
 	
 
 	public Parametres(GameUI g) {
@@ -148,47 +147,41 @@ public class Parametres {
 				int returnVal = fc1_1.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					sbire1_1 = fc1_1.getSelectedFile();
-					sb1_1.setText("Sbire 1_1 : " + sbire1_1.getName());
-				} else {
-					sb1_1.setText("Sbire 1_1 : Default");
+					g_ui.sb1_1 = sbire1_1;
 				}
+					sb1_1.setText("Sbire 1_1 : " + sbire1_1.getName());
 			} else if (command.equals("SB1_2")) {
 				int returnVal = fc1_2.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					sbire1_2 = fc1_2.getSelectedFile();
-					sb1_2.setText("Sbire 1_2 : " + sbire1_2.getName());
-				} else {
-					sb1_2.setText("Sbire 1_2 : Default");
+					g_ui.sb1_2 = sbire1_2;
 				}
+					sb1_2.setText("Sbire 1_2 : " + sbire1_2.getName());
 			} else if (command.equals("SB2_1")) {
 				int returnVal = fc2_1.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					sbire2_1 = fc2_1.getSelectedFile();
-					sb2_1.setText("Sbire 2_1 : " + sbire2_1.getName());
-				} else {
-					sb2_1.setText("Sbire 2_1 : Default");
+					g_ui.sb2_1 = sbire2_1;
 				}
+					sb2_1.setText("Sbire 2_1 : " + sbire2_1.getName());
 			} else if (command.equals("SB2_2")) {
 				int returnVal = fc2_2.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					sbire2_2 = fc2_2.getSelectedFile();
-					sb2_2.setText("Sbire 2_2 : " + sbire2_2.getName());
-				} else {
-					sb2_2.setText("Sbire 2_2 : Default");
+					g_ui.sb2_2 = sbire2_2;
 				}
+					sb2_2.setText("Sbire 2_2 : " + sbire2_2.getName());
 			} else if (command.equals("CARTE")) {
 				int returnVal = fcc.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					carte = fcc.getSelectedFile();
-					map.setText("Carte : " + carte.getName());
-				} else {
-					map.setText("Carte : Default");
+					g_ui.map = carte;
 				}
+					map.setText("Carte : " + carte.getName());
 			}else if (command.equals("EXIT")) {
 				g_ui.setState(STATE.Menu);
 				Dimension d = new Dimension(1024, 1024);
 				g_ui.createWindow(d);
-				g_ui.createTimer();
 				paramFrame.dispose();
 			}
 		}
