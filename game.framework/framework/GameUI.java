@@ -39,11 +39,6 @@ import onscreen.Sbire;
 import onscreen.Tank;
 
 import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.Timer;
-
-//import framework.GameUI.STATE;
-//import framework.Menu.ButtonClickListener;
 
 public class GameUI implements ActionListener {
 
@@ -92,9 +87,12 @@ public class GameUI implements ActionListener {
 	protected Help help;
 	protected Pause pause;
 	protected GameOver over;
-	protected Credit credit;
+
+	protected Parametres param;
+  protected Credit credit;
+	
 	public enum STATE {
-		Menu, Game, Help, Pause, Over, Credit
+		Menu, Game, Help, Pause, Over, Param, Credit	
 	};
 
 	public STATE state = STATE.Menu;
@@ -170,35 +168,29 @@ public class GameUI implements ActionListener {
 
 			m_frame.pack();
 			m_frame.setLocationRelativeTo(null);
-
-			//
-			//
-			//
+			
 			JMenuBar jmb = new JMenuBar();
 			JMenu jmFile = new JMenu("Menu");
-			JMenuItem jmiPause = new JMenuItem("Pause");
-			JMenuItem jmiExit = new JMenuItem("Exit");
-			jmFile.add(jmiPause);
-			jmFile.addSeparator();
-			jmFile.add(jmiExit);
-			jmb.add(jmFile);
+		    JMenuItem jmiPause = new JMenuItem("Pause");
+		    JMenuItem jmiExit = new JMenuItem("Exit");
+		    jmFile.add(jmiPause);
+		    jmFile.addSeparator();
+		    jmFile.add(jmiExit);
+		    jmb.add(jmFile);
+		    
+		    jmiPause.setActionCommand("PAUSE");
+		    jmiExit.setActionCommand("EXIT");
+		    
+		    jmiPause.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_N));
+		    jmiExit.setAccelerator(KeyStroke.getKeyStroke((char) 27));
+		    
+		    
+		    jmiPause.addActionListener(this);
+		    jmiExit.addActionListener(this);
 
-			jmiPause.setActionCommand("PAUSE");
-			jmiExit.setActionCommand("EXIT");
-
-			jmiPause.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_N));
-			jmiExit.setAccelerator(KeyStroke.getKeyStroke((char) 27));
-
-			jmiPause.addActionListener(this);
-			jmiExit.addActionListener(this);
-
-			m_frame.setJMenuBar(jmb);
-			m_frame.setVisible(true);
-
-			//
-			//
-			//
-
+		    m_frame.setJMenuBar(jmb);
+		    m_frame.setVisible(true);
+	
 			GameController ctr = getController();
 
 			// let's hook the controller,
@@ -229,6 +221,9 @@ public class GameUI implements ActionListener {
 		} else if (state == STATE.Over) {
 			over = new GameOver(this);
 			over.showEvent();
+		} else if (state == STATE.Param) {
+			param = new Parametres(this);
+			param.showEvent();
 		}
 	}
 
@@ -322,7 +317,7 @@ public class GameUI implements ActionListener {
 		m_fps = fps;
 		m_msg = msg;
 	}
-
+  
 	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire, int nbre_mine,
 			int nbre_vie) {
 		JPanel pan = new JPanel(new GridLayout(16	, 3));

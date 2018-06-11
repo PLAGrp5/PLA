@@ -3,6 +3,7 @@ package framework;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -31,6 +32,8 @@ public class Pause {
 		pauseFrame = new JFrame("Gitank pause");
 		pauseFrame.setSize(256, 128);
 		pauseFrame.setLayout(new GridLayout(3, 1));
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		pauseFrame.setLocation(dim.width/2-pauseFrame.getSize().width/2, dim.height/2-pauseFrame.getSize().height/2);
 
 		headerLabel = new JLabel("", JLabel.CENTER);
 
