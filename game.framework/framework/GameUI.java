@@ -97,7 +97,7 @@ public class GameUI implements ActionListener {
 	int tpsBase;
 	
 	protected Parametres param;
-	File map = new File("game.sample/onscreen/map_test.txt");
+	File map = new File("data/cartes/map_test.txt");
 	File sb1_1;
 	File sb1_2;
 	File sb2_1;

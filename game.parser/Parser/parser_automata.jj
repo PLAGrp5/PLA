@@ -28,11 +28,6 @@ public class AutomataParser {
   		return ast; 
    }
 
-   public static Ast from_file(File f) throws Exception {
-     	Ast ast = new AutomataParser(new BufferedReader(f)).Run();
-     	return ast;
-   }
-
    public static Ast from_string(String input) throws Exception {
         Ast ast = new AutomataParser(new java.io.StringReader(input)).Run() ;
   		return ast ;
@@ -40,8 +35,8 @@ public class AutomataParser {
 
    public static void main(String[] args) throws Exception {
         Ast ast ;
-        //ast = from_string(args[0]) ;
-        ast = from_file(args[0]) ;
+        ast = from_string(args[0]) ;
+        //ast = from_file(args[0]) ;
         System.out.println("// THE AST of the PARSED AUTOMATA in DOT FORMAT \n" + ast.as_dot_tree()) ;
     }
 	
