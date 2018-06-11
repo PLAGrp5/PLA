@@ -261,7 +261,7 @@ public class GameUI implements ActionListener {
 	 */
 	private void tick() {
 		long now = System.currentTimeMillis() - m_start;
-		long tempsrestant = 60000 - now + temps_de_pause;
+		long tempsrestant = 180000 - now + temps_de_pause;
 		long elapsed = (now - m_lastTick);
 		m_elapsed += elapsed;
 		m_lastTick = now;

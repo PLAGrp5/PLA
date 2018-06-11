@@ -14,6 +14,7 @@ public class Map {
 	int n;
 	public Entity map[][];
 	public char color[][];
+	public Portail portail = new Portail();
 
 	/*
 	 * Constructeur de base créant une carte Les limites du terrains ( premiere
@@ -46,6 +47,7 @@ public class Map {
 	 * Création d'une carte à partir d'un fichier txt filepath
 	 */
 	public Map(String filepath) {
+		int k = 0;
 		File f = null;
 		Scanner scan = null;
 		try {
@@ -63,6 +65,9 @@ public class Map {
 			s = scan.next();
 			for (int j = 0; j < this.n; j++) {
 				insert(new Entity(s.charAt(j), i, j));
+				if (s.charAt(j) == 'P') {
+					portail.Add(new Point(i,j));
+				}
 			}
 		}
 		for (int c = 0; c < this.n; c++) {
@@ -78,6 +83,8 @@ public class Map {
 					this.color[c][l] = 'F';
 				} else if (this.map[c][l].type == 'M') {
 					this.color[c][l] = 'F';
+				} else if (this.map[c][l].type == 'P') {
+					this.color[c][l] = 'P';
 				}
 			}
 		}
@@ -141,6 +148,10 @@ public class Map {
 
 	public boolean ismine(int i, int j) {
 		return this.map[i][j].type == 'M';
+	}
+
+	public boolean isportail(int i, int j) {
+		return this.map[i][j].type == 'P';
 	}
 
 	public boolean insertMineOK(Entity e) {

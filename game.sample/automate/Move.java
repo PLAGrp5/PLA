@@ -29,11 +29,12 @@ public class Move extends Action {
 
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
 	// bonus)
-	boolean canimove(Map map, int i, int j) {
-		return map.isfree(i, j) || map.isbonus(i, j) || map.ismine(i, j) || map.isbullet(i, j);
+
+	public boolean CanIMove(Map m, int i, int j) {
+		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j) || m.isportail(i, j);
 	}
 
-	public void caseBonus(Entity e) {
+	public void CaseBonus(Entity e) {
 
 		int bonus = (int) (Math.random() * 3);
 		switch (bonus) {
@@ -58,9 +59,32 @@ public class Move extends Action {
 
 	}
 
-	public void caseMine(Entity e) {
+	public void CaseMine(Entity e) {
 		e.updatevie(e.m_model, -3);
 		System.out.println("AIE UNE MINE | VIE : " + e.vie);
+	}
+
+	public Point Teleportation(Map m, Entity e, Point p) {
+		int i = (int) (Math.random() * (m.portail.NombrePortail()));
+		while ((m.portail.Get(i).i == p.i) && (m.portail.Get(i).j == p.j)) { // Trouver portail different de la source
+			i = (int) (Math.random() * (m.portail.NombrePortail()));
+		}
+		Point tmp = new Point(m.portail.Get(i)) ;
+		if (CanIMove(model.m, tmp.i - 1, tmp.j)) { // Vers le haut
+			tmp.i--;
+			e.dir = 'N';
+		} else if (CanIMove(m, tmp.i + 1, tmp.j)) { // Vers le bas
+			tmp.i++;
+			e.dir = 'S';
+		} else if (CanIMove(m, tmp.i, tmp.j + 1)) { // Vers la droite
+			tmp.j++;
+			e.dir = 'E';
+		} else if (CanIMove(m, tmp.i, tmp.j - 1)) { // Vers la gauche
+			tmp.j--;
+			e.dir = 'O';
+		} else
+			tmp = e.p;
+		return tmp;
 	}
 
 	public void execute(Entity e) {
@@ -88,12 +112,15 @@ public class Move extends Action {
 			// Sinon on effectue l'action move
 			else {
 				Point p = nextstep(e); // calcul nouvel coordonnées
-				if (canimove(e.m_model.m_Map, p.i, p.j)) {
-					if (e.m_model.m_Map.isbonus(p.i, p.j))
-						caseBonus(e);
-					else if (e.m_model.m_Map.ismine(p.i, p.j))
-						caseMine(e);
-					e.m_model.m_Map.free(e.p.i, e.p.j);
+				if (CanIMove(model.m, p.i, p.j)) {
+					if (model.m.isportail(p.i, p.j))
+						p = Teleportation(model.m, e, p);
+					if (model.m.isbonus(p.i, p.j))
+						CaseBonus(e);
+					else if (model.m.ismine(p.i, p.j))
+						CaseMine(e);
+					model.m.free(e.p.i, e.p.j);
+          
 					if ((e.jauge_couleur > 0)) {
 						if (e.m_tank == Color.cyan) {
 							e.m_model.m_Map.color[e.p.i][e.p.j] = 'B';
@@ -113,12 +140,14 @@ public class Move extends Action {
 		} else {
 			this.dir = e.dir;
 			Point p = nextstep(e); // calcul nouvel coordonnées
-			if (canimove(e.m_model.m_Map, p.i, p.j)) {
-				if (e.m_model.m_Map.isbonus(p.i, p.j))
-					caseBonus(e);
-				else if (e.m_model.m_Map.ismine(p.i, p.j))
-					caseMine(e);
-				e.m_model.m_Map.free(e.p.i, e.p.j);
+			if (CanIMove(model.m, p.i, p.j)) {
+				if (model.m.isportail(p.i, p.j))
+					p = Teleportation(model.m, e, p);
+				if (model.m.isbonus(p.i, p.j))
+					CaseBonus(e);
+				else if (model.m.ismine(p.i, p.j))
+					CaseMine(e);
+				model.m.free(e.p.i, e.p.j);
 				e.p = p;
 				e.m_model.m_Map.insert(e);
 			}

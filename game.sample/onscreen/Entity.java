@@ -145,7 +145,7 @@ public class Entity {
 		this.vie += vie;
 		if (this.vie < 1) {
 			this.vie = 0;
-			if (type != 'W')
+			if (type != 'W' && type != 'P')
 				model.del(this);
 		}
 	}
