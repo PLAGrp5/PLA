@@ -49,8 +49,8 @@ public class Move extends Action {
 
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
 	// bonus)
-	boolean CanIMove(Map m, int i, int j) {
-		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j);
+	public boolean CanIMove(Map m, int i, int j) {
+		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j) || m.isportail(i, j);
 	}
 
 	public void CaseBonus(Entity e) {
@@ -90,13 +90,27 @@ public class Move extends Action {
 		System.out.println("AIE UNE MINE | VIE : " + e.vie);
 	}
 
-	public void Teleportation(Entity e) {
-		int i = (int) (Math.random() * 4);
-		System.out.println("Alea : " + i);
-		model.m.free(e.p.i, e.p.j);
-		e.p = model.m.portails[i];
-		System.out.println("Point : (" + e.p.i + " , " + e.p.j + ")");
-		model.m.insert(e);
+	public Point Teleportation(Map m, Entity e, Point p) {
+		int i = (int) (Math.random() * (m.portail.NombrePortail()));
+		while ((m.portail.Get(i).i == p.i) && (m.portail.Get(i).j == p.j)) { // Trouver portail different de la source
+			i = (int) (Math.random() * (m.portail.NombrePortail()));
+		}
+		Point tmp = new Point(m.portail.Get(i)) ;
+		if (CanIMove(model.m, tmp.i - 1, tmp.j)) { // Vers le haut
+			tmp.i--;
+			e.dir = 'N';
+		} else if (CanIMove(m, tmp.i + 1, tmp.j)) { // Vers le bas
+			tmp.i++;
+			e.dir = 'S';
+		} else if (CanIMove(m, tmp.i, tmp.j + 1)) { // Vers la droite
+			tmp.j++;
+			e.dir = 'E';
+		} else if (CanIMove(m, tmp.i, tmp.j - 1)) { // Vers la gauche
+			tmp.j--;
+			e.dir = 'O';
+		} else
+			tmp = e.p;
+		return tmp;
 	}
 
 	public void execute(Entity e) {
@@ -126,6 +140,8 @@ public class Move extends Action {
 			else {
 				Point p = nextstep(e); // calcul nouvel coordonnées
 				if (CanIMove(model.m, p.i, p.j)) {
+					if (model.m.isportail(p.i, p.j))
+						p = Teleportation(model.m, e, p);
 					if (model.m.isbonus(p.i, p.j))
 						CaseBonus(e);
 					else if (model.m.ismine(p.i, p.j))
@@ -145,24 +161,22 @@ public class Move extends Action {
 					model.m.map[p.i][p.j].updatevie(e.m_model, -1);
 					e.opposite();
 					this.dir = e.dir;
-				} else if (model.m.isportail(p.i, p.j))
-					Teleportation(e);
+				}
 			}
 		} else {
 			this.dir = e.dir;
 			Point p = nextstep(e); // calcul nouvel coordonnées
 			if (CanIMove(model.m, p.i, p.j)) {
+				if (model.m.isportail(p.i, p.j))
+					p = Teleportation(model.m, e, p);
 				if (model.m.isbonus(p.i, p.j))
 					CaseBonus(e);
 				else if (model.m.ismine(p.i, p.j))
 					CaseMine(e);
-				else if (model.m.isportail(p.i, p.j))
-					Teleportation(e);
 				model.m.free(e.p.i, e.p.j);
 				e.p = p;
 				model.m.insert(e);
-			} else if (model.m.isportail(p.i, p.j))
-				Teleportation(e);
+			}
 
 		}
 	}

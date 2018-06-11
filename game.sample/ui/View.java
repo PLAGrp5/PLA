@@ -105,8 +105,6 @@ public class View extends GameView {
 				}
 				else if (m_model.m.map[k][l].type == 'M') {
 					g.drawImage(m_model.m_mine, 32*l, 32*k, 32, 32, null);
-				}	else if (m_model.m.map[k][l].type == 'P') {
-					g.drawImage(m_model.m_portail, 32 * l, 32 * k, 32, 32, null);
 				}
 			}
 		}

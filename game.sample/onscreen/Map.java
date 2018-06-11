@@ -14,7 +14,7 @@ public class Map {
 	int n;
 	public Entity map[][];
 	public char color[][];
-	public Point[] portails = new Point[5];
+	public Portail portail = new Portail();
 
 	/*
 	 * Constructeur de base créant une carte Les limites du terrains ( premiere
@@ -66,8 +66,7 @@ public class Map {
 			for (int j = 0; j < this.n; j++) {
 				insert(new Entity(s.charAt(j), i, j));
 				if (s.charAt(j) == 'P') {
-					portails[k] = new Point(i, j);
-					k++;
+					portail.Add(new Point(i,j));
 				}
 			}
 		}
@@ -85,7 +84,7 @@ public class Map {
 				} else if (this.map[c][l].type == 'M') {
 					this.color[c][l] = 'F';
 				} else if (this.map[c][l].type == 'P') {
-					this.color[c][l] = 'W';
+					this.color[c][l] = 'P';
 				}
 			}
 		}
