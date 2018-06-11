@@ -28,6 +28,11 @@ public class AutomataParser {
   		return ast; 
    }
 
+   public static Ast from_file(File f) throws Exception {
+     	Ast ast = new AutomataParser(new BufferedReader(f)).Run();
+     	return ast;
+   }
+
    public static Ast from_string(String input) throws Exception {
         Ast ast = new AutomataParser(new java.io.StringReader(input)).Run() ;
   		return ast ;
