@@ -13,7 +13,7 @@ public class CondFree extends Condition {
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
 	// bonus)
 	boolean canimove(Map m, int i, int j) {
-		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j);
+		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j) || m.isportail(i, j);
 	}
 
 	public boolean eval(Entity ent) {
