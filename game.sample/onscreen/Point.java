@@ -22,28 +22,22 @@ public class Point {
 		j = p.j;
 	}
 
-	public Point nextPoint(char dir) {
-		Point p1 = new Point(i, j);
-		switch (dir) {
-			case 'S':
-				p1.i++;
-				break;
-			case 'W':
-				p1.j--;
-				break;
-			case 'E':
-				p1.j++;
-				break;
-			default:
-				p1.i--;
-				break;
-		}
-		return p1;
-	}
-
-	// modification d'un point par (newx,newy)
-	public void translate(int newi, int newj) {
-		this.i += newi;
-		this.j += newj;
-	}
+    public Point nextPoint(char dir) {
+        Point p1 = new Point(i, j);
+        switch (dir) {
+        case 'S':
+            p1.i++;
+            break;
+        case 'W':
+            p1.j--;
+            break;
+        case 'E':
+            p1.j++;
+            break;
+        default:
+            p1.i--;
+            break;
+        }
+        return p1;
+    }
 }

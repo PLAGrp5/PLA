@@ -1,14 +1,8 @@
 package automate;
 
-import onscreen.Entity;
-import onscreen.Map;
-import ui.Model;
+import onscreen.*;
 
 public class CondDefault extends Condition {
-
-	public CondDefault(Model m) {
-		this.m = m;
-	}
 	
 	public CondDefault() {
 		

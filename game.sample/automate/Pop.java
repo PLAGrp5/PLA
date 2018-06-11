@@ -2,13 +2,11 @@ package automate;
 
 import java.awt.Color;
 
-import ui.*;
 import onscreen.*;
 
 public class Pop extends Action {
 
-	public Pop(Model model) {
-		this.model = model;
+	public Pop() {
 	}
 
 	public void execute(Entity e) {
@@ -26,42 +24,42 @@ public class Pop extends Action {
 			 */
 
 			// La croix du bas
-			if (model.m.color[e.p.i - 1][e.p.j] == 'F' || model.m.color[e.p.i - 1][e.p.j] == 'B'
-					|| model.m.color[e.p.i - 1][e.p.j] == 'R') {
-				if ((e.m_tank == Color.cyan) && (model.m.color[e.p.i - 1][e.p.j] != 'B')) {
-					model.m.color[e.p.i - 1][e.p.j] = 'B';
-				} else if ((e.m_tank == Color.orange) && (model.m.color[e.p.i - 1][e.p.j] != 'R')) {
-					model.m.color[e.p.i - 1][e.p.j] = 'R';
+			if (e.m_model.m_Map.color[e.p.i - 1][e.p.j] == 'F' || e.m_model.m_Map.color[e.p.i - 1][e.p.j] == 'B'
+					|| e.m_model.m_Map.color[e.p.i - 1][e.p.j] == 'R') {
+				if ((e.m_tank == Color.cyan) && (e.m_model.m_Map.color[e.p.i - 1][e.p.j] != 'B')) {
+					e.m_model.m_Map.color[e.p.i - 1][e.p.j] = 'B';
+				} else if ((e.m_tank == Color.orange) && (e.m_model.m_Map.color[e.p.i - 1][e.p.j] != 'R')) {
+					e.m_model.m_Map.color[e.p.i - 1][e.p.j] = 'R';
 				}
 			}
 
 			// La croix du haut
-			if (model.m.color[e.p.i + 1][e.p.j] == 'F' || model.m.color[e.p.i + 1][e.p.j] == 'B'
-					|| model.m.color[e.p.i + 1][e.p.j] == 'R') {
-				if ((e.m_tank == Color.cyan) && (model.m.color[e.p.i + 1][e.p.j] != 'B')) {
-					model.m.color[e.p.i + 1][e.p.j] = 'B';
-				} else if ((e.m_tank == Color.orange) && (model.m.color[e.p.i + 1][e.p.j] != 'R')) {
-					model.m.color[e.p.i + 1][e.p.j] = 'R';
+			if (e.m_model.m_Map.color[e.p.i + 1][e.p.j] == 'F' || e.m_model.m_Map.color[e.p.i + 1][e.p.j] == 'B'
+					|| e.m_model.m_Map.color[e.p.i + 1][e.p.j] == 'R') {
+				if ((e.m_tank == Color.cyan) && (e.m_model.m_Map.color[e.p.i + 1][e.p.j] != 'B')) {
+					e.m_model.m_Map.color[e.p.i + 1][e.p.j] = 'B';
+				} else if ((e.m_tank == Color.orange) && (e.m_model.m_Map.color[e.p.i + 1][e.p.j] != 'R')) {
+					e.m_model.m_Map.color[e.p.i + 1][e.p.j] = 'R';
 				}
 			}
 
 			// La croix de gauche
-			if (model.m.color[e.p.i][e.p.j - 1] == 'F' || model.m.color[e.p.i][e.p.j - 1] == 'B'
-					|| model.m.color[e.p.i][e.p.j - 1] == 'R') {
-				if ((e.m_tank == Color.cyan) && (model.m.color[e.p.i][e.p.j - 1] != 'B')) {
-					model.m.color[e.p.i][e.p.j - 1] = 'B';
-				} else if ((e.m_tank == Color.orange) && (model.m.color[e.p.i][e.p.j - 1] != 'R')) {
-					model.m.color[e.p.i][e.p.j - 1] = 'R';
+			if (e.m_model.m_Map.color[e.p.i][e.p.j - 1] == 'F' || e.m_model.m_Map.color[e.p.i][e.p.j - 1] == 'B'
+					|| e.m_model.m_Map.color[e.p.i][e.p.j - 1] == 'R') {
+				if ((e.m_tank == Color.cyan) && (e.m_model.m_Map.color[e.p.i][e.p.j - 1] != 'B')) {
+					e.m_model.m_Map.color[e.p.i][e.p.j - 1] = 'B';
+				} else if ((e.m_tank == Color.orange) && (e.m_model.m_Map.color[e.p.i][e.p.j - 1] != 'R')) {
+					e.m_model.m_Map.color[e.p.i][e.p.j - 1] = 'R';
 				}
 			}
 
 			// La croix de droite
-			if (model.m.color[e.p.i][e.p.j + 1] == 'F' || model.m.color[e.p.i][e.p.j + 1] == 'B'
-					|| model.m.color[e.p.i][e.p.j + 1] == 'R') {
-				if ((e.m_tank == Color.cyan) && (model.m.color[e.p.i][e.p.j + 1] != 'B')) {
-					model.m.color[e.p.i][e.p.j + 1] = 'B';
-				} else if ((e.m_tank == Color.orange) && (model.m.color[e.p.i][e.p.j + 1] != 'R')) {
-					model.m.color[e.p.i][e.p.j + 1] = 'R';
+			if (e.m_model.m_Map.color[e.p.i][e.p.j + 1] == 'F' || e.m_model.m_Map.color[e.p.i][e.p.j + 1] == 'B'
+					|| e.m_model.m_Map.color[e.p.i][e.p.j + 1] == 'R') {
+				if ((e.m_tank == Color.cyan) && (e.m_model.m_Map.color[e.p.i][e.p.j + 1] != 'B')) {
+					e.m_model.m_Map.color[e.p.i][e.p.j + 1] = 'B';
+				} else if ((e.m_tank == Color.orange) && (e.m_model.m_Map.color[e.p.i][e.p.j + 1] != 'R')) {
+					e.m_model.m_Map.color[e.p.i][e.p.j + 1] = 'R';
 				}
 			}
 			e.jauge_couleur -= 4;

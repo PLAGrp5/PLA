@@ -1,8 +1,6 @@
 package onscreen;
 
-import ui.*;
-
-public abstract class BonusEtMalusFixes {
+public abstract class BonusEtMalus {
 	public char type;
 
 	// renvoie false si inventaire plein
@@ -55,5 +53,7 @@ public abstract class BonusEtMalusFixes {
 		return true;
 	}
 
-	public abstract void jeter(Model model, Entity ent);
+	public void jeter(Entity e) {
+	}
+
 }
