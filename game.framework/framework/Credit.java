@@ -32,6 +32,7 @@ public class Credit {
 		creditFrame = new JFrame("Gitank Help");
 		creditFrame.setSize(700, 700);
 		creditFrame.setResizable(false);
+		creditFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		creditFrame.setLocation(dim.width / 2 - creditFrame.getSize().width / 2,
 				dim.height / 2 - creditFrame.getSize().height / 2);

@@ -29,8 +29,6 @@ public class Menu {
 	private void prepareGUI() {
 		menuFrame = new JFrame();
 		menuFrame.setTitle("Gitank Menu");
-		GridLayout grid = new GridLayout(5, 1);
-		grid.setVgap(20); // Espacement entre deux élément du layout
 		menuFrame.setSize(1024, 1024);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		menuFrame.setLocation(dim.width / 2 - menuFrame.getSize().width / 2,
@@ -48,15 +46,20 @@ public class Menu {
 		// L'image de fond est issue du site https://pixabay.com qui est une banque
 		// d'images libre de droits
 		Image image = imageicon.getImage();
-
-		controlPanel = new JPanel() {
-			@Override
-			protected void paintComponent(Graphics g) {
+		controlPanel = new JPanel() {            
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+		@Override
+		protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.drawImage(image, 0, 0, null);
 			}
 		};
 
+		GridLayout grid = new GridLayout(5, 1);
+		grid.setVgap(20); // Espacement entre deux élément du layout
 		controlPanel.setLayout(grid);
 
 		menuFrame.setContentPane(controlPanel);
@@ -134,32 +137,28 @@ public class Menu {
 
 			if (command.equals("START")) {
 				g_ui.setState(STATE.Game);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
+			    Dimension d = new Dimension(tailleMoniteur.height * 1377/1024, tailleMoniteur.height);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("HELP")) {
 				g_ui.setState(STATE.Help);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
-				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("CREDIT")) {
 				g_ui.setState(STATE.Credit);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
-				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("EXIT")) {
 				System.exit(0);
 			} else if (command.equals("OPEN")) {
-				int returnVal = fc.showOpenDialog(menuFrame);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					java.io.File file = fc.getSelectedFile();
-
-				} else {
-
-				}
+				g_ui.setState(STATE.Param);
+				Dimension d = new Dimension(1447, 1024);
+				menuFrame.dispose();
+				g_ui.createWindow(d);
 			}
 		}
 

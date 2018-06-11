@@ -2,6 +2,8 @@ package framework;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -35,7 +37,7 @@ public class Help {
 		helpFrame.setLocation(dim.width / 2 - helpFrame.getSize().width / 2,
 				dim.height / 2 - helpFrame.getSize().height / 2);
 		helpFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
-
+		
 		helpFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {
 				System.exit(0);
