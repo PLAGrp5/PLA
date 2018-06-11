@@ -38,6 +38,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
+import Parser.ParseException;
 import onscreen.Map;
 import onscreen.Sbire;
 import onscreen.Tank;
@@ -159,12 +160,12 @@ public class GameUI implements ActionListener {
 		if (state == STATE.Game) {
 			Map m = new Map(map);
 		    Model model;
-				try {
-					model = new Model(m);
-				} catch (FileNotFoundException | ParseException e) {
-					e.printStackTrace();
-					return;
-				}
+					try {
+						model = new Model(m);
+					} catch (FileNotFoundException | ParseException e) {
+						e.printStackTrace();
+						return;
+					}
 				
 		    Controller controller = new Controller(model);
 		    View view = new View(model,controller);
