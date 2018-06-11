@@ -86,19 +86,19 @@ public class View extends GameView {
 				if (m_model.m.color[k][l] == 'W') {
 					g.drawImage(m_model.m_mur, 32 * l, 32 * k, 32, 32, null);
 				}
-				if (m_model.m.color[k][l] == 'F') {
+				else if (m_model.m.color[k][l] == 'F') {
 					g.drawImage(m_model.m_sol, 32 * l, 32 * k, 32, 32, null);
 				}
-				if (m_model.m.color[k][l] == 'B') {
+				else if (m_model.m.color[k][l] == 'B') {
 					g.drawImage(m_model.m_blue, 32 * l, 32 * k, 32, 32, null);
 				}
-				if (m_model.m.color[k][l] == 'R') {
+				else if (m_model.m.color[k][l] == 'R') {
 					g.drawImage(m_model.m_red, 32 * l, 32 * k, 32, 32, null);
 				}
 				if (m_model.m.map[k][l].type == 'I') {
 					g.drawImage(m_model.m_item, 32 * l, 32 * k, 32, 32, null);
 				}
-				if (m_model.m.map[k][l].type == 'M') {
+				else if (m_model.m.map[k][l].type == 'M') {
 					g.drawImage(m_model.m_mine, 32*l, 32*k, 32, 32, null);
 				}
 			}
