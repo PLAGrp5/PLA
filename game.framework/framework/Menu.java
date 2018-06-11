@@ -134,19 +134,19 @@ public class Menu {
 
 			if (command.equals("START")) {
 				g_ui.setState(STATE.Game);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("HELP")) {
 				g_ui.setState(STATE.Help);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("CREDIT")) {
 				g_ui.setState(STATE.Credit);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
