@@ -113,7 +113,7 @@ public class Model extends GameModel {
 		//Ast a = new AutomataParser(new java.io.StringReader("test5")).Run() ;
 		automates = (Automate[]) a.make();
 		s.comport = automates[0];
-		// s.courant = e;
+		s.courant = automates[0].init;
 		sbires[0] = s;
 
 		t2 = new Tank(this, m_charrougeSprite, 5, 15, 'L', 1F, 30, colort2);
@@ -130,7 +130,7 @@ public class Model extends GameModel {
 		 */
 
 		s3.comport = automates[0];
-		// s3.courant = e;
+		s3.courant = automates[0].init;
 		sbires[1] = s3;
 
 		// Parte test Bullet
