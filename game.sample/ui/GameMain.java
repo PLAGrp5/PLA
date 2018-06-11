@@ -18,23 +18,21 @@
 package ui;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+
+import Parser.ParseException;
 import framework.*;
 import onscreen.*;
 
 public class GameMain {
 	
-  public static void main(String[] args) {
-
-    // construct the game elements: model, controller, and view.
-  	//initialisation aléatoire
-  	//Map m = new Map(30,50);
-  	//initialisation avec un fichier text
-  	
+  public static void main(String[] args) throws FileNotFoundException, ParseException {
 
   //récuperer la dimension de l'écran
-  //  Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
+	Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
  
-    Dimension d = new Dimension(1446, 1024);
+    Dimension d = new Dimension(tailleMoniteur.height * 1446/1024, tailleMoniteur.height);
     new GameUI(d);
     
     // notice that the main thread will exit here,

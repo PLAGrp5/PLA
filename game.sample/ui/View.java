@@ -61,15 +61,16 @@ public class View extends GameView {
 		computeFPS();
 		// erase background
 
-		m_game.drawPLayer1Panel(m_model.t4, m_model.s, m_model.s3, m_model.m.scorebleu(), m_model.t4.printvie, m_model.t4.printmine,
-				m_model.t4.printsbire, m_model.t4.nbre_mine, m_model.t4.nbre_vie);
-		m_game.drawPLayer2Panel(m_model.t2, m_model.m.scorerouge(), m_model.t2.printvie, m_model.t2.printmine,
-				m_model.t2.printsbire, m_model.t2.nbre_mine, m_model.t2.nbre_vie);
+		m_game.drawPLayer1Panel(m_model.tanks[0], m_model.sbires[0], m_model.sbires[1], m_model.m_Map.scorebleu(),
+				m_model.tanks[0].printvie, m_model.tanks[0].printmine, m_model.tanks[0].printsbire,
+				m_model.tanks[0].nbre_mine, m_model.tanks[0].nbre_vie);
+		m_game.drawPLayer2Panel(m_model.tanks[1], m_model.m_Map.scorerouge(), m_model.tanks[1].printvie,
+				m_model.tanks[1].printmine, m_model.tanks[1].printsbire, m_model.tanks[1].nbre_mine,
+				m_model.tanks[1].nbre_vie);
 
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		int rectWidth = 32;
-		int rectHeight = 32;
+
 
 		/*
 		 * g.setColor(m_line);
@@ -85,31 +86,35 @@ public class View extends GameView {
 
 				// Pour chaque case on colorie avec la texture associé
 
-				if (m_model.m.color[k][l] == 'W') {
+				if (m_model.m_Map.color[k][l] == 'W') {
 					g.drawImage(m_model.m_mur, 32 * l, 32 * k, 32, 32, null);
 				}
-				if (m_model.m.color[k][l] == 'F') {
+				else if (m_model.m_Map.color[k][l] == 'F') {
 					g.drawImage(m_model.m_sol, 32 * l, 32 * k, 32, 32, null);
 				}
-				if (m_model.m.color[k][l] == 'B') {
+				else if (m_model.m_Map.color[k][l] == 'B') {
 					g.drawImage(m_model.m_blue, 32 * l, 32 * k, 32, 32, null);
 				}
-				if (m_model.m.color[k][l] == 'R') {
+				else if (m_model.m_Map.color[k][l] == 'R') {
 					g.drawImage(m_model.m_red, 32 * l, 32 * k, 32, 32, null);
 				}
-				if (m_model.m.map[k][l].type == 'I') {
+				else if (m_model.m_Map.color[k][l] == 'P') {
+					g.drawImage(m_model.m_portail, 32 * l, 32 * k, 32, 32, null);
+				}
+				if (m_model.m_Map.map[k][l].type == 'I') {
 					g.drawImage(m_model.m_item, 32 * l, 32 * k, 32, 32, null);
 				}
-				if (m_model.m.map[k][l].type == 'M') {
-					g.drawImage(m_model.m_mine, 32 * l, 32 * k, 32, 32, null);
+				else if (m_model.m_Map.map[k][l].type == 'M') {
+					g.drawImage(m_model.m_mine, 32*l, 32*k, 32, 32, null);
 				}
 			}
 		}
 		// m_model.m.print();
 
-		m_model.t4.paint(g, m_model.t4.dir);
-		m_model.t2.paint(g, m_model.t2.dir);
+		m_model.tanks[0].paint(g, m_model.tanks[0].dir);
+		m_model.tanks[1].paint(g, m_model.tanks[1].dir);
 		for (int i = 0; i < m_model.nsbire; i++) {
+			//System.out.println(m_model.sbires[i].alive);
 			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
 		}
 		for (int i = 0; i < m_model.nbullet; i++) {
