@@ -147,13 +147,11 @@ public class Menu {
 				g_ui.setState(STATE.Help);
 				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
-				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("CREDIT")) {
 				g_ui.setState(STATE.Credit);
 				Dimension d = new Dimension(1446, 1033);
 				g_ui.createWindow(d);
-				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("EXIT")) {
 				System.exit(0);
@@ -162,7 +160,6 @@ public class Menu {
 				Dimension d = new Dimension(1447, 1024);
 				menuFrame.dispose();
 				g_ui.createWindow(d);
-				g_ui.createTimer();
 			}
 		}
 
