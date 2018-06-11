@@ -1,6 +1,7 @@
 package onscreen;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 //import com.sun.prism.paint.Color;
@@ -82,6 +83,42 @@ public class Map {
 			}
 		}
 
+	}
+	
+	public Map(File f) {
+		Scanner scan = null;
+		try {
+			scan = new Scanner(f);
+		} catch (FileNotFoundException e) {
+			System.out.println("Mauvais type de fichier séléctionné");
+			System.exit(0);
+		}
+		this.n = scan.nextInt();
+		this.map = new Entity[n][n];
+		this.color = new char[n][n];
+		String s;
+		for (int i = 0; i < this.n; i++) {
+			s = scan.next();
+			for (int j = 0; j < this.n; j++) {
+				insert(new Entity(s.charAt(j), i, j));
+			}
+		}
+		for (int c = 0; c < this.n; c++) {
+			for (int l = 0; l < this.n; l++) {
+
+				if (this.map[c][l].type == 'F') {
+					this.color[c][l] = 'F';
+				} else if (this.map[c][l].type == 'W') {
+					this.color[c][l] = 'W';
+				} else if (this.map[c][l].type == 'T') {
+					this.color[c][l] = 'F';
+				} else if (this.map[c][l].type == 'I') {
+					this.color[c][l] = 'F';
+				} else if (this.map[c][l].type == 'M') {
+					this.color[c][l] = 'F';
+				}
+			}
+		}
 	}
 
 	/*

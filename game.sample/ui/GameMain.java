@@ -29,16 +29,13 @@ public class GameMain {
   	//initialisation aléatoire
   	//Map m = new Map(30,50);
   	//initialisation avec un fichier text
-  	Map m = new Map("game.sample/onscreen/map_test.txt");
-    Model model = new Model(m);
-    Controller controller = new Controller(model);
-    View view = new View(model,controller);
+  	
 
   //récuperer la dimension de l'écran
   //  Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
  
     Dimension d = new Dimension(1446, 1024);
-    new GameUI(model,view,controller,d);
+    new GameUI(d);
     
     // notice that the main thread will exit here,
     // but not your program... hence the hooking

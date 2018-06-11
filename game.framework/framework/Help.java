@@ -37,7 +37,7 @@ public class Help {
 		helpFrame.setLocation(dim.width / 2 - helpFrame.getSize().width / 2,
 				dim.height / 2 - helpFrame.getSize().height / 2);
 		helpFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
-
+		
 		helpFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {
 				System.exit(0);

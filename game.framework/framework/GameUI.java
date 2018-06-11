@@ -25,6 +25,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -36,11 +37,15 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
+import onscreen.Map;
 import onscreen.Sbire;
 import onscreen.Tank;
 import ui.Model;
+import ui.Controller;
+import ui.View;
 
 import javax.swing.JPanel;
+//import Parser.*;
 
 public class GameUI implements ActionListener {
 
@@ -89,15 +94,21 @@ public class GameUI implements ActionListener {
 	protected Help help;
 	protected Pause pause;
 	protected GameOver over;
-
+	protected Credit credit;
+	
 	protected Parametres param;
-  protected Credit credit;
+	File map = new File("game.sample/onscreen/map_test.txt");
+	File sb1_1;
+	File sb1_2;
+	File sb2_1;
+	File sb2_2;
+  
 	
   
   ImageIcon icon = new ImageIcon("game.sample/sprites/image.png");
   
 	public enum STATE {
-		Menu, Game, Help, Pause, Over, Param, Credit	
+		Menu, Game, Help, Pause, Over, Param, Credit
 	};
 
 	public STATE state = STATE.Menu;
@@ -106,20 +117,12 @@ public class GameUI implements ActionListener {
 		state = g;
 	}
 
-	public GameUI(GameModel m, GameView v, GameController c, Dimension d) {
-		m_model = m;
-		m_model.m_game = this;
-		m_view = v;
-		m_view.m_game = this;
-		m_controller = c;
-		m_controller.m_game = this;
-
+	public GameUI(Dimension d) {
 		System.out.println(license);
 
 		// create the main window and the periodic timer
 		// to drive the overall clock of the simulation.
 		createWindow(d);
-		createTimer();
 	}
 
 	public GameModel getModel() {
@@ -152,6 +155,17 @@ public class GameUI implements ActionListener {
 
 	void createWindow(Dimension d) {
 		if (state == STATE.Game) {
+			Map m = new Map(map);
+		    Model model = new Model(m);
+		    Controller controller = new Controller(model);
+		    View view = new View(model,controller);
+			m_model = model;
+			m_model.m_game = this;
+			m_view = view;
+			m_view.m_game = this;
+			m_controller = controller;
+			m_controller.m_game = this;
+
 			m_frame = new JFrame();
 			m_frame.setTitle("Gitank"); // Nom de la fenêtre
 			m_frame.setLayout(new BorderLayout());
@@ -238,6 +252,7 @@ public class GameUI implements ActionListener {
 	 */
 	void createTimer() {
 		if (state == STATE.Game) {
+			m_nTicks = 0;
 			temps_de_pause = 0;
 			int tick = 1; // one millisecond
 			m_start = System.currentTimeMillis();
@@ -265,7 +280,7 @@ public class GameUI implements ActionListener {
 	 */
 	private void tick() {
 		long now = System.currentTimeMillis() - m_start;
-		long tempsrestant = 10000 - now + temps_de_pause;
+		long tempsrestant = 60000 - now + temps_de_pause;
 		long elapsed = (now - m_lastTick);
 		m_elapsed += elapsed;
 		m_lastTick = now;
@@ -338,7 +353,8 @@ public class GameUI implements ActionListener {
 		m_fps = fps;
 		m_msg = msg;
 	}
-  
+	
+	
 	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire, int nbre_mine,
 			int nbre_vie) {
 		JPanel pan = new JPanel(new GridLayout(16	, 3));
@@ -497,6 +513,7 @@ public class GameUI implements ActionListener {
 			createWindow(d);
 			createTimer();
 			}
+
 		} else if (command.equals("PAUSE")) {
 			setState(STATE.Pause);
 			Dimension d = new Dimension(1024, 1024);
