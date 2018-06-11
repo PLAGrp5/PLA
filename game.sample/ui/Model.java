@@ -60,6 +60,7 @@ public class Model extends GameModel {
 	BufferedImage m_item;
 	BufferedImage m_blue;
 	BufferedImage m_red;
+	public BufferedImage m_mort;
 	BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
@@ -80,7 +81,7 @@ public class Model extends GameModel {
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
-	public Model(Map m) throws  ParseException, FileNotFoundException {
+	public Model(Map m) throws ParseException, FileNotFoundException {
 		this.m_Map = m;
 		Tank j1, j2;
 		Sbire s11, s21;
@@ -100,31 +101,27 @@ public class Model extends GameModel {
 		Color coloria = Color.gray;
 		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
 		s21 = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
-/*
-		State e = new State("1");
-
-		Condition cond = new CondFree();
-		Condition cond1 = new CondDefault();
-
-		Action act = new Move();
-		Action act1 = new Turn('R');
-		Action act2 = new Hit();
-
-		Transition[] trans = new Transition[2];
-		trans[0] = new Transition(e, e, act, cond);
-		trans[1] = new Transition(e, e, act1, cond1);
-
-		Transition[] trans1 = new Transition[2];
-		trans1[0] = new Transition(e, e, act2, cond);
-		trans1[1] = new Transition(e, e, act1, cond1);
-*/
+		/*
+		 * State e = new State("1");
+		 * 
+		 * Condition cond = new CondFree(); Condition cond1 = new CondDefault();
+		 * 
+		 * Action act = new Move(); Action act1 = new Turn('R'); Action act2 = new
+		 * Hit();
+		 * 
+		 * Transition[] trans = new Transition[2]; trans[0] = new Transition(e, e, act,
+		 * cond); trans[1] = new Transition(e, e, act1, cond1);
+		 * 
+		 * Transition[] trans1 = new Transition[2]; trans1[0] = new Transition(e, e,
+		 * act2, cond); trans1[1] = new Transition(e, e, act1, cond1);
+		 */
 		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
-	
+
 		automates = (Automate[]) a.make();
 		s11.comport = automates[0];
 		s11.courant = automates[0].init;
 		sbires[0] = s11;
-    
+
 		s21.comport = automates[1];
 		s21.courant = automates[1].init;
 		sbires[1] = s21;
@@ -135,6 +132,14 @@ public class Model extends GameModel {
 		tanks[0] = j1;
 		tanks[1] = j2;
 
+		s11.m_sbires[0] = s11;
+		s11.m_sbires[1] = s11;
+		s21.m_sbires[0] = s21;
+		s21.m_sbires[1] = s21;
+		tanks[0].m_sbires[0] = s11;
+		tanks[0].m_sbires[1] = s21;
+		tanks[1].m_sbires[0] = s11;
+		tanks[1].m_sbires[1] = s21;
 	}
 
 	@Override
@@ -188,7 +193,8 @@ public class Model extends GameModel {
 	 * Simulation step.
 	 * 
 	 * @param now
-	 *          is the current time in milliseconds.
+	 *          <<<<<<< HEAD is the current time in milliseconds. ======= is the
+	 *          current time in milliseconds. >>>>>>> manon
 	 */
 	@Override
 	public void step(long now) {
@@ -247,20 +253,6 @@ public class Model extends GameModel {
 	}
 
 	private void loadSprites() {
-		/*
-		 * Cowboy with rifle, western style; png; 48x48 px sprite size Krasi Wasilev (
-		 * http://freegameassets.blogspot.com)
-		 */
-		/*
-		 * File imageFile = new File("game.sample/sprites/winchester.png"); try {
-		 * m_cowboySprite = ImageIO.read(imageFile); } catch (IOException ex) {
-		 * ex.printStackTrace(); System.exit(-1); } /* Long explosion set; png file;
-		 * 64x64 px sprite size Krasi Wasilev ( http://freegameassets.blogspot.com)
-		 * 
-		 * imageFile = new File("game.sample/sprites/explosion01_set_64.png"); try {
-		 * m_explosionSprite = ImageIO.read(imageFile); } catch (IOException ex) {
-		 * ex.printStackTrace(); System.exit(-1); }
-		 */
 
 		File imageFile = new File("game.sample/sprites/charb.png");
 		try {
@@ -346,6 +338,14 @@ public class Model extends GameModel {
 		try {
 			m_red = ImageIO.read(imageFile);
 		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/mort.png");
+		try {
+			m_mort = ImageIO.read(imageFile);
+		}catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
