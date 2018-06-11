@@ -2,8 +2,6 @@ package framework;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -16,35 +14,35 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 import framework.GameUI.STATE;
 
-public class Help {
+public class Credit {
 
-	JFrame helpFrame;
+	JFrame creditFrame;
 	JPanel controlPanel;
 	GameUI g_ui;
 
-	public Help(GameUI g) {
+	public Credit(GameUI g) {
 		g_ui = g;
 		prepareGUI();
 	}
 
 	private void prepareGUI() {
-		helpFrame = new JFrame("Gitank Help");
-		helpFrame.setSize(1300, 700);
-		helpFrame.setResizable(false);
+		creditFrame = new JFrame("Gitank Help");
+		creditFrame.setSize(700, 700);
+		creditFrame.setResizable(false);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		helpFrame.setLocation(dim.width / 2 - helpFrame.getSize().width / 2,
-				dim.height / 2 - helpFrame.getSize().height / 2);
-		helpFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
+		creditFrame.setLocation(dim.width / 2 - creditFrame.getSize().width / 2,
+				dim.height / 2 - creditFrame.getSize().height / 2);
 
-		helpFrame.addWindowListener(new WindowAdapter() {
+		creditFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {
 				System.exit(0);
 			}
 		});
-
-		ImageIcon imageicon = new ImageIcon("game.sample/sprites/Help.jpg");
+		
+		ImageIcon imageicon = new ImageIcon("game.sample/sprites/credit.jpg");
 		// L'image de fond est issue du site https://pixabay.com qui est une banque
 		// d'images libre de droits
 		Image image = imageicon.getImage();
@@ -59,26 +57,27 @@ public class Help {
 		};
 		controlPanel.setLayout(grid);
 
-		helpFrame.setContentPane(controlPanel);
-		helpFrame.setVisible(true);
+		creditFrame.setContentPane(controlPanel);
+		creditFrame.setVisible(true);
+		
 	}
-
+	
 	public void showEvent() {
 		MyButton ExitButton = new MyButton("EXIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 
-		// JButton ExitButton = new JButton("EXIT");
 		ExitButton.setActionCommand("EXIT");
 		ExitButton.addActionListener(new ButtonClickListener());
-		ExitButton.setPreferredSize(new Dimension(350, 100));
+		ExitButton.setPreferredSize(new Dimension(250, 100));
 
-		JPanel bouton1 = new JPanel();
-		bouton1.setOpaque(false);
-		bouton1.add(ExitButton);
+		JPanel exit = new JPanel();
+		exit.setOpaque(false);
+		exit.add(ExitButton);
 
-		controlPanel.add(bouton1, BorderLayout.SOUTH);
-		helpFrame.setVisible(true);
+		controlPanel.add(exit, BorderLayout.SOUTH);
+		creditFrame.setVisible(true);
 	}
-
+	
+	
 	private class ButtonClickListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
@@ -88,10 +87,9 @@ public class Help {
 				Dimension d = new Dimension(1024, 1024);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
-				helpFrame.dispose();
+				creditFrame.dispose();
 			}
 		}
 
 	}
-
 }

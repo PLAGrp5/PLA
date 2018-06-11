@@ -1,4 +1,6 @@
-package onscreen;
+package automate;
+
+import onscreen.*;
 
 /*
  * la classe transition sert à décrire un automate (=ensemble de transition)
@@ -19,5 +21,9 @@ public class Transition {
 		this.cond = con;
 	}
 	
+	
+	public boolean eval(Entity e) {
+		return (src == e.courant && this.cond.eval(e) && !(this.cond instanceof CondDefault));
+	}
 	
 }

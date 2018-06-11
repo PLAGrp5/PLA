@@ -1,4 +1,7 @@
-package onscreen;
+package automate;
+
+import onscreen.Entity;
+import onscreen.Map;
 
 public class CondDefault extends Condition {
 

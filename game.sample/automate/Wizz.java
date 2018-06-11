@@ -1,4 +1,6 @@
-package onscreen;
+package automate;
+
+import onscreen.Entity;
 
 public class Wizz extends Action{
 	public Wizz() {

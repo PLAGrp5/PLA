@@ -1,5 +1,6 @@
-package onscreen;
+package automate;
 
+import onscreen.*;
 import ui.*;
 
 /*
@@ -35,21 +36,17 @@ public class Automate {
 	public void step(Entity e) {
 		e.lasti = e.p.i;
 		e.lastj = e.p.j;
-		int i = 0;
-		while ((i < t.length) && ((t[i].src != e.courant) || (!t[i].cond.eval(e)))) {
-			i++;
+		Transition[] t_ok = new Transition[t.length];
+		int nb_trans = 0;
+		for (int i = 0; i < t.length; i++) {
+			if (t[i].eval(e))
+				t_ok[nb_trans++] = t[i];
 		}
-		if (i < t.length) {
-			if (t[i].act instanceof Explode) {
-				if(e instanceof Bullet)
-					t[i].act.execute(((Bullet)e).comport.model, e);
-				else
-					t[i].act.execute(((Sbire)e).comport.model, e);
-				e.courant = t[i].dest;
-			} else {
-				t[i].act.execute(e);
-				e.courant = t[i].dest;
-			}
-		}
+		if (nb_trans == 0)
+			t_ok[nb_trans++] = t[t.length - 1];
+
+		int rand = (int) (Math.random() * nb_trans);
+		t_ok[rand].act.execute(e);
+		e.courant = t_ok[rand].dest;
 	}
 }

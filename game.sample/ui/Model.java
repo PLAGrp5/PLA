@@ -28,6 +28,15 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import automate.Action;
+import automate.Automate;
+import automate.CondDefault;
+import automate.CondFree;
+import automate.Condition;
+import automate.Move;
+import automate.State;
+import automate.Transition;
+import automate.Turn;
 import framework.*;
 import onscreen.*;
 
@@ -45,7 +54,7 @@ public class Model extends GameModel {
 	BufferedImage m_blue;
 	BufferedImage m_red;
 	public BufferedImage m_bullet;
-	// Cowboy[] m_cowboys;
+
 	public Map m;
 
 	public int nsbire = 2;
@@ -54,8 +63,12 @@ public class Model extends GameModel {
 	public int nbullet = 0;
 	public Bullet[] bullets = new Bullet[nbullet];
 
-	/*public int nent = 2;
-	public Entity[] ent = new Entity[nent];*/
+	public int ntank = 2;
+	public Tank[] tanks = new Tank[ntank];
+
+	/*
+	 * public int nent = 2; public Entity[] ent = new Entity[nent];
+	 */
 
 	public Automate[] automates = new Automate[2];
 	Tank t2, t4;
@@ -79,14 +92,14 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-		
-		s = new Sbire(m, m_charbleuSprite, 1, 10, 'L', 1F, 30, coloria);
+
+		s = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
 
 		State e = new State("1");
 
 		Condition cond = new CondFree(m);
 		Condition cond1 = new CondDefault(m);
-		
+
 		Action act = new Move();
 		Action act1 = new Turn();
 
@@ -95,27 +108,31 @@ public class Model extends GameModel {
 		trans[1] = new Transition(e, e, act1, cond1);
 
 		Automate a = new Automate(e, trans);
+		automates[0] = a;
 
 		s.comport = a;
 		s.courant = e;
 		sbires[0] = s;
-		
-		t2 = new Tank(m, m_charrougeSprite, 5, 15, 'L', 1F, 30 , colort2);
+
+		t2 = new Tank(this, m_charrougeSprite, 5, 15, 'W', 1F, 30, colort2);
 		t2.aut_bonus = false;
 
-		t4 = new Tank(m, m_charbleuSprite, 8, 19, 'L', 1F, 30, colort);
+		t4 = new Tank(this, m_charbleuSprite, 8, 19, 'W', 1F, 30, colort);
 		t4.aut_bonus = false;
 
-		s3 = new Sbire(m, m_charbleuSprite, 6, 28, 'L', 1F, 30,coloria);
+		s3 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
 
 		/*
-		 * Action act1 = new Move('L', m); Transition trans1 = new Transition(e, e,
+		 * Action act1 = new Move('W', m); Transition trans1 = new Transition(e, e,
 		 * act1, cond); Automate a1 = new Automate(e, trans1);
 		 */
 
 		s3.comport = a;
 		s3.courant = e;
 		sbires[1] = s3;
+
+		tanks[0] = t2;
+		tanks[1] = t4;
 
 		// Parte test Bullet
 
@@ -140,14 +157,14 @@ public class Model extends GameModel {
 				bullets = tmp;
 			}
 			bullets[nbullet - 1] = (Bullet) e;
-		} else if (e instanceof Tank) {
+		} else if (e instanceof Sbire) {
 			nsbire++;
 			if (nsbire > sbires.length) {
 				Sbire[] tmp = new Sbire[2 * nsbire];
 				System.arraycopy(sbires, 0, tmp, 0, sbires.length);
 				sbires = tmp;
 			}
-			sbires[nsbire - 1] = (Sbire)e;
+			sbires[nsbire - 1] = (Sbire) e;
 		}
 	}
 
@@ -181,14 +198,28 @@ public class Model extends GameModel {
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-		for (int i = 0; i < nsbire; i++) {
+
+		int i;
+
+		for (i = 0; i < ntank; i++) {
+			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 100L) {
+				tanks[i].comport.step(tanks[i]);
+				tanks[i].m_lastMove = now;
+				if (++tanks[i].nstep > tanks[i].maxnstep) {
+					tanks[i].nstep = 0;
+					tanks[i].aut_bonus = false;
+				}
+			}
+		}
+
+		for (i = 0; i < nsbire; i++) {
 			if (now - sbires[i].m_lastMove > 200L) {
 				sbires[i].comport.step(sbires[i]);
 				sbires[i].m_lastMove = now;
 			}
 		}
 
-		for (int i = 0; i < nbullet; i++) {
+		for (i = 0; i < nbullet; i++) {
 			if (now - bullets[i].m_lastMove > 100L) {
 				bullets[i].comport.step(bullets[i]);
 				bullets[i].m_lastMove = now;
@@ -260,7 +291,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/sol.png");
 		try {
 			m_sol = ImageIO.read(imageFile);
@@ -268,7 +299,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/item.png");
 		try {
 			m_item = ImageIO.read(imageFile);
@@ -276,7 +307,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/blue.png");
 		try {
 			m_blue = ImageIO.read(imageFile);
@@ -284,7 +315,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/red.png");
 		try {
 			m_red = ImageIO.read(imageFile);
