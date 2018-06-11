@@ -94,6 +94,7 @@ public class GameUI implements ActionListener {
 	protected Pause pause;
 	protected GameOver over;
 	protected Credit credit;
+	int tpsBase;
 	
 	protected Parametres param;
 	File map = new File("game.sample/onscreen/map_test.txt");
@@ -155,6 +156,7 @@ public class GameUI implements ActionListener {
 		    Model model = new Model(m);
 		    Controller controller = new Controller(model);
 		    View view = new View(model,controller);
+		    
 			m_model = model;
 			m_model.m_game = this;
 			m_view = view;
@@ -253,6 +255,8 @@ public class GameUI implements ActionListener {
 			int tick = 1; // one millisecond
 			m_start = System.currentTimeMillis();
 			m_lastTick = m_start;
+			tpsBase = 60000;
+			m_lastRepaint = 0;
 			m_timer = new Timer(tick, new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
 					tick();
@@ -276,10 +280,10 @@ public class GameUI implements ActionListener {
 	 */
 	private void tick() {
 		long now = System.currentTimeMillis() - m_start;
-		long tempsrestant = 60000 - now + temps_de_pause;
+		long tempsrestant = tpsBase - now + temps_de_pause;
+		m_lastTick = now;
 		long elapsed = (now - m_lastTick);
 		m_elapsed += elapsed;
-		m_lastTick = now;
 		m_nTicks++;
 		m_model.step(now);
 		m_controller.step(now);
@@ -487,6 +491,7 @@ public class GameUI implements ActionListener {
 			setState(STATE.Over);
 			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
+			m_model.shutdown();
 			createWindow(d);
 		} else if (command.equals("PAUSE")) {
 			setState(STATE.Pause);

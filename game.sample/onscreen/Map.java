@@ -90,7 +90,7 @@ public class Map {
 		try {
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
-			System.out.println("Mauvais type de fichier séléctionné");
+			System.out.println("Mauvais type de fichier de carte séléctionné");
 			System.exit(0);
 		}
 		this.n = scan.nextInt();
