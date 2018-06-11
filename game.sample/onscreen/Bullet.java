@@ -18,9 +18,9 @@ public class Bullet extends Entity {
         e.m_model.m_Map.insert(this);
     }
 
-    public Bullet(Entity e, Automate a, State s) {
+    public Bullet(Entity e, Automate a) {
         super('B', e.p.i, e.p.j, e.dir);
-        courant = s;
+        courant = a.init;
         comport = a;
         e.m_model.m_Map.insert(this);
     }

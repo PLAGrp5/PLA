@@ -9,7 +9,7 @@ import onscreen.*;
 
 public class Action {
 	char dir;
-
+	
 	public void execute(Entity e) {
 	}
 }

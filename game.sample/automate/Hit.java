@@ -17,7 +17,6 @@ public class Hit extends Action {
 			e.m_model.GetEntity(p).updatevie(e.m_model, -1);
 			return;
 		}
-
 		State s = new State("1");
 		Transition[] transitionsb = new Transition[2];
 		Action mAction = new Move();

@@ -3,11 +3,13 @@ package automate;
 import onscreen.*;
 
 public class CondDefault extends Condition {
-
+	
 	public CondDefault() {
+		
 	}
 
 	public boolean eval(Entity ent) {
+		this.m = ent.m_model;
 		return true;
 	}
 }

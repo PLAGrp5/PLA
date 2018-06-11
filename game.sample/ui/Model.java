@@ -19,8 +19,10 @@ package ui;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -28,6 +30,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import Parser.*;
 import automate.Action;
 import automate.Automate;
 import automate.CondDefault;
@@ -40,6 +43,7 @@ import automate.Transition;
 import automate.Turn;
 import framework.*;
 import onscreen.*;
+import Parser.*;
 
 public class Model extends GameModel {
 	// LinkedList<Square> m_squares;
@@ -73,7 +77,7 @@ public class Model extends GameModel {
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
-	public Model(Map m) {
+	public Model(Map m) throws  ParseException, FileNotFoundException {
 		this.m_Map = m;
 		Tank j1, j2;
 		Sbire s11, s21;
@@ -95,6 +99,7 @@ public class Model extends GameModel {
 		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
 		s21 = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
 
+/*
 		State e = new State("1");
 
 		Condition cond = new CondFree();
@@ -111,18 +116,17 @@ public class Model extends GameModel {
 		Transition[] trans1 = new Transition[2];
 		trans1[0] = new Transition(e, e, act2, cond);
 		trans1[1] = new Transition(e, e, act1, cond1);
+*/
 
-		Automate a = new Automate(e, trans);
-		Automate a1 = new Automate(e, trans1);
-
-		automates[0] = a;
-		automates[1] = a1;
-
+		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
+	
+		automates = (Automate[]) a.make();
 		s11.comport = automates[0];
-		s11.courant = e;
+		s11.courant = automates[0].init;
 		sbires[0] = s11;
-		s21.comport = a;
-		s21.courant = e;
+    
+		s21.comport = automates[1];
+		s21.courant = automates[1].init;
 		sbires[1] = s21;
 
 		j1 = new Tank(this, m_charbleuSprite, 5, 15, 'W', 1F, 30, colort);
@@ -131,9 +135,6 @@ public class Model extends GameModel {
 		tanks[0] = j1;
 		tanks[1] = j2;
 
-		// Parte test Bullet
-
-		// m_point2 = new point(this, m_charrougeSprite, 32,32, 1F);
 	}
 
 	@Override
@@ -186,7 +187,8 @@ public class Model extends GameModel {
 	/**
 	 * Simulation step.
 	 * 
-	 * @param now is the current time in milliseconds.
+	 * @param now
+	 *          is the current time in milliseconds.
 	 */
 	@Override
 	public void step(long now) {

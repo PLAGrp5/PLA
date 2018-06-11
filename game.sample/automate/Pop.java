@@ -10,6 +10,7 @@ public class Pop extends Action {
 	}
 
 	public void execute(Entity e) {
+		this.model = e.m_model;
 		// On réalise l'action Pop seulement si jauge de couleur suffisante
 		if (e.jauge_couleur >= 4) {
 
