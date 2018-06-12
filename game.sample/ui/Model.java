@@ -52,6 +52,8 @@ public class Model extends GameModel {
 	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
+	public String last_touche;
+	
 	public Map m_Map;
 
 	public int nsbire = 2;

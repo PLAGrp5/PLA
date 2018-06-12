@@ -102,53 +102,82 @@ public class Controller extends GameController implements ActionListener {
 		case 'Z':
 		case 'z':
 			m_model.tanks[0].move('N');
+			m_model.last_touche = "z";
 			break;
 		case 'Q':
 		case 'q':
 			m_model.tanks[0].move('W');
+			m_model.last_touche = "q";
 			break;
 		case 'D':
 		case 'd':
 			m_model.tanks[0].move('E');
+			m_model.last_touche = "d";
 			break;
 		case 'S':
 		case 's':
 			m_model.tanks[0].move('S');
+			m_model.last_touche = "s";
 			break;
 		case 'a':
+		case 'A':
 			m_model.tanks[0].hit();
+			m_model.last_touche = "a";
 			break;
-		case 8:
-			if (!(m_model.tanks[0].inventaireVide()))
+		case 'e':
+		case 'E':
+			if (!(m_model.tanks[0].inventaireVide())) {
 				m_model.tanks[0].inventaire[0].jeter(m_model.tanks[0]);
-			else
+			}
+			else {
 				System.out.println("Inventaire Vide");
+			}
+			m_model.last_touche = "e";
 			break;
 
 		// Pop Joueur 1
 		case 'W':
 		case 'w':
 			m_model.tanks[0].pop();
+			m_model.last_touche = "w";
 			break;
 
 		// Wizz Joueur 1
 		case 'x':
 		case 'X':
 			m_model.tanks[0].wizz();
+			m_model.last_touche = "x";
 			break;
 
 		// Pop Joueur 2
 		case 'L':
 		case 'l':
 			m_model.tanks[1].pop();
+			m_model.last_touche = "l";
 			break;
 
 		// Wizz Joueur 2
 		case 'm':
 		case 'M':
 			m_model.tanks[1].wizz();
+			m_model.last_touche = "m";
 			break;
+		case 'p' :
+		case 'P' :
+			if (!(m_model.tanks[1].inventaireVide())) {
+				m_model.tanks[1].inventaire[0].jeter(m_model.tanks[1]);
+			}
+			else {
+				System.out.println("Inventaire Vide");
+			}
+			m_model.last_touche = "p";
 
+			break;
+		case 'o':
+		case 'O':
+			m_model.tanks[1].hit();
+			m_model.last_touche = "o";
+			break;
 		default:
 			break;
 		}
@@ -156,24 +185,19 @@ public class Controller extends GameController implements ActionListener {
 		// Move Joueur 2
 		case 37:
 			m_model.tanks[1].move('W');
+			m_model.last_touche = "FL";
 			break;
 		case 38:
 			m_model.tanks[1].move('N');
+			m_model.last_touche = "FU";
 			break;
 		case 39:
 			m_model.tanks[1].move('E');
+			m_model.last_touche = "FR";
 			break;
 		case 40:
 			m_model.tanks[1].move('S');
-			break;
-		case 96:
-			m_model.tanks[1].hit();
-			break;
-		case 10:
-			if (!(m_model.tanks[1].inventaireVide()))
-				m_model.tanks[1].inventaire[0].jeter(m_model.tanks[1]);
-			else
-				System.out.println("Inventaire Vide");
+			m_model.last_touche = "FD";
 			break;
 		}
 	}
