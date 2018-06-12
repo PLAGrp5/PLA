@@ -50,17 +50,20 @@ public class Entity {
 		this.type = type;
 		p.i = 1;
 		p.j = 1;
+		alive = false;
 	}
 
 	public Entity(char type, int i, int j, char dir) {
 		this.type = type;
 		this.p = new Point(i, j);
 		this.dir = dir;
+		alive = false;
 	}
 
 	public Entity(char type, int i, int j) {
 		this.type = type;
 		this.p = new Point(i, j);
+		alive = false;
 	}
 
 	public Entity(Model model, BufferedImage sprite, int x, int y, char dir, float scale) {
@@ -70,6 +73,7 @@ public class Entity {
 		p.j = x;
 		this.dir = dir;
 		m_scale = scale;
+		alive = false;
 	}
 
 	public void opposite() {
@@ -123,8 +127,8 @@ public class Entity {
 		}
 	}
 
-	public void explode() {
-		new Explode().execute(this);
+	public void kamikaze() {
+		new Kamikaze().execute(this);
 	}
 
 	public void turn(char dir) {
@@ -157,6 +161,7 @@ public class Entity {
 	}
 
 	public void updatevie(Model model, int vie) {
+
 		this.vie += vie;
 		if (this.vie < 1) {
 			this.vie = 0;

@@ -19,6 +19,7 @@ public class Tank extends Entity {
 	public Tank(Model model, BufferedImage sprite, int i, int j, char dir, float scale, int dose_couleur, Color color) {
 		super('T', i, j, dir);
 		aut_bonus = false;
+		alive = true;
 		m_model = model;
 		m_sprite = sprite;
 		m_scale = scale;
