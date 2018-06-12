@@ -1,5 +1,5 @@
 /*
- * Educational software for a basic game development
+z * Educational software for a basic game development
  * Copyright (C) 2018  Pr. Olivier Gruber
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,20 +18,13 @@
 package ui;
 
 import java.awt.Button;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.File;
-
-import automate.Hit;
-import automate.Move;
 import framework.*;
-import onscreen.Bullet;
 
 /**
  * This class is to illustrate the most simple game controller. It does not

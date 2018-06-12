@@ -47,7 +47,6 @@ import ui.Controller;
 import ui.View;
 
 import javax.swing.JPanel;
-import Parser.*;
 
 public class GameUI implements ActionListener {
 
