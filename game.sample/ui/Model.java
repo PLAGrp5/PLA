@@ -24,8 +24,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -106,9 +104,11 @@ public class Model extends GameModel {
 		 * Transition[] trans1 = new Transition[2]; trans1[0] = new Transition(e, e,
 		 * act2, cond); trans1[1] = new Transition(e, e, act1, cond1);
 		 */
+
 		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
 
 		automates = (Automate[]) a.make();
+
 		s11.comport = automates[3];
 		s11.courant = automates[3].init;
 		sbires[0] = s11;
@@ -179,7 +179,12 @@ public class Model extends GameModel {
 	/**
 	 * Simulation step.
 	 * 
+<<<<<<< HEAD
+	 * @param now
+	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
+=======
 	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
+>>>>>>> manon
 	 *            current time in milliseconds. >>>>>>> manon
 	 */
 	@Override

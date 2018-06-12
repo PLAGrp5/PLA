@@ -47,7 +47,7 @@ import ui.Controller;
 import ui.View;
 
 import javax.swing.JPanel;
-//import Parser.*;
+import Parser.*;
 
 public class GameUI implements ActionListener {
 
@@ -100,11 +100,12 @@ public class GameUI implements ActionListener {
 	int tpsBase;
 
 	protected Parametres param;
-	File map = new File("game.sample/onscreen/map_test.txt");
-	File sb1_1;
-	File sb1_2;
-	File sb2_1;
-	File sb2_2;
+
+	File map = new File("data/cartes/map_test.txt");
+	String sb1_1;
+	String sb1_2;
+	String sb2_1;
+	String sb2_2;
 
 	ImageIcon icon = new ImageIcon("game.sample/sprites/image.png");
 
@@ -158,14 +159,12 @@ public class GameUI implements ActionListener {
 		if (state == STATE.Game) {
 			Map m = new Map(map);
 			Model model;
-
 			try {
 				model = new Model(m);
 			} catch (FileNotFoundException | ParseException e) {
 				e.printStackTrace();
 				return;
 			}
-
 			Controller controller = new Controller(model);
 			View view = new View(model, controller);
 
@@ -336,7 +335,7 @@ public class GameUI implements ActionListener {
 			while (txt.length() < 25)
 				txt += " ";
 			if (m_msg != null) {
-				txt += m_msg;
+				// txt += m_msg;
 
 			}
 			// System.out.println(txt);
@@ -513,6 +512,7 @@ public class GameUI implements ActionListener {
 		String command = ae.getActionCommand();
 
 		if (command.equals("EXIT")) {
+			stopTimer();
 			int option = JOptionPane.showConfirmDialog(m_frame.getContentPane(), "Êtes-vous sûr ?", "Quitter ?",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
 			if (option == JOptionPane.YES_OPTION) {
@@ -522,6 +522,8 @@ public class GameUI implements ActionListener {
 				m_model.shutdown();
 				createWindow(d);
 				createTimer();
+			} else {
+				resumeTimer();
 			}
 
 		} else if (command.equals("PAUSE")) {
