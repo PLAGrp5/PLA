@@ -161,13 +161,12 @@ public class GameUI implements ActionListener {
 			Map m = new Map(map);
 		    Model model;
 
-			try {
-				model = new Model(m);
-			} catch (FileNotFoundException | ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return;
-			}
+					try {
+						model = new Model(m);
+					} catch (FileNotFoundException | ParseException e) {
+						e.printStackTrace();
+						return;
+					}
 				
 		    Controller controller = new Controller(model);
 		    View view = new View(model,controller);
