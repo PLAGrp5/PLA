@@ -6,6 +6,7 @@ public abstract class BonusEtMalus {
 	// renvoie false si inventaire plein
 	public boolean prendre(Entity ent) {
 		if (ent instanceof Tank && ((!ent.sbires_allies[0].alive) || (!ent.sbires_allies[1].alive))) {
+			ent.printsbire = "sbire_bonus_0";
 			if(!ent.sbires_allies[0].alive) {
 				ent.sbires_allies[0].setvie(5);
 				ent.sbires_allies[0].jauge_couleur = 15;

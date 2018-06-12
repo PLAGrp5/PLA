@@ -29,7 +29,7 @@ public class Tank extends Entity {
 		jauge_couleur = dose_couleur;
 		maxnstep = 10;
 		splitTankSprite();
-		setvie(15);
+		setvie(25);
 		initinventaire();
 	}
 
