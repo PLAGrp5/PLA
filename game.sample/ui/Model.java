@@ -89,7 +89,7 @@ public class Model extends GameModel {
 		Color coloria = Color.gray;
 		
 		s11 = new Sbire(this, m_sbirebleuSprite, 6, 28, 'W', 1F, 30, colort);
-		s21 = new Sbire(this, m_sbirerougeSprite, 1, 10, 'W', 1F, 30, colort2);
+		s21 = new Sbire(this, m_sbirerougeSprite, 4, 2, 'W', 1F, 30, colort2);
 		/*
 		 * State e = new State("1");
 		 * 
@@ -114,7 +114,7 @@ public class Model extends GameModel {
 		s11.comport = automates[s11.num_auto];
 		s11.courant = automates[s11.num_auto].init;
 		sbires[0] = s11;
-
+    
 		s21.num_auto = 1;
 		s21.last_auto = s21.num_auto;
 		s21.comport = automates[s21.num_auto];
@@ -180,7 +180,6 @@ public class Model extends GameModel {
 	 * 
 	 * public Iterator<Square> squares() { return m_squares.iterator(); }
 	 */
-	
 	@Override
 	public void step(long now) {
 		/*
@@ -191,7 +190,7 @@ public class Model extends GameModel {
 		int i;
 
 		for (i = 0; i < ntank; i++) {
-			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 400L) {
+			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 100L) {
 				tanks[i].comport_bonus.step(tanks[i]);
 				tanks[i].m_lastMove = now;
 				if (++tanks[i].nstep > tanks[i].maxnstep) {
@@ -203,7 +202,7 @@ public class Model extends GameModel {
 		}
 
 		for (i = 0; i < nsbire; i++) {
-			if (now - sbires[i].m_lastMove > 400L) {
+			if (now - sbires[i].m_lastMove > 200L) {
 				if (sbires[i].aut_bonus) {
 					sbires[i].comport_bonus.step(sbires[i]);
 					if (++sbires[i].nstep > sbires[i].maxnstep) {

@@ -16,10 +16,6 @@ public class Kamikaze extends Action {
         Point p = pe.nextPoint(e.dir);
         Entity e1 = e.m_model.GetEntity(p);
         e1.updatevie(e.m_model, -1);
-        if (e1.vie <= 0) {
-            e1.alive = false;
-            e1.jauge_couleur = 0;
-        }
         e.m_model.del(e);
     }
 }
