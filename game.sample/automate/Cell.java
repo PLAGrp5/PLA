@@ -19,21 +19,14 @@ public class Cell extends Condition {
 		
 		switch (this.ent) {
 			case 'T' :
-				this.ent = 'T';
-				break;
 			case 'E' :
-				this.ent = 'T';
-				break;
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'T';
 			case 'P' :
-				this.ent = 'I';
-				break;
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'I';
 			case 'J' :
-				this.ent = 'G';
-				break;
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'G';
 			default :
-				this.ent = 'F';
-				break;
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'F';
 		}
-		return ent.m_model.m_Map.map[p.i][p.j].type == this.ent;
 	}
 }
