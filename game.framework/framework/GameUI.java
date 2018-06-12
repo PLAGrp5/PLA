@@ -100,10 +100,11 @@ public class GameUI implements ActionListener {
 
 	protected Parametres param;
 	File map = new File("data/cartes/map_test.txt");
-	String sb1_1;
-	String sb1_2;
-	String sb2_1;
-	String sb2_2;
+	String sb1_1 = "Default";
+	String sb1_2 = "Aut2";
+	String sb2_1 = "Aut2";
+	String sb2_2 = "Default";
+	String[] sb = {sb1_1, sb1_2, sb2_1, sb2_2};
 
 	ImageIcon icon = new ImageIcon("game.sample/sprites/image.png");
 
@@ -158,7 +159,7 @@ public class GameUI implements ActionListener {
 			Map m = new Map(map);
 			Model model;
 			try {
-				model = new Model(m);
+				model = new Model(m, sb);
 			} catch (FileNotFoundException | ParseException e) {
 				e.printStackTrace();
 				return;

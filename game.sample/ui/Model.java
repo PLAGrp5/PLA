@@ -54,7 +54,7 @@ public class Model extends GameModel {
 
 	public Map m_Map;
 
-	public int nsbire = 2;
+	public int nsbire = 4;
 	public Sbire[] sbires = new Sbire[nsbire];
 
 	public int nbullet = 0;
@@ -63,16 +63,33 @@ public class Model extends GameModel {
 	public int ntank = 2;
 	public Tank[] tanks = new Tank[ntank];
 
-	public int nautomate = 2;
+	public int nautomate = 3;
 	public Automate[] automates = new Automate[nautomate];
 
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
-	public Model(Map m) throws ParseException, FileNotFoundException {
+	public static Automate getAut(Automate[] listAut, String sb) {
+		for (int i = 0; i < listAut.length; i++) {
+			if (listAut[i].name == sb) {
+				return listAut[i];
+			}
+		}
+		return listAut[0];
+	}
+	
+	public static String[] getList(Automate[] listAut) {
+		String[] nameList = new String[listAut.length];
+		for (int i = 0; i < listAut.length; i++) {
+			nameList[i] = listAut[i].name;
+		}
+		return nameList;
+	}
+	
+	public Model(Map m, String[] sb) throws ParseException, FileNotFoundException {
 		this.m_Map = m;
 		Tank j1, j2;
-		Sbire s11, s21;
+		Sbire s11, s12, s21, s22;
 
 		loadSprites();
 		/*
@@ -88,7 +105,9 @@ public class Model extends GameModel {
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
 		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
-		s21 = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
+		s12 = new Sbire(this, m_charbleuSprite, 5, 28, 'E', 1F, 30, coloria);
+		s21 = new Sbire(this, m_charrougeSprite, 1, 10, 'W', 1F, 30, coloria);
+		s22 = new Sbire(this, m_charrougeSprite, 1, 11, 'E', 1F, 30, coloria);
 
 		/*
 		 * State e = new State("1");
@@ -109,13 +128,21 @@ public class Model extends GameModel {
 
 		automates = (Automate[]) a.make();
 		// automates =
-		s11.comport = automates[0];
-		s11.courant = automates[0].init;
+		s11.comport = getAut(automates, sb[0]);
+		s11.courant = s11.comport.init;
 		sbires[0] = s11;
+		
+		s12.comport = getAut(automates, sb[1]);
+		s12.courant = s12.comport.init;
+		sbires[1] = s12;
 
-		s21.comport = automates[1];
-		s21.courant = automates[1].init;
-		sbires[1] = s21;
+		s21.comport = getAut(automates, sb[2]);
+		s21.courant = s21.comport.init;
+		sbires[2] = s21;
+		
+		s22.comport = getAut(automates, sb[0]);
+		s22.courant = s22.comport.init;
+		sbires[3] = s22;
 
 		j1 = new Tank(this, m_charbleuSprite, 5, 15, 'W', 1F, 30, colort);
 		j2 = new Tank(this, m_charrougeSprite, 8, 19, 'W', 1F, 30, colort2);
@@ -124,9 +151,9 @@ public class Model extends GameModel {
 		tanks[1] = j2;
 		
 		tanks[0].sbires_allies[0] = s11;
-		tanks[0].sbires_allies[1] = s21;
-		tanks[1].sbires_allies[0] = s11;
-		tanks[1].sbires_allies[1] = s21;
+		tanks[0].sbires_allies[1] = s12;
+		tanks[1].sbires_allies[0] = s21;
+		tanks[1].sbires_allies[1] = s22;
 	}
 
 	@Override

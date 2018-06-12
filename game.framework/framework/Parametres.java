@@ -37,16 +37,16 @@ public class Parametres {
 	JPanel Carte;
 	JPanel controlPanel;
 	GameUI g_ui;
-	final JFileChooser fc1_1 = new JFileChooser();
+	/*final JFileChooser fc1_1 = new JFileChooser();
 	final JFileChooser fc1_2 = new JFileChooser();
 	final JFileChooser fc2_1 = new JFileChooser();
-	final JFileChooser fc2_2 = new JFileChooser();
+	final JFileChooser fc2_2 = new JFileChooser();*/
 	final JFileChooser fcc = new JFileChooser();
 	String sbire1_1 = "Default";
 	String sbire1_2 = "Default";
 	String sbire2_1 = "Default";
 	String sbire2_2 = "Default";
-	File carte = new File("game.sample/onscreen/map_test.txt");
+	File carte = new File("data/cartes/map_test.txt");
 
 	public Parametres(GameUI g) {
 		g_ui = g;
@@ -69,6 +69,8 @@ public class Parametres {
 				System.exit(0);
 			}
 		});
+		
+		fcc.setCurrentDirectory(new File("data/cartes/"));
 
 		controlPanel = new JPanel();
 		controlPanel.setOpaque(false);
@@ -175,7 +177,7 @@ public class Parametres {
 		CarteButton.setPreferredSize(new Dimension(120, 30));
 		ExitButton.setPreferredSize(new Dimension(250, 100));
 
-		String[] ListAut = { "Default", "Warrior", "Guardian", "Popper", "Blocker", "Philosopher" };
+		String[] ListAut = { "Default", "Aut2", "Aut3" };
 		JComboBox<String> ScrollAut1_1 = new JComboBox<String>(ListAut);
 		JComboBox<String> ScrollAut1_2 = new JComboBox<String>(ListAut);
 		JComboBox<String> ScrollAut2_1 = new JComboBox<String>(ListAut);
@@ -254,7 +256,7 @@ public class Parametres {
 
 				@Override
 				public String getDescription() {
-					return "fichiers .txt";
+					return "Fichiers .txt";
 				}
 			};
 
@@ -262,19 +264,22 @@ public class Parametres {
 				JComboBox<String> cb1_1 = (JComboBox<String>) e.getSource();
 				sbire1_1 = (String) cb1_1.getSelectedItem();
 				sb1_1.setText("Sbire 1_1 : " + sbire1_1);
+				g_ui.sb1_1 = sbire1_1;
 			} else if (command.equals("SB1_2")) {
 				JComboBox<String> cb1_2 = (JComboBox<String>) e.getSource();
 				sbire1_2 = (String) cb1_2.getSelectedItem();
 				sb1_2.setText("Sbire 1_2 : " + sbire1_2);
+				g_ui.sb1_2 = sbire1_2;
 			} else if (command.equals("SB2_1")) {
 				JComboBox<String> cb2_1 = (JComboBox<String>) e.getSource();
 				sbire2_1 = (String) cb2_1.getSelectedItem();
 				sb2_1.setText("Sbire 2_1 : " + sbire2_1);
+				g_ui.sb2_1 = sbire2_1;
 			} else if (command.equals("SB2_2")) {
 				JComboBox<String> cb2_2 = (JComboBox<String>) e.getSource();
 				sbire2_2 = (String) cb2_2.getSelectedItem();
-				sb2_2.setText("Sbire 2_2 : " + sbire1_1);
-
+				sb2_2.setText("Sbire 2_2 : " + sbire2_2);
+				g_ui.sb[3] = sbire2_2;
 			} else if (command.equals("CARTE")) {
 				fcc.setFileFilter(filter);
 				int returnVal = fcc.showOpenDialog(paramFrame);
