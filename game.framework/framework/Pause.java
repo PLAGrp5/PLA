@@ -41,7 +41,7 @@ public class Pause {
 
 		pauseFrame.addWindowListener(new WindowAdapter() {
 			// Lorsque le joueur appuie sur la croix, cela relance le jeu
-			public void windowClosing(WindowEvent windowEvent) { 
+			public void windowClosing(WindowEvent windowEvent) {
 				g_ui.setState(STATE.Game);
 				pauseFrame.dispose();
 				g_ui.resumeTimer();
@@ -82,7 +82,8 @@ public class Pause {
 
 			if (command.equals("EXIT")) {
 				int option = JOptionPane.showConfirmDialog(pauseFrame.getContentPane(), "Êtes-vous sûr ?", "Quitter ?",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("game.sample/sprites/image.png"));
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon("game.sample/sprites/image.png"));
 				if (option == JOptionPane.YES_OPTION) {
 					g_ui.setState(STATE.Over);
 					Dimension d = new Dimension(1024, 1024);

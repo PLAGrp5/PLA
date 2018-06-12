@@ -41,18 +41,19 @@ public class Menu {
 				System.exit(0);
 			}
 		});
-// Gestion image de fond
+		// Gestion image de fond
 		ImageIcon imageicon = new ImageIcon("game.sample/sprites/landscape.jpg");
 		// L'image de fond est issue du site https://pixabay.com qui est une banque
 		// d'images libre de droits
 		Image image = imageicon.getImage();
-		controlPanel = new JPanel() {            
+		controlPanel = new JPanel() {
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-		@Override
-		protected void paintComponent(Graphics g) {
+
+			@Override
+			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.drawImage(image, 0, 0, null);
 			}
@@ -72,7 +73,6 @@ public class Menu {
 		MyButton ExitButton = new MyButton("EXIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 		MyButton OpenButton = new MyButton("OPEN", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 		MyButton CreditButton = new MyButton("CREDIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
-
 
 		StartButton.setActionCommand("START");
 		HelpButton.setActionCommand("HELP");
@@ -138,7 +138,7 @@ public class Menu {
 			if (command.equals("START")) {
 				g_ui.setState(STATE.Game);
 				Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
-			    Dimension d = new Dimension(tailleMoniteur.height * 1377/1024, tailleMoniteur.height);
+				Dimension d = new Dimension(tailleMoniteur.height * 1377 / 1024, tailleMoniteur.height);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();

@@ -61,7 +61,8 @@ public class Controller extends GameController implements ActionListener {
 	/**
 	 * Simulation step. Warning: the model has already executed its step.
 	 * 
-	 * @param now is the current time in milliseconds.
+	 * @param now
+	 *            is the current time in milliseconds.
 	 */
 	@Override
 	public void step(long now) {

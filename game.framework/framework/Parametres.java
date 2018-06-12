@@ -15,6 +15,7 @@ import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,12 +42,11 @@ public class Parametres {
 	final JFileChooser fc2_1 = new JFileChooser();
 	final JFileChooser fc2_2 = new JFileChooser();
 	final JFileChooser fcc = new JFileChooser();
-	File sbire1_1 = new File("DefaultAut.txt");
-	File sbire1_2 = new File("DefaultAut.txt");
-	File sbire2_1 = new File("DefaultAut.txt");
-	File sbire2_2 = new File("DefaultAut.txt");
+	String sbire1_1 = "Default";
+	String sbire1_2 = "Default";
+	String sbire2_1 = "Default";
+	String sbire2_2 = "Default";
 	File carte = new File("game.sample/onscreen/map_test.txt");
-	
 
 	public Parametres(GameUI g) {
 		g_ui = g;
@@ -57,9 +57,10 @@ public class Parametres {
 		paramFrame = new JFrame("Gitank paramètres");
 		paramFrame.setSize(1447, 900);
 		paramFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
-	//	paramFrame.setLayout(new GridLayout(4,3));
+		paramFrame.setLayout(new GridLayout(4, 3));
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		paramFrame.setLocation(dim.width/2-paramFrame.getSize().width/2, dim.height/2-paramFrame.getSize().height/2);
+		paramFrame.setLocation(dim.width / 2 - paramFrame.getSize().width / 2,
+				dim.height / 2 - paramFrame.getSize().height / 2);
 
 		headerLabel = new JLabel("", JLabel.CENTER);
 
@@ -74,47 +75,48 @@ public class Parametres {
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
 		Sbire_1 = new JPanel();
 		Sbire_1.setOpaque(false);
-		Sbire_1.setLayout(new GridLayout(1,2));
-		
+		Sbire_1.setLayout(new GridLayout(1, 2));
+
 		Sbire_2 = new JPanel();
 		Sbire_2.setOpaque(false);
-		Sbire_2.setLayout(new GridLayout(1,2));
-		
+		Sbire_2.setLayout(new GridLayout(1, 2));
+
 		Carte = new JPanel();
 		Carte.setOpaque(false);
-		Carte.setLayout(new GridLayout(1,2));
-		
+		Carte.setLayout(new GridLayout(1, 2));
+
 		Font font = new Font("Arial", Font.BOLD, 25); // Choix police plus taille
-		
-		sb1_1 = new JLabel("Sbire 1_1 : " + sbire1_1.getName(), JLabel.CENTER);
+
+		sb1_1 = new JLabel("Sbire 1_1 : " + sbire1_1, JLabel.CENTER);
 		sb1_1.setFont(font);
-		sb1_2 = new JLabel("Sbire 1_2 : " + sbire1_2.getName(), JLabel.CENTER);
+		sb1_2 = new JLabel("Sbire 1_2 : " + sbire1_2, JLabel.CENTER);
 		sb1_2.setFont(font);
-		sb2_1 = new JLabel("Sbire 2_1 : " + sbire2_1.getName(), JLabel.CENTER);
+		sb2_1 = new JLabel("Sbire 2_1 : " + sbire2_1, JLabel.CENTER);
 		sb2_1.setFont(font);
-		sb2_2 = new JLabel("Sbire 2_2 : " + sbire2_2.getName(), JLabel.CENTER);
+		sb2_2 = new JLabel("Sbire 2_2 : " + sbire2_2, JLabel.CENTER);
 		sb2_2.setFont(font);
 		map = new JLabel("Carte : " + carte.getName(), JLabel.CENTER);
 		map.setFont(font);
-		JLabel f = new JLabel("",JLabel.CENTER);
-		JLabel g = new JLabel("",JLabel.CENTER);
-		
+		JLabel f = new JLabel("", JLabel.CENTER);
+		JLabel g = new JLabel("", JLabel.CENTER);
+
 		// Gestion image de fond
 		ImageIcon imageicon = new ImageIcon("game.sample/sprites/landscape.jpg");
 		// L'image de fond est issue du site https://pixabay.com qui est une banque
 		// d'images libre de droits
 		Image image = imageicon.getImage();
-		
+
 		JPanel paramPanel = new JPanel() {
 			private static final long serialVersionUID = 1L;
-		@Override
-		protected void paintComponent(Graphics g) {
+
+			@Override
+			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.drawImage(image, 0, 0, null);
 			}
 		};
-		
-		paramPanel.setLayout(new GridLayout(4,3));
+
+		paramPanel.setLayout(new GridLayout(4, 3));
 		paramPanel.add(f);
 		paramPanel.add(headerLabel);
 		paramPanel.add(g);
@@ -127,7 +129,7 @@ public class Parametres {
 		paramPanel.add(map);
 		paramPanel.add(Carte);
 		paramPanel.add(controlPanel);
-		
+
 		paramFrame.setContentPane(paramPanel);
 		paramFrame.setVisible(true);
 	}
@@ -135,69 +137,97 @@ public class Parametres {
 	public void showEvent() {
 		headerLabel.setText("Choix des Automates");
 		headerLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		MyButton Sb1_1Button = new MyButton("Choisir 1_1", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
-		MyButton Sb1_2Button = new MyButton("Choisir 1_2", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
-		MyButton Sb2_1Button = new MyButton("Choisir 2_1", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
-		MyButton Sb2_2Button = new MyButton("Choisir 2_2", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
+		/*
+		 * MyButton Sb1_1Button = new MyButton("Choisir 1_1",
+		 * "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png"); MyButton
+		 * Sb1_2Button = new MyButton("Choisir 1_2", "game.sample/sprites/bleu.jpg",
+		 * "game.sample/sprites/rouge.png"); MyButton Sb2_1Button = new
+		 * MyButton("Choisir 2_1", "game.sample/sprites/bleu.jpg",
+		 * "game.sample/sprites/rouge.png"); MyButton Sb2_2Button = new
+		 * MyButton("Choisir 2_2", "game.sample/sprites/bleu.jpg",
+		 * "game.sample/sprites/rouge.png");
+		 */
 		MyButton CarteButton = new MyButton("Carte", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 		MyButton ExitButton = new MyButton("EXIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 
-		Sb1_1Button.setActionCommand("SB1_1");
-		Sb1_2Button.setActionCommand("SB1_2");
-		Sb2_1Button.setActionCommand("SB2_1");
-		Sb2_2Button.setActionCommand("SB2_2");
+		/*
+		 * Sb1_1Button.setActionCommand("SB1_1"); Sb1_2Button.setActionCommand("SB1_2");
+		 * Sb2_1Button.setActionCommand("SB2_1"); Sb2_2Button.setActionCommand("SB2_2");
+		 */
 		CarteButton.setActionCommand("CARTE");
 		ExitButton.setActionCommand("EXIT");
 
-		Sb1_1Button.addActionListener(new ButtonClickListener());
-		Sb1_2Button.addActionListener(new ButtonClickListener());
-		Sb2_1Button.addActionListener(new ButtonClickListener());
-		Sb2_2Button.addActionListener(new ButtonClickListener());
+		/*
+		 * Sb1_1Button.addActionListener(new ButtonClickListener());
+		 * Sb1_2Button.addActionListener(new ButtonClickListener());
+		 * Sb2_1Button.addActionListener(new ButtonClickListener());
+		 * Sb2_2Button.addActionListener(new ButtonClickListener());
+		 */
 		CarteButton.addActionListener(new ButtonClickListener());
 		ExitButton.addActionListener(new ButtonClickListener());
 
-		Sb1_1Button.setPreferredSize(new Dimension(120, 30));
-		Sb1_2Button.setPreferredSize(new Dimension(120, 30));
-		Sb2_1Button.setPreferredSize(new Dimension(120, 30));
-		Sb2_2Button.setPreferredSize(new Dimension(120, 30));
+		/*
+		 * Sb1_1Button.setPreferredSize(new Dimension(120, 30));
+		 * Sb1_2Button.setPreferredSize(new Dimension(120, 30));
+		 * Sb2_1Button.setPreferredSize(new Dimension(120, 30));
+		 * Sb2_2Button.setPreferredSize(new Dimension(120, 30));
+		 */
 		CarteButton.setPreferredSize(new Dimension(120, 30));
 		ExitButton.setPreferredSize(new Dimension(250, 100));
-		
+
+		String[] ListAut = { "Default", "Warrior", "Guardian", "Popper", "Blocker", "Philosopher" };
+		JComboBox<String> ScrollAut1_1 = new JComboBox<String>(ListAut);
+		JComboBox<String> ScrollAut1_2 = new JComboBox<String>(ListAut);
+		JComboBox<String> ScrollAut2_1 = new JComboBox<String>(ListAut);
+		JComboBox<String> ScrollAut2_2 = new JComboBox<String>(ListAut);
+
+		ScrollAut1_1.setEditable(true);
+		ScrollAut1_2.setEditable(true);
+		ScrollAut2_1.setEditable(true);
+		ScrollAut2_2.setEditable(true);
+
+		ScrollAut1_1.setActionCommand("SB1_1");
+		ScrollAut1_2.setActionCommand("SB1_2");
+		ScrollAut2_1.setActionCommand("SB2_1");
+		ScrollAut2_2.setActionCommand("SB2_2");
+
+		ScrollAut1_1.addActionListener(new ButtonClickListener());
+		ScrollAut1_2.addActionListener(new ButtonClickListener());
+		ScrollAut2_1.addActionListener(new ButtonClickListener());
+		ScrollAut2_2.addActionListener(new ButtonClickListener());
 
 		JPanel bouton1 = new JPanel(new GridBagLayout());
-		//GridBagConstraints gbc = new GridBagConstraints();
-		//gbc.gridx = 0;
-		//gbc.gridy = GridBagConstraints.RELATIVE;	 
-		//gbc.fill = GridBagConstraints.HORIZONTAL;
-		//gbc.insets = new Insets(30, 30, 30, 30);
+		// GridBagConstraints gbc = new GridBagConstraints();
+		// gbc.gridx = 0;
+		// gbc.gridy = GridBagConstraints.RELATIVE;
+		// gbc.fill = GridBagConstraints.HORIZONTAL;
+		// gbc.insets = new Insets(30, 30, 30, 30);
 		bouton1.setOpaque(false);
-		bouton1.add(Sb1_1Button);
-		
+		bouton1.add(ScrollAut1_1);
+
 		JPanel bouton2 = new JPanel(new GridBagLayout());
 		bouton2.setOpaque(false);
-		bouton2.add(Sb1_2Button);
-		
+		bouton2.add(ScrollAut1_2);
+
 		JPanel bouton3 = new JPanel(new GridBagLayout());
 		bouton3.setOpaque(false);
-		bouton3.add(Sb2_1Button);
-		
+		bouton3.add(ScrollAut2_1);
+
 		JPanel bouton4 = new JPanel(new GridBagLayout());
 		bouton4.setOpaque(false);
-		bouton4.add(Sb2_2Button);
-		
+		bouton4.add(ScrollAut2_2);
+
 		JPanel bouton5 = new JPanel(new GridBagLayout());
 		bouton5.setOpaque(false);
 		bouton5.add(CarteButton);
-		
+
 		JPanel bouton6 = new JPanel(new GridBagLayout());
 		bouton6.setOpaque(false);
 		bouton6.add(ExitButton);
-		
+
 		// Panel vide pour combler trou
 		JPanel test = new JPanel(new GridLayout());
 		test.setOpaque(false);
-		
-		
 
 		Sbire_1.add(bouton1);
 		Sbire_2.add(bouton2);
@@ -210,46 +240,41 @@ public class Parametres {
 		paramFrame.setVisible(true);
 	}
 
+	/*
+	 * public void actionPerformed(ActionEvent e) { JComboBox<String> cb =
+	 * (JComboBox<String>)e.getSource(); String newSelection =
+	 * (String)cb.getSelectedItem(); currentPattern = newSelection; reformat(); }
+	 */
+
 	private class ButtonClickListener implements ActionListener {
+		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
 
 			if (command.equals("SB1_1")) {
-				int returnVal = fc1_1.showOpenDialog(paramFrame);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					sbire1_1 = fc1_1.getSelectedFile();
-					g_ui.sb1_1 = sbire1_1;
-				}
-					sb1_1.setText("Sbire 1_1 : " + sbire1_1.getName());
+				JComboBox<String> cb1_1 = (JComboBox<String>) e.getSource();
+				sbire1_1 = (String) cb1_1.getSelectedItem();
+				sb1_1.setText("Sbire 1_1 : " + sbire1_1);
 			} else if (command.equals("SB1_2")) {
-				int returnVal = fc1_2.showOpenDialog(paramFrame);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					sbire1_2 = fc1_2.getSelectedFile();
-					g_ui.sb1_2 = sbire1_2;
-				}
-					sb1_2.setText("Sbire 1_2 : " + sbire1_2.getName());
+				JComboBox<String> cb1_2 = (JComboBox<String>) e.getSource();
+				sbire1_2 = (String) cb1_2.getSelectedItem();
+				sb1_2.setText("Sbire 1_2 : " + sbire1_2);
 			} else if (command.equals("SB2_1")) {
-				int returnVal = fc2_1.showOpenDialog(paramFrame);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					sbire2_1 = fc2_1.getSelectedFile();
-					g_ui.sb2_1 = sbire2_1;
-				}
-					sb2_1.setText("Sbire 2_1 : " + sbire2_1.getName());
+				JComboBox<String> cb2_1 = (JComboBox<String>) e.getSource();
+				sbire2_1 = (String) cb2_1.getSelectedItem();
+				sb2_1.setText("Sbire 2_1 : " + sbire2_1);
 			} else if (command.equals("SB2_2")) {
-				int returnVal = fc2_2.showOpenDialog(paramFrame);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					sbire2_2 = fc2_2.getSelectedFile();
-					g_ui.sb2_2 = sbire2_2;
-				}
-					sb2_2.setText("Sbire 2_2 : " + sbire2_2.getName());
+				JComboBox<String> cb2_2 = (JComboBox<String>) e.getSource();
+				sbire2_2 = (String) cb2_2.getSelectedItem();
+				sb2_2.setText("Sbire 2_2 : " + sbire1_1);
 			} else if (command.equals("CARTE")) {
 				int returnVal = fcc.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					carte = fcc.getSelectedFile();
 					g_ui.map = carte;
 				}
-					map.setText("Carte : " + carte.getName());
-			}else if (command.equals("EXIT")) {
+				map.setText("Carte : " + carte.getName());
+			} else if (command.equals("EXIT")) {
 				g_ui.setState(STATE.Menu);
 				Dimension d = new Dimension(1024, 1024);
 				g_ui.createWindow(d);
@@ -258,5 +283,5 @@ public class Parametres {
 		}
 
 	}
-	
+
 }

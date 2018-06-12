@@ -24,26 +24,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 import Parser.*;
-import automate.Action;
 import automate.Automate;
-import automate.CondDefault;
-import automate.CondFree;
-import automate.Condition;
-import automate.Hit;
-import automate.Move;
-import automate.State;
-import automate.Transition;
-import automate.Turn;
 import framework.*;
 import onscreen.*;
-import Parser.*;
 
 public class Model extends GameModel {
 	// LinkedList<Square> m_squares;
@@ -101,6 +89,7 @@ public class Model extends GameModel {
 		Color coloria = Color.gray;
 		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
 		s21 = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
+
 		/*
 		 * State e = new State("1");
 		 * 
@@ -115,9 +104,11 @@ public class Model extends GameModel {
 		 * Transition[] trans1 = new Transition[2]; trans1[0] = new Transition(e, e,
 		 * act2, cond); trans1[1] = new Transition(e, e, act1, cond1);
 		 */
+
 		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
 
 		automates = (Automate[]) a.make();
+		// automates =
 		s11.comport = automates[0];
 		s11.courant = automates[0].init;
 		sbires[0] = s11;
@@ -193,8 +184,8 @@ public class Model extends GameModel {
 	 * Simulation step.
 	 * 
 	 * @param now
-	 *          <<<<<<< HEAD is the current time in milliseconds. ======= is the
-	 *          current time in milliseconds. >>>>>>> manon
+	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
+	 *            current time in milliseconds. >>>>>>> manon
 	 */
 	@Override
 	public void step(long now) {
@@ -269,7 +260,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/sbireb.png");
 		try {
 			m_sbirebleuSprite = ImageIO.read(imageFile);
@@ -341,15 +332,15 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/mort.png");
 		try {
 			m_mort = ImageIO.read(imageFile);
-		}catch (IOException ex) {
+		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/portail.png");
 		try {
 			m_portail = ImageIO.read(imageFile);

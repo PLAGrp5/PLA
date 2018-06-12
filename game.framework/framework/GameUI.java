@@ -98,18 +98,16 @@ public class GameUI implements ActionListener {
 	protected GameOver over;
 	protected Credit credit;
 	int tpsBase;
-	
+
 	protected Parametres param;
 	File map = new File("data/cartes/map_test.txt");
-	File sb1_1;
-	File sb1_2;
-	File sb2_1;
-	File sb2_2;
-  
-	
-  
-  ImageIcon icon = new ImageIcon("game.sample/sprites/image.png");
-  
+	String sb1_1;
+	String sb1_2;
+	String sb2_1;
+	String sb2_2;
+
+	ImageIcon icon = new ImageIcon("game.sample/sprites/image.png");
+
 	public enum STATE {
 		Menu, Game, Help, Pause, Over, Param, Credit
 	};
@@ -159,17 +157,16 @@ public class GameUI implements ActionListener {
 	void createWindow(Dimension d) {
 		if (state == STATE.Game) {
 			Map m = new Map(map);
-		    Model model;
-					try {
-						model = new Model(m);
-					} catch (FileNotFoundException | ParseException e) {
-						e.printStackTrace();
-						return;
-					}
-				
-		    Controller controller = new Controller(model);
-		    View view = new View(model,controller);
-		    
+			Model model;
+			try {
+				model = new Model(m);
+			} catch (FileNotFoundException | ParseException e) {
+				e.printStackTrace();
+				return;
+			}
+			Controller controller = new Controller(model);
+			View view = new View(model, controller);
+
 			m_model = model;
 			m_model.m_game = this;
 			m_view = view;
@@ -198,29 +195,28 @@ public class GameUI implements ActionListener {
 
 			m_frame.pack();
 			m_frame.setLocationRelativeTo(null);
-			
+
 			JMenuBar jmb = new JMenuBar();
 			JMenu jmFile = new JMenu("Menu");
-		    JMenuItem jmiPause = new JMenuItem("Pause");
-		    JMenuItem jmiExit = new JMenuItem("Exit");
-		    jmFile.add(jmiPause);
-		    jmFile.addSeparator();
-		    jmFile.add(jmiExit);
-		    jmb.add(jmFile);
-		    
-		    jmiPause.setActionCommand("PAUSE");
-		    jmiExit.setActionCommand("EXIT");
-		    
-		    jmiPause.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_N));
-		    jmiExit.setAccelerator(KeyStroke.getKeyStroke((char) 27));
-		    
-		    
-		    jmiPause.addActionListener(this);
-		    jmiExit.addActionListener(this);
+			JMenuItem jmiPause = new JMenuItem("Pause");
+			JMenuItem jmiExit = new JMenuItem("Exit");
+			jmFile.add(jmiPause);
+			jmFile.addSeparator();
+			jmFile.add(jmiExit);
+			jmb.add(jmFile);
 
-		    m_frame.setJMenuBar(jmb);
-		    m_frame.setVisible(true);
-	
+			jmiPause.setActionCommand("PAUSE");
+			jmiExit.setActionCommand("EXIT");
+
+			jmiPause.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_N));
+			jmiExit.setAccelerator(KeyStroke.getKeyStroke((char) 27));
+
+			jmiPause.addActionListener(this);
+			jmiExit.addActionListener(this);
+
+			m_frame.setJMenuBar(jmb);
+			m_frame.setVisible(true);
+
 			GameController ctr = getController();
 
 			// let's hook the controller,
@@ -294,30 +290,30 @@ public class GameUI implements ActionListener {
 	private void tick() {
 		long now = System.currentTimeMillis() - m_start;
 		long tempsrestant = tpsBase - now + temps_de_pause;
-		m_lastTick = now;
 		long elapsed = (now - m_lastTick);
+		m_lastTick = now;
 		m_elapsed += elapsed;
 		m_nTicks++;
 		m_model.step(now);
 		m_controller.step(now);
-		
-		Model mod = (Model)m_model;
-		int parcourstank=0;
-		
-		while(parcourstank < mod.ntank) {
-			if(mod.tanks[parcourstank].vie==0) {
-				
+
+		Model mod = (Model) m_model;
+		int parcourstank = 0;
+
+		while (parcourstank < mod.ntank) {
+			if (mod.tanks[parcourstank].vie == 0) {
+
 				setState(STATE.Over);
 				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
 				createWindow(d);
 				stopTimer();
-				
+
 			}
 			parcourstank++;
 		}
-		
-		if(tempsrestant <=0) {
+
+		if (tempsrestant <= 0) {
 			setState(STATE.Over);
 			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
@@ -338,14 +334,14 @@ public class GameUI implements ActionListener {
 			while (txt.length() < 25)
 				txt += " ";
 			if (m_msg != null) {
-				//txt += m_msg;
+				// txt += m_msg;
 
 			}
 			// System.out.println(txt);
 			while (txt.length() < 150) {
 				txt += " ";
 			}
-			txt = txt + "Temps restant :   " + tempsrestant/1000;
+			txt = txt + "Temps restant :   " + tempsrestant / 1000;
 			while (txt.length() < 250) {
 				txt += " ";
 			}
@@ -358,24 +354,22 @@ public class GameUI implements ActionListener {
 			m_view.paint();
 			m_lastRepaint = now;
 		}
-		//System.out.printf("Temps restant : " + tempsrestant/1000 + "\n");
+		// System.out.printf("Temps restant : " + tempsrestant/1000 + "\n");
 	}
-
 
 	public void setFPS(int fps, String msg) {
 		m_fps = fps;
 		m_msg = msg;
 	}
-	
-	
-	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire, int nbre_mine,
-			int nbre_vie) {
-		JPanel pan = new JPanel(new GridLayout(16	, 3));
-		
+
+	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire,
+			int nbre_mine, int nbre_vie) {
+		JPanel pan = new JPanel(new GridLayout(16, 3));
+
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Score :"));
 		pan.add(new JLabel("" + score + ""));
-		
+
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
@@ -399,11 +393,11 @@ public class GameUI implements ActionListener {
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("" + nbre_vie + ""));
 		pan.add(new JLabel("" + nbre_mine + ""));
-		
+
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		
+
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 1"));
 		pan.add(new JLabel(""));
@@ -415,11 +409,11 @@ public class GameUI implements ActionListener {
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
 		pan.add(new JLabel("" + s1.jauge_couleur + ""));
-		
+
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		
+
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 2"));
 		pan.add(new JLabel(""));
@@ -431,7 +425,7 @@ public class GameUI implements ActionListener {
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
 		pan.add(new JLabel("" + s2.jauge_couleur + ""));
-		
+
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
@@ -447,11 +441,11 @@ public class GameUI implements ActionListener {
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Score :"));
 		pan.add(new JLabel("" + score + ""));
-		
+
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		
+
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Joueur 2"));
 		pan.add(new JLabel(""));
@@ -471,11 +465,11 @@ public class GameUI implements ActionListener {
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("" + nbre_vie + ""));
 		pan.add(new JLabel("" + nbre_mine + ""));
-		
+
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		
+
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 1"));
 		pan.add(new JLabel(""));
@@ -487,11 +481,11 @@ public class GameUI implements ActionListener {
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
 		pan.add(new JLabel("" + t.jauge_couleur + ""));
-		
+
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		
+
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 2"));
 		pan.add(new JLabel(""));
@@ -503,7 +497,7 @@ public class GameUI implements ActionListener {
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
 		pan.add(new JLabel("" + t.jauge_couleur + ""));
-		
+
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
@@ -517,15 +511,18 @@ public class GameUI implements ActionListener {
 		String command = ae.getActionCommand();
 
 		if (command.equals("EXIT")) {
+			stopTimer();
 			int option = JOptionPane.showConfirmDialog(m_frame.getContentPane(), "Êtes-vous sûr ?", "Quitter ?",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
 			if (option == JOptionPane.YES_OPTION) {
-			setState(STATE.Over);
-			m_frame.dispose();
-			Dimension d = new Dimension(1024, 1024);
-			m_model.shutdown();
-			createWindow(d);
-			createTimer();
+				setState(STATE.Over);
+				m_frame.dispose();
+				Dimension d = new Dimension(1024, 1024);
+				m_model.shutdown();
+				createWindow(d);
+				createTimer();
+			} else {
+				resumeTimer();
 			}
 
 		} else if (command.equals("PAUSE")) {
