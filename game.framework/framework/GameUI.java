@@ -189,6 +189,7 @@ public class GameUI implements ActionListener {
 			m_frame.setSize(d);
 			m_frame.doLayout();
 			m_frame.setVisible(true);
+			
 
 			// hook window events so that we exit the Java Platform
 			// when the window is closed by the end user.
@@ -303,23 +304,28 @@ public class GameUI implements ActionListener {
 
 		while (parcourstank < mod.ntank) {
 			if (mod.tanks[parcourstank].vie == 0) {
-
+				// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
+				stopTimer();
+				int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				setState(STATE.Over);
 				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
 				createWindow(d);
-				stopTimer();
 
 			}
 			parcourstank++;
 		}
 
 		if (tempsrestant <= 0) {
+			// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
+			stopTimer();
+			int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			setState(STATE.Over);
 			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
 			createWindow(d);
-			stopTimer();
 		}
 		elapsed = now - m_lastRepaint;
 		if (elapsed > Options.REPAINT_DELAY) {

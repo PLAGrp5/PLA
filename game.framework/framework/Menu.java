@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
+import java.io.*;
 
 import framework.GameUI.*;
 
@@ -140,9 +141,24 @@ public class Menu {
 				Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
 
 				Dimension d = new Dimension(tailleMoniteur.height * 1384 / 1033, tailleMoniteur.height * 989 / 1033);
+				int i = 0;
+				//while (i < 99999999) {i++; System.out.println(i);}
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
+				
+				// Essai d'une confirmation annoncant le début de partie lors du clic sur le bouton START
+			//	g_ui.stopTimer();
+			//	try{
+			//		Thread.sleep (10000);
+			//		}catch (InterruptedException ignore) {
+			//		}
+			//	g_ui.resumeTimer();
+		//	int option = JOptionPane.showConfirmDialog(null, "Prêt?", "Lancement partie",
+		//			JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
+		//	g_ui.resumeTimer();
+
+				 
 			} else if (command.equals("HELP")) {
 				g_ui.setState(STATE.Help);
 				Dimension d = new Dimension(1447, 1033);
