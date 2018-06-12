@@ -89,8 +89,9 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
-		s21 = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
+		
+		s11 = new Sbire(this, m_sbirebleuSprite, 6, 28, 'W', 1F, 30, colort);
+		s21 = new Sbire(this, m_sbirerougeSprite, 1, 10, 'W', 1F, 30, colort2);
 		/*
 		 * State e = new State("1");
 		 * 
@@ -108,8 +109,8 @@ public class Model extends GameModel {
 		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
 
 		automates = (Automate[]) a.make();
-		s11.comport = automates[0];
-		s11.courant = automates[0].init;
+		s11.comport = automates[3];
+		s11.courant = automates[3].init;
 		sbires[0] = s11;
 
 		s21.comport = automates[1];
