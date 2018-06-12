@@ -40,7 +40,7 @@ public class Entity {
 
 	public String printvie = "Vie_0";
 	public String printmine = "mine_0";
-	public String printsbire = "fondpanel";
+	public String printsbire = "sbire_bonus_0";
 	public int nbre_mine = 0;
 	public int nbre_vie = 0;
 
@@ -165,7 +165,8 @@ public class Entity {
 		this.vie += vie;
 		if (this.vie < 1) {
 			this.vie = 0;
-			if (alive)
+			this.alive = false;
+			if (type != 'W' && type != 'P' && type != 'T')
 				model.del(this);
 		}
 	}

@@ -319,6 +319,10 @@ public class Ast {
 					return new Turn(t[0]);
 				case "Kamikaze" :
 					return new Kamikaze();
+				case "Pop":
+					return new Pop();
+				case "Wizz":
+					return new Wizz();
 				default:
 					return null;
 			}
@@ -338,6 +342,8 @@ public class Ast {
 					return new Cell(t[0], t[1]);
 				case "MyDir" :
 					return new MyDir(t[0]);
+				case "Closest" :
+					return new Closest(t[0],t[1]);
 				default:
 					return new True();
 			}
