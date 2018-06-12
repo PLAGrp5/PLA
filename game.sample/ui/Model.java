@@ -131,15 +131,11 @@ public class Model extends GameModel {
 
 		tanks[0] = j1;
 		tanks[1] = j2;
-
-		s11.m_sbires[0] = s11;
-		s11.m_sbires[1] = s11;
-		s21.m_sbires[0] = s21;
-		s21.m_sbires[1] = s21;
-		tanks[0].m_sbires[0] = s11;
-		tanks[0].m_sbires[1] = s21;
-		tanks[1].m_sbires[0] = s11;
-		tanks[1].m_sbires[1] = s21;
+		
+		tanks[0].sbires_allies[0] = s11;
+		tanks[0].sbires_allies[1] = s21;
+		tanks[1].sbires_allies[0] = s11;
+		tanks[1].sbires_allies[1] = s21;
 	}
 
 	@Override
