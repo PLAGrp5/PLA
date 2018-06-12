@@ -11,29 +11,31 @@ public class Cell extends Condition {
 
 	public boolean eval(Entity ent) {
 		Point p;
-		if(dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W') {
+		if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W') {
 			p = ent.p.nextPoint(dir);
-		}else {
+		} else {
 			p = nextstep(ent);
 		}
-		
+
 		switch (this.ent) {
-			case 'T' :
-				this.ent = 'T';
-				break;
-			case 'E' :
-				this.ent = 'T';
-				break;
-			case 'P' :
-				this.ent = 'I';
-				break;
-			case 'J' :
-				this.ent = 'G';
-				break;
-			default :
-				this.ent = 'F';
-				break;
+		case 'T':
+		case 'E':
+			return ent.m_model.GetEntity(p).type == 'T';
+
+		case 'P':
+			return ent.m_model.GetEntity(p).type == 'I';
+
+		case 'J':
+			return ent.m_model.GetEntity(p).type == 'G';
+
+		default:
+			return ent.m_model.GetEntity(p).type == 'F';
+
 		}
-		return ent.m_model.m_Map.map[p.i][p.j].type == this.ent;
+		/*
+		 * if (ent instanceof Bullet && ent.p.i == 4 && ent.p.j == 13)
+		 * System.out.print("ok\n"); return ent.m_model.m_Map.map[p.i][p.j].type ==
+		 * this.ent;
+		 */
 	}
 }
