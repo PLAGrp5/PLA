@@ -1,5 +1,6 @@
 package framework;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -21,7 +22,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import framework.GameUI.STATE;
 
@@ -39,10 +39,6 @@ public class Parametres {
 	JPanel Carte;
 	JPanel controlPanel;
 	GameUI g_ui;
-	final JFileChooser fc1_1 = new JFileChooser();
-	final JFileChooser fc1_2 = new JFileChooser();
-	final JFileChooser fc2_1 = new JFileChooser();
-	final JFileChooser fc2_2 = new JFileChooser();
 	final JFileChooser fcc = new JFileChooser();
 	String sbire1_1 = "Default";
 	String sbire1_2 = "Default";
@@ -139,41 +135,16 @@ public class Parametres {
 	public void showEvent() {
 		headerLabel.setText("Choix des Automates");
 		headerLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		/*
-		 * MyButton Sb1_1Button = new MyButton("Choisir 1_1",
-		 * "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png"); MyButton
-		 * Sb1_2Button = new MyButton("Choisir 1_2", "game.sample/sprites/bleu.jpg",
-		 * "game.sample/sprites/rouge.png"); MyButton Sb2_1Button = new
-		 * MyButton("Choisir 2_1", "game.sample/sprites/bleu.jpg",
-		 * "game.sample/sprites/rouge.png"); MyButton Sb2_2Button = new
-		 * MyButton("Choisir 2_2", "game.sample/sprites/bleu.jpg",
-		 * "game.sample/sprites/rouge.png");
-		 */
+
 		MyButton CarteButton = new MyButton("Carte", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 		MyButton ExitButton = new MyButton("EXIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 
-		/*
-		 * Sb1_1Button.setActionCommand("SB1_1"); Sb1_2Button.setActionCommand("SB1_2");
-		 * Sb2_1Button.setActionCommand("SB2_1"); Sb2_2Button.setActionCommand("SB2_2");
-		 */
 		CarteButton.setActionCommand("CARTE");
 		ExitButton.setActionCommand("EXIT");
 
-		/*
-		 * Sb1_1Button.addActionListener(new ButtonClickListener());
-		 * Sb1_2Button.addActionListener(new ButtonClickListener());
-		 * Sb2_1Button.addActionListener(new ButtonClickListener());
-		 * Sb2_2Button.addActionListener(new ButtonClickListener());
-		 */
 		CarteButton.addActionListener(new ButtonClickListener());
 		ExitButton.addActionListener(new ButtonClickListener());
 
-		/*
-		 * Sb1_1Button.setPreferredSize(new Dimension(120, 30));
-		 * Sb1_2Button.setPreferredSize(new Dimension(120, 30));
-		 * Sb2_1Button.setPreferredSize(new Dimension(120, 30));
-		 * Sb2_2Button.setPreferredSize(new Dimension(120, 30));
-		 */
 		CarteButton.setPreferredSize(new Dimension(120, 30));
 		ExitButton.setPreferredSize(new Dimension(250, 100));
 
@@ -182,11 +153,6 @@ public class Parametres {
 		JComboBox<String> ScrollAut1_2 = new JComboBox<String>(ListAut);
 		JComboBox<String> ScrollAut2_1 = new JComboBox<String>(ListAut);
 		JComboBox<String> ScrollAut2_2 = new JComboBox<String>(ListAut);
-
-		ScrollAut1_1.setEditable(true);
-		ScrollAut1_2.setEditable(true);
-		ScrollAut2_1.setEditable(true);
-		ScrollAut2_2.setEditable(true);
 
 		ScrollAut1_1.setActionCommand("SB1_1");
 		ScrollAut1_2.setActionCommand("SB1_2");
@@ -199,11 +165,6 @@ public class Parametres {
 		ScrollAut2_2.addActionListener(new ButtonClickListener());
 
 		JPanel bouton1 = new JPanel(new GridBagLayout());
-		// GridBagConstraints gbc = new GridBagConstraints();
-		// gbc.gridx = 0;
-		// gbc.gridy = GridBagConstraints.RELATIVE;
-		// gbc.fill = GridBagConstraints.HORIZONTAL;
-		// gbc.insets = new Insets(30, 30, 30, 30);
 		bouton1.setOpaque(false);
 		bouton1.add(ScrollAut1_1);
 
@@ -242,12 +203,6 @@ public class Parametres {
 		paramFrame.setVisible(true);
 	}
 
-	/*
-	 * public void actionPerformed(ActionEvent e) { JComboBox<String> cb =
-	 * (JComboBox<String>)e.getSource(); String newSelection =
-	 * (String)cb.getSelectedItem(); currentPattern = newSelection; reformat(); }
-	 */
-
 	private class ButtonClickListener implements ActionListener {
 		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent e) {
@@ -280,7 +235,7 @@ public class Parametres {
 			} else if (command.equals("SB2_2")) {
 				JComboBox<String> cb2_2 = (JComboBox<String>) e.getSource();
 				sbire2_2 = (String) cb2_2.getSelectedItem();
-				sb2_2.setText("Sbire 2_2 : " + sbire1_1);
+				sb2_2.setText("Sbire 2_2 : " + sbire2_2);
 
 			} else if (command.equals("CARTE")) {
 				fcc.setFileFilter(filter);
