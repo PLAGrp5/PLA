@@ -334,8 +334,7 @@ public class GameUI implements ActionListener {
 			while (txt.length() < 25)
 				txt += " ";
 			if (m_msg != null) {
-				// txt += m_msg;
-
+				txt += m_msg;
 			}
 			// System.out.println(txt);
 			while (txt.length() < 150) {

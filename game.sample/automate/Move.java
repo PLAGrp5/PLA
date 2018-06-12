@@ -64,22 +64,23 @@ public class Move extends Action {
 		System.out.println("AIE UNE MINE | VIE : " + e.vie);
 	}
 
-	public Point Teleportation(Map m, Entity e, Point p) {
-		int i = (int) (Math.random() * (m.portail.NombrePortail()));
-		while ((m.portail.Get(i).i == p.i) && (m.portail.Get(i).j == p.j)) { // Trouver portail different de la source
-			i = (int) (Math.random() * (m.portail.NombrePortail()));
+	public Point Teleportation(Entity e, Point p) {
+
+		int i = (int) (Math.random() * (e.m_model.m_Map.NombrePortails));
+		while ((e.m_model.m_Map.GateList.get(i).p.i == p.i) && (e.m_model.m_Map.GateList.get(i).p.j == p.j)) { // Trouver portail different de la source
+			i = (int) (Math.random() * (e.m_model.m_Map.NombrePortails));
 		}
-		Point tmp = new Point(m.portail.Get(i)) ;
-		if (CanIMove(m, tmp.i - 1, tmp.j)) { // Vers le haut
+		Point tmp = new Point(e.m_model.m_Map.GateList.get(i).p) ;
+		if ((tmp.i-1 >= 0) && (CanIMove(e.m_model.m_Map, tmp.i - 1, tmp.j))) { // Vers le haut
 			tmp.i--;
 			e.dir = 'N';
-		} else if (CanIMove(m, tmp.i + 1, tmp.j)) { // Vers le bas
+		} else if ((tmp.i+1 < e.m_model.m_Map.n) && (CanIMove(e.m_model.m_Map, tmp.i + 1, tmp.j))) { // Vers le bas
 			tmp.i++;
 			e.dir = 'S';
-		} else if (CanIMove(m, tmp.i, tmp.j + 1)) { // Vers la droite
+		} else if ((tmp.j+1 < e.m_model.m_Map.n) && (CanIMove(e.m_model.m_Map, tmp.i, tmp.j + 1))) { // Vers la droite
 			tmp.j++;
 			e.dir = 'E';
-		} else if (CanIMove(m, tmp.i, tmp.j - 1)) { // Vers la gauche
+		} else if ((tmp.i-1 >= 0) && (CanIMove(e.m_model.m_Map, tmp.i, tmp.j - 1))) { // Vers la gauche
 			tmp.j--;
 			e.dir = 'O';
 		} else
@@ -114,13 +115,13 @@ public class Move extends Action {
 				Point p = nextstep(e); // calcul nouvel coordonnées
 				if (CanIMove(e.m_model.m_Map, p.i, p.j)) {
 					if (e.m_model.m_Map.isportail(p.i, p.j))
-						p = Teleportation(e.m_model.m_Map, e, p);
+						p = Teleportation(e, p);
 					if (e.m_model.m_Map.isbonus(p.i, p.j))
 						CaseBonus(e);
 					else if (e.m_model.m_Map.ismine(p.i, p.j))
 						CaseMine(e);
 					e.m_model.m_Map.free(e.p.i, e.p.j);
-          
+
 					if ((e.jauge_couleur > 0)) {
 						if (e.m_tank == Color.cyan) {
 							e.m_model.m_Map.color[e.p.i][e.p.j] = 'B';
@@ -142,7 +143,7 @@ public class Move extends Action {
 			Point p = nextstep(e); // calcul nouvel coordonnées
 			if (CanIMove(e.m_model.m_Map, p.i, p.j)) {
 				if (e.m_model.m_Map.isportail(p.i, p.j))
-					p = Teleportation(e.m_model.m_Map, e, p);
+					p = Teleportation(e, p);
 				if (e.m_model.m_Map.isbonus(p.i, p.j))
 					CaseBonus(e);
 				else if (e.m_model.m_Map.ismine(p.i, p.j))

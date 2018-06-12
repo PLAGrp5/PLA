@@ -2,6 +2,8 @@ package onscreen;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 //import com.sun.prism.paint.Color;
@@ -12,11 +14,11 @@ Class Map nous permet de représenter la carte de jeu
 
 public class Map {
 
-	int n;
+	public int n;
 	public Entity map[][];
 	public char color[][];
-	public Portail portail = new Portail();
-
+	public List<Portail> GateList = new ArrayList<Portail>();
+	public int NombrePortails = 0;
 	/*
 	 * Constructeur de base créant une carte Les limites du terrains ( premiere
 	 * colonne, derniere colonne, premiere ligne, derniere ligne) sont des murs, le
@@ -48,7 +50,6 @@ public class Map {
 	 * Création d'une carte à partir d'un fichier txt filepath
 	 */
 	public Map(String filepath) {
-		int k = 0;
 		File f = null;
 		Scanner scan = null;
 		try {
@@ -58,40 +59,45 @@ public class Map {
 			System.exit(0);
 		}
 
-		this.n = scan.nextInt();
-		this.map = new Entity[n][n];
-		this.color = new char[n][n];
+		n = scan.nextInt();
+		map = new Entity[n][n];
+		color = new char[n][n];
 		String s;
-		for (int i = 0; i < this.n; i++) {
+		for (int i = 0; i < n; i++) {
 			s = scan.next();
-			for (int j = 0; j < this.n; j++) {
+			for (int j = 0; j < n; j++) {
 				insert(new Entity(s.charAt(j), i, j));
-				if (s.charAt(j) == 'P') {
-					portail.Add(new Point(i,j));
+				if (s.charAt(j) == 'G') {
+					GateList.add(new Portail(i,j));
+					NombrePortails++;
 				}
 			}
 		}
-		for (int c = 0; c < this.n; c++) {
-			for (int l = 0; l < this.n; l++) {
 
-				if (this.map[c][l].type == 'F') {
-					this.color[c][l] = 'F';
-				} else if (this.map[c][l].type == 'W') {
-					this.color[c][l] = 'W';
-				} else if (this.map[c][l].type == 'T') {
-					this.color[c][l] = 'F';
-				} else if (this.map[c][l].type == 'I') {
-					this.color[c][l] = 'F';
-				} else if (this.map[c][l].type == 'M') {
-					this.color[c][l] = 'F';
-				} else if (this.map[c][l].type == 'P') {
-					this.color[c][l] = 'P';
+		for (int c = 0; c < n; c++) {
+			for (int l = 0; l < n; l++) {
+				switch (map[c][l].type) {
+				case 'W':
+					color[c][l] = 'W';
+					break;
+				case 'G':
+					color[c][l] = 'W';
+					break;
+        case 'T':
+					color[c][l] = 'F';
+					break;
+        case 'I':
+					color[c][l] = 'F';
+					break;
+				default:
+					color[c][l] = 'F';
+					break;
 				}
 			}
 		}
 
 	}
-	
+
 	public Map(File f) {
 		Scanner scan = null;
 		try {
@@ -100,29 +106,33 @@ public class Map {
 			System.out.println("Mauvais type de fichier de carte séléctionné");
 			System.exit(0);
 		}
-		this.n = scan.nextInt();
-		this.map = new Entity[n][n];
-		this.color = new char[n][n];
+		n = scan.nextInt();
+		map = new Entity[n][n];
+		color = new char[n][n];
 		String s;
-		for (int i = 0; i < this.n; i++) {
+		for (int i = 0; i < n; i++) {
 			s = scan.next();
-			for (int j = 0; j < this.n; j++) {
+			for (int j = 0; j < n; j++) {
 				insert(new Entity(s.charAt(j), i, j));
+				if (s.charAt(j) == 'G') {
+					GateList.add(new Portail(i,j));
+					NombrePortails++;
+				}
 			}
 		}
-		for (int c = 0; c < this.n; c++) {
-			for (int l = 0; l < this.n; l++) {
 
-				if (this.map[c][l].type == 'F') {
-					this.color[c][l] = 'F';
-				} else if (this.map[c][l].type == 'W') {
-					this.color[c][l] = 'W';
-				} else if (this.map[c][l].type == 'T') {
-					this.color[c][l] = 'F';
-				} else if (this.map[c][l].type == 'I') {
-					this.color[c][l] = 'F';
-				} else if (this.map[c][l].type == 'M') {
-					this.color[c][l] = 'F';
+		for (int c = 0; c < n; c++) {
+			for (int l = 0; l < n; l++) {
+				switch (map[c][l].type) {
+				case 'W':
+					color[c][l] = 'W';
+					break;
+				case 'P':
+					color[c][l] = 'P';
+					break;
+				default:
+					color[c][l] = 'F';
+					break;
 				}
 			}
 		}
@@ -188,7 +198,7 @@ public class Map {
 	}
 
 	public boolean isportail(int i, int j) {
-		return this.map[i][j].type == 'P';
+		return this.map[i][j].type == 'G';
 	}
 
 	public boolean insertMineOK(Entity e) {

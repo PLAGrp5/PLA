@@ -29,7 +29,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import Parser.*;
-import automate.Automate;
+import automate.*;
 import framework.*;
 import onscreen.*;
 
@@ -49,7 +49,7 @@ public class Model extends GameModel {
 	BufferedImage m_blue;
 	BufferedImage m_red;
 	public BufferedImage m_mort;
-	BufferedImage m_portail;
+	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
 	public Map m_Map;
@@ -122,15 +122,11 @@ public class Model extends GameModel {
 
 		tanks[0] = j1;
 		tanks[1] = j2;
-
-		s11.m_sbires[0] = s11;
-		s11.m_sbires[1] = s11;
-		s21.m_sbires[0] = s21;
-		s21.m_sbires[1] = s21;
-		tanks[0].m_sbires[0] = s11;
-		tanks[0].m_sbires[1] = s21;
-		tanks[1].m_sbires[0] = s11;
-		tanks[1].m_sbires[1] = s21;
+		
+		tanks[0].sbires_allies[0] = s11;
+		tanks[0].sbires_allies[1] = s21;
+		tanks[1].sbires_allies[0] = s11;
+		tanks[1].sbires_allies[1] = s21;
 	}
 
 	@Override
@@ -183,8 +179,12 @@ public class Model extends GameModel {
 	/**
 	 * Simulation step.
 	 * 
+<<<<<<< HEAD
 	 * @param now
 	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
+=======
+	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
+>>>>>>> menu
 	 *            current time in milliseconds. >>>>>>> manon
 	 */
 	@Override
