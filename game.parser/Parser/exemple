@@ -1,0 +1,9 @@
+Aut (Init) {
+	* (Init): True ? Move : (Init)
+}
+
+Aut2 (Init) {
+	* (Init): Cell(F, V) ? Move : (Init)
+	* (Init): Cell(F, P) ? Move : (Init)
+	* (Init): True ? Turn(R) : (Init)
+}
