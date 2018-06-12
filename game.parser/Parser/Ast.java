@@ -317,6 +317,8 @@ public class Ast {
 					return new Move();
 				case "Turn":
 					return new Turn(t[0]);
+				case "Kamikaze" :
+					return new Kamikaze();
 				default:
 					return null;
 			}
@@ -334,6 +336,8 @@ public class Ast {
 			switch (name.make()) {
 				case "Cell":
 					return new Cell(t[0], t[1]);
+				case "MyDir" :
+					return new MyDir(t[0]);
 				default:
 					return new True();
 			}

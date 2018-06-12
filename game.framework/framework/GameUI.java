@@ -327,7 +327,7 @@ public class GameUI implements ActionListener {
 		}
 		elapsed = now - m_lastRepaint;
 		if (elapsed > Options.REPAINT_DELAY) {
-			double tick = (double) m_elapsed / (double) m_nTicks;
+			double tick = (double) elapsed / (double) m_nTicks;
 			long tmp = (long) (tick * 10.0);
 			tick = tmp / 10.0;
 			m_elapsed = 0;

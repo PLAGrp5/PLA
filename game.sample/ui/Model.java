@@ -191,7 +191,7 @@ public class Model extends GameModel {
 		int i;
 
 		for (i = 0; i < ntank; i++) {
-			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 100L) {
+			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 400L) {
 				tanks[i].comport_bonus.step(tanks[i]);
 				tanks[i].m_lastMove = now;
 				if (++tanks[i].nstep > tanks[i].maxnstep) {
@@ -203,7 +203,7 @@ public class Model extends GameModel {
 		}
 
 		for (i = 0; i < nsbire; i++) {
-			if (now - sbires[i].m_lastMove > 200L) {
+			if (now - sbires[i].m_lastMove > 400L) {
 				if (sbires[i].aut_bonus) {
 					sbires[i].comport_bonus.step(sbires[i]);
 					if (++sbires[i].nstep > sbires[i].maxnstep) {
