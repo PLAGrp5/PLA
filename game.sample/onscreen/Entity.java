@@ -32,7 +32,7 @@ public class Entity {
 	int vie_max;
 
 	public boolean alive = true;
-	
+
 	public BonusEtMalus[] inventaire = new BonusEtMalus[3];
 	public int jauge_couleur;
 	public int lastj, lasti;
@@ -74,18 +74,18 @@ public class Entity {
 
 	public void opposite() {
 		switch (this.dir) {
-			case 'S':
-				this.dir = 'N';
-				break;
-			case 'W':
-				this.dir = 'E';
-				break;
-			case 'E':
-				this.dir = 'W';
-				break;
-			default:
-				this.dir = 'S';
-				break;
+		case 'S':
+			this.dir = 'N';
+			break;
+		case 'W':
+			this.dir = 'E';
+			break;
+		case 'E':
+			this.dir = 'W';
+			break;
+		default:
+			this.dir = 'S';
+			break;
 		}
 	}
 

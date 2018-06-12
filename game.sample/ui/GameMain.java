@@ -26,29 +26,28 @@ import framework.*;
 import onscreen.*;
 
 public class GameMain {
-	
-  public static void main(String[] args) throws FileNotFoundException, ParseException {
 
-  //récuperer la dimension de l'écran
-	Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
- 
-    Dimension d = new Dimension(tailleMoniteur.height * 1446/1024, tailleMoniteur.height);
-    new GameUI(d);
-    
-    // notice that the main thread will exit here,
-    // but not your program... hence the hooking
-    // of the window events to System.exit(0) when
-    // the window is closed. See class WindowListener.
+	public static void main(String[] args) throws FileNotFoundException, ParseException {
 
-    /*
-     * *** WARNING *** WARNING *** WARNING *** WARNING ***
-     * If you do something here, on this "main" thread,
-     * you will have parallelism and thus race conditions.
-     * 
-     *           ONLY FOR ADVANCED DEVELOPERS
-     *           
-     * *** WARNING *** WARNING *** WARNING *** WARNING ***
-     */
-    return;
-  }
+		// récuperer la dimension de l'écran
+		Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
+
+		Dimension d = new Dimension(tailleMoniteur.height * 1446 / 1024, tailleMoniteur.height);
+		new GameUI(d);
+
+		// notice that the main thread will exit here,
+		// but not your program... hence the hooking
+		// of the window events to System.exit(0) when
+		// the window is closed. See class WindowListener.
+
+		/*
+		 * *** WARNING *** WARNING *** WARNING *** WARNING *** If you do something here,
+		 * on this "main" thread, you will have parallelism and thus race conditions.
+		 * 
+		 * ONLY FOR ADVANCED DEVELOPERS
+		 * 
+		 * *** WARNING *** WARNING *** WARNING *** WARNING ***
+		 */
+		return;
+	}
 }
