@@ -88,7 +88,7 @@ public class Model extends GameModel {
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
 		
-		s11 = new Sbire(this, m_sbirebleuSprite, 6, 28, 'O', 1F, 30, colort);
+		s11 = new Sbire(this, m_sbirebleuSprite, 11, 14, 'O', 1F, 30, colort);
 		s21 = new Sbire(this, m_sbirerougeSprite, 4, 2, 'O', 1F, 30, colort2);
 		/*
 		 * State e = new State("1");
@@ -109,7 +109,7 @@ public class Model extends GameModel {
 
 		automates = (Automate[]) a.make();
 
-		s11.num_auto = 3;
+		s11.num_auto = 4;
 		s11.last_auto = s11.num_auto;
 		s11.comport = automates[s11.num_auto];
 		s11.courant = automates[s11.num_auto].init;
