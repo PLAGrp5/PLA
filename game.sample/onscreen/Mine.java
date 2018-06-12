@@ -22,7 +22,7 @@ public class Mine extends BonusEtMalus {
 				if (e.m_model.m_Map.insertMineOK(e))
 					e.m_model.m_Map.insert(new Entity('M', e.p.i, e.p.j + 1));
 				break;
-			case 'E':
+			default:
 				if (e.m_model.m_Map.insertMineOK(e))
 					e.m_model.m_Map.insert(new Entity('M', e.p.i, e.p.j - 1));
 				break;

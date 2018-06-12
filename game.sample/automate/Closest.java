@@ -10,7 +10,7 @@ public class Closest extends Condition {
 
 	public boolean eval(Entity e) {
 		char d = 'F';
-		char en ;
+		char en;
 		switch (this.ent) {
 			case 'T':
 				en = 'T';
@@ -29,14 +29,6 @@ public class Closest extends Condition {
 				break;
 		}
 
-		/*
-		 * int i; for (i = 0; i < 30 && e.m_model.m_Map.map[i][e.p.j].type != this.ent;
-		 * i++) ; if (i < 30) { if (i < e.p.j) d = 'N'; else if (i > e.p.j) d = 'S'; }
-		 * else { int j; for (j = 0; j < 30 && e.m_model.m_Map.map[e.p.i][j].type !=
-		 * this.ent; j++) ; if (j < 30) { if (j < e.p.i) d = 'O'; else if (j > e.p.i) d
-		 * = 'E'; } }
-		 */
-
 		for (int i = 0; i < 30; i++) {
 			if (e.m_model.m_Map.map[i][e.p.j].type == en) {
 				if (i < e.p.i)
@@ -50,8 +42,11 @@ public class Closest extends Condition {
 					d = 'E';
 			}
 		}
-		if(d == 'O')
-			System.out.print("ok");
-		return (d == this.dir);
+		
+		if (this.dir == 'N' || this.dir == 'S' || this.dir == 'O' || this.dir == 'E') {
+			return (d == this.dir);
+		} else {
+			return (d == e.dir);
+		}
 	}
 }

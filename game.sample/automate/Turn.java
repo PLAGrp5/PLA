@@ -4,6 +4,10 @@ import onscreen.Entity;
 
 public class Turn extends Action {
 
+	public Turn() {
+		this.dir = 'R';
+	}
+	
 	public Turn(String dir) {
 		this.dir = dir.charAt(0);
 	}

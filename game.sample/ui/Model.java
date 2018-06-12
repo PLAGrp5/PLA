@@ -52,6 +52,8 @@ public class Model extends GameModel {
 	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
+	public String last_touche;
+	
 	public Map m_Map;
 
 	public int nsbire = 2;
@@ -109,7 +111,7 @@ public class Model extends GameModel {
 
 		automates = (Automate[]) a.make();
 
-		s11.num_auto = 3;
+		s11.num_auto = 1;
 		s11.last_auto = s11.num_auto;
 		s11.comport = automates[s11.num_auto];
 		s11.courant = automates[s11.num_auto].init;
