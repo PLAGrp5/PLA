@@ -8,11 +8,11 @@ public abstract class BonusEtMalus {
 		if (ent instanceof Tank && ((!ent.sbires_allies[0].alive) || (!ent.sbires_allies[1].alive))) {
 			ent.printsbire = "sbire_bonus_0";
 			if (!ent.sbires_allies[0].alive) {
-				ent.sbires_allies[0].setvie(5);
+				ent.sbires_allies[0].updatevie(ent.m_model, 5);
 				ent.sbires_allies[0].jauge_couleur = 15;
 				ent.sbires_allies[0].alive = true;
 			} else {
-				ent.sbires_allies[1].setvie(5);
+				ent.sbires_allies[1].updatevie(ent.m_model, 5);
 				ent.sbires_allies[1].jauge_couleur = 15;
 				ent.sbires_allies[1].alive = true;
 			}

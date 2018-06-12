@@ -39,7 +39,8 @@ public class Automate {
 	public void step(Entity e) {
 		int i=0;
 		while(i < b.length) {
-			b[i].eval(e);
+			if( b[i].eval(e) == 1)
+				break;
 			i++;
 		}
 	}
