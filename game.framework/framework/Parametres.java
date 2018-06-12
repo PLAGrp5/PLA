@@ -181,11 +181,6 @@ public class Parametres {
 		JComboBox<String> ScrollAut2_1 = new JComboBox<String>(ListAut);
 		JComboBox<String> ScrollAut2_2 = new JComboBox<String>(ListAut);
 
-		ScrollAut1_1.setEditable(true);
-		ScrollAut1_2.setEditable(true);
-		ScrollAut2_1.setEditable(true);
-		ScrollAut2_2.setEditable(true);
-
 		ScrollAut1_1.setActionCommand("SB1_1");
 		ScrollAut1_2.setActionCommand("SB1_2");
 		ScrollAut2_1.setActionCommand("SB2_1");
