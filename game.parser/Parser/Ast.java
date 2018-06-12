@@ -260,8 +260,8 @@ public class Ast {
 
 		public automate.Action makeAction() {
 			switch (operator.make()) {
-				/*case "/":
-					return new OrAction(left_operand.makeAction(), right_operand.makeAction());*/
+				case "/":
+					return new OrAction(left_operand.makeAction(), right_operand.makeAction());
 				default:
 					System.out.println("Erreur and de deux actions impossibles");
 					return null;
@@ -325,6 +325,12 @@ public class Ast {
 					return new Wizz();
 				case "Hit" :
 					return new Hit();
+				case "Jump" :
+					return new Pop();
+				case "Protect" :
+					return new Hit();
+				case "Power" :
+					return new Wizz();
 				default:
 					return null;
 			}
