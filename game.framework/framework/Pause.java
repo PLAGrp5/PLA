@@ -81,9 +81,10 @@ public class Pause {
 			String command = e.getActionCommand();
 
 			if (command.equals("EXIT")) {
+				// Gestion de la confirmation d'erreur
 				int option = JOptionPane.showConfirmDialog(pauseFrame.getContentPane(), "Êtes-vous sûr ?", "Quitter ?",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("game.sample/sprites/image.png"));
-				if (option == JOptionPane.YES_OPTION) {
+				if (option == JOptionPane.YES_OPTION) { // Si on a cliqué sur oui, alors on fait le if, sinon on le fait pas
 					g_ui.setState(STATE.Over);
 					Dimension d = new Dimension(1024, 1024);
 					pauseFrame.dispose();

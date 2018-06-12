@@ -19,6 +19,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import framework.GameUI.STATE;
 
@@ -213,15 +215,33 @@ public class Parametres {
 	private class ButtonClickListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
+			
+			FileFilter filter = new FileFilter() {  // Oblige le user à choisir un fichier .txt et pas un autre type            
+				@Override
+                public boolean accept(File file)
+                {
+                   return file.getName().toUpperCase().equals(".TXT");
+                }
 
+                @Override
+                public String getDescription()
+                {
+                   return "fichiers .txt";
+                }
+             };
+             
+             
 			if (command.equals("SB1_1")) {
+				fc1_1.setFileFilter(filter); 
 				int returnVal = fc1_1.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					sbire1_1 = fc1_1.getSelectedFile();
 					g_ui.sb1_1 = sbire1_1;
+	
 				}
 					sb1_1.setText("Sbire 1_1 : " + sbire1_1.getName());
 			} else if (command.equals("SB1_2")) {
+				fc1_2.setFileFilter(filter); 
 				int returnVal = fc1_2.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					sbire1_2 = fc1_2.getSelectedFile();
@@ -229,6 +249,7 @@ public class Parametres {
 				}
 					sb1_2.setText("Sbire 1_2 : " + sbire1_2.getName());
 			} else if (command.equals("SB2_1")) {
+				fc2_1.setFileFilter(filter); 
 				int returnVal = fc2_1.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					sbire2_1 = fc2_1.getSelectedFile();
@@ -236,6 +257,7 @@ public class Parametres {
 				}
 					sb2_1.setText("Sbire 2_1 : " + sbire2_1.getName());
 			} else if (command.equals("SB2_2")) {
+				fc2_2.setFileFilter(filter); 
 				int returnVal = fc2_2.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					sbire2_2 = fc2_2.getSelectedFile();
@@ -243,6 +265,7 @@ public class Parametres {
 				}
 					sb2_2.setText("Sbire 2_2 : " + sbire2_2.getName());
 			} else if (command.equals("CARTE")) {
+				fcc.setFileFilter(filter); 
 				int returnVal = fcc.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					carte = fcc.getSelectedFile();
