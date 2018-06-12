@@ -11,10 +11,10 @@ public class behaviours {
 		src = e;
 	}
 
-	public void eval(Entity e) {
+	public int eval(Entity e) {
 		int i = 0;
 		if (!src.compare(e.courant.nom)) {
-			return;
+			return 0;
 		} else {
 			Transition[] t_ok = new Transition[t.length];
 			int nb_trans = 0;
@@ -31,6 +31,7 @@ public class behaviours {
 			int rand = (int) (Math.random() * nb_trans);
 			t_ok[rand].act.execute(e);
 			e.courant = t_ok[rand].dest;
+			return 1;
 		}
 	}
 }

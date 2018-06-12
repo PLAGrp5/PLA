@@ -18,24 +18,15 @@ public class Cell extends Condition {
 		}
 
 		switch (this.ent) {
-		case 'T':
-		case 'E':
-			return ent.m_model.GetEntity(p).type == 'T';
-
-		case 'P':
-			return ent.m_model.GetEntity(p).type == 'I';
-
-		case 'J':
-			return ent.m_model.GetEntity(p).type == 'G';
-
-		default:
-			return ent.m_model.GetEntity(p).type == 'F';
-
+			case 'T' :
+			case 'E' :
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'T';
+			case 'P' :
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'I';
+			case 'J' :
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'G';
+			default :
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'F';
 		}
-		/*
-		 * if (ent instanceof Bullet && ent.p.i == 4 && ent.p.j == 13)
-		 * System.out.print("ok\n"); return ent.m_model.m_Map.map[p.i][p.j].type ==
-		 * this.ent;
-		 */
 	}
 }
