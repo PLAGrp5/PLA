@@ -48,8 +48,8 @@ public class Entity {
 
 	public Entity(char type) {
 		this.type = type;
-		p.i=1;
-		p.j=1;
+		p.i = 1;
+		p.j = 1;
 	}
 
 	public Entity(char type, int i, int j, char dir) {
@@ -74,18 +74,18 @@ public class Entity {
 
 	public void opposite() {
 		switch (this.dir) {
-		case 'S':
-			this.dir = 'N';
-			break;
-		case 'W':
-			this.dir = 'E';
-			break;
-		case 'E':
-			this.dir = 'W';
-			break;
-		default:
-			this.dir = 'S';
-			break;
+			case 'S':
+				this.dir = 'N';
+				break;
+			case 'W':
+				this.dir = 'E';
+				break;
+			case 'E':
+				this.dir = 'W';
+				break;
+			default:
+				this.dir = 'S';
+				break;
 		}
 	}
 
@@ -109,7 +109,18 @@ public class Entity {
 	}
 
 	public void hit() {
-		new Hit().execute(this);
+		long now = System.currentTimeMillis();
+		long elapsed = now - m_lastMove;
+		if (elapsed > 500L) {
+			m_lastMove = now;
+			if (canihit())
+				new Hit().execute(this);
+			else {
+				Point pe = new Point(p);
+				Point p = pe.nextPoint(dir);
+				m_model.m_Map.map[p.i][p.j].updatevie(m_model, -1);
+			}
+		}
 	}
 
 	public void explode() {

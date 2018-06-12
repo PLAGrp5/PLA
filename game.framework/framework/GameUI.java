@@ -160,6 +160,7 @@ public class GameUI implements ActionListener {
 		if (state == STATE.Game) {
 			Map m = new Map(map);
 		    Model model;
+
 			try {
 				model = new Model(m);
 			} catch (FileNotFoundException | ParseException e) {
@@ -167,7 +168,6 @@ public class GameUI implements ActionListener {
 				e.printStackTrace();
 				return;
 			}
-				
 				
 		    Controller controller = new Controller(model);
 		    View view = new View(model,controller);
