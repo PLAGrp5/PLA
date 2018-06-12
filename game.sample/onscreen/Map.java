@@ -2,6 +2,8 @@ package onscreen;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 //import com.sun.prism.paint.Color;
@@ -12,11 +14,11 @@ Class Map nous permet de représenter la carte de jeu
 
 public class Map {
 
-	int n;
+	public int n;
 	public Entity map[][];
 	public char color[][];
-	public Portail portail = new Portail();
-
+	public List<Portail> GateList = new ArrayList<Portail>();
+	public int NombrePortails = 0;
 	/*
 	 * Constructeur de base créant une carte Les limites du terrains ( premiere
 	 * colonne, derniere colonne, premiere ligne, derniere ligne) sont des murs, le
@@ -65,8 +67,9 @@ public class Map {
 			s = scan.next();
 			for (int j = 0; j < n; j++) {
 				insert(new Entity(s.charAt(j), i, j));
-				if (s.charAt(j) == 'P') {
-					portail.Add(new Point(i, j));
+				if (s.charAt(j) == 'G') {
+					GateList.add(new Portail(i,j));
+					NombrePortails++;
 				}
 			}
 		}
@@ -77,8 +80,14 @@ public class Map {
 				case 'W':
 					color[c][l] = 'W';
 					break;
-				case 'P':
-					color[c][l] = 'P';
+				case 'G':
+					color[c][l] = 'W';
+					break;
+        case 'T':
+					color[c][l] = 'F';
+					break;
+        case 'I':
+					color[c][l] = 'F';
 					break;
 				default:
 					color[c][l] = 'F';
@@ -105,8 +114,9 @@ public class Map {
 			s = scan.next();
 			for (int j = 0; j < n; j++) {
 				insert(new Entity(s.charAt(j), i, j));
-				if (s.charAt(j) == 'P') {
-					portail.Add(new Point(i, j));
+				if (s.charAt(j) == 'G') {
+					GateList.add(new Portail(i,j));
+					NombrePortails++;
 				}
 			}
 		}
@@ -188,7 +198,7 @@ public class Map {
 	}
 
 	public boolean isportail(int i, int j) {
-		return this.map[i][j].type == 'P';
+		return this.map[i][j].type == 'G';
 	}
 
 	public boolean insertMineOK(Entity e) {
