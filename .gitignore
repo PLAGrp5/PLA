@@ -37,3 +37,4 @@ bin/
 .settings/
 .metadata/
 .recommenders/
+compilejavacc.sh

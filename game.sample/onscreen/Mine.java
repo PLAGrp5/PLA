@@ -31,14 +31,17 @@ public class Mine extends BonusEtMalus {
 				e.inventaire[i] = e.inventaire[i + 1];
 			e.inventaire[i] = null;
 			e.nbre_mine--;
-			if (e.nbre_mine == 0) {
+			if (!e.inventaireVide()){
+				if (e.inventaire[0].type == 'V') {
+					e.printvie = "Vie_1";
+					e.printmine = "mine";
+				} else if(e.inventaire[0].type == 'M') {
+					e.printmine = "mine_1";
+					e.printvie = "Vie";
+				}
+			} else if (e.inventaireVide()) {
 				e.printmine = "mine_0";
-			} else if (e.inventaire[0].type == 'V') {
-				e.printvie = "Vie_1";
-				e.printmine = "mine";
-			} else if (e.inventaire[0].type == 'M') {
-				e.printmine = "mine_1";
-				e.printvie = "Vie";
+				e.printvie = "Vie_0";
 			}
 			System.out.println("MINE POSÉE");
 		}

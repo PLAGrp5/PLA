@@ -71,7 +71,6 @@ public class View extends GameView {
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-
 		/*
 		 * g.setColor(m_line);
 		 * 
@@ -83,30 +82,32 @@ public class View extends GameView {
 		// Parcours de notre tableau color (contenu dans map)
 		for (int k = 0; k < NBRE_ROW; k++) {
 			for (int l = 0; l < NBRE_COL; l++) {
+				switch (m_model.m_Map.color[k][l]) {
+				case 'W':
+					g.drawImage(m_model.m_mur, 32 * l, 32 * k, 32, 32, null);
+					break;
+				case 'F':
+					g.drawImage(m_model.m_sol, 32 * l, 32 * k, 32, 32, null);
+					break;
+				case 'B':
+					g.drawImage(m_model.m_blue, 32 * l, 32 * k, 32, 32, null);
+					break;
+				case 'R':
+					g.drawImage(m_model.m_red, 32 * l, 32 * k, 32, 32, null);
+					break;
+
+				default:
+					break;
+				}
 
 				// Pour chaque case on colorie avec la texture associé
-
-				if (m_model.m_Map.color[k][l] == 'W') {
-					g.drawImage(m_model.m_mur, 32 * l, 32 * k, 32, 32, null);
-				}
-				else if (m_model.m_Map.color[k][l] == 'F') {
-					g.drawImage(m_model.m_sol, 32 * l, 32 * k, 32, 32, null);
-				}
-				else if (m_model.m_Map.color[k][l] == 'B') {
-					g.drawImage(m_model.m_blue, 32 * l, 32 * k, 32, 32, null);
-				}
-				else if (m_model.m_Map.color[k][l] == 'R') {
-					g.drawImage(m_model.m_red, 32 * l, 32 * k, 32, 32, null);
-				}
-				else if (m_model.m_Map.color[k][l] == 'P') {
-					g.drawImage(m_model.m_portail, 32 * l, 32 * k, 32, 32, null);
-				}
-				if (m_model.m_Map.map[k][l].type == 'I') {
+				if (m_model.m_Map.map[k][l].type == 'I')
 					g.drawImage(m_model.m_item, 32 * l, 32 * k, 32, 32, null);
-				}
-				else if (m_model.m_Map.map[k][l].type == 'M') {
-					g.drawImage(m_model.m_mine, 32*l, 32*k, 32, 32, null);
-				}
+				else if (m_model.m_Map.map[k][l].type == 'M')
+					g.drawImage(m_model.m_mine, 32 * l, 32 * k, 32, 32, null);
+
+				else if (m_model.m_Map.map[k][l].type == 'G')
+					g.drawImage(m_model.m_portail, 32 * l, 32 * k, 32, 32, null);
 			}
 		}
 		// m_model.m.print();
@@ -114,7 +115,7 @@ public class View extends GameView {
 		m_model.tanks[0].paint(g, m_model.tanks[0].dir);
 		m_model.tanks[1].paint(g, m_model.tanks[1].dir);
 		for (int i = 0; i < m_model.nsbire; i++) {
-			//System.out.println(m_model.sbires[i].alive);
+			// System.out.println(m_model.sbires[i].alive);
 			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
 		}
 		for (int i = 0; i < m_model.nbullet; i++) {

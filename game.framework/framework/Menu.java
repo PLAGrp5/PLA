@@ -138,25 +138,26 @@ public class Menu {
 			if (command.equals("START")) {
 				g_ui.setState(STATE.Game);
 				Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
-				Dimension d = new Dimension(tailleMoniteur.height * 1377 / 1024, tailleMoniteur.height);
+
+				Dimension d = new Dimension(tailleMoniteur.height * 1384 / 1033, tailleMoniteur.height * 989 / 1033);
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
 			} else if (command.equals("HELP")) {
 				g_ui.setState(STATE.Help);
-				Dimension d = new Dimension(1446, 1033);
+				Dimension d = new Dimension(1447, 1033);
 				g_ui.createWindow(d);
 				menuFrame.dispose();
 			} else if (command.equals("CREDIT")) {
 				g_ui.setState(STATE.Credit);
-				Dimension d = new Dimension(1446, 1033);
+				Dimension d = new Dimension(1447, 1033);
 				g_ui.createWindow(d);
 				menuFrame.dispose();
 			} else if (command.equals("EXIT")) {
 				System.exit(0);
 			} else if (command.equals("OPEN")) {
 				g_ui.setState(STATE.Param);
-				Dimension d = new Dimension(1447, 1024);
+				Dimension d = new Dimension(1447, 1033);
 				menuFrame.dispose();
 				g_ui.createWindow(d);
 			}

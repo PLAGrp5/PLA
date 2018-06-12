@@ -29,7 +29,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import Parser.*;
-import automate.Automate;
+import automate.*;
 import framework.*;
 import onscreen.*;
 
@@ -49,7 +49,7 @@ public class Model extends GameModel {
 	BufferedImage m_blue;
 	BufferedImage m_red;
 	public BufferedImage m_mort;
-	BufferedImage m_portail;
+	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
 	public Map m_Map;
@@ -87,9 +87,9 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
-		s21 = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
-
+		
+		s11 = new Sbire(this, m_sbirebleuSprite, 6, 28, 'W', 1F, 30, colort);
+		s21 = new Sbire(this, m_sbirerougeSprite, 1, 10, 'W', 1F, 30, colort2);
 		/*
 		 * State e = new State("1");
 		 * 
@@ -108,9 +108,9 @@ public class Model extends GameModel {
 		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
 
 		automates = (Automate[]) a.make();
-		// automates =
-		s11.comport = automates[0];
-		s11.courant = automates[0].init;
+
+		s11.comport = automates[3];
+		s11.courant = automates[3].init;
 		sbires[0] = s11;
 
 		s21.comport = automates[1];
@@ -122,15 +122,11 @@ public class Model extends GameModel {
 
 		tanks[0] = j1;
 		tanks[1] = j2;
-
-		s11.m_sbires[0] = s11;
-		s11.m_sbires[1] = s11;
-		s21.m_sbires[0] = s21;
-		s21.m_sbires[1] = s21;
-		tanks[0].m_sbires[0] = s11;
-		tanks[0].m_sbires[1] = s21;
-		tanks[1].m_sbires[0] = s11;
-		tanks[1].m_sbires[1] = s21;
+		
+		tanks[0].sbires_allies[0] = s11;
+		tanks[0].sbires_allies[1] = s21;
+		tanks[1].sbires_allies[0] = s11;
+		tanks[1].sbires_allies[1] = s21;
 	}
 
 	@Override
@@ -183,8 +179,12 @@ public class Model extends GameModel {
 	/**
 	 * Simulation step.
 	 * 
+<<<<<<< HEAD
 	 * @param now
 	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
+=======
+	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
+>>>>>>> manon
 	 *            current time in milliseconds. >>>>>>> manon
 	 */
 	@Override
@@ -197,7 +197,7 @@ public class Model extends GameModel {
 		int i;
 
 		for (i = 0; i < ntank; i++) {
-			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 100L) {
+			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 400L) {
 				tanks[i].comport_bonus.step(tanks[i]);
 				tanks[i].m_lastMove = now;
 				if (++tanks[i].nstep > tanks[i].maxnstep) {
@@ -209,7 +209,7 @@ public class Model extends GameModel {
 		}
 
 		for (i = 0; i < nsbire; i++) {
-			if (now - sbires[i].m_lastMove > 200L) {
+			if (now - sbires[i].m_lastMove > 400L) {
 				if (sbires[i].aut_bonus) {
 					sbires[i].comport_bonus.step(sbires[i]);
 					if (++sbires[i].nstep > sbires[i].maxnstep) {

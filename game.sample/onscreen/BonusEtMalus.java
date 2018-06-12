@@ -5,18 +5,18 @@ public abstract class BonusEtMalus {
 
 	// renvoie false si inventaire plein
 	public boolean prendre(Entity ent) {
-		if ((!ent.m_sbires[0].alive) || (!ent.m_sbires[1].alive)) {
-			if(!ent.m_sbires[0].alive) {
-				ent.m_sbires[0].setvie(5);
-				ent.m_sbires[0].jauge_couleur = 15;
-				ent.m_sbires[0].alive = true;
+		if (ent instanceof Tank && ((!ent.sbires_allies[0].alive) || (!ent.sbires_allies[1].alive))) {
+			ent.printsbire = "sbire_bonus_0";
+			if (!ent.sbires_allies[0].alive) {
+				ent.sbires_allies[0].setvie(5);
+				ent.sbires_allies[0].jauge_couleur = 15;
+				ent.sbires_allies[0].alive = true;
 			} else {
-				ent.m_sbires[1].setvie(5);
-				ent.m_sbires[1].jauge_couleur = 15;
-				ent.m_sbires[1].alive = true;
+				ent.sbires_allies[1].setvie(5);
+				ent.sbires_allies[1].jauge_couleur = 15;
+				ent.sbires_allies[1].alive = true;
 			}
-		}
-		else if (ent.inventaire[0] == null) {
+		} else if (ent.inventaire[0] == null) {
 			ent.inventaire[0] = this;
 			if (this.type == 'M') {
 				ent.printmine = "mine_1";
