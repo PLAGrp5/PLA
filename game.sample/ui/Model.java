@@ -31,19 +31,9 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import Parser.*;
-import automate.Action;
-import automate.Automate;
-import automate.CondDefault;
-import automate.CondFree;
-import automate.Condition;
-import automate.Hit;
-import automate.Move;
-import automate.State;
-import automate.Transition;
-import automate.Turn;
+import automate.*;
 import framework.*;
 import onscreen.*;
-import Parser.*;
 
 public class Model extends GameModel {
 	// LinkedList<Square> m_squares;
@@ -61,7 +51,7 @@ public class Model extends GameModel {
 	BufferedImage m_blue;
 	BufferedImage m_red;
 	public BufferedImage m_mort;
-	BufferedImage m_portail;
+	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
 	public Map m_Map;
@@ -188,9 +178,8 @@ public class Model extends GameModel {
 	/**
 	 * Simulation step.
 	 * 
-	 * @param now
-	 *          <<<<<<< HEAD is the current time in milliseconds. ======= is the
-	 *          current time in milliseconds. >>>>>>> manon
+	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
+	 *            current time in milliseconds. >>>>>>> manon
 	 */
 	@Override
 	public void step(long now) {
@@ -265,7 +254,7 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/sbireb.png");
 		try {
 			m_sbirebleuSprite = ImageIO.read(imageFile);
@@ -337,15 +326,15 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/mort.png");
 		try {
 			m_mort = ImageIO.read(imageFile);
-		}catch (IOException ex) {
+		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		imageFile = new File("game.sample/sprites/portail.png");
 		try {
 			m_portail = ImageIO.read(imageFile);
