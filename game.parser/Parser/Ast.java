@@ -232,7 +232,7 @@ public class Ast {
 
 		public automate.Condition makeCondition() {
 			switch (operator.make()) {
-				case "Not":
+				case "!":
 					return new Not(operand.makeCondition());
 				default:
 					System.out.println("Erreur seul not est possible");
@@ -329,8 +329,14 @@ public class Ast {
 					return new Pop();
 				case "Protect" :
 					return new Hit();
-				case "Power" :
+				case "Pick" :
+					return new Turn();
+				case "Store" :
 					return new Wizz();
+				case "Get" :
+					return new Turn();
+				case "Power" :
+					return new Power();
 				default:
 					return null;
 			}

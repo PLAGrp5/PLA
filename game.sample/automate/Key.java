@@ -11,6 +11,6 @@ public class Key extends Condition {
 	}
 	
 	public boolean eval(Entity e) {
-		return touche.equals( e.m_model.last_touche) ;
+		return touche.equals(e.m_model.last_touche) ;
 	}
 }

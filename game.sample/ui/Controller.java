@@ -99,40 +99,40 @@ public class Controller extends GameController implements ActionListener {
 			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		switch (e.getKeyChar()) {
 		// move Joueur 1
-		case 'Z':
-		case 'z':
+		case 'T':
+		case 't':
 			m_model.tanks[0].move('N');
 			m_model.last_touche = "z";
 			break;
-		case 'Q':
-		case 'q':
+		case 'F':
+		case 'f':
 			m_model.tanks[0].move('W');
-			m_model.last_touche = "q";
+			m_model.last_touche = "f";
 			break;
-		case 'D':
-		case 'd':
+		case 'H':
+		case 'h':
 			m_model.tanks[0].move('E');
-			m_model.last_touche = "d";
+			m_model.last_touche = "h";
 			break;
-		case 'S':
-		case 's':
+		case 'G':
+		case 'g':
 			m_model.tanks[0].move('S');
-			m_model.last_touche = "s";
+			m_model.last_touche = "g";
 			break;
-		case 'a':
-		case 'A':
+		case 'R':
+		case 'r':
 			m_model.tanks[0].hit();
-			m_model.last_touche = "a";
+			m_model.last_touche = "r";
 			break;
-		case 'e':
-		case 'E':
+		case 'y':
+		case 'Y':
 			if (!(m_model.tanks[0].inventaireVide())) {
 				m_model.tanks[0].inventaire[0].jeter(m_model.tanks[0]);
 			}
 			else {
 				System.out.println("Inventaire Vide");
 			}
-			m_model.last_touche = "e";
+			m_model.last_touche = "y";
 			break;
 
 		// Pop Joueur 1
