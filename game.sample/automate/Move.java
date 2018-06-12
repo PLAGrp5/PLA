@@ -65,6 +65,7 @@ public class Move extends Action {
 	}
 
 	public Point Teleportation(Entity e, Point p) {
+
 		int i = (int) (Math.random() * (e.m_model.m_Map.NombrePortails));
 		while ((e.m_model.m_Map.GateList.get(i).p.i == p.i) && (e.m_model.m_Map.GateList.get(i).p.j == p.j)) { // Trouver portail different de la source
 			i = (int) (Math.random() * (e.m_model.m_Map.NombrePortails));
@@ -120,6 +121,7 @@ public class Move extends Action {
 					else if (e.m_model.m_Map.ismine(p.i, p.j))
 						CaseMine(e);
 					e.m_model.m_Map.free(e.p.i, e.p.j);
+
 					if ((e.jauge_couleur > 0)) {
 						if (e.m_tank == Color.cyan) {
 							e.m_model.m_Map.color[e.p.i][e.p.j] = 'B';

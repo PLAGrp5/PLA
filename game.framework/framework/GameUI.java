@@ -160,6 +160,7 @@ public class GameUI implements ActionListener {
 		if (state == STATE.Game) {
 			Map m = new Map(map);
 		    Model model;
+
 					try {
 						model = new Model(m);
 					} catch (FileNotFoundException | ParseException e) {
@@ -294,8 +295,8 @@ public class GameUI implements ActionListener {
 	private void tick() {
 		long now = System.currentTimeMillis() - m_start;
 		long tempsrestant = tpsBase - now + temps_de_pause;
-		m_lastTick = now;
 		long elapsed = (now - m_lastTick);
+		m_lastTick = now;
 		m_elapsed += elapsed;
 		m_nTicks++;
 		m_model.step(now);
@@ -338,7 +339,7 @@ public class GameUI implements ActionListener {
 			while (txt.length() < 25)
 				txt += " ";
 			if (m_msg != null) {
-				//txt += m_msg;
+				txt += m_msg;
 
 			}
 			// System.out.println(txt);
