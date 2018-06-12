@@ -31,7 +31,7 @@ public class Entity {
 	public int vie;
 	int vie_max;
 
-	public boolean alive;
+	public boolean alive = true;
 	
 	public BonusEtMalus[] inventaire = new BonusEtMalus[3];
 	public int jauge_couleur;
@@ -44,7 +44,7 @@ public class Entity {
 	public int nbre_mine = 0;
 	public int nbre_vie = 0;
 
-	public Sbire[] m_sbires = new Sbire[2];
+	public Sbire[] sbires_allies = new Sbire[2];
 
 	public Entity(char type) {
 		this.type = type;
