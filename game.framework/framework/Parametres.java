@@ -20,6 +20,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import framework.GameUI.STATE;
 
@@ -251,6 +253,18 @@ public class Parametres {
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
 
+			FileFilter filter = new FileFilter() { // Oblige le user à choisir un fichier .txt et pas un autre type
+				@Override
+				public boolean accept(File file) {
+					return file.getName().toUpperCase().equals(".TXT");
+				}
+
+				@Override
+				public String getDescription() {
+					return "fichiers .txt";
+				}
+			};
+
 			if (command.equals("SB1_1")) {
 				JComboBox<String> cb1_1 = (JComboBox<String>) e.getSource();
 				sbire1_1 = (String) cb1_1.getSelectedItem();
@@ -267,7 +281,9 @@ public class Parametres {
 				JComboBox<String> cb2_2 = (JComboBox<String>) e.getSource();
 				sbire2_2 = (String) cb2_2.getSelectedItem();
 				sb2_2.setText("Sbire 2_2 : " + sbire1_1);
+
 			} else if (command.equals("CARTE")) {
+				fcc.setFileFilter(filter);
 				int returnVal = fcc.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					carte = fcc.getSelectedFile();

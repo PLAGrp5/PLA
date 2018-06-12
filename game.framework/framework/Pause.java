@@ -81,6 +81,7 @@ public class Pause {
 			String command = e.getActionCommand();
 
 			if (command.equals("EXIT")) {
+				// Gestion de la confirmation d'erreur
 				int option = JOptionPane.showConfirmDialog(pauseFrame.getContentPane(), "Êtes-vous sûr ?", "Quitter ?",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 						new ImageIcon("game.sample/sprites/image.png"));
