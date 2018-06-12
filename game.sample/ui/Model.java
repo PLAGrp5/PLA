@@ -109,12 +109,16 @@ public class Model extends GameModel {
 
 		automates = (Automate[]) a.make();
 
-		s11.comport = automates[3];
-		s11.courant = automates[3].init;
+		s11.num_auto = 3;
+		s11.last_auto = s11.num_auto;
+		s11.comport = automates[s11.num_auto];
+		s11.courant = automates[s11.num_auto].init;
 		sbires[0] = s11;
 
-		s21.comport = automates[1];
-		s21.courant = automates[1].init;
+		s21.num_auto = 1;
+		s21.last_auto = s21.num_auto;
+		s21.comport = automates[s21.num_auto];
+		s21.courant = automates[s21.num_auto].init;
 		sbires[1] = s21;
 
 		j1 = new Tank(this, m_charbleuSprite, 5, 15, 'W', 1F, 30, colort);
@@ -176,17 +180,7 @@ public class Model extends GameModel {
 	 * 
 	 * public Iterator<Square> squares() { return m_squares.iterator(); }
 	 */
-	/**
-	 * Simulation step.
-	 * 
-<<<<<<< HEAD
-	 * @param now
-	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
-=======
-	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
->>>>>>> manon
-	 *            current time in milliseconds. >>>>>>> manon
-	 */
+	
 	@Override
 	public void step(long now) {
 		/*

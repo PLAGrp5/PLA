@@ -41,10 +41,14 @@ public class Entity {
 	public String printvie = "Vie_0";
 	public String printmine = "mine_0";
 	public String printsbire = "sbire_bonus_0";
+
 	public int nbre_mine = 0;
 	public int nbre_vie = 0;
 
 	public Sbire[] sbires_allies = new Sbire[2];
+	
+	public int num_auto;
+	public int last_auto;
 
 	public Entity(char type) {
 		this.type = type;
@@ -115,7 +119,7 @@ public class Entity {
 	public void hit() {
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;
-		if (elapsed > 500L) {
+		if (elapsed > 400L) {
 			m_lastMove = now;
 			if (canihit())
 				new Hit().execute(this);
@@ -163,9 +167,15 @@ public class Entity {
 	public void updatevie(Model model, int vie) {
 
 		this.vie += vie;
+		if (this instanceof Sbire && this.num_auto == 0) {
+			this.num_auto = this.last_auto;
+			this.comport = model.automates[this.num_auto];
+		}
 		if (this.vie < 1) {
 			this.vie = 0;
 			this.alive = false;
+			this.num_auto = 0;
+			this.comport = model.automates[this.num_auto];
 			if (type != 'W' && type != 'P' && type != 'T')
 				model.del(this);
 		}
