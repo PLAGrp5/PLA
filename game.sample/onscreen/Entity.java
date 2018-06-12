@@ -166,7 +166,7 @@ public class Entity {
 		if (this.vie < 1) {
 			this.vie = 0;
 			this.alive = false;
-			if (type != 'W' && type != 'P' && type != 'T')
+			if (type != 'W' && type != 'G' && type != 'T')
 				model.del(this);
 		}
 	}

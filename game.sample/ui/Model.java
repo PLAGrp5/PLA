@@ -179,12 +179,7 @@ public class Model extends GameModel {
 	/**
 	 * Simulation step.
 	 * 
-<<<<<<< HEAD
-	 * @param now
-	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
-=======
 	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
->>>>>>> manon
 	 *            current time in milliseconds. >>>>>>> manon
 	 */
 	@Override

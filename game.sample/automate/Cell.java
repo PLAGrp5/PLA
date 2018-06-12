@@ -11,12 +11,12 @@ public class Cell extends Condition {
 
 	public boolean eval(Entity ent) {
 		Point p;
-		if(dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W') {
+		if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W') {
 			p = ent.p.nextPoint(dir);
-		}else {
+		} else {
 			p = nextstep(ent);
 		}
-		
+
 		switch (this.ent) {
 			case 'T' :
 			case 'E' :
