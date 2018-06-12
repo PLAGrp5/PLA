@@ -212,7 +212,7 @@ public class Map {
 		switch (e.dir) {
 		case 'S':
 			return isfree(e.p.i - 1, e.p.j);
-		case 'W':
+		case 'O':
 			return isfree(e.p.i, e.p.j + 1);
 		case 'E':
 			return isfree(e.p.i, e.p.j - 1);
@@ -230,7 +230,7 @@ public class Map {
 					case 'S':
 						System.out.printf("v ");
 						break;
-					case 'W':
+					case 'O':
 						System.out.printf("< ");
 						break;
 					case 'E':

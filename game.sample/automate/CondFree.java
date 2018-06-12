@@ -26,7 +26,7 @@ public class CondFree extends Condition {
 				return (ent.m_model.m_Map.isfree(ent.p.i - 1, ent.p.j));
 			case 'S':
 				return (ent.m_model.m_Map.isfree(ent.p.i + 1, ent.p.j));
-			case 'W':
+			case 'O':
 				return (ent.m_model.m_Map.isfree(ent.p.i, ent.p.j - 1));
 			case 'E':
 				return (ent.m_model.m_Map.isfree(ent.p.i, ent.p.j + 1));

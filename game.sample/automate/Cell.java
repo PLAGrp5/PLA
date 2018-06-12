@@ -11,7 +11,7 @@ public class Cell extends Condition {
 
 	public boolean eval(Entity ent) {
 		Point p;
-		if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W') {
+		if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'O') {
 			p = ent.p.nextPoint(dir);
 		} else {
 			p = nextstep(ent);

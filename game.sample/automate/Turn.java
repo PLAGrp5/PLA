@@ -14,7 +14,7 @@ public class Turn extends Action {
 			e.dir = 'E';
 			break;
 		case 'S':
-			e.dir = 'W';
+			e.dir = 'O';
 			break;
 		case 'E':
 			e.dir = 'S';
@@ -28,7 +28,7 @@ public class Turn extends Action {
 	public void TurnL(Entity e) {
 		switch (e.dir) {
 		case 'N':
-			e.dir = 'W';
+			e.dir = 'O';
 			break;
 		case 'S':
 			e.dir = 'E';
@@ -51,7 +51,7 @@ public class Turn extends Action {
 			e.dir = 'N';
 			break;
 		case 'E':
-			e.dir = 'W';
+			e.dir = 'O';
 			break;
 		default:
 			e.dir = 'E';

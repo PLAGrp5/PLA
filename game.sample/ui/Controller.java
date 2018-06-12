@@ -105,7 +105,7 @@ public class Controller extends GameController implements ActionListener {
 			break;
 		case 'Q':
 		case 'q':
-			m_model.tanks[0].move('W');
+			m_model.tanks[0].move('O');
 			break;
 		case 'D':
 		case 'd':
@@ -155,7 +155,7 @@ public class Controller extends GameController implements ActionListener {
 		switch (e.getKeyCode()) {
 		// Move Joueur 2
 		case 37:
-			m_model.tanks[1].move('W');
+			m_model.tanks[1].move('O');
 			break;
 		case 38:
 			m_model.tanks[1].move('N');
