@@ -18,10 +18,10 @@
 package framework;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -35,19 +35,20 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import Parser.ParseException;
 import onscreen.Map;
 import onscreen.Sbire;
 import onscreen.Tank;
-import ui.Model;
 import ui.Controller;
+import ui.Model;
 import ui.View;
-
-import javax.swing.JPanel;
-import Parser.*;
 
 public class GameUI implements ActionListener {
 
@@ -84,6 +85,7 @@ public class GameUI implements ActionListener {
 	GameModel m_model;
 	GameController m_controller;
 	JLabel m_text;
+	public long set_refresh = 200L;
 	int m_fps;
 	String m_msg;
 	long m_start;
@@ -188,6 +190,25 @@ public class GameUI implements ActionListener {
 
 			m_frame.setSize(d);
 			m_frame.doLayout();
+			
+			/*JPanel pan = new JPanel();
+			JSlider slide = new JSlider();
+		    slide.setMaximum(500);
+		    slide.setMinimum(100);
+		    slide.setValue(200);
+		    slide.setPaintTicks(true);
+		    slide.setPaintLabels(true);
+		    slide.setMinorTickSpacing(100);
+		    slide.setMajorTickSpacing(200);
+		    slide.addChangeListener(new ChangeListener(){
+		        public void stateChanged(ChangeEvent event){
+		        	set_refresh = ((JSlider)event.getSource()).getValue();
+		        }
+
+		      });      
+		    pan.add(slide);
+		    addWest(pan);*/
+			
 			m_frame.setVisible(true);
 
 			// hook window events so that we exit the Java Platform
@@ -505,6 +526,10 @@ public class GameUI implements ActionListener {
 
 		pan.setBackground(Color.orange);
 		addEast(pan);
+	}
+	
+	public void getRefresh() {
+		set_refresh = pause.set_refresh;
 	}
 
 	@Override

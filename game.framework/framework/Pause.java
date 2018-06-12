@@ -14,6 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import framework.GameUI.STATE;
 
@@ -23,6 +26,8 @@ public class Pause {
 	JLabel headerLabel;
 	JPanel controlPanel;
 	GameUI g_ui;
+	
+	public long set_refresh = 200;
 
 	public Pause(GameUI g) {
 		g_ui = g;
@@ -31,7 +36,7 @@ public class Pause {
 
 	private void prepareGUI() {
 		pauseFrame = new JFrame("Gitank pause");
-		pauseFrame.setSize(256, 128);
+		pauseFrame.setSize(256, 300);
 		pauseFrame.setLayout(new GridLayout(2, 1));
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		pauseFrame.setLocation(dim.width / 2 - pauseFrame.getSize().width / 2,
@@ -51,6 +56,24 @@ public class Pause {
 
 		controlPanel = new JPanel();
 		controlPanel.setLayout(new FlowLayout());
+		
+		JPanel pan = new JPanel();
+		JSlider slide = new JSlider();
+	    slide.setMaximum(500);
+	    slide.setMinimum(100);
+	    slide.setValue(200);
+	    slide.setPaintTicks(true);
+	    slide.setPaintLabels(true);
+	    slide.setMinorTickSpacing(100);
+	    slide.setMajorTickSpacing(200);
+	    slide.addChangeListener(new ChangeListener(){
+	        public void stateChanged(ChangeEvent event){
+	        	set_refresh = ((JSlider)event.getSource()).getValue();
+	        }
+
+	      });      
+	    pan.add(slide);
+	    controlPanel.add(pan);
 
 		pauseFrame.add(headerLabel);
 		pauseFrame.add(controlPanel);
