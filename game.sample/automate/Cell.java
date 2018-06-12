@@ -27,6 +27,9 @@ public class Cell extends Condition {
 			case 'P' :
 				this.ent = 'I';
 				break;
+			case 'J' :
+				this.ent = 'G';
+				break;
 			default :
 				this.ent = 'F';
 				break;

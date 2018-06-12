@@ -99,6 +99,7 @@ public class GameUI implements ActionListener {
 	int tpsBase;
 
 	protected Parametres param;
+
 	File map = new File("data/cartes/map_test.txt");
 	String sb1_1 = "Default";
 	String sb1_2 = "Aut2";
@@ -322,7 +323,7 @@ public class GameUI implements ActionListener {
 		}
 		elapsed = now - m_lastRepaint;
 		if (elapsed > Options.REPAINT_DELAY) {
-			double tick = (double) m_elapsed / (double) m_nTicks;
+			double tick = (double) elapsed / (double) m_nTicks;
 			long tmp = (long) (tick * 10.0);
 			tick = tmp / 10.0;
 			m_elapsed = 0;
@@ -334,7 +335,7 @@ public class GameUI implements ActionListener {
 			while (txt.length() < 25)
 				txt += " ";
 			if (m_msg != null) {
-				txt += m_msg;
+				// txt += m_msg;
 			}
 			// System.out.println(txt);
 			while (txt.length() < 150) {

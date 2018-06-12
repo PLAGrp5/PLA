@@ -104,11 +104,12 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
+		
 		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
 		s12 = new Sbire(this, m_charbleuSprite, 5, 28, 'E', 1F, 30, coloria);
 		s21 = new Sbire(this, m_charrougeSprite, 1, 10, 'W', 1F, 30, coloria);
 		s22 = new Sbire(this, m_charrougeSprite, 1, 11, 'E', 1F, 30, coloria);
-
+		
 		/*
 		 * State e = new State("1");
 		 * 
@@ -211,7 +212,11 @@ public class Model extends GameModel {
 	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
 =======
 	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
+<<<<<<< HEAD
 >>>>>>> menu
+=======
+>>>>>>> manon
+>>>>>>> 1d00f34df5aa099f91cd4deb8490b3f044e41300
 	 *            current time in milliseconds. >>>>>>> manon
 	 */
 	@Override
@@ -224,7 +229,7 @@ public class Model extends GameModel {
 		int i;
 
 		for (i = 0; i < ntank; i++) {
-			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 100L) {
+			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 400L) {
 				tanks[i].comport_bonus.step(tanks[i]);
 				tanks[i].m_lastMove = now;
 				if (++tanks[i].nstep > tanks[i].maxnstep) {
@@ -236,7 +241,7 @@ public class Model extends GameModel {
 		}
 
 		for (i = 0; i < nsbire; i++) {
-			if (now - sbires[i].m_lastMove > 200L) {
+			if (now - sbires[i].m_lastMove > 400L) {
 				if (sbires[i].aut_bonus) {
 					sbires[i].comport_bonus.step(sbires[i]);
 					if (++sbires[i].nstep > sbires[i].maxnstep) {

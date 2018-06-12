@@ -91,17 +91,17 @@ public class View extends GameView {
 				case 'R':
 					g.drawImage(m_model.m_red, 32 * l, 32 * k, 32, 32, null);
 					break;
-				
+
 				default:
 					break;
 				}
 
 				// Pour chaque case on colorie avec la texture associé
-				if (m_model.m_Map.map[k][l].type == 'I') {
+				if (m_model.m_Map.map[k][l].type == 'I')
 					g.drawImage(m_model.m_item, 32 * l, 32 * k, 32, 32, null);
-				} else if (m_model.m_Map.map[k][l].type == 'M') {
+				else if (m_model.m_Map.map[k][l].type == 'M')
 					g.drawImage(m_model.m_mine, 32 * l, 32 * k, 32, 32, null);
-				}
+
 				else if (m_model.m_Map.map[k][l].type == 'G')
 					g.drawImage(m_model.m_portail, 32 * l, 32 * k, 32, 32, null);
 			}

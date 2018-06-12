@@ -20,7 +20,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import framework.GameUI.STATE;
 
 public class Parametres {
@@ -37,10 +38,6 @@ public class Parametres {
 	JPanel Carte;
 	JPanel controlPanel;
 	GameUI g_ui;
-	/*final JFileChooser fc1_1 = new JFileChooser();
-	final JFileChooser fc1_2 = new JFileChooser();
-	final JFileChooser fc2_1 = new JFileChooser();
-	final JFileChooser fc2_2 = new JFileChooser();*/
 	final JFileChooser fcc = new JFileChooser();
 	String sbire1_1 = "Default";
 	String sbire1_2 = "Default";
@@ -139,41 +136,16 @@ public class Parametres {
 	public void showEvent() {
 		headerLabel.setText("Choix des Automates");
 		headerLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		/*
-		 * MyButton Sb1_1Button = new MyButton("Choisir 1_1",
-		 * "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png"); MyButton
-		 * Sb1_2Button = new MyButton("Choisir 1_2", "game.sample/sprites/bleu.jpg",
-		 * "game.sample/sprites/rouge.png"); MyButton Sb2_1Button = new
-		 * MyButton("Choisir 2_1", "game.sample/sprites/bleu.jpg",
-		 * "game.sample/sprites/rouge.png"); MyButton Sb2_2Button = new
-		 * MyButton("Choisir 2_2", "game.sample/sprites/bleu.jpg",
-		 * "game.sample/sprites/rouge.png");
-		 */
+
 		MyButton CarteButton = new MyButton("Carte", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 		MyButton ExitButton = new MyButton("EXIT", "game.sample/sprites/bleu.jpg", "game.sample/sprites/rouge.png");
 
-		/*
-		 * Sb1_1Button.setActionCommand("SB1_1"); Sb1_2Button.setActionCommand("SB1_2");
-		 * Sb2_1Button.setActionCommand("SB2_1"); Sb2_2Button.setActionCommand("SB2_2");
-		 */
 		CarteButton.setActionCommand("CARTE");
 		ExitButton.setActionCommand("EXIT");
 
-		/*
-		 * Sb1_1Button.addActionListener(new ButtonClickListener());
-		 * Sb1_2Button.addActionListener(new ButtonClickListener());
-		 * Sb2_1Button.addActionListener(new ButtonClickListener());
-		 * Sb2_2Button.addActionListener(new ButtonClickListener());
-		 */
 		CarteButton.addActionListener(new ButtonClickListener());
 		ExitButton.addActionListener(new ButtonClickListener());
 
-		/*
-		 * Sb1_1Button.setPreferredSize(new Dimension(120, 30));
-		 * Sb1_2Button.setPreferredSize(new Dimension(120, 30));
-		 * Sb2_1Button.setPreferredSize(new Dimension(120, 30));
-		 * Sb2_2Button.setPreferredSize(new Dimension(120, 30));
-		 */
 		CarteButton.setPreferredSize(new Dimension(120, 30));
 		ExitButton.setPreferredSize(new Dimension(250, 100));
 
@@ -194,11 +166,6 @@ public class Parametres {
 		ScrollAut2_2.addActionListener(new ButtonClickListener());
 
 		JPanel bouton1 = new JPanel(new GridBagLayout());
-		// GridBagConstraints gbc = new GridBagConstraints();
-		// gbc.gridx = 0;
-		// gbc.gridy = GridBagConstraints.RELATIVE;
-		// gbc.fill = GridBagConstraints.HORIZONTAL;
-		// gbc.insets = new Insets(30, 30, 30, 30);
 		bouton1.setOpaque(false);
 		bouton1.add(ScrollAut1_1);
 
@@ -237,29 +204,11 @@ public class Parametres {
 		paramFrame.setVisible(true);
 	}
 
-	/*
-	 * public void actionPerformed(ActionEvent e) { JComboBox<String> cb =
-	 * (JComboBox<String>)e.getSource(); String newSelection =
-	 * (String)cb.getSelectedItem(); currentPattern = newSelection; reformat(); }
-	 */
-
 	private class ButtonClickListener implements ActionListener {
 		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
-
-			FileFilter filter = new FileFilter() { // Oblige le user à choisir un fichier .txt et pas un autre type
-				@Override
-				public boolean accept(File file) {
-					return file.getName().toUpperCase().equals(".TXT");
-				}
-
-				@Override
-				public String getDescription() {
-					return "Fichiers .txt";
-				}
-			};
-
+			
 			if (command.equals("SB1_1")) {
 				JComboBox<String> cb1_1 = (JComboBox<String>) e.getSource();
 				sbire1_1 = (String) cb1_1.getSelectedItem();
@@ -280,9 +229,12 @@ public class Parametres {
 				sbire2_2 = (String) cb2_2.getSelectedItem();
 				sb2_2.setText("Sbire 2_2 : " + sbire2_2);
 				g_ui.sb[3] = sbire2_2;
+
 			} else if (command.equals("CARTE")) {
-				fcc.setFileFilter(filter);
-				int returnVal = fcc.showOpenDialog(paramFrame);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .txt", "txt", "text"); // Filtre TXT
+				fcc.setFileFilter(filter); // Ajout d'un choix : .txt dans le file chooser
+				fcc.setAcceptAllFileFilterUsed(false); // ne pas autoriser tout type de fichiers dans le file chooser
+				int returnVal = fcc.showOpenDialog(paramFrame); 
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					carte = fcc.getSelectedFile();
 					g_ui.map = carte;
