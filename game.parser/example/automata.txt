@@ -92,7 +92,6 @@ CopieurBleu(Init){
   | Key(y) ? Throw :(Init)
   | Key(w) ? Pop :(Init)
   | Key(x) ? Wizz :(Init)
-  
   | True ? Power :(Init)
 
 }
