@@ -1,3 +1,11 @@
+Balle (Init) {
+	* (Init): 
+	| Cell(F, V) ? Move : (Init)
+	| Cell(F, P) ? Move : (Init)
+	| Cell(F, J) ? Move : (Init)
+	| True ? Kamikaze : (Init)
+}
+
 Freeze (Init) {
 	* (Init): True ? Power : (Init)
 }
@@ -8,14 +16,6 @@ Avan_Turn (Init) {
 	| Cell(F, P) ? Move : (Init)
 	| Cell(F, J) ? Move : (Init)
 	| True ? Turn(R) : (Init)
-}
-
-Balle (Init) {
-	* (Init): 
-	| Cell(F, V) ? Move : (Init)
-	| Cell(F, P) ? Move : (Init)
-	| Cell(F, J) ? Move : (Init)
-	| True ? Kamikaze : (Init)
 }
 
 Peintre(Colorier){
