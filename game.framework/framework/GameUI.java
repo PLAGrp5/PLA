@@ -192,6 +192,7 @@ public class GameUI implements ActionListener {
 			m_frame.setSize(d);
 			m_frame.doLayout();
 			m_frame.setVisible(true);
+			
 
 			// hook window events so that we exit the Java Platform
 			// when the window is closed by the end user.
@@ -305,21 +306,26 @@ public class GameUI implements ActionListener {
 
 		while (parcourstank < mod.ntank) {
 			if (mod.tanks[parcourstank].vie == 0) {
-
+				// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
+				stopTimer();
+				int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				setState(STATE.Over);
 				Dimension d = new Dimension(1024, 1024);
 				createWindow(d);
-				stopTimer();
 
 			}
 			parcourstank++;
 		}
 
 		if (tempsrestant <= 0) {
+			// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
+			stopTimer();
+			int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			setState(STATE.Over);
 			Dimension d = new Dimension(1024, 1024);
 			createWindow(d);
-			stopTimer();
 		}
 		elapsed = now - m_lastRepaint;
 		if (elapsed > Options.REPAINT_DELAY) {
@@ -434,8 +440,8 @@ public class GameUI implements ActionListener {
 		addWest(pan);
 	}
 
-	public void drawPLayer2Panel(Tank t, int score, String vie, String mine, String sbire, int nbre_mine,
-			int nbre_vie) {
+	public void drawPLayer2Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire,
+			int nbre_mine, int nbre_vie) {
 		JPanel pan = new JPanel(new GridLayout(16, 3));
 
 		pan.add(new JLabel(""));
@@ -476,11 +482,11 @@ public class GameUI implements ActionListener {
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
-		pan.add(new JLabel("" + t.vie + ""));
+		pan.add(new JLabel("" + s1.vie + ""));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
-		pan.add(new JLabel("" + t.jauge_couleur + ""));
+		pan.add(new JLabel("" + s1.jauge_couleur + ""));
 
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
@@ -492,11 +498,11 @@ public class GameUI implements ActionListener {
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
-		pan.add(new JLabel("" + t.vie + ""));
+		pan.add(new JLabel("" + s2.vie + ""));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
-		pan.add(new JLabel("" + t.jauge_couleur + ""));
+		pan.add(new JLabel("" + s2.jauge_couleur + ""));
 
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));

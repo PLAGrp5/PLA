@@ -53,6 +53,8 @@ public class Model extends GameModel {
 	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
+	public String last_touche;
+	
 	public Map m_Map;
 
 	public int nsbire = 4;
@@ -123,7 +125,7 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-		
+
 		s11 = new Sbire(this, m_charbleuSprite, 1, 1, 'W', 1F, 30, coloria);
 		s12 = new Sbire(this, m_charbleuSprite, 28, 1, 'E', 1F, 30, coloria);
 		s21 = new Sbire(this, m_charrougeSprite, 1, 28, 'W', 1F, 30, coloria);
@@ -155,18 +157,26 @@ public class Model extends GameModel {
 		
 		s11.comport = getAut(automates, sb1_1);
 		s11.courant = s11.comport.init;
+    s11.num_auto =7;
+		s11.last_auto = s11.num_auto;
 		sbires[0] = s11;
 		
 		s12.comport = getAut(automates, sb1_2);
 		s12.courant = s12.comport.init;
+    s12.num_auto = 2;
+		s12.last_auto = s12.num_auto;
 		sbires[1] = s12;
 
 		s21.comport = getAut(automates, sb2_1);
 		s21.courant = s21.comport.init;
+    s21.num_auto = 1;
+		s21.last_auto = s21.num_auto;
 		sbires[2] = s21;
-		
+    
 		s22.comport = getAut(automates, sb2_2);
 		s22.courant = s22.comport.init;
+    s22.num_auto = 1;
+		s22.last_auto = s22.num_auto;
 		sbires[3] = s22;
 
 		j1 = new Tank(this, m_charbleuSprite, 15, 1, 'E', 1F, 30, colort);
@@ -228,21 +238,7 @@ public class Model extends GameModel {
 	 * 
 	 * public Iterator<Square> squares() { return m_squares.iterator(); }
 	 */
-	/**
-	 * Simulation step.
-	 * 
-<<<<<<< HEAD
-	 * @param now
-	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
-=======
-	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
-<<<<<<< HEAD
->>>>>>> menu
-=======
->>>>>>> manon
->>>>>>> 1d00f34df5aa099f91cd4deb8490b3f044e41300
-	 *            current time in milliseconds. >>>>>>> manon
-	 */
+
 	@Override
 	public void step(long now) {
 		/*
@@ -253,7 +249,7 @@ public class Model extends GameModel {
 		int i;
 
 		for (i = 0; i < ntank; i++) {
-			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 400L) {
+			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 100L) {
 				tanks[i].comport_bonus.step(tanks[i]);
 				tanks[i].m_lastMove = now;
 				if (++tanks[i].nstep > tanks[i].maxnstep) {
@@ -265,7 +261,7 @@ public class Model extends GameModel {
 		}
 
 		for (i = 0; i < nsbire; i++) {
-			if (now - sbires[i].m_lastMove > 400L) {
+			if (now - sbires[i].m_lastMove > 200L) {
 				if (sbires[i].aut_bonus) {
 					sbires[i].comport_bonus.step(sbires[i]);
 					if (++sbires[i].nstep > sbires[i].maxnstep) {

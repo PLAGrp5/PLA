@@ -49,6 +49,7 @@ public class Parametres {
 	JPanel Carte;
 	JPanel controlPanel;
 	GameUI g_ui;
+	
 	final JFileChooser fcc = new JFileChooser();
 	String sbire1_1 = "Default";
 	String sbire1_2 = "Default";

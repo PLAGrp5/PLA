@@ -11,29 +11,22 @@ public class Cell extends Condition {
 
 	public boolean eval(Entity ent) {
 		Point p;
-		if(dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W') {
+		if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W') {
 			p = ent.p.nextPoint(dir);
-		}else {
+		} else {
 			p = nextstep(ent);
 		}
-		
+
 		switch (this.ent) {
 			case 'T' :
-				this.ent = 'T';
-				break;
 			case 'E' :
-				this.ent = 'T';
-				break;
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'T';
 			case 'P' :
-				this.ent = 'I';
-				break;
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'I';
 			case 'J' :
-				this.ent = 'G';
-				break;
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'G';
 			default :
-				this.ent = 'F';
-				break;
+				return ent.m_model.m_Map.map[p.i][p.j].type == 'F';
 		}
-		return ent.m_model.m_Map.map[p.i][p.j].type == this.ent;
 	}
 }

@@ -57,10 +57,18 @@ public class View extends GameView {
 		computeFPS();
 		// erase background
 
-		m_game.drawPLayer1Panel(m_model.tanks[0], m_model.sbires[0], m_model.sbires[1], m_model.m_Map.scorebleu(),
+		if (!(m_model.tanks[0].sbires_allies[0].alive) || !(m_model.tanks[0].sbires_allies[1].alive)) {
+			m_model.tanks[0].printsbire = "sbire_bonus";
+		}
+		if (!(m_model.tanks[1].sbires_allies[0].alive) || !(m_model.tanks[1].sbires_allies[1].alive)) {
+			m_model.tanks[1].printsbire = "sbire_bonus";
+		}
+			
+			
+		m_game.drawPLayer1Panel(m_model.tanks[0], m_model.tanks[0].sbires_allies[0], m_model.tanks[0].sbires_allies[1], m_model.m_Map.scorebleu(),
 				m_model.tanks[0].printvie, m_model.tanks[0].printmine, m_model.tanks[0].printsbire,
 				m_model.tanks[0].nbre_mine, m_model.tanks[0].nbre_vie);
-		m_game.drawPLayer2Panel(m_model.tanks[1], m_model.m_Map.scorerouge(), m_model.tanks[1].printvie,
+		m_game.drawPLayer2Panel(m_model.tanks[1], m_model.tanks[1].sbires_allies[0], m_model.tanks[1].sbires_allies[1], m_model.m_Map.scorerouge(), m_model.tanks[1].printvie,
 				m_model.tanks[1].printmine, m_model.tanks[1].printsbire, m_model.tanks[1].nbre_mine,
 				m_model.tanks[1].nbre_vie);
 
