@@ -336,6 +336,8 @@ public class Ast {
 					return new Turn();
 				case "Power" :
 					return new Power();
+				case "Throw" :
+					return new Throw();
 				default:
 					return null;
 			}
