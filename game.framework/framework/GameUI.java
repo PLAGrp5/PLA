@@ -55,8 +55,7 @@ import javax.swing.JPanel;
 
 public class GameUI implements ActionListener {
 
-	static String license = "Copyright (C) 2017  Pr. Olivier Gruber "
-			+ "This program comes with ABSOLUTELY NO WARRANTY. "
+	static String license = "Copyright (C) 2017  Pr. Olivier Gruber " + "This program comes with ABSOLUTELY NO WARRANTY. "
 			+ "This is free software, and you are welcome to redistribute it "
 			+ "under certain conditions; type `show c' for details.";
 
@@ -156,6 +155,10 @@ public class GameUI implements ActionListener {
 	}
 
 	void createWindow(Dimension d) {
+		if (state == STATE.Over) {
+			over = new GameOver(this);
+			over.showEvent();
+		}
 		Map m = new Map(map);
 		Model model;
 		try {
@@ -173,10 +176,9 @@ public class GameUI implements ActionListener {
 		m_view.m_game = this;
 		m_controller = controller;
 		m_controller.m_game = this;
-		
+
 		param = new Parametres(this);
 		if (state == STATE.Game) {
-			
 
 			m_frame = new JFrame();
 			m_frame.setTitle("Gitank"); // Nom de la fenêtre
@@ -192,7 +194,6 @@ public class GameUI implements ActionListener {
 			m_frame.setSize(d);
 			m_frame.doLayout();
 			m_frame.setVisible(true);
-			
 
 			// hook window events so that we exit the Java Platform
 			// when the window is closed by the end user.
@@ -249,9 +250,6 @@ public class GameUI implements ActionListener {
 		} else if (state == STATE.Pause) {
 			pause = new Pause(this);
 			pause.showEvent();
-		} else if (state == STATE.Over) {
-			over = new GameOver(this);
-			over.showEvent();
 		} else if (state == STATE.Param) {
 			param.showEvent();
 		}
@@ -308,9 +306,10 @@ public class GameUI implements ActionListener {
 			if (mod.tanks[parcourstank].vie == 0) {
 				// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
 				stopTimer();
-				int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
-						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE);
 				setState(STATE.Over);
+				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
 				createWindow(d);
 
@@ -321,9 +320,10 @@ public class GameUI implements ActionListener {
 		if (tempsrestant <= 0) {
 			// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
 			stopTimer();
-			int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE);
 			setState(STATE.Over);
+			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
 			createWindow(d);
 		}
@@ -522,6 +522,7 @@ public class GameUI implements ActionListener {
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
 			if (option == JOptionPane.YES_OPTION) {
 				setState(STATE.Over);
+				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
 				m_model.shutdown();
 				createWindow(d);

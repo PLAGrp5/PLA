@@ -126,10 +126,10 @@ public class Model extends GameModel {
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
 
-		s11 = new Sbire(this, m_charbleuSprite, 1, 1, 'W', 1F, 30, coloria);
-		s12 = new Sbire(this, m_charbleuSprite, 28, 1, 'E', 1F, 30, coloria);
-		s21 = new Sbire(this, m_charrougeSprite, 1, 28, 'W', 1F, 30, coloria);
-		s22 = new Sbire(this, m_charrougeSprite, 28, 28, 'E', 1F, 30, coloria);
+		s11 = new Sbire(this, m_sbirebleuSprite, 2, 2, 'W', 1F, 30, colort);
+		s12 = new Sbire(this, m_sbirebleuSprite, 27, 2, 'E', 1F, 30, colort);
+		s21 = new Sbire(this, m_sbirerougeSprite, 2, 27, 'W', 1F, 30, colort2);
+		s22 = new Sbire(this, m_sbirerougeSprite, 27, 27, 'E', 1F, 30, colort2);
 		
 		/*
 		 * State e = new State("1");
@@ -179,8 +179,8 @@ public class Model extends GameModel {
 		s22.last_auto = s22.num_auto;
 		sbires[3] = s22;
 
-		j1 = new Tank(this, m_charbleuSprite, 15, 1, 'E', 1F, 30, colort);
-		j2 = new Tank(this, m_charrougeSprite, 15, 28, 'W', 1F, 30, colort2);
+		j1 = new Tank(this, m_charbleuSprite, 15, 2, 'E', 1F, 30, colort);
+		j2 = new Tank(this, m_charrougeSprite, 15, 27, 'W', 1F, 30, colort2);
 
 		tanks[0] = j1;
 		tanks[1] = j2;
