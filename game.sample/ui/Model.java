@@ -53,6 +53,8 @@ public class Model extends GameModel {
 	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
+	public String last_touche;
+	
 	public Map m_Map;
 
 	public int nsbire = 4;
@@ -97,6 +99,15 @@ public class Model extends GameModel {
 		return listAut[0];
 	}
 	
+	public static int getIndex(Automate[] listAut, String s) {
+		for (int i = 0; i < listAut.length; i++) {
+			if (listAut[i].name.equalsIgnoreCase(s)) {
+				return i;
+			}
+		}
+		return 0;
+	}
+	
 	public static String[] getList(Automate[] listAut) {
 		String[] nameList = new String[listAut.length];
 		for (int i = 0; i < listAut.length; i++) {
@@ -123,11 +134,11 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-		
-		s11 = new Sbire(this, m_charbleuSprite, 1, 1, 'W', 1F, 30, coloria);
-		s12 = new Sbire(this, m_charbleuSprite, 28, 1, 'E', 1F, 30, coloria);
-		s21 = new Sbire(this, m_charrougeSprite, 1, 28, 'W', 1F, 30, coloria);
-		s22 = new Sbire(this, m_charrougeSprite, 28, 28, 'E', 1F, 30, coloria);
+
+		s11 = new Sbire(this, m_sbirebleuSprite, 2, 2, 'W', 1F, 30, colort);
+		s12 = new Sbire(this, m_sbirebleuSprite, 27, 2, 'E', 1F, 30, colort);
+		s21 = new Sbire(this, m_sbirerougeSprite, 2, 27, 'W', 1F, 30, colort2);
+		s22 = new Sbire(this, m_sbirerougeSprite, 27, 27, 'E', 1F, 30, colort2);
 		
 		/*
 		 * State e = new State("1");
@@ -155,22 +166,30 @@ public class Model extends GameModel {
 		
 		s11.comport = getAut(automates, sb1_1);
 		s11.courant = s11.comport.init;
+		s11.num_auto = getIndex(automates, s11.comport.name);
+		s11.last_auto = s11.num_auto;
 		sbires[0] = s11;
 		
 		s12.comport = getAut(automates, sb1_2);
 		s12.courant = s12.comport.init;
+		s12.num_auto = getIndex(automates, s12.comport.name);;
+		s12.last_auto = s12.num_auto;
 		sbires[1] = s12;
 
 		s21.comport = getAut(automates, sb2_1);
 		s21.courant = s21.comport.init;
+		s21.num_auto = getIndex(automates, s21.comport.name);;
+		s21.last_auto = s21.num_auto;
 		sbires[2] = s21;
-		
+    
 		s22.comport = getAut(automates, sb2_2);
 		s22.courant = s22.comport.init;
+		s22.num_auto = getIndex(automates, s22.comport.name);;
+		s22.last_auto = s22.num_auto;
 		sbires[3] = s22;
 
-		j1 = new Tank(this, m_charbleuSprite, 15, 1, 'E', 1F, 30, colort);
-		j2 = new Tank(this, m_charrougeSprite, 15, 28, 'W', 1F, 30, colort2);
+		j1 = new Tank(this, m_charbleuSprite, 15, 2, 'E', 1F, 30, colort);
+		j2 = new Tank(this, m_charrougeSprite, 15, 27, 'W', 1F, 30, colort2);
 
 		tanks[0] = j1;
 		tanks[1] = j2;
@@ -228,32 +247,17 @@ public class Model extends GameModel {
 	 * 
 	 * public Iterator<Square> squares() { return m_squares.iterator(); }
 	 */
-	/**
-	 * Simulation step.
-	 * 
-<<<<<<< HEAD
-	 * @param now
-	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
-=======
-	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
-<<<<<<< HEAD
->>>>>>> menu
-=======
->>>>>>> manon
->>>>>>> 1d00f34df5aa099f91cd4deb8490b3f044e41300
-	 *            current time in milliseconds. >>>>>>> manon
-	 */
 	@Override
 	public void step(long now) {
 		/*
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-
+		
 		int i;
 
 		for (i = 0; i < ntank; i++) {
-			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 400L) {
+			if (tanks[i].aut_bonus && now - tanks[i].m_lastMove > 100L) {
 				tanks[i].comport_bonus.step(tanks[i]);
 				tanks[i].m_lastMove = now;
 				if (++tanks[i].nstep > tanks[i].maxnstep) {
@@ -265,7 +269,7 @@ public class Model extends GameModel {
 		}
 
 		for (i = 0; i < nsbire; i++) {
-			if (now - sbires[i].m_lastMove > 400L) {
+			if (now - sbires[i].m_lastMove > m_game.set_refresh) {
 				if (sbires[i].aut_bonus) {
 					sbires[i].comport_bonus.step(sbires[i]);
 					if (++sbires[i].nstep > sbires[i].maxnstep) {
@@ -283,6 +287,10 @@ public class Model extends GameModel {
 				bullets[i].comport.step(bullets[i]);
 				bullets[i].m_lastMove = now;
 			}
+		}
+		if(now - m_Map.lastBonus > 10000L) {
+			m_Map.lastBonus = now;
+			m_Map.insertBonus();	
 		}
 
 		// }

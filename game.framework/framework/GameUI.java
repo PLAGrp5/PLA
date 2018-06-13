@@ -18,10 +18,10 @@
 package framework;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -37,8 +37,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import Parser.Ast;
 import Parser.AutomataParser;
@@ -47,16 +51,14 @@ import automate.Automate;
 import onscreen.Map;
 import onscreen.Sbire;
 import onscreen.Tank;
-import ui.Model;
 import ui.Controller;
+import ui.Model;
 import ui.View;
-
 import javax.swing.JPanel;
 
 public class GameUI implements ActionListener {
 
-	static String license = "Copyright (C) 2017  Pr. Olivier Gruber "
-			+ "This program comes with ABSOLUTELY NO WARRANTY. "
+	static String license = "Copyright (C) 2017  Pr. Olivier Gruber " + "This program comes with ABSOLUTELY NO WARRANTY. "
 			+ "This is free software, and you are welcome to redistribute it "
 			+ "under certain conditions; type `show c' for details.";
 
@@ -102,7 +104,15 @@ public class GameUI implements ActionListener {
 	protected GameOver over;
 	protected Credit credit;
 	int tpsBase;
+	
+	public long set_refresh = 200L; 
 
+	ImageIcon sepa = new ImageIcon("game.sample/sprites/sepa.png");
+	ImageIcon sepa1 = new ImageIcon("game.sample/sprites/sepa1.png");
+	ImageIcon vie = new ImageIcon("game.sample/sprites/Vie.png");
+	ImageIcon peintureR = new ImageIcon("game.sample/sprites/peintureR.png");
+	ImageIcon peintureB = new ImageIcon("game.sample/sprites/peintureB.png");
+  
 	public Parametres param;
 
 	File map = new File("data/cartes/map_test.txt");
@@ -156,16 +166,10 @@ public class GameUI implements ActionListener {
 	}
 
 	void createWindow(Dimension d) {
-		if (state == STATE.Pause) {
-			pause = new Pause(this);
-			pause.showEvent();
-		} else if (state == STATE.Over) {
+		if (state == STATE.Over) {
 			over = new GameOver(this);
 			over.showEvent();
-		}
-		
-		if (state == STATE.Game) {
-			
+		} else if (state == STATE.Game) {
 
 			m_frame = new JFrame();
 			m_frame.setTitle("Gitank"); // Nom de la fenêtre
@@ -180,6 +184,7 @@ public class GameUI implements ActionListener {
 
 			m_frame.setSize(d);
 			m_frame.doLayout();
+			
 			m_frame.setVisible(true);
 
 			// hook window events so that we exit the Java Platform
@@ -243,7 +248,6 @@ public class GameUI implements ActionListener {
 			m_view.m_game = this;
 			m_controller = controller;
 			m_controller.m_game = this;
-			
 			param = new Parametres(this);
 			menu = new Menu(this);
 			menu.showEvent();
@@ -253,6 +257,9 @@ public class GameUI implements ActionListener {
 		} else if (state == STATE.Help) {
 			help = new Help(this);
 			help.showEvent();
+		} else if (state == STATE.Pause) {
+			pause = new Pause(this);
+			pause.showEvent();
 		} else if (state == STATE.Param) {
 			param.showEvent();
 		}
@@ -307,21 +314,28 @@ public class GameUI implements ActionListener {
 
 		while (parcourstank < mod.ntank) {
 			if (mod.tanks[parcourstank].vie == 0) {
-
+				// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
+				stopTimer();
+				int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE);
 				setState(STATE.Over);
+				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
 				createWindow(d);
-				stopTimer();
 
 			}
 			parcourstank++;
 		}
 
 		if (tempsrestant <= 0) {
+			// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
+			stopTimer();
+			int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE);
 			setState(STATE.Over);
+			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
 			createWindow(d);
-			stopTimer();
 		}
 		elapsed = now - m_lastRepaint;
 		if (elapsed > Options.REPAINT_DELAY) {
@@ -364,145 +378,143 @@ public class GameUI implements ActionListener {
 		m_msg = msg;
 	}
 
-	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire,
-			int nbre_mine, int nbre_vie) {
+	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score) {
 		JPanel pan = new JPanel(new GridLayout(16, 3));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Score :"));
 		pan.add(new JLabel("" + score + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Joueur 1"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + t.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+		pan.add(new JLabel(peintureB));
 		pan.add(new JLabel("" + t.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + vie + ".png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + mine + ".png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + sbire + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printvie + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printmine + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printsbire + ".png")));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel("" + nbre_vie + ""));
-		pan.add(new JLabel("" + nbre_mine + ""));
+		pan.add(new JLabel("" + t.nbre_vie + ""));
+		pan.add(new JLabel("" + t.nbre_mine + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 1"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + s1.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+		pan.add(new JLabel(peintureB));
 		pan.add(new JLabel("" + s1.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 2"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + s2.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+		pan.add(new JLabel(peintureB));
 		pan.add(new JLabel("" + s2.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
 
 		pan.setBackground(Color.cyan);
 		addWest(pan);
 	}
 
-	public void drawPLayer2Panel(Tank t, int score, String vie, String mine, String sbire, int nbre_mine,
-			int nbre_vie) {
+	public void drawPLayer2Panel(Tank t, Sbire s1, Sbire s2, int score) {
 		JPanel pan = new JPanel(new GridLayout(16, 3));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Score :"));
 		pan.add(new JLabel("" + score + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Joueur 2"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + t.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
+		pan.add(new JLabel(peintureR));
 		pan.add(new JLabel("" + t.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + vie + ".png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + mine + ".png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + sbire + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printvie + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printmine + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printsbire + ".png")));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel("" + nbre_vie + ""));
-		pan.add(new JLabel("" + nbre_mine + ""));
+		pan.add(new JLabel("" + t.nbre_vie + ""));
+		pan.add(new JLabel("" + t.nbre_mine + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 1"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
-		pan.add(new JLabel("" + t.vie + ""));
+		pan.add(new JLabel(vie));
+		pan.add(new JLabel("" + s1.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
-		pan.add(new JLabel("" + t.jauge_couleur + ""));
+		pan.add(new JLabel(peintureR));
+		pan.add(new JLabel("" + s1.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 2"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
-		pan.add(new JLabel("" + t.vie + ""));
+		pan.add(new JLabel(vie));
+		pan.add(new JLabel("" + s2.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
-		pan.add(new JLabel("" + t.jauge_couleur + ""));
+		pan.add(new JLabel(peintureR));
+		pan.add(new JLabel("" + s2.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
 
 		pan.setBackground(Color.orange);
 		addEast(pan);
@@ -518,6 +530,7 @@ public class GameUI implements ActionListener {
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
 			if (option == JOptionPane.YES_OPTION) {
 				setState(STATE.Over);
+				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
 				m_model.shutdown();
 				createWindow(d);
