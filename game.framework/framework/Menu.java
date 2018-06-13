@@ -149,7 +149,7 @@ public class Menu {
 				
 				// Essai d'une confirmation annoncant le début de partie lors du clic sur le bouton START
 				//g_ui.createWindow(d);
-				g_ui.stopTimer();
+		//		g_ui.stopTimer();
 			/*	JOptionPane debut = new JOptionPane();
 				debut.showMessageDialog(null, "test", "titre", JOptionPane.INFORMATION_MESSAGE);
 			      Timer timer = new Timer(5000, new TimerTest(debut));
@@ -158,11 +158,11 @@ public class Menu {
 			     if (debut.isDisplayable())
 			          debut.setVisible(true);
 			          */
-			int option = JOptionPane.showConfirmDialog(null, "Prêt?", "Lancement partie",
-							JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
+		//	int option = JOptionPane.showConfirmDialog(null, "Prêt?", "Lancement partie",
+		//					JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
 			   // }
-				g_ui.resumeTimer();
-				g_ui.temps_de_pause += System.currentTimeMillis() - g_ui.m_start;
+			//	g_ui.resumeTimer();
+			//	g_ui.temps_de_pause += System.currentTimeMillis() - g_ui.m_start;
 				 
 			} else if (command.equals("HELP")) {
 				g_ui.setState(STATE.Help);
