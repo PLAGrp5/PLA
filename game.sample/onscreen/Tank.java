@@ -16,12 +16,13 @@ public class Tank extends Entity {
 		super('T', i, j, dir);
 	}
 
-	public Tank(Model model, BufferedImage sprite, int i, int j, char dir, float scale, int dose_couleur, Color color) {
+	public Tank(Model model, BufferedImage sprite, BufferedImage sprite_hit, int i, int j, char dir, float scale, int dose_couleur, Color color) {
 		super('T', i, j, dir);
 		aut_bonus = false;
 		alive = true;
 		m_model = model;
 		m_sprite = sprite;
+		m_sprite_Hit = sprite_hit;
 		m_scale = scale;
 		lastj = p.j;
 		lasti = p.i;
@@ -30,6 +31,7 @@ public class Tank extends Entity {
 		jauge_couleur = dose_couleur;
 		maxnstep = 10;
 		splitTankSprite();
+		splitTankSprite_Hit();
 		setvie(25);
 		initinventaire();
 	}
@@ -70,27 +72,59 @@ public class Tank extends Entity {
 			m_sprites[j] = m_sprite.getSubimage(x, y, 32, 32);
 		}
 	}
+	
+	void splitTankSprite_Hit() {
+		m_sprites_Hit = new BufferedImage[4];
+		for (int j = 0; j < 4; j++) {
+			int x = j * 32;
+			int y = 0;
+			m_sprites_Hit[j] = m_sprite_Hit.getSubimage(x, y, 32, 32);
+		}
+	}
 
 	// Affichage d'un tank
 	public void paint(Graphics g, char dir) {
-		Image img;
-		switch (dir) {
-		case 'N':
-			img = m_sprites[1];
-			break;
-		case 'S':
-			img = m_sprites[3];
-			break;
-		case 'E':
-			img = m_sprites[2];
-			break;
-		default:
-			img = m_sprites[0];
+		if (!isHit) {
+			Image img;
+			switch (dir) {
+			case 'N':
+				img = m_sprites[1];
+				break;
+			case 'S':
+				img = m_sprites[3];
+				break;
+			case 'E':
+				img = m_sprites[2];
+				break;
+			default:
+				img = m_sprites[0];
+			}
+			int w = (int) (m_scale * 32);
+			int h = (int) (m_scale * 32);
+		
+			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
 		}
-		int w = (int) (m_scale * 32);
-		int h = (int) (m_scale * 32);
-
-		g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
+		else {
+			Image img;
+			switch (dir) {
+			case 'N':
+				img = m_sprites_Hit[1];
+				break;
+			case 'S':
+				img = m_sprites_Hit[3];
+				break;
+			case 'E':
+				img = m_sprites_Hit[2];
+				break;
+			default:
+				img = m_sprites_Hit[0];
+			}
+			int w = (int) (m_scale * 32);
+			int h = (int) (m_scale * 32);
+		
+			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
+			isHit = false;
+		}
 
 	}
 }
