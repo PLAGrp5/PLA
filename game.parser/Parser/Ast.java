@@ -359,8 +359,8 @@ public class Ast {
 					return new MyDir(t[0]);
 				case "Closest" :
 					return new Closest(t[0],t[1]);
-				/*case "Key" : 
-					return new Key(t[0]);*/
+				case "Key" : 
+					return new automate.Key(t[0]);
 				default:
 					return new True();
 			}

@@ -1,5 +1,5 @@
-Avancer (Init) {
-	* (Init): True ? Move : (Init)
+Freeze (Init) {
+	* (Init): True ? Power : (Init)
 }
 
 Avan_Turn (Init) {
@@ -65,6 +65,7 @@ Maitre(Tactique){
   | MyDir(E) & Closest(E,E) ? Hit :(Tactique)
   | MyDir(S) & Closest(E,S) ? Hit :(Tactique)
   | Cell(F,V) ? Move :(Colorier)
+  | Cell(F,J) ? Move :(Colorier)
   | Cell(F,P) ? Move :(Utilisateur)
   | True ? Turn(R) :(Colorier)
   
@@ -92,7 +93,6 @@ CopieurBleu(Init){
   | Key(y) ? Throw :(Init)
   | Key(w) ? Pop :(Init)
   | Key(x) ? Wizz :(Init)
-  
   | True ? Power :(Init)
 
 }
