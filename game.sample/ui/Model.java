@@ -111,7 +111,7 @@ public class Model extends GameModel {
 
 		automates = (Automate[]) a.make();
 
-		s11.num_auto = 1;
+		s11.num_auto = 7;
 		s11.last_auto = s11.num_auto;
 		s11.comport = automates[s11.num_auto];
 		s11.courant = automates[s11.num_auto].init;
