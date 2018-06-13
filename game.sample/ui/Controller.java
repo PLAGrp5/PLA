@@ -73,17 +73,7 @@ public class Controller extends GameController implements ActionListener {
 		// if (Options.ECHO_KEYBOARD)
 		// System.out.println("KeyTyped: " + e);
 		if (e.getKeyChar() == ' ') {
-			try {
-				/*
-				 * NEVER, EVER, DO THIS! NEVER LOOP FOR LONG, NEVER BLOCK, OR NEVER SLEEP, YOU
-				 * WILL BLOCK EVERYTHING.
-				 */
-				System.err.println("You should not have done that!");
-				System.out.println("ZZzzz....");
-				Thread.sleep(3000);
-				System.out.println("Hey! I am back");
-			} catch (InterruptedException ex) {
-			}
+			
 		} else if (e.getKeyChar() == '+') {
 			Overhead h = m_model.getOverhead();
 			h.inc();
