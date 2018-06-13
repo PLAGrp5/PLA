@@ -83,7 +83,7 @@ public class Controller extends GameController implements ActionListener {
 		case 'T':
 		case 't':
 			m_model.tanks[0].move('N');
-			m_model.last_touche = "z";
+			m_model.last_touche = "t";
 			break;
 		case 'F':
 		case 'f':
