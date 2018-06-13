@@ -95,11 +95,11 @@ public class Entity {
 		case 'S':
 			this.dir = 'N';
 			break;
-		case 'W':
+		case 'O':
 			this.dir = 'E';
 			break;
 		case 'E':
-			this.dir = 'W';
+			this.dir = 'O';
 			break;
 		default:
 			this.dir = 'S';

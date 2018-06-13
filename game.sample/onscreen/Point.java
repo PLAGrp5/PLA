@@ -28,7 +28,7 @@ public class Point {
         case 'S':
             p1.i++;
             break;
-        case 'W':
+        case 'O':
             p1.j--;
             break;
         case 'E':
