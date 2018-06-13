@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.media.CannotRealizeException;
-import javax.media.Controller;
+//import javax.media.Controller;
 import javax.media.ControllerEvent;
 import javax.media.ControllerListener;
 import javax.media.EndOfMediaEvent;
@@ -58,7 +58,8 @@ public class Music {
     load();
   }
 
-  private void load() throws IOException, NoPlayerException, CannotRealizeException {
+  @SuppressWarnings("deprecation")
+private void load() throws IOException, NoPlayerException, CannotRealizeException {
     URL url;
     url = m_file.toURL();
 
@@ -67,7 +68,7 @@ public class Music {
 
       @Override
       public void controllerUpdate(ControllerEvent arg0) {
-        Controller ctr = arg0.getSourceController();
+        //Controller ctr = arg0.getSourceController();
         if (arg0 instanceof EndOfMediaEvent) {
           m_player.setMediaTime(new Time(0));
           m_player.start();

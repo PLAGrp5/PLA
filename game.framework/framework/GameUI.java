@@ -25,8 +25,10 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -38,7 +40,10 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
+import Parser.Ast;
+import Parser.AutomataParser;
 import Parser.ParseException;
+import automate.Automate;
 import onscreen.Map;
 import onscreen.Sbire;
 import onscreen.Tank;
@@ -47,7 +52,6 @@ import ui.Controller;
 import ui.View;
 
 import javax.swing.JPanel;
-import Parser.*;
 
 public class GameUI implements ActionListener {
 
@@ -99,13 +103,9 @@ public class GameUI implements ActionListener {
 	protected Credit credit;
 	int tpsBase;
 
-	protected Parametres param;
+	public Parametres param;
 
 	File map = new File("data/cartes/map_test.txt");
-	String sb1_1;
-	String sb1_2;
-	String sb2_1;
-	String sb2_2;
 
 	ImageIcon icon = new ImageIcon("game.sample/sprites/image.png");
 
@@ -156,24 +156,27 @@ public class GameUI implements ActionListener {
 	}
 
 	void createWindow(Dimension d) {
-		if (state == STATE.Game) {
-			Map m = new Map(map);
-			Model model;
-			try {
-				model = new Model(m);
-			} catch (FileNotFoundException | ParseException e) {
-				e.printStackTrace();
-				return;
-			}
-			Controller controller = new Controller(model);
-			View view = new View(model, controller);
+		Map m = new Map(map);
+		Model model;
+		try {
+			model = new Model(m);
+		} catch (FileNotFoundException | ParseException e) {
+			e.printStackTrace();
+			return;
+		}
+		Controller controller = new Controller(model);
+		View view = new View(model, controller);
 
-			m_model = model;
-			m_model.m_game = this;
-			m_view = view;
-			m_view.m_game = this;
-			m_controller = controller;
-			m_controller.m_game = this;
+		m_model = model;
+		m_model.m_game = this;
+		m_view = view;
+		m_view.m_game = this;
+		m_controller = controller;
+		m_controller.m_game = this;
+		
+		param = new Parametres(this);
+		if (state == STATE.Game) {
+			
 
 			m_frame = new JFrame();
 			m_frame.setTitle("Gitank"); // Nom de la fenêtre
@@ -250,7 +253,6 @@ public class GameUI implements ActionListener {
 			over = new GameOver(this);
 			over.showEvent();
 		} else if (state == STATE.Param) {
-			param = new Parametres(this);
 			param.showEvent();
 		}
 	}
@@ -309,7 +311,6 @@ public class GameUI implements ActionListener {
 				int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				setState(STATE.Over);
-				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
 				createWindow(d);
 
@@ -323,7 +324,6 @@ public class GameUI implements ActionListener {
 			int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			setState(STATE.Over);
-			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
 			createWindow(d);
 		}
@@ -342,7 +342,6 @@ public class GameUI implements ActionListener {
 				txt += " ";
 			if (m_msg != null) {
 				// txt += m_msg;
-
 			}
 			// System.out.println(txt);
 			while (txt.length() < 150) {
@@ -523,7 +522,6 @@ public class GameUI implements ActionListener {
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon);
 			if (option == JOptionPane.YES_OPTION) {
 				setState(STATE.Over);
-				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
 				m_model.shutdown();
 				createWindow(d);

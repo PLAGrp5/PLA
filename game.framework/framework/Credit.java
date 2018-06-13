@@ -50,6 +50,11 @@ public class Credit {
 
 		BorderLayout grid = new BorderLayout();
 		controlPanel = new JPanel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);

@@ -1,6 +1,5 @@
 package framework;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,7 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -21,10 +26,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Parser.Ast;
+import Parser.AutomataParser;
+import Parser.ParseException;
+import automate.Automate;
 import framework.GameUI.STATE;
+import ui.Model;
 
 public class Parametres {
 
@@ -46,12 +55,17 @@ public class Parametres {
 	String sbire1_2 = "Default";
 	String sbire2_1 = "Default";
 	String sbire2_2 = "Default";
-	File carte = new File("game.sample/onscreen/map_test.txt");
+	File fsb1_1 = new File("data/automates/sb1_1.txt");
+	File fsb1_2 = new File("data/automates/sb1_2.txt");
+	File fsb2_1 = new File("data/automates/sb2_1.txt");
+	File fsb2_2 = new File("data/automates/sb2_2.txt");
+	File carte = new File("data/cartes/map_test.txt");
 
 	public Parametres(GameUI g) {
 		g_ui = g;
-		prepareGUI();
 	}
+	
+	
 
 	private void prepareGUI() {
 		paramFrame = new JFrame("Gitank paramètres");
@@ -69,6 +83,8 @@ public class Parametres {
 				System.exit(0);
 			}
 		});
+		
+		fcc.setCurrentDirectory(new File("data/cartes/"));
 
 		controlPanel = new JPanel();
 		controlPanel.setOpaque(false);
@@ -135,6 +151,7 @@ public class Parametres {
 	}
 
 	public void showEvent() {
+		prepareGUI();
 		headerLabel.setText("Choix des Automates");
 		headerLabel.setFont(new Font("Arial", Font.BOLD, 30));
 
@@ -150,7 +167,16 @@ public class Parametres {
 		CarteButton.setPreferredSize(new Dimension(120, 30));
 		ExitButton.setPreferredSize(new Dimension(250, 100));
 
-		String[] ListAut = { "Default", "Warrior", "Guardian", "Popper", "Blocker", "Philosopher" };
+		Ast a;
+		try {
+			a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
+		} catch (FileNotFoundException | ParseException e) {
+			e.printStackTrace();
+			return;
+		}
+		Automate[] automates = (Automate[]) a.make();
+		
+		String[] ListAut = Model.getList(automates);
 		JComboBox<String> ScrollAut1_1 = new JComboBox<String>(ListAut);
 		JComboBox<String> ScrollAut1_2 = new JComboBox<String>(ListAut);
 		JComboBox<String> ScrollAut2_1 = new JComboBox<String>(ListAut);
@@ -204,26 +230,54 @@ public class Parametres {
 
 		paramFrame.setVisible(true);
 	}
+	
+	public static void toFile(String s, File f) throws IOException {
+	    FileWriter fileWriter = new FileWriter(f);
+	    PrintWriter printWriter = new PrintWriter(fileWriter);
+	    printWriter.print(s);
+	    printWriter.close();
+	}
 
 	private class ButtonClickListener implements ActionListener {
 		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
+			
 			if (command.equals("SB1_1")) {
 				JComboBox<String> cb1_1 = (JComboBox<String>) e.getSource();
 				sbire1_1 = (String) cb1_1.getSelectedItem();
+				try {
+					toFile(sbire1_1, fsb1_1);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				sb1_1.setText("Sbire 1_1 : " + sbire1_1);
 			} else if (command.equals("SB1_2")) {
 				JComboBox<String> cb1_2 = (JComboBox<String>) e.getSource();
 				sbire1_2 = (String) cb1_2.getSelectedItem();
+				try {
+					toFile(sbire1_2, fsb1_2);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				sb1_2.setText("Sbire 1_2 : " + sbire1_2);
 			} else if (command.equals("SB2_1")) {
 				JComboBox<String> cb2_1 = (JComboBox<String>) e.getSource();
 				sbire2_1 = (String) cb2_1.getSelectedItem();
+				try {
+					toFile(sbire2_1, fsb2_1);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				sb2_1.setText("Sbire 2_1 : " + sbire2_1);
 			} else if (command.equals("SB2_2")) {
 				JComboBox<String> cb2_2 = (JComboBox<String>) e.getSource();
 				sbire2_2 = (String) cb2_2.getSelectedItem();
+				try {
+					toFile(sbire2_2, fsb2_2);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				sb2_2.setText("Sbire 2_2 : " + sbire2_2);
 
 			} else if (command.equals("CARTE")) {
