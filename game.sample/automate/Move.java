@@ -2,6 +2,7 @@ package automate;
 
 import java.awt.Color;
 import onscreen.*;
+import ui.Model;
 
 public class Move extends Action {
 
@@ -54,10 +55,24 @@ public class Move extends Action {
 				System.out.println("Inventaire plein");
 			break;
 		case 2:
+
+			String bonus1 = "data/bonus/bonus1.txt";
+			String bonus2 = "data/bonus/bonus2.txt";
+			Automate comp = null;
+			
 			e.aut_bonus = true;
-			e.comport_bonus = e.m_model.automates[0];
+
+			int bon_aut = (int) (Math.random() * 2);
+			switch (bon_aut) {
+			case 0:
+				comp = Model.getAut(e.m_model.automates, bonus1);
+				break;
+			case 1:
+				comp = Model.getAut(e.m_model.automates, bonus2);
+			}
+			e.comport_bonus = comp;
 			e.courant_bonus = e.courant;
-			e.courant = e.m_model.automates[0].init;
+			e.courant = comp.b[0].src;
 			e.m_lastMove = 0L;
 			break;
 		}

@@ -169,8 +169,7 @@ public class GameUI implements ActionListener {
 		if (state == STATE.Over) {
 			over = new GameOver(this);
 			over.showEvent();
-		}
-		if (state == STATE.Game) {
+		} else if (state == STATE.Game) {
 
 			m_frame = new JFrame();
 			m_frame.setTitle("Gitank"); // Nom de la fenêtre
@@ -249,7 +248,6 @@ public class GameUI implements ActionListener {
 			m_view.m_game = this;
 			m_controller = controller;
 			m_controller.m_game = this;
-
 			param = new Parametres(this);
 			menu = new Menu(this);
 			menu.showEvent();
