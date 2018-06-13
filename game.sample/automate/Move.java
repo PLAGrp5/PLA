@@ -61,6 +61,7 @@ public class Move extends Action {
 			Automate comp = null;
 			
 			e.aut_bonus = true;
+
 			int bon_aut = (int) (Math.random() * 2);
 			switch (bon_aut) {
 			case 0:

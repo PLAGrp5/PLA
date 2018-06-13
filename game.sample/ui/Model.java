@@ -43,6 +43,10 @@ public class Model extends GameModel {
 	BufferedImage m_charrougeSprite;
 	BufferedImage m_sbirebleuSprite;
 	BufferedImage m_sbirerougeSprite;
+	BufferedImage m_sbirebleu_hit;
+	BufferedImage m_sbirerouge_hit;
+	BufferedImage m_char_HitR;
+	BufferedImage m_char_HitB;
 	BufferedImage m_mur;
 	BufferedImage m_mine;
 	BufferedImage m_sol;
@@ -53,7 +57,7 @@ public class Model extends GameModel {
 	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
-	public String last_touche;
+	public String last_touche = "";
 	
 	public Map m_Map;
 
@@ -135,10 +139,10 @@ public class Model extends GameModel {
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
 
-		s11 = new Sbire(this, m_sbirebleuSprite, 2, 2, 'W', 1F, 30, colort);
-		s12 = new Sbire(this, m_sbirebleuSprite, 27, 2, 'E', 1F, 30, colort);
-		s21 = new Sbire(this, m_sbirerougeSprite, 2, 27, 'W', 1F, 30, colort2);
-		s22 = new Sbire(this, m_sbirerougeSprite, 27, 27, 'E', 1F, 30, colort2);
+		s11 = new Sbire(this, m_sbirebleuSprite, m_sbirebleu_hit, 2, 2, 'W', 1F, 30, colort);
+		s12 = new Sbire(this, m_sbirebleuSprite, m_sbirebleu_hit, 27, 2, 'E', 1F, 30, colort);
+		s21 = new Sbire(this, m_sbirerougeSprite, m_sbirerouge_hit, 2, 27, 'W', 1F, 30, colort2);
+		s22 = new Sbire(this, m_sbirerougeSprite, m_sbirerouge_hit, 27, 27, 'E', 1F, 30, colort2);
 		
 		/*
 		 * State e = new State("1");
@@ -188,8 +192,8 @@ public class Model extends GameModel {
 		s22.last_auto = s22.num_auto;
 		sbires[3] = s22;
 
-		j1 = new Tank(this, m_charbleuSprite, 15, 2, 'E', 1F, 30, colort);
-		j2 = new Tank(this, m_charrougeSprite, 15, 27, 'W', 1F, 30, colort2);
+		j1 = new Tank(this, m_charbleuSprite, m_char_HitB, 15, 2, 'E', 1F, 30, colort);
+		j2 = new Tank(this, m_charrougeSprite, m_char_HitR, 15, 27, 'W', 1F, 30, colort2);
 
 		tanks[0] = j1;
 		tanks[1] = j2;
@@ -275,6 +279,7 @@ public class Model extends GameModel {
 					if (++sbires[i].nstep > sbires[i].maxnstep) {
 						sbires[i].nstep = 0;
 						sbires[i].aut_bonus = false;
+						sbires[i].courant = sbires[i].courant_bonus;
 					}
 				} else
 					sbires[i].comport.step(sbires[i]);
@@ -324,6 +329,22 @@ public class Model extends GameModel {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
+		
+		imageFile = new File("game.sample/sprites/char_hitB.png");
+		try {
+			m_char_HitB = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/char_hitR.png");
+		try {
+			m_char_HitR = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 
 		imageFile = new File("game.sample/sprites/sbireb.png");
 		try {
@@ -336,6 +357,22 @@ public class Model extends GameModel {
 		imageFile = new File("game.sample/sprites/sbirer.png");
 		try {
 			m_sbirerougeSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.sample/sprites/sbireb_hit.png");
+		try {
+			m_sbirebleu_hit = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		imageFile = new File("game.sample/sprites/sbirer_hit.png");
+		try {
+			m_sbirerouge_hit = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);

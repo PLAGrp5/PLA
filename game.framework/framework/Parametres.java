@@ -81,7 +81,7 @@ public class Parametres {
 			f = new File(fp);
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
-			System.out.println("File not &Found");
+			System.out.println("File not Found");
 			System.exit(0);
 		}
 		while (scan.hasNextLine()) {
@@ -211,11 +211,17 @@ public class Parametres {
 		
 		String[] ListAut = Model.getList(automates);
 		JComboBox<String> ScrollAut1_1 = new JComboBox<String>(ListAut);
+		ScrollAut1_1.setSelectedItem(fromFile(sbire1_1));
 		JComboBox<String> ScrollAut1_2 = new JComboBox<String>(ListAut);
+		ScrollAut1_2.setSelectedItem(fromFile(sbire1_2));
 		JComboBox<String> ScrollAut2_1 = new JComboBox<String>(ListAut);
+		ScrollAut2_1.setSelectedItem(fromFile(sbire2_1));
 		JComboBox<String> ScrollAut2_2 = new JComboBox<String>(ListAut);
+    ScrollAut2_2.setSelectedItem(fromFile(sbire2_2));
+    
 		JComboBox<String> ScrollBonus1 = new JComboBox<String>(ListAut);
 		JComboBox<String> ScrollBonus2 = new JComboBox<String>(ListAut);
+		
 
 		ScrollAut1_1.setActionCommand("SB1_1");
 		ScrollAut1_2.setActionCommand("SB1_2");

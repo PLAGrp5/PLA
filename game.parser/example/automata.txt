@@ -1,8 +1,8 @@
-Aut (Init) {
-	* (Init): True ? Move : (Init)
+Freeze (Init) {
+	* (Init): True ? Power : (Init)
 }
 
-Aut2 (Init) {
+Avan_Turn (Init) {
 	* (Init): 
 	| Cell(F, V) ? Move : (Init)
 	| Cell(F, P) ? Move : (Init)
@@ -10,7 +10,7 @@ Aut2 (Init) {
 	| True ? Turn(R) : (Init)
 }
 
-Aut3 (Init) {
+Balle (Init) {
 	* (Init): 
 	| Cell(F, V) ? Move : (Init)
 	| Cell(F, P) ? Move : (Init)
@@ -26,7 +26,7 @@ Peintre(Colorier){
 * (Recharger): True ? Wizz :(Deplacement)
 * (Deplacement):
   | Cell(F,V) ? Move :(Colorier)
-  | True ? Turn(L) :(Deplacement)
+  | True ? Turn(R) :(Deplacement)
   
 }
 
@@ -49,6 +49,7 @@ Rambo(Tactique){
   | MyDir(E) & Closest(E,E) ? Hit :(Tactique)
   | MyDir(S) & Closest(E,S) ? Hit :(Tactique)
   | Cell(F,V) ? Move :(Tactique)
+  | Cell(F,J) ? Move :(Tactique)
   | Cell(F,P) ? Move :(Utilisateur)
   | True ? Turn(L) :(Tactique)
   
@@ -64,11 +65,12 @@ Maitre(Tactique){
   | MyDir(E) & Closest(E,E) ? Hit :(Tactique)
   | MyDir(S) & Closest(E,S) ? Hit :(Tactique)
   | Cell(F,V) ? Move :(Colorier)
+  | Cell(F,J) ? Move :(Colorier)
   | Cell(F,P) ? Move :(Utilisateur)
   | True ? Turn(R) :(Colorier)
   
 * (Utilisateur):
-  | True ? Throw:(Tactique)
+  | True ? Throw :(Tactique)
   
 * (Colorier) : True ? Pop :(Recharger)
 
@@ -91,7 +93,6 @@ CopieurBleu(Init){
   | Key(y) ? Throw :(Init)
   | Key(w) ? Pop :(Init)
   | Key(x) ? Wizz :(Init)
-  
   | True ? Power :(Init)
 
 }
