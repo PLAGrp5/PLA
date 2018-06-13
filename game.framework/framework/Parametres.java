@@ -18,6 +18,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -50,10 +51,10 @@ public class Parametres {
 	JPanel controlPanel;
 	GameUI g_ui;
 	final JFileChooser fcc = new JFileChooser();
-	String sbire1_1 = "Default";
-	String sbire1_2 = "Default";
-	String sbire2_1 = "Default";
-	String sbire2_2 = "Default";
+	String sbire1_1 = "data/automates/sb1_1.txt";
+	String sbire1_2 = "data/automates/sb1_2.txt";
+	String sbire2_1 = "data/automates/sb2_1.txt";
+	String sbire2_2 = "data/automates/sb2_2.txt";
 	File fsb1_1 = new File("data/automates/sb1_1.txt");
 	File fsb1_2 = new File("data/automates/sb1_2.txt");
 	File fsb2_1 = new File("data/automates/sb2_1.txt");
@@ -64,7 +65,22 @@ public class Parametres {
 		g_ui = g;
 	}
 	
-	
+	public static String fromFile(String fp) {
+		File f = null;
+		Scanner scan = null;
+		String res = "";
+		try {
+			f = new File(fp);
+			scan = new Scanner(f);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not &Found");
+			System.exit(0);
+		}
+		while (scan.hasNextLine()) {
+			res = scan.nextLine();
+		}
+		return res;		
+	}
 
 	private void prepareGUI() {
 		paramFrame = new JFrame("Gitank paramètres");
@@ -102,13 +118,13 @@ public class Parametres {
 
 		Font font = new Font("Arial", Font.BOLD, 25); // Choix police plus taille
 
-		sb1_1 = new JLabel("Sbire 1_1 : " + sbire1_1, JLabel.CENTER);
+		sb1_1 = new JLabel("Sbire 1_1 : " + fromFile(sbire1_1), JLabel.CENTER);
 		sb1_1.setFont(font);
-		sb1_2 = new JLabel("Sbire 1_2 : " + sbire1_2, JLabel.CENTER);
+		sb1_2 = new JLabel("Sbire 1_2 : " + fromFile(sbire1_2), JLabel.CENTER);
 		sb1_2.setFont(font);
-		sb2_1 = new JLabel("Sbire 2_1 : " + sbire2_1, JLabel.CENTER);
+		sb2_1 = new JLabel("Sbire 2_1 : " + fromFile(sbire2_1), JLabel.CENTER);
 		sb2_1.setFont(font);
-		sb2_2 = new JLabel("Sbire 2_2 : " + sbire2_2, JLabel.CENTER);
+		sb2_2 = new JLabel("Sbire 2_2 : " + fromFile(sbire2_2), JLabel.CENTER);
 		sb2_2.setFont(font);
 		map = new JLabel("Carte : " + carte.getName(), JLabel.CENTER);
 		map.setFont(font);

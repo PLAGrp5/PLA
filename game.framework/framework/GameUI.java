@@ -156,25 +156,14 @@ public class GameUI implements ActionListener {
 	}
 
 	void createWindow(Dimension d) {
-		Map m = new Map(map);
-		Model model;
-		try {
-			model = new Model(m);
-		} catch (FileNotFoundException | ParseException e) {
-			e.printStackTrace();
-			return;
+		if (state == STATE.Pause) {
+			pause = new Pause(this);
+			pause.showEvent();
+		} else if (state == STATE.Over) {
+			over = new GameOver(this);
+			over.showEvent();
 		}
-		Controller controller = new Controller(model);
-		View view = new View(model, controller);
-
-		m_model = model;
-		m_model.m_game = this;
-		m_view = view;
-		m_view.m_game = this;
-		m_controller = controller;
-		m_controller.m_game = this;
 		
-		param = new Parametres(this);
 		if (state == STATE.Game) {
 			
 
@@ -237,6 +226,25 @@ public class GameUI implements ActionListener {
 
 			m_controller.notifyVisible();
 		} else if (state == STATE.Menu) {
+			Map m = new Map(map);
+			Model model;
+			try {
+				model = new Model(m);
+			} catch (FileNotFoundException | ParseException e) {
+				e.printStackTrace();
+				return;
+			}
+			Controller controller = new Controller(model);
+			View view = new View(model, controller);
+
+			m_model = model;
+			m_model.m_game = this;
+			m_view = view;
+			m_view.m_game = this;
+			m_controller = controller;
+			m_controller.m_game = this;
+			
+			param = new Parametres(this);
 			menu = new Menu(this);
 			menu.showEvent();
 		} else if (state == STATE.Credit) {
@@ -245,12 +253,6 @@ public class GameUI implements ActionListener {
 		} else if (state == STATE.Help) {
 			help = new Help(this);
 			help.showEvent();
-		} else if (state == STATE.Pause) {
-			pause = new Pause(this);
-			pause.showEvent();
-		} else if (state == STATE.Over) {
-			over = new GameOver(this);
-			over.showEvent();
 		} else if (state == STATE.Param) {
 			param.showEvent();
 		}
