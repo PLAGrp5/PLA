@@ -9,33 +9,32 @@ public class Mine extends BonusEtMalus {
 	public void jeter(Entity e) {
 		if (!(e.inventaireVide())) {
 			int i;
+			Point p = new Point(e.p);
 			switch (e.dir) {
 			case 'N':
-				if (e.m_model.m_Map.insertMineOK(e))
-					e.m_model.m_Map.insert(new Entity('M', e.p.i + 1, e.p.j));
+				p.i++;
 				break;
 			case 'S':
-				if (e.m_model.m_Map.insertMineOK(e))
-					e.m_model.m_Map.insert(new Entity('M', e.p.i - 1, e.p.j));
+				p.i--;
 				break;
 			case 'W':
-				if (e.m_model.m_Map.insertMineOK(e))
-					e.m_model.m_Map.insert(new Entity('M', e.p.i, e.p.j + 1));
+				p.j++;
 				break;
 			default:
-				if (e.m_model.m_Map.insertMineOK(e))
-					e.m_model.m_Map.insert(new Entity('M', e.p.i, e.p.j - 1));
+				p.j--;
 				break;
 			}
+			if (e.m_model.m_Map.insertMineOK(e))
+				e.m_model.m_Map.insert(new Entity('M', p.i, p.j));
 			for (i = 0; i < 2; i++)
 				e.inventaire[i] = e.inventaire[i + 1];
 			e.inventaire[i] = null;
 			e.nbre_mine--;
-			if (!e.inventaireVide()){
+			if (!e.inventaireVide()) {
 				if (e.inventaire[0].type == 'V') {
 					e.printvie = "Vie_1";
 					e.printmine = "mine";
-				} else if(e.inventaire[0].type == 'M') {
+				} else if (e.inventaire[0].type == 'M') {
 					e.printmine = "mine_1";
 					e.printvie = "Vie";
 				}

@@ -188,7 +188,7 @@ public class Model extends GameModel {
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-
+		
 		int i;
 
 		for (i = 0; i < ntank; i++) {
@@ -222,6 +222,10 @@ public class Model extends GameModel {
 				bullets[i].comport.step(bullets[i]);
 				bullets[i].m_lastMove = now;
 			}
+		}
+		if(now - m_Map.lastBonus > 10000L) {
+			m_Map.lastBonus = now;
+			m_Map.insertBonus();	
 		}
 
 		// }
