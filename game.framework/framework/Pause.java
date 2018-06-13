@@ -26,8 +26,6 @@ public class Pause {
 	JLabel headerLabel;
 	JPanel controlPanel;
 	GameUI g_ui;
-	
-	public long set_refresh = 200;
 
 	public Pause(GameUI g) {
 		g_ui = g;
@@ -61,14 +59,14 @@ public class Pause {
 		JSlider slide = new JSlider();
 	    slide.setMaximum(500);
 	    slide.setMinimum(100);
-	    slide.setValue(200);
+	    slide.setValue((int)g_ui.set_refresh);
 	    slide.setPaintTicks(true);
 	    slide.setPaintLabels(true);
 	    slide.setMinorTickSpacing(100);
 	    slide.setMajorTickSpacing(200);
 	    slide.addChangeListener(new ChangeListener(){
 	        public void stateChanged(ChangeEvent event){
-	        	set_refresh = ((JSlider)event.getSource()).getValue();
+	        	g_ui.set_refresh = ((JSlider)event.getSource()).getValue();
 	        }
 
 	      });      

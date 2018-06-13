@@ -85,7 +85,6 @@ public class GameUI implements ActionListener {
 	GameModel m_model;
 	GameController m_controller;
 	JLabel m_text;
-	public long set_refresh = 200L;
 	int m_fps;
 	String m_msg;
 	long m_start;
@@ -100,8 +99,16 @@ public class GameUI implements ActionListener {
 	protected GameOver over;
 	protected Credit credit;
 	int tpsBase;
+	
+	public long set_refresh = 200L; 
 
 	protected Parametres param;
+	
+	ImageIcon sepa = new ImageIcon("game.sample/sprites/sepa.png");
+	ImageIcon sepa1 = new ImageIcon("game.sample/sprites/sepa1.png");
+	ImageIcon vie = new ImageIcon("game.sample/sprites/Vie.png");
+	ImageIcon peintureR = new ImageIcon("game.sample/sprites/peintureR.png");
+	ImageIcon peintureB = new ImageIcon("game.sample/sprites/peintureB.png");
 
 	File map = new File("data/cartes/map_test.txt");
 	String sb1_1;
@@ -190,24 +197,6 @@ public class GameUI implements ActionListener {
 
 			m_frame.setSize(d);
 			m_frame.doLayout();
-			
-			/*JPanel pan = new JPanel();
-			JSlider slide = new JSlider();
-		    slide.setMaximum(500);
-		    slide.setMinimum(100);
-		    slide.setValue(200);
-		    slide.setPaintTicks(true);
-		    slide.setPaintLabels(true);
-		    slide.setMinorTickSpacing(100);
-		    slide.setMajorTickSpacing(200);
-		    slide.addChangeListener(new ChangeListener(){
-		        public void stateChanged(ChangeEvent event){
-		        	set_refresh = ((JSlider)event.getSource()).getValue();
-		        }
-
-		      });      
-		    pan.add(slide);
-		    addWest(pan);*/
 			
 			m_frame.setVisible(true);
 
@@ -384,152 +373,146 @@ public class GameUI implements ActionListener {
 		m_msg = msg;
 	}
 
-	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire,
-			int nbre_mine, int nbre_vie) {
+	public void drawPLayer1Panel(Tank t, Sbire s1, Sbire s2, int score) {
 		JPanel pan = new JPanel(new GridLayout(16, 3));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Score :"));
 		pan.add(new JLabel("" + score + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Joueur 1"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + t.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+		pan.add(new JLabel(peintureB));
 		pan.add(new JLabel("" + t.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + vie + ".png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + mine + ".png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + sbire + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printvie + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printmine + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printsbire + ".png")));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel("" + nbre_vie + ""));
-		pan.add(new JLabel("" + nbre_mine + ""));
+		pan.add(new JLabel("" + t.nbre_vie + ""));
+		pan.add(new JLabel("" + t.nbre_mine + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 1"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + s1.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+		pan.add(new JLabel(peintureB));
 		pan.add(new JLabel("" + s1.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 2"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + s2.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureB.png")));
+		pan.add(new JLabel(peintureB));
 		pan.add(new JLabel("" + s2.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa.png")));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
+		pan.add(new JLabel(sepa));
 
 		pan.setBackground(Color.cyan);
 		addWest(pan);
 	}
 
-	public void drawPLayer2Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire,
-			int nbre_mine, int nbre_vie) {
+	public void drawPLayer2Panel(Tank t, Sbire s1, Sbire s2, int score) {
 		JPanel pan = new JPanel(new GridLayout(16, 3));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Score :"));
 		pan.add(new JLabel("" + score + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Joueur 2"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + t.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
+		pan.add(new JLabel(peintureR));
 		pan.add(new JLabel("" + t.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + vie + ".png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + mine + ".png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + sbire + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printvie + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printmine + ".png")));
+		pan.add(new JLabel(new ImageIcon("game.sample/sprites/" + t.printsbire + ".png")));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel("" + nbre_vie + ""));
-		pan.add(new JLabel("" + nbre_mine + ""));
+		pan.add(new JLabel("" + t.nbre_vie + ""));
+		pan.add(new JLabel("" + t.nbre_mine + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 1"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + s1.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
+		pan.add(new JLabel(peintureR));
 		pan.add(new JLabel("" + s1.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel("Sbire 2"));
 		pan.add(new JLabel(""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
+		pan.add(new JLabel(vie));
 		pan.add(new JLabel("" + s2.vie + ""));
 
 		pan.add(new JLabel(""));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
+		pan.add(new JLabel(peintureR));
 		pan.add(new JLabel("" + s2.jauge_couleur + ""));
 
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
-		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
+		pan.add(new JLabel(sepa1));
 
 		pan.setBackground(Color.orange);
 		addEast(pan);
-	}
-	
-	public void getRefresh() {
-		set_refresh = pause.set_refresh;
 	}
 
 	@Override

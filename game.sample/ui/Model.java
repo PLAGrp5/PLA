@@ -65,8 +65,6 @@ public class Model extends GameModel {
 
 	public int nautomate = 2;
 	public Automate[] automates = new Automate[nautomate];
-	
-	public long set_refresh = 200L; 
 
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
@@ -189,8 +187,6 @@ public class Model extends GameModel {
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
 
-		set_refresh = m_game.set_refresh;
-		
 		int i;
 
 		for (i = 0; i < ntank; i++) {
@@ -206,7 +202,7 @@ public class Model extends GameModel {
 		}
 
 		for (i = 0; i < nsbire; i++) {
-			if (now - sbires[i].m_lastMove > set_refresh) {
+			if (now - sbires[i].m_lastMove > m_game.set_refresh) {
 				if (sbires[i].aut_bonus) {
 					sbires[i].comport_bonus.step(sbires[i]);
 					if (++sbires[i].nstep > sbires[i].maxnstep) {
