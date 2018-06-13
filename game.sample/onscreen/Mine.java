@@ -17,7 +17,7 @@ public class Mine extends BonusEtMalus {
 			case 'S':
 				p.i--;
 				break;
-			case 'W':
+			case 'O':
 				p.j++;
 				break;
 			default:

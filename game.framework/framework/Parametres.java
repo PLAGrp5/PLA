@@ -44,9 +44,12 @@ public class Parametres {
 	JLabel sb1_2;
 	JLabel sb2_1;
 	JLabel sb2_2;
+	JLabel b1;
+	JLabel b2;
 	JLabel map;
 	JPanel Sbire_1;
 	JPanel Sbire_2;
+	JPanel Bonus;
 	JPanel Carte;
 	JPanel controlPanel;
 	GameUI g_ui;
@@ -56,10 +59,14 @@ public class Parametres {
 	String sbire1_2 = "data/automates/sb1_2.txt";
 	String sbire2_1 = "data/automates/sb2_1.txt";
 	String sbire2_2 = "data/automates/sb2_2.txt";
-	File fsb1_1 = new File("data/automates/sb1_1.txt");
-	File fsb1_2 = new File("data/automates/sb1_2.txt");
-	File fsb2_1 = new File("data/automates/sb2_1.txt");
-	File fsb2_2 = new File("data/automates/sb2_2.txt");
+	String bonus1 = "data/bonus/bonus1.txt";
+	String bonus2 = "data/bonus/bonus2.txt";
+	File fsb1_1 = new File(sbire1_1);
+	File fsb1_2 = new File(sbire1_2);
+	File fsb2_1 = new File(sbire2_1);
+	File fsb2_2 = new File(sbire2_2);
+	File fb1 = new File(bonus1);
+	File fb2 = new File(bonus2);
 	File carte = new File("data/cartes/map_test.txt");
 
 	public Parametres(GameUI g) {
@@ -74,7 +81,7 @@ public class Parametres {
 			f = new File(fp);
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
-			System.out.println("File not &Found");
+			System.out.println("File not Found");
 			System.exit(0);
 		}
 		while (scan.hasNextLine()) {
@@ -87,7 +94,6 @@ public class Parametres {
 		paramFrame = new JFrame("Gitank paramètres");
 		paramFrame.setSize(1447, 900);
 		paramFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
-		paramFrame.setLayout(new GridLayout(4, 3));
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		paramFrame.setLocation(dim.width / 2 - paramFrame.getSize().width / 2,
 				dim.height / 2 - paramFrame.getSize().height / 2);
@@ -112,6 +118,10 @@ public class Parametres {
 		Sbire_2 = new JPanel();
 		Sbire_2.setOpaque(false);
 		Sbire_2.setLayout(new GridLayout(1, 2));
+		
+		Bonus = new JPanel();
+		Bonus.setOpaque(false);
+		Bonus.setLayout(new GridLayout(1,2));
 
 		Carte = new JPanel();
 		Carte.setOpaque(false);
@@ -127,6 +137,10 @@ public class Parametres {
 		sb2_1.setFont(font);
 		sb2_2 = new JLabel("Sbire 2_2 : " + fromFile(sbire2_2), JLabel.CENTER);
 		sb2_2.setFont(font);
+		b1 = new JLabel("Bonus 1 : " + fromFile(bonus1), JLabel.CENTER);
+		b1.setFont(font);
+		b2 = new JLabel("Bonus 2 : " + fromFile(bonus2), JLabel.CENTER);
+		b2.setFont(font);
 		map = new JLabel("Carte : " + carte.getName(), JLabel.CENTER);
 		map.setFont(font);
 		JLabel f = new JLabel("", JLabel.CENTER);
@@ -148,7 +162,7 @@ public class Parametres {
 			}
 		};
 
-		paramPanel.setLayout(new GridLayout(4, 3));
+		paramPanel.setLayout(new GridLayout(5, 3));
 		paramPanel.add(f);
 		paramPanel.add(headerLabel);
 		paramPanel.add(g);
@@ -158,6 +172,9 @@ public class Parametres {
 		paramPanel.add(sb1_2);
 		paramPanel.add(Sbire_2);
 		paramPanel.add(sb2_2);
+		paramPanel.add(b1);
+		paramPanel.add(Bonus);
+		paramPanel.add(b2);
 		paramPanel.add(map);
 		paramPanel.add(Carte);
 		paramPanel.add(controlPanel);
@@ -194,19 +211,31 @@ public class Parametres {
 		
 		String[] ListAut = Model.getList(automates);
 		JComboBox<String> ScrollAut1_1 = new JComboBox<String>(ListAut);
+		ScrollAut1_1.setSelectedItem(fromFile(sbire1_1));
 		JComboBox<String> ScrollAut1_2 = new JComboBox<String>(ListAut);
+		ScrollAut1_2.setSelectedItem(fromFile(sbire1_2));
 		JComboBox<String> ScrollAut2_1 = new JComboBox<String>(ListAut);
+		ScrollAut2_1.setSelectedItem(fromFile(sbire2_1));
 		JComboBox<String> ScrollAut2_2 = new JComboBox<String>(ListAut);
+    ScrollAut2_2.setSelectedItem(fromFile(sbire2_2));
+    
+		JComboBox<String> ScrollBonus1 = new JComboBox<String>(ListAut);
+		JComboBox<String> ScrollBonus2 = new JComboBox<String>(ListAut);
+		
 
 		ScrollAut1_1.setActionCommand("SB1_1");
 		ScrollAut1_2.setActionCommand("SB1_2");
 		ScrollAut2_1.setActionCommand("SB2_1");
 		ScrollAut2_2.setActionCommand("SB2_2");
+		ScrollBonus1.setActionCommand("BON1");
+		ScrollBonus2.setActionCommand("BON2");
 
 		ScrollAut1_1.addActionListener(new ButtonClickListener());
 		ScrollAut1_2.addActionListener(new ButtonClickListener());
 		ScrollAut2_1.addActionListener(new ButtonClickListener());
 		ScrollAut2_2.addActionListener(new ButtonClickListener());
+		ScrollBonus1.addActionListener(new ButtonClickListener());
+		ScrollBonus2.addActionListener(new ButtonClickListener());
 
 		JPanel bouton1 = new JPanel(new GridBagLayout());
 		bouton1.setOpaque(false);
@@ -223,14 +252,22 @@ public class Parametres {
 		JPanel bouton4 = new JPanel(new GridBagLayout());
 		bouton4.setOpaque(false);
 		bouton4.add(ScrollAut2_2);
-
+		
 		JPanel bouton5 = new JPanel(new GridBagLayout());
 		bouton5.setOpaque(false);
-		bouton5.add(CarteButton);
-
+		bouton5.add(ScrollBonus1);
+		
 		JPanel bouton6 = new JPanel(new GridBagLayout());
 		bouton6.setOpaque(false);
-		bouton6.add(ExitButton);
+		bouton6.add(ScrollBonus2);
+
+		JPanel bouton7 = new JPanel(new GridBagLayout());
+		bouton7.setOpaque(false);
+		bouton7.add(CarteButton);
+
+		JPanel bouton8 = new JPanel(new GridBagLayout());
+		bouton8.setOpaque(false);
+		bouton8.add(ExitButton);
 
 		// Panel vide pour combler trou
 		JPanel test = new JPanel(new GridLayout());
@@ -240,9 +277,11 @@ public class Parametres {
 		Sbire_2.add(bouton2);
 		Sbire_1.add(bouton3);
 		Sbire_2.add(bouton4);
-		Carte.add(bouton5);
+		Bonus.add(bouton5);
+		Bonus.add(bouton6);
+		Carte.add(bouton7);
 		Carte.add(test);
-		controlPanel.add(bouton6);
+		controlPanel.add(bouton8);
 
 		paramFrame.setVisible(true);
 	}
@@ -295,6 +334,26 @@ public class Parametres {
 					e1.printStackTrace();
 				}
 				sb2_2.setText("Sbire 2_2 : " + sbire2_2);
+
+			} else if (command.equals("BON1")) {
+				JComboBox<String> bon1 = (JComboBox<String>) e.getSource();
+				bonus1 = (String) bon1.getSelectedItem();
+				try {
+					toFile(bonus1, fb1);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				b1.setText("Bonus 1 : " + bonus1);
+
+			} else if (command.equals("BON2")) {
+				JComboBox<String> bon2 = (JComboBox<String>) e.getSource();
+				bonus2 = (String) bon2.getSelectedItem();
+				try {
+					toFile(bonus2, fb2);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				b2.setText("Bonus 2 : " + bonus2);
 
 			} else if (command.equals("CARTE")) {
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .txt", "txt", "text"); // Filtre TXT

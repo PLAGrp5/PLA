@@ -1,5 +1,6 @@
 package framework;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -34,7 +35,7 @@ public class Pause {
 
 	private void prepareGUI() {
 		pauseFrame = new JFrame("Gitank pause");
-		pauseFrame.setSize(256, 300);
+		pauseFrame.setSize(256, 350);
 		pauseFrame.setLayout(new GridLayout(2, 1));
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		pauseFrame.setLocation(dim.width / 2 - pauseFrame.getSize().width / 2,
@@ -55,6 +56,14 @@ public class Pause {
 		controlPanel = new JPanel();
 		controlPanel.setLayout(new FlowLayout());
 		
+		JPanel pantext = new JPanel(new BorderLayout());
+		JLabel lab = new JLabel("Temps en ms entre");
+		JLabel lab1 = new JLabel("  deux transitions");
+		JLabel lab2 = new JLabel("   d'un automate :");
+		pantext.add(lab, BorderLayout.NORTH);
+		pantext.add(lab1, BorderLayout.CENTER);
+		pantext.add(lab2, BorderLayout.SOUTH);
+		
 		JPanel pan = new JPanel();
 		JSlider slide = new JSlider();
 	    slide.setMaximum(500);
@@ -71,6 +80,8 @@ public class Pause {
 
 	      });      
 	    pan.add(slide);
+	    
+	    controlPanel.add(pantext);
 	    controlPanel.add(pan);
 
 		pauseFrame.add(headerLabel);

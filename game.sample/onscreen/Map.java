@@ -231,7 +231,7 @@ public class Map {
 					case 'S':
 						System.out.printf("v ");
 						break;
-					case 'W':
+					case 'O':
 						System.out.printf("< ");
 						break;
 					case 'E':

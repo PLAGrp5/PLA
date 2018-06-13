@@ -43,8 +43,6 @@ public class Controller extends GameController implements ActionListener {
 	Button m_cowboysOn;
 	Button m_explosionsOn;
 	Button m_strobesOn;
-	Button m_plus, m_minus;
-	Music m_player;
 	// Map m = new Map(30);
 
 	public Controller(Model m) {
@@ -89,7 +87,7 @@ public class Controller extends GameController implements ActionListener {
 			break;
 		case 'F':
 		case 'f':
-			m_model.tanks[0].move('W');
+			m_model.tanks[0].move('O');
 			m_model.last_touche = "f";
 			break;
 		case 'H':
@@ -167,7 +165,7 @@ public class Controller extends GameController implements ActionListener {
 		switch (e.getKeyCode()) {
 		// Move Joueur 2
 		case 37:
-			m_model.tanks[1].move('W');
+			m_model.tanks[1].move('O');
 			m_model.last_touche = "FL";
 			break;
 		case 38:
@@ -237,26 +235,6 @@ public class Controller extends GameController implements ActionListener {
 		Container cont = new Container();
 		cont.setLayout(new FlowLayout());
 
-		m_strobesOn = new Button("Strobes");
-		m_strobesOn.addActionListener(this);
-		cont.add(m_strobesOn);
-
-		m_cowboysOn = new Button("Cowboys");
-		m_cowboysOn.addActionListener(this);
-		cont.add(m_cowboysOn);
-
-		m_plus = new Button("+");
-		m_plus.addActionListener(this);
-		cont.add(m_plus);
-
-		m_minus = new Button("-");
-		m_minus.addActionListener(this);
-		cont.add(m_minus);
-
-		m_explosionsOn = new Button("X");
-		m_explosionsOn.addActionListener(this);
-		cont.add(m_explosionsOn);
-
 		/*
 		 * File file; file = new File("game.sample/sprites/Future-RPG.wav"); //file =
 		 * new File("game.sample/sprites/Runaway-Food-Truck.wav"); try { //m_player =
@@ -267,17 +245,7 @@ public class Controller extends GameController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object s = e.getSource();
-		if (s == m_strobesOn)
-			Options.STROBBING_SQUARES = !Options.STROBBING_SQUARES;
-		else if (s == m_cowboysOn)
-			Options.SHOW_COWBOYS = !Options.SHOW_COWBOYS;
-		else if (s == m_explosionsOn)
-			Options.EXPLODE_COWBOYS = !Options.EXPLODE_COWBOYS;
-		else if (s == m_plus && Options.SHOW_NCOWBOYS < Options.MAX_NCOWBOYS)
-			Options.SHOW_NCOWBOYS++;
-		else if (s == m_minus && Options.SHOW_NCOWBOYS > 0)
-			Options.SHOW_NCOWBOYS--;
+
 	}
 
 }

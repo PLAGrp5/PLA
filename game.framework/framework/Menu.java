@@ -140,8 +140,6 @@ public class Menu {
 				g_ui.setState(STATE.Game);
 				Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
 				Dimension d = new Dimension(tailleMoniteur.height * 1384 / 1033, tailleMoniteur.height * 989 / 1033);
-				int i = 0;
-				//while (i < 99999999) {i++; System.out.println(i);}
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
