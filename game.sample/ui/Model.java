@@ -126,7 +126,7 @@ public class Model extends GameModel {
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
 
-		s11 = new Sbire(this, m_sbirebleuSprite, 2, 2, 'W', 1F, 30, colort);
+		s11 = new Sbire(this, m_sbirebleuSprite, 8, 4, 'W', 1F, 30, colort);
 		s12 = new Sbire(this, m_sbirebleuSprite, 27, 2, 'E', 1F, 30, colort);
 		s21 = new Sbire(this, m_sbirerougeSprite, 2, 27, 'W', 1F, 30, colort2);
 		s22 = new Sbire(this, m_sbirerougeSprite, 27, 27, 'E', 1F, 30, colort2);
@@ -267,6 +267,7 @@ public class Model extends GameModel {
 					if (++sbires[i].nstep > sbires[i].maxnstep) {
 						sbires[i].nstep = 0;
 						sbires[i].aut_bonus = false;
+						sbires[i].courant = sbires[i].courant_bonus;
 					}
 				} else
 					sbires[i].comport.step(sbires[i]);
