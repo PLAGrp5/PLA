@@ -30,8 +30,13 @@ public class Move extends Action {
 	// retourne vrai si le deplacement est possible (la case devant est free ou un
 	// bonus)
 
-	public boolean CanIMove(Map m, int i, int j) {
-		return m.isfree(i, j) || m.isbonus(i, j) || m.ismine(i, j) || m.isbullet(i, j) || m.isportail(i, j);
+	public boolean CanIMove(Entity e, int i, int j) {
+		boolean b = e.m_model.m_Map.isfree(i, j) || e.m_model.m_Map.isbonus(i, j) || e.m_model.m_Map.ismine(i, j)
+				|| e.m_model.m_Map.isbullet(i, j) || e.m_model.m_Map.isportail(i, j);
+		if (e instanceof Sbire && e.m_model.m_Map.color[i][j] != 'F' && e.m_model.m_Map.color[i][j] != 'W')
+			b = b && (e.m_model.m_Map.color[i][j] == 'B' && e.m_tank == Color.cyan)
+					|| (e.m_model.m_Map.color[i][j] == 'R' && e.m_tank == Color.orange);
+		return b;
 	}
 
 	public void CaseBonus(Entity e) {
@@ -67,20 +72,21 @@ public class Move extends Action {
 	public Point Teleportation(Entity e, Point p) {
 
 		int i = (int) (Math.random() * (e.m_model.m_Map.NombrePortails));
-		while ((e.m_model.m_Map.GateList.get(i).p.i == p.i) && (e.m_model.m_Map.GateList.get(i).p.j == p.j)) { // Trouver portail different de la source
+		// Trouver portail different de la source
+		while ((e.m_model.m_Map.GateList.get(i).p.i == p.i) && (e.m_model.m_Map.GateList.get(i).p.j == p.j)) {
 			i = (int) (Math.random() * (e.m_model.m_Map.NombrePortails));
 		}
-		Point tmp = new Point(e.m_model.m_Map.GateList.get(i).p) ;
-		if ((tmp.i-1 >= 0) && (CanIMove(e.m_model.m_Map, tmp.i - 1, tmp.j))) { // Vers le haut
+		Point tmp = new Point(e.m_model.m_Map.GateList.get(i).p);
+		if ((tmp.i - 1 >= 0) && (CanIMove(e, tmp.i - 1, tmp.j))) { // Vers le haut
 			tmp.i--;
 			e.dir = 'N';
-		} else if ((tmp.i+1 < e.m_model.m_Map.n) && (CanIMove(e.m_model.m_Map, tmp.i + 1, tmp.j))) { // Vers le bas
+		} else if ((tmp.i + 1 < e.m_model.m_Map.n) && (CanIMove(e, tmp.i + 1, tmp.j))) { // Vers le bas
 			tmp.i++;
 			e.dir = 'S';
-		} else if ((tmp.j+1 < e.m_model.m_Map.n) && (CanIMove(e.m_model.m_Map, tmp.i, tmp.j + 1))) { // Vers la droite
+		} else if ((tmp.j + 1 < e.m_model.m_Map.n) && (CanIMove(e, tmp.i, tmp.j + 1))) { // Vers la droite
 			tmp.j++;
 			e.dir = 'E';
-		} else if ((tmp.i-1 >= 0) && (CanIMove(e.m_model.m_Map, tmp.i, tmp.j - 1))) { // Vers la gauche
+		} else if ((tmp.i - 1 >= 0) && (CanIMove(e, tmp.i, tmp.j - 1))) { // Vers la gauche
 			tmp.j--;
 			e.dir = 'O';
 		} else
@@ -113,7 +119,7 @@ public class Move extends Action {
 			// Sinon on effectue l'action move
 			else {
 				Point p = nextstep(e); // calcul nouvel coordonnées
-				if (CanIMove(e.m_model.m_Map, p.i, p.j)) {
+				if (CanIMove(e, p.i, p.j)) {
 					if (e.m_model.m_Map.isportail(p.i, p.j))
 						p = Teleportation(e, p);
 					if (e.m_model.m_Map.isbonus(p.i, p.j))
@@ -141,7 +147,7 @@ public class Move extends Action {
 		} else {
 			this.dir = e.dir;
 			Point p = nextstep(e); // calcul nouvel coordonnées
-			if (CanIMove(e.m_model.m_Map, p.i, p.j)) {
+			if (CanIMove(e, p.i, p.j)) {
 				if (e.m_model.m_Map.isportail(p.i, p.j))
 					p = Teleportation(e, p);
 				if (e.m_model.m_Map.isbonus(p.i, p.j))

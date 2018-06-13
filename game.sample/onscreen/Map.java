@@ -211,13 +211,13 @@ public class Map {
 	public boolean insertMineOK(Entity e) {
 		switch (e.dir) {
 		case 'S':
-			return isfree(e.p.i - 1, e.p.j);
+			return isfree(e.p.i - 1, e.p.j); //&& !(ismine(e.p.i - 1, e.p.j)) && !(isbonus(e.p.i - 1, e.p.j));
 		case 'W':
-			return isfree(e.p.i, e.p.j + 1);
+			return isfree(e.p.i, e.p.j + 1);// && !(ismine(e.p.i, e.p.j + 1)) && !(isbonus(e.p.i, e.p.j + 1));
 		case 'E':
-			return isfree(e.p.i, e.p.j - 1);
+			return isfree(e.p.i, e.p.j - 1);// && !(ismine(e.p.i, e.p.j - 1)) && !(isbonus(e.p.i, e.p.j - 1));
 		default:
-			return isfree(e.p.i + 1, e.p.j);
+			return isfree(e.p.i + 1, e.p.j);// && !(ismine(e.p.i + 1, e.p.j)) && !(isbonus(e.p.i + 1, e.p.j));
 		}
 	}
 
