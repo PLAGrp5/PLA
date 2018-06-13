@@ -99,6 +99,15 @@ public class Model extends GameModel {
 		return listAut[0];
 	}
 	
+	public static int getIndex(Automate[] listAut, String s) {
+		for (int i = 0; i < listAut.length; i++) {
+			if (listAut[i].name.equalsIgnoreCase(s)) {
+				return i;
+			}
+		}
+		return 0;
+	}
+	
 	public static String[] getList(Automate[] listAut) {
 		String[] nameList = new String[listAut.length];
 		for (int i = 0; i < listAut.length; i++) {
@@ -157,24 +166,25 @@ public class Model extends GameModel {
 		
 		s11.comport = getAut(automates, sb1_1);
 		s11.courant = s11.comport.init;
+		s11.num_auto = getIndex(automates, s11.comport.name);
 		s11.last_auto = s11.num_auto;
 		sbires[0] = s11;
 		
 		s12.comport = getAut(automates, sb1_2);
 		s12.courant = s12.comport.init;
-    s12.num_auto = 2;
+		s12.num_auto = getIndex(automates, s12.comport.name);;
 		s12.last_auto = s12.num_auto;
 		sbires[1] = s12;
 
 		s21.comport = getAut(automates, sb2_1);
 		s21.courant = s21.comport.init;
-    s21.num_auto = 1;
+		s21.num_auto = getIndex(automates, s21.comport.name);;
 		s21.last_auto = s21.num_auto;
 		sbires[2] = s21;
     
 		s22.comport = getAut(automates, sb2_2);
 		s22.courant = s22.comport.init;
-    s22.num_auto = 1;
+		s22.num_auto = getIndex(automates, s22.comport.name);;
 		s22.last_auto = s22.num_auto;
 		sbires[3] = s22;
 
