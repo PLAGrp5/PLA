@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
@@ -56,7 +57,7 @@ public class Model extends GameModel {
 	
 	public Map m_Map;
 
-	public int nsbire = 2;
+	public int nsbire = 4;
 	public Sbire[] sbires = new Sbire[nsbire];
 
 	public int nbullet = 0;
@@ -65,16 +66,51 @@ public class Model extends GameModel {
 	public int ntank = 2;
 	public Tank[] tanks = new Tank[ntank];
 
-	public int nautomate = 2;
+	public int nautomate = 3;
 	public Automate[] automates = new Automate[nautomate];
 
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
+	public static String fromFile(String fp) {
+		File f = null;
+		Scanner scan = null;
+		String res = "";
+		try {
+			f = new File(fp);
+			scan = new Scanner(f);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not &Found");
+			System.exit(0);
+		}
+		while (scan.hasNextLine()) {
+			res = scan.nextLine();
+		}
+		return res;		
+	}
+	
+	public static Automate getAut(Automate[] listAut, String fp) {
+		String sb = fromFile(fp);
+		for (int i = 0; i < listAut.length; i++) {
+			if (listAut[i].name.equalsIgnoreCase(sb)) {
+				return listAut[i];
+			}
+		}
+		return listAut[0];
+	}
+	
+	public static String[] getList(Automate[] listAut) {
+		String[] nameList = new String[listAut.length];
+		for (int i = 0; i < listAut.length; i++) {
+			nameList[i] = listAut[i].name;
+		}
+		return nameList;
+	}
+	
 	public Model(Map m) throws ParseException, FileNotFoundException {
 		this.m_Map = m;
 		Tank j1, j2;
-		Sbire s11, s21;
+		Sbire s11, s12, s21, s22;
 
 		loadSprites();
 		/*
@@ -89,9 +125,12 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
+
+		s11 = new Sbire(this, m_sbirebleuSprite, 2, 2, 'W', 1F, 30, colort);
+		s12 = new Sbire(this, m_sbirebleuSprite, 27, 2, 'E', 1F, 30, colort);
+		s21 = new Sbire(this, m_sbirerougeSprite, 2, 27, 'W', 1F, 30, colort2);
+		s22 = new Sbire(this, m_sbirerougeSprite, 27, 27, 'E', 1F, 30, colort2);
 		
-		s11 = new Sbire(this, m_sbirebleuSprite, 6, 28, 'W', 1F, 30, colort);
-		s21 = new Sbire(this, m_sbirerougeSprite, 4, 2, 'W', 1F, 30, colort2);
 		/*
 		 * State e = new State("1");
 		 * 
@@ -110,29 +149,46 @@ public class Model extends GameModel {
 		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
 
 		automates = (Automate[]) a.make();
-
-		s11.num_auto = 7;
+		// automates =
+		String sb1_1 = "data/automates/sb1_1.txt";
+		String sb1_2 = "data/automates/sb1_2.txt";
+		String sb2_1 = "data/automates/sb2_1.txt";
+		String sb2_2 = "data/automates/sb2_2.txt";
+		
+		s11.comport = getAut(automates, sb1_1);
+		s11.courant = s11.comport.init;
+    s11.num_auto =7;
 		s11.last_auto = s11.num_auto;
-		s11.comport = automates[s11.num_auto];
-		s11.courant = automates[s11.num_auto].init;
 		sbires[0] = s11;
-    
-		s21.num_auto = 1;
-		s21.last_auto = s21.num_auto;
-		s21.comport = automates[s21.num_auto];
-		s21.courant = automates[s21.num_auto].init;
-		sbires[1] = s21;
+		
+		s12.comport = getAut(automates, sb1_2);
+		s12.courant = s12.comport.init;
+    s12.num_auto = 2;
+		s12.last_auto = s12.num_auto;
+		sbires[1] = s12;
 
-		j1 = new Tank(this, m_charbleuSprite, 5, 15, 'W', 1F, 30, colort);
-		j2 = new Tank(this, m_charrougeSprite, 8, 19, 'W', 1F, 30, colort2);
+		s21.comport = getAut(automates, sb2_1);
+		s21.courant = s21.comport.init;
+    s21.num_auto = 1;
+		s21.last_auto = s21.num_auto;
+		sbires[2] = s21;
+    
+		s22.comport = getAut(automates, sb2_2);
+		s22.courant = s22.comport.init;
+    s22.num_auto = 1;
+		s22.last_auto = s22.num_auto;
+		sbires[3] = s22;
+
+		j1 = new Tank(this, m_charbleuSprite, 15, 2, 'E', 1F, 30, colort);
+		j2 = new Tank(this, m_charrougeSprite, 15, 27, 'W', 1F, 30, colort2);
 
 		tanks[0] = j1;
 		tanks[1] = j2;
 		
 		tanks[0].sbires_allies[0] = s11;
-		tanks[0].sbires_allies[1] = s21;
-		tanks[1].sbires_allies[0] = s11;
-		tanks[1].sbires_allies[1] = s21;
+		tanks[0].sbires_allies[1] = s12;
+		tanks[1].sbires_allies[0] = s21;
+		tanks[1].sbires_allies[1] = s22;
 	}
 
 	@Override
@@ -182,13 +238,14 @@ public class Model extends GameModel {
 	 * 
 	 * public Iterator<Square> squares() { return m_squares.iterator(); }
 	 */
+
 	@Override
 	public void step(long now) {
 		/*
 		 * if ((now - t.m_lastMove) > 200L) { t.comport.step(); t.m_lastMove = now; } if
 		 * ((now - t3.m_lastMove) > 200L) { t3.comport.step(); t3.m_lastMove = now;
 		 */
-
+		
 		int i;
 
 		for (i = 0; i < ntank; i++) {
@@ -204,7 +261,7 @@ public class Model extends GameModel {
 		}
 
 		for (i = 0; i < nsbire; i++) {
-			if (now - sbires[i].m_lastMove > 200L) {
+			if (now - sbires[i].m_lastMove > m_game.set_refresh) {
 				if (sbires[i].aut_bonus) {
 					sbires[i].comport_bonus.step(sbires[i]);
 					if (++sbires[i].nstep > sbires[i].maxnstep) {
@@ -222,6 +279,10 @@ public class Model extends GameModel {
 				bullets[i].comport.step(bullets[i]);
 				bullets[i].m_lastMove = now;
 			}
+		}
+		if(now - m_Map.lastBonus > 10000L) {
+			m_Map.lastBonus = now;
+			m_Map.insertBonus();	
 		}
 
 		// }
