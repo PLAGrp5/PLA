@@ -55,9 +55,9 @@ public class Move extends Action {
 			break;
 		case 2:
 			e.aut_bonus = true;
-			e.comport_bonus = e.m_model.automates[1];
+			e.comport_bonus = e.m_model.automates[0];
 			e.courant_bonus = e.courant;
-			e.courant = e.m_model.automates[1].b[0].src;
+			e.courant = e.m_model.automates[0].init;
 			e.m_lastMove = 0L;
 			break;
 		}

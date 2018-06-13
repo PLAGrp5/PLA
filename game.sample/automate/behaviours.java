@@ -30,7 +30,8 @@ public class behaviours {
 			}
 			int rand = (int) (Math.random() * nb_trans);
 			t_ok[rand].act.execute(e);
-			e.courant = t_ok[rand].dest;
+			if(!e.aut_bonus)
+				e.courant = t_ok[rand].dest;
 			return 1;
 		}
 	}

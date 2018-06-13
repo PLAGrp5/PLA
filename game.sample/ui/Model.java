@@ -57,7 +57,7 @@ public class Model extends GameModel {
 	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
-	public String last_touche;
+	public String last_touche = "";
 	
 	public Map m_Map;
 
@@ -271,6 +271,7 @@ public class Model extends GameModel {
 					if (++sbires[i].nstep > sbires[i].maxnstep) {
 						sbires[i].nstep = 0;
 						sbires[i].aut_bonus = false;
+						sbires[i].courant = sbires[i].courant_bonus;
 					}
 				} else
 					sbires[i].comport.step(sbires[i]);
