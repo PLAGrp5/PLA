@@ -1,6 +1,5 @@
 package Parser;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -232,7 +231,7 @@ public class Ast {
 
 		public automate.Condition makeCondition() {
 			switch (operator.make()) {
-				case "Not":
+				case "!":
 					return new Not(operand.makeCondition());
 				default:
 					System.out.println("Erreur seul not est possible");
@@ -260,8 +259,8 @@ public class Ast {
 
 		public automate.Action makeAction() {
 			switch (operator.make()) {
-				/*case "/":
-					return new OrAction(left_operand.makeAction(), right_operand.makeAction());*/
+				case "/":
+					return new OrAction(left_operand.makeAction(), right_operand.makeAction());
 				default:
 					System.out.println("Erreur and de deux actions impossibles");
 					return null;
@@ -325,6 +324,18 @@ public class Ast {
 					return new Wizz();
 				case "Hit" :
 					return new Hit();
+				case "Jump" :
+					return new Pop();
+				case "Protect" :
+					return new Hit();
+				case "Pick" :
+					return new Turn();
+				case "Store" :
+					return new Wizz();
+				case "Get" :
+					return new Turn();
+				case "Power" :
+					return new Power();
 				default:
 					return null;
 			}

@@ -19,11 +19,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.Iterator;
-import java.awt.Rectangle;
 import framework.GameView;
-import java.awt.TexturePaint;
 
 public class View extends GameView {
 

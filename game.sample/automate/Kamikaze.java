@@ -1,7 +1,5 @@
 package automate;
 
-import java.awt.Color;
-
 import onscreen.Entity;
 import onscreen.Point;
 

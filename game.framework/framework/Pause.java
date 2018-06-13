@@ -110,7 +110,6 @@ public class Pause {
 					g_ui.setState(STATE.Over);
 					Dimension d = new Dimension(1024, 1024);
 					pauseFrame.dispose();
-					g_ui.m_frame.dispose();
 					g_ui.createWindow(d);
 				}
 			} else if (command.equals("RESUME")) {

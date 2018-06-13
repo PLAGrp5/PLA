@@ -1,5 +1,5 @@
 /*
- * Educational software for a basic game development
+z * Educational software for a basic game development
  * Copyright (C) 2018  Pr. Olivier Gruber
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,20 +18,13 @@
 package ui;
 
 import java.awt.Button;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.File;
-
-import automate.Hit;
-import automate.Move;
 import framework.*;
-import onscreen.Bullet;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -73,17 +66,7 @@ public class Controller extends GameController implements ActionListener {
 		// if (Options.ECHO_KEYBOARD)
 		// System.out.println("KeyTyped: " + e);
 		if (e.getKeyChar() == ' ') {
-			try {
-				/*
-				 * NEVER, EVER, DO THIS! NEVER LOOP FOR LONG, NEVER BLOCK, OR NEVER SLEEP, YOU
-				 * WILL BLOCK EVERYTHING.
-				 */
-				System.err.println("You should not have done that!");
-				System.out.println("ZZzzz....");
-				Thread.sleep(3000);
-				System.out.println("Hey! I am back");
-			} catch (InterruptedException ex) {
-			}
+			
 		} else if (e.getKeyChar() == '+') {
 			Overhead h = m_model.getOverhead();
 			h.inc();
@@ -99,56 +82,85 @@ public class Controller extends GameController implements ActionListener {
 			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		switch (e.getKeyChar()) {
 		// move Joueur 1
-		case 'Z':
-		case 'z':
+		case 'T':
+		case 't':
 			m_model.tanks[0].move('N');
+			m_model.last_touche = "z";
 			break;
-		case 'Q':
-		case 'q':
+		case 'F':
+		case 'f':
 			m_model.tanks[0].move('W');
+			m_model.last_touche = "f";
 			break;
-		case 'D':
-		case 'd':
+		case 'H':
+		case 'h':
 			m_model.tanks[0].move('E');
+			m_model.last_touche = "h";
 			break;
-		case 'S':
-		case 's':
+		case 'G':
+		case 'g':
 			m_model.tanks[0].move('S');
+			m_model.last_touche = "g";
 			break;
-		case 'a':
+		case 'R':
+		case 'r':
 			m_model.tanks[0].hit();
+			m_model.last_touche = "r";
 			break;
-		case 8:
-			if (!(m_model.tanks[0].inventaireVide()))
+		case 'y':
+		case 'Y':
+			if (!(m_model.tanks[0].inventaireVide())) {
 				m_model.tanks[0].inventaire[0].jeter(m_model.tanks[0]);
-			else
+			}
+			else {
 				System.out.println("Inventaire Vide");
+			}
+			m_model.last_touche = "y";
 			break;
 
 		// Pop Joueur 1
 		case 'W':
 		case 'w':
 			m_model.tanks[0].pop();
+			m_model.last_touche = "w";
 			break;
 
 		// Wizz Joueur 1
 		case 'x':
 		case 'X':
 			m_model.tanks[0].wizz();
+			m_model.last_touche = "x";
 			break;
 
 		// Pop Joueur 2
 		case 'L':
 		case 'l':
 			m_model.tanks[1].pop();
+			m_model.last_touche = "l";
 			break;
 
 		// Wizz Joueur 2
 		case 'm':
 		case 'M':
 			m_model.tanks[1].wizz();
+			m_model.last_touche = "m";
 			break;
+		case 'p' :
+		case 'P' :
+			if (!(m_model.tanks[1].inventaireVide())) {
+				m_model.tanks[1].inventaire[0].jeter(m_model.tanks[1]);
+			}
+			else {
+				System.out.println("Inventaire Vide");
+			}
+			m_model.last_touche = "p";
 
+			break;
+		case 'o':
+		case 'O':
+			m_model.tanks[1].hit();
+			m_model.last_touche = "o";
+			break;
 		default:
 			break;
 		}
@@ -156,24 +168,19 @@ public class Controller extends GameController implements ActionListener {
 		// Move Joueur 2
 		case 37:
 			m_model.tanks[1].move('W');
+			m_model.last_touche = "FL";
 			break;
 		case 38:
 			m_model.tanks[1].move('N');
+			m_model.last_touche = "FU";
 			break;
 		case 39:
 			m_model.tanks[1].move('E');
+			m_model.last_touche = "FR";
 			break;
 		case 40:
 			m_model.tanks[1].move('S');
-			break;
-		case 96:
-			m_model.tanks[1].hit();
-			break;
-		case 10:
-			if (!(m_model.tanks[1].inventaireVide()))
-				m_model.tanks[1].inventaire[0].jeter(m_model.tanks[1]);
-			else
-				System.out.println("Inventaire Vide");
+			m_model.last_touche = "FD";
 			break;
 		}
 	}
