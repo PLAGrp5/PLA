@@ -14,6 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import framework.GameUI.STATE;
 
@@ -31,7 +34,7 @@ public class Pause {
 
 	private void prepareGUI() {
 		pauseFrame = new JFrame("Gitank pause");
-		pauseFrame.setSize(256, 128);
+		pauseFrame.setSize(256, 300);
 		pauseFrame.setLayout(new GridLayout(2, 1));
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		pauseFrame.setLocation(dim.width / 2 - pauseFrame.getSize().width / 2,
@@ -51,6 +54,24 @@ public class Pause {
 
 		controlPanel = new JPanel();
 		controlPanel.setLayout(new FlowLayout());
+		
+		JPanel pan = new JPanel();
+		JSlider slide = new JSlider();
+	    slide.setMaximum(500);
+	    slide.setMinimum(100);
+	    slide.setValue((int)g_ui.set_refresh);
+	    slide.setPaintTicks(true);
+	    slide.setPaintLabels(true);
+	    slide.setMinorTickSpacing(100);
+	    slide.setMajorTickSpacing(200);
+	    slide.addChangeListener(new ChangeListener(){
+	        public void stateChanged(ChangeEvent event){
+	        	g_ui.set_refresh = ((JSlider)event.getSource()).getValue();
+	        }
+
+	      });      
+	    pan.add(slide);
+	    controlPanel.add(pan);
 
 		pauseFrame.add(headerLabel);
 		pauseFrame.add(controlPanel);
@@ -89,7 +110,6 @@ public class Pause {
 					g_ui.setState(STATE.Over);
 					Dimension d = new Dimension(1024, 1024);
 					pauseFrame.dispose();
-					g_ui.m_frame.dispose();
 					g_ui.createWindow(d);
 				}
 			} else if (command.equals("RESUME")) {

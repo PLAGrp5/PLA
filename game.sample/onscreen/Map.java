@@ -19,6 +19,7 @@ public class Map {
 	public char color[][];
 	public List<Portail> GateList = new ArrayList<Portail>();
 	public int NombrePortails = 0;
+	public long lastBonus = 0;
 
 	/*
 	 * Constructeur de base créant une carte Les limites du terrains ( premiere
@@ -104,7 +105,7 @@ public class Map {
 		try {
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
-			System.out.println("Mauvais type de fichier de carte séléctionné");
+			System.out.println("Pas de tel fichier");
 			System.exit(0);
 		}
 		n = scan.nextInt();
@@ -211,13 +212,13 @@ public class Map {
 	public boolean insertMineOK(Entity e) {
 		switch (e.dir) {
 		case 'S':
-			return isfree(e.p.i - 1, e.p.j); //&& !(ismine(e.p.i - 1, e.p.j)) && !(isbonus(e.p.i - 1, e.p.j));
+			return isfree(e.p.i - 1, e.p.j) && !(ismine(e.p.i - 1, e.p.j)) && !(isbonus(e.p.i - 1, e.p.j));
 		case 'W':
-			return isfree(e.p.i, e.p.j + 1);// && !(ismine(e.p.i, e.p.j + 1)) && !(isbonus(e.p.i, e.p.j + 1));
+			return isfree(e.p.i, e.p.j + 1) && !(ismine(e.p.i, e.p.j + 1)) && !(isbonus(e.p.i, e.p.j + 1));
 		case 'E':
-			return isfree(e.p.i, e.p.j - 1);// && !(ismine(e.p.i, e.p.j - 1)) && !(isbonus(e.p.i, e.p.j - 1));
+			return isfree(e.p.i, e.p.j - 1) && !(ismine(e.p.i, e.p.j - 1)) && !(isbonus(e.p.i, e.p.j - 1));
 		default:
-			return isfree(e.p.i + 1, e.p.j);// && !(ismine(e.p.i + 1, e.p.j)) && !(isbonus(e.p.i + 1, e.p.j));
+			return isfree(e.p.i + 1, e.p.j) && !(ismine(e.p.i + 1, e.p.j)) && !(isbonus(e.p.i + 1, e.p.j));
 		}
 	}
 
@@ -271,6 +272,15 @@ public class Map {
 			}
 		}
 		return nb_rouge;
-
+	}
+	
+	public void insertBonus() {
+		int i = (int) (Math.random() * n);
+		int j = (int) (Math.random() * n);
+		while(!(this.isfree(i, j))){
+			i = (int) (Math.random() * n);
+			j = (int) (Math.random() * n);
+		}
+		this.map[i][j].type = 'I';
 	}
 }
