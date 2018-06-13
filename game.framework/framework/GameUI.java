@@ -100,6 +100,7 @@ public class GameUI implements ActionListener {
 	int tpsBase;
 
 	protected Parametres param;
+
 	File map = new File("data/cartes/map_test.txt");
 	String sb1_1;
 	String sb1_2;
@@ -322,7 +323,7 @@ public class GameUI implements ActionListener {
 		}
 		elapsed = now - m_lastRepaint;
 		if (elapsed > Options.REPAINT_DELAY) {
-			double tick = (double) m_elapsed / (double) m_nTicks;
+			double tick = (double) elapsed / (double) m_nTicks;
 			long tmp = (long) (tick * 10.0);
 			tick = tmp / 10.0;
 			m_elapsed = 0;
@@ -433,8 +434,8 @@ public class GameUI implements ActionListener {
 		addWest(pan);
 	}
 
-	public void drawPLayer2Panel(Tank t, int score, String vie, String mine, String sbire, int nbre_mine,
-			int nbre_vie) {
+	public void drawPLayer2Panel(Tank t, Sbire s1, Sbire s2, int score, String vie, String mine, String sbire,
+			int nbre_mine, int nbre_vie) {
 		JPanel pan = new JPanel(new GridLayout(16, 3));
 
 		pan.add(new JLabel(""));
@@ -475,11 +476,11 @@ public class GameUI implements ActionListener {
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
-		pan.add(new JLabel("" + t.vie + ""));
+		pan.add(new JLabel("" + s1.vie + ""));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
-		pan.add(new JLabel("" + t.jauge_couleur + ""));
+		pan.add(new JLabel("" + s1.jauge_couleur + ""));
 
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
@@ -491,11 +492,11 @@ public class GameUI implements ActionListener {
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/Vie.png")));
-		pan.add(new JLabel("" + t.vie + ""));
+		pan.add(new JLabel("" + s2.vie + ""));
 
 		pan.add(new JLabel(""));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/peintureR.png")));
-		pan.add(new JLabel("" + t.jauge_couleur + ""));
+		pan.add(new JLabel("" + s2.jauge_couleur + ""));
 
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));
 		pan.add(new JLabel(new ImageIcon("game.sample/sprites/sepa1.png")));

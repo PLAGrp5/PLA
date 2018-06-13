@@ -52,6 +52,8 @@ public class Model extends GameModel {
 	public BufferedImage m_portail;
 	public BufferedImage m_bullet;
 
+	public String last_touche;
+	
 	public Map m_Map;
 
 	public int nsbire = 2;
@@ -87,9 +89,9 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
-		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
-		s21 = new Sbire(this, m_charbleuSprite, 1, 10, 'W', 1F, 30, coloria);
-
+		
+		s11 = new Sbire(this, m_sbirebleuSprite, 6, 28, 'W', 1F, 30, colort);
+		s21 = new Sbire(this, m_sbirerougeSprite, 4, 2, 'W', 1F, 30, colort2);
 		/*
 		 * State e = new State("1");
 		 * 
@@ -108,13 +110,17 @@ public class Model extends GameModel {
 		Ast a = new AutomataParser(new BufferedReader(new FileReader("game.parser/example/automata.txt"))).Run();
 
 		automates = (Automate[]) a.make();
-		// automates =
-		s11.comport = automates[0];
-		s11.courant = automates[0].init;
-		sbires[0] = s11;
 
-		s21.comport = automates[1];
-		s21.courant = automates[1].init;
+		s11.num_auto = 7;
+		s11.last_auto = s11.num_auto;
+		s11.comport = automates[s11.num_auto];
+		s11.courant = automates[s11.num_auto].init;
+		sbires[0] = s11;
+    
+		s21.num_auto = 1;
+		s21.last_auto = s21.num_auto;
+		s21.comport = automates[s21.num_auto];
+		s21.courant = automates[s21.num_auto].init;
 		sbires[1] = s21;
 
 		j1 = new Tank(this, m_charbleuSprite, 5, 15, 'W', 1F, 30, colort);
@@ -175,17 +181,6 @@ public class Model extends GameModel {
 	 * public Cowboy[] cowboys() { return m_cowboys; }
 	 * 
 	 * public Iterator<Square> squares() { return m_squares.iterator(); }
-	 */
-	/**
-	 * Simulation step.
-	 * 
-<<<<<<< HEAD
-	 * @param now
-	 *            <<<<<<< HEAD is the current time in milliseconds. ======= is the
-=======
-	 * @param now <<<<<<< HEAD is the current time in milliseconds. ======= is the
->>>>>>> menu
-	 *            current time in milliseconds. >>>>>>> manon
 	 */
 	@Override
 	public void step(long now) {

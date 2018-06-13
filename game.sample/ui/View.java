@@ -61,10 +61,18 @@ public class View extends GameView {
 		computeFPS();
 		// erase background
 
-		m_game.drawPLayer1Panel(m_model.tanks[0], m_model.sbires[0], m_model.sbires[1], m_model.m_Map.scorebleu(),
+		if (!(m_model.tanks[0].sbires_allies[0].alive) || !(m_model.tanks[0].sbires_allies[1].alive)) {
+			m_model.tanks[0].printsbire = "sbire_bonus";
+		}
+		if (!(m_model.tanks[1].sbires_allies[0].alive) || !(m_model.tanks[1].sbires_allies[1].alive)) {
+			m_model.tanks[1].printsbire = "sbire_bonus";
+		}
+			
+			
+		m_game.drawPLayer1Panel(m_model.tanks[0], m_model.tanks[0].sbires_allies[0], m_model.tanks[0].sbires_allies[1], m_model.m_Map.scorebleu(),
 				m_model.tanks[0].printvie, m_model.tanks[0].printmine, m_model.tanks[0].printsbire,
 				m_model.tanks[0].nbre_mine, m_model.tanks[0].nbre_vie);
-		m_game.drawPLayer2Panel(m_model.tanks[1], m_model.m_Map.scorerouge(), m_model.tanks[1].printvie,
+		m_game.drawPLayer2Panel(m_model.tanks[1], m_model.tanks[1].sbires_allies[0], m_model.tanks[1].sbires_allies[1], m_model.m_Map.scorerouge(), m_model.tanks[1].printvie,
 				m_model.tanks[1].printmine, m_model.tanks[1].printsbire, m_model.tanks[1].nbre_mine,
 				m_model.tanks[1].nbre_vie);
 
@@ -95,19 +103,19 @@ public class View extends GameView {
 				case 'R':
 					g.drawImage(m_model.m_red, 32 * l, 32 * k, 32, 32, null);
 					break;
-				case 'P':
-					g.drawImage(m_model.m_portail, 32 * l, 32 * k, 32, 32, null);
-					break;
+
 				default:
 					break;
 				}
 
 				// Pour chaque case on colorie avec la texture associé
-				if (m_model.m_Map.map[k][l].type == 'I') {
+				if (m_model.m_Map.map[k][l].type == 'I')
 					g.drawImage(m_model.m_item, 32 * l, 32 * k, 32, 32, null);
-				} else if (m_model.m_Map.map[k][l].type == 'M') {
+				else if (m_model.m_Map.map[k][l].type == 'M')
 					g.drawImage(m_model.m_mine, 32 * l, 32 * k, 32, 32, null);
-				}
+
+				else if (m_model.m_Map.map[k][l].type == 'G')
+					g.drawImage(m_model.m_portail, 32 * l, 32 * k, 32, 32, null);
 			}
 		}
 		// m_model.m.print();

@@ -12,14 +12,14 @@ public class MyButton extends JButton {
 
 	public MyButton(String txt, String icon, String iconHover) {
 		super(txt);
-		setForeground(Color.WHITE);
-		setOpaque(false);
-		setContentAreaFilled(false); // On met à false pour empêcher le composant de peindre l'intérieur du JButton.
-		setBorderPainted(false); // De même, on ne veut pas afficher les bordures.
-		setFocusPainted(false); // On n'affiche pas l'effet de focus.
-		setHorizontalAlignment(SwingConstants.CENTER);
-		setHorizontalTextPosition(SwingConstants.CENTER);
-		setIcon(new ImageIcon(icon));
-		setRolloverIcon(new ImageIcon(iconHover));
+		this.setForeground(Color.WHITE);
+		this.setOpaque(false);
+		this.setContentAreaFilled(false); // On met à false pour empêcher le composant de peindre l'intérieur du JButton.
+		this.setBorderPainted(false); // De même, on ne veut pas afficher les bordures.
+		this.setFocusPainted(false); // On n'affiche pas l'effet de focus.
+		this.setHorizontalAlignment(SwingConstants.CENTER);
+		this.setHorizontalTextPosition(SwingConstants.CENTER);
+		this.setIcon(new ImageIcon(icon));
+		this.setRolloverIcon(new ImageIcon(iconHover));
 	}
 }

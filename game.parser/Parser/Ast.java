@@ -50,7 +50,7 @@ public class Ast {
 	// AST as active automata (interpreter of transitions)
 
 	public Object make() {
-		return null; // TODO à définir dans la plupart des classes internes ci-dessous.
+		return this.make(); // TODO à définir dans la plupart des classes internes ci-dessous.
 	}
 
 	public static class Terminal extends Ast {
@@ -232,8 +232,8 @@ public class Ast {
 
 		public automate.Condition makeCondition() {
 			switch (operator.make()) {
-				/*case "/":
-					return new Not(operand.make());*/
+				case "!":
+					return new Not(operand.makeCondition());
 				default:
 					System.out.println("Erreur seul not est possible");
 					return null;
@@ -260,8 +260,8 @@ public class Ast {
 
 		public automate.Action makeAction() {
 			switch (operator.make()) {
-				/*case "/":
-					return new OrAction(left_operand.make(), right_operand.make());*/
+				case "/":
+					return new OrAction(left_operand.makeAction(), right_operand.makeAction());
 				default:
 					System.out.println("Erreur and de deux actions impossibles");
 					return null;
@@ -270,10 +270,10 @@ public class Ast {
 
 		public automate.Condition makeCondition() {
 			switch (operator.make()) {
-				/*case "/":
-					return new OrCondition(left_operand.make(), right_operand.make());
+				case "/":
+					return new OrCondition(left_operand.makeCondition(), right_operand.makeCondition());
 				case "&":
-					return new And(left_operand.make(), right_operand.make());*/
+					return new And(left_operand.makeCondition(), right_operand.makeCondition());
 				default:
 					System.out.println("Erreur seul and et or sont possibles");
 					return null;
@@ -317,6 +317,26 @@ public class Ast {
 					return new Move();
 				case "Turn":
 					return new Turn(t[0]);
+				case "Kamikaze" :
+					return new Kamikaze();
+				case "Pop":
+					return new Pop();
+				case "Wizz":
+					return new Wizz();
+				case "Hit" :
+					return new Hit();
+				case "Jump" :
+					return new Pop();
+				case "Protect" :
+					return new Hit();
+				case "Pick" :
+					return new Turn();
+				case "Store" :
+					return new Wizz();
+				case "Get" :
+					return new Turn();
+				case "Power" :
+					return new Power();
 				default:
 					return null;
 			}
@@ -334,6 +354,12 @@ public class Ast {
 			switch (name.make()) {
 				case "Cell":
 					return new Cell(t[0], t[1]);
+				case "MyDir" :
+					return new MyDir(t[0]);
+				case "Closest" :
+					return new Closest(t[0],t[1]);
+				/*case "Key" : 
+					return new Key(t[0]);*/
 				default:
 					return new True();
 			}

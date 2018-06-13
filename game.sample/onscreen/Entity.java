@@ -32,7 +32,7 @@ public class Entity {
 	int vie_max;
 
 	public boolean alive = true;
-	
+
 	public BonusEtMalus[] inventaire = new BonusEtMalus[3];
 	public int jauge_couleur;
 	public int lastj, lasti;
@@ -40,27 +40,34 @@ public class Entity {
 
 	public String printvie = "Vie_0";
 	public String printmine = "mine_0";
-	public String printsbire = "fondpanel";
+	public String printsbire = "sbire_bonus_0";
+
 	public int nbre_mine = 0;
 	public int nbre_vie = 0;
 
 	public Sbire[] sbires_allies = new Sbire[2];
+	
+	public int num_auto;
+	public int last_auto;
 
 	public Entity(char type) {
 		this.type = type;
 		p.i = 1;
 		p.j = 1;
+		alive = false;
 	}
 
 	public Entity(char type, int i, int j, char dir) {
 		this.type = type;
 		this.p = new Point(i, j);
 		this.dir = dir;
+		alive = false;
 	}
 
 	public Entity(char type, int i, int j) {
 		this.type = type;
 		this.p = new Point(i, j);
+		alive = false;
 	}
 
 	public Entity(Model model, BufferedImage sprite, int x, int y, char dir, float scale) {
@@ -70,22 +77,23 @@ public class Entity {
 		p.j = x;
 		this.dir = dir;
 		m_scale = scale;
+		alive = false;
 	}
 
 	public void opposite() {
 		switch (this.dir) {
-			case 'S':
-				this.dir = 'N';
-				break;
-			case 'W':
-				this.dir = 'E';
-				break;
-			case 'E':
-				this.dir = 'W';
-				break;
-			default:
-				this.dir = 'S';
-				break;
+		case 'S':
+			this.dir = 'N';
+			break;
+		case 'W':
+			this.dir = 'E';
+			break;
+		case 'E':
+			this.dir = 'W';
+			break;
+		default:
+			this.dir = 'S';
+			break;
 		}
 	}
 
@@ -111,7 +119,7 @@ public class Entity {
 	public void hit() {
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;
-		if (elapsed > 500L) {
+		if (elapsed > 400L) {
 			m_lastMove = now;
 			if (canihit())
 				new Hit().execute(this);
@@ -123,8 +131,8 @@ public class Entity {
 		}
 	}
 
-	public void explode() {
-		new Explode().execute(this);
+	public void kamikaze() {
+		new Kamikaze().execute(this);
 	}
 
 	public void turn(char dir) {
@@ -157,10 +165,18 @@ public class Entity {
 	}
 
 	public void updatevie(Model model, int vie) {
+
 		this.vie += vie;
+		if (this instanceof Sbire && this.num_auto == 0) {
+			this.num_auto = this.last_auto;
+			this.comport = model.automates[this.num_auto];
+		}
 		if (this.vie < 1) {
 			this.vie = 0;
-			if (type != 'W' && type != 'P')
+			this.alive = false;
+			this.num_auto = 0;
+			this.comport = model.automates[this.num_auto];
+			if (type != 'W' && type != 'P' && type != 'T')
 				model.del(this);
 		}
 	}
