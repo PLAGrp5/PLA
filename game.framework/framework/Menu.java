@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
+import java.io.*;
 
 import framework.GameUI.*;
 
@@ -140,9 +141,29 @@ public class Menu {
 				Dimension tailleMoniteur = Toolkit.getDefaultToolkit().getScreenSize();
 
 				Dimension d = new Dimension(tailleMoniteur.height * 1384 / 1033, tailleMoniteur.height * 989 / 1033);
+				int i = 0;
+				//while (i < 99999999) {i++; System.out.println(i);}
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
+				
+				// Essai d'une confirmation annoncant le début de partie lors du clic sur le bouton START
+				//g_ui.createWindow(d);
+		//		g_ui.stopTimer();
+			/*	JOptionPane debut = new JOptionPane();
+				debut.showMessageDialog(null, "test", "titre", JOptionPane.INFORMATION_MESSAGE);
+			      Timer timer = new Timer(5000, new TimerTest(debut));
+			      timer.setRepeats(false);
+			      timer.start();
+			     if (debut.isDisplayable())
+			          debut.setVisible(true);
+			          */
+		//	int option = JOptionPane.showConfirmDialog(null, "Prêt?", "Lancement partie",
+		//					JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
+			   // }
+			//	g_ui.resumeTimer();
+			//	g_ui.temps_de_pause += System.currentTimeMillis() - g_ui.m_start;
+				 
 			} else if (command.equals("HELP")) {
 				g_ui.setState(STATE.Help);
 				Dimension d = new Dimension(1447, 1033);
@@ -162,7 +183,18 @@ public class Menu {
 				g_ui.createWindow(d);
 			}
 		}
-
+		}
+	/*
+	private class TimerTest implements ActionListener {
+		private JOptionPane jp = new JOptionPane();
+		
+		public TimerTest(JOptionPane jp) {
+			this.jp = jp;
+		}
+		public void actionPerformed(ActionEvent e) { 
+        	jp.setVisible(false);
+		}
 	}
+	*/
 
 }
