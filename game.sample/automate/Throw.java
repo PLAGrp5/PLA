@@ -4,8 +4,14 @@ import onscreen.*;
 
 public class Throw extends Action{
 	
+	public Throw() {
+		
+	}
+	
 	public void execute (Entity e) {
-		e.inventaire[0].jeter(e);
+		if(e.inventaire.length <=0 )
+			e.inventaire[0].jeter(e);
+			
 	}
 	
 }

@@ -16,8 +16,13 @@ public class Entity {
 	public char dir;
 	public char type;
 	float m_scale;
+	
 	BufferedImage m_sprite;
 	public BufferedImage[] m_sprites;
+	
+	BufferedImage m_sprite_Hit;
+	public BufferedImage[] m_sprites_Hit;
+	
 	public long m_lastMove;
 
 	public Automate comport;
@@ -32,6 +37,7 @@ public class Entity {
 	int vie_max;
 
 	public boolean alive = true;
+	public boolean isHit;
 
 	public BonusEtMalus[] inventaire = new BonusEtMalus[3];
 	public int jauge_couleur;
@@ -55,6 +61,7 @@ public class Entity {
 		p.i = 1;
 		p.j = 1;
 		alive = false;
+		isHit = false;
 	}
 
 	public Entity(char type, int i, int j, char dir) {
@@ -62,12 +69,14 @@ public class Entity {
 		this.p = new Point(i, j);
 		this.dir = dir;
 		alive = false;
+		isHit = false;
 	}
 
 	public Entity(char type, int i, int j) {
 		this.type = type;
 		this.p = new Point(i, j);
 		alive = false;
+		isHit = false;
 	}
 
 	public Entity(Model model, BufferedImage sprite, int x, int y, char dir, float scale) {
@@ -78,6 +87,7 @@ public class Entity {
 		this.dir = dir;
 		m_scale = scale;
 		alive = false;
+		isHit = false;
 	}
 
 	public void opposite() {
@@ -119,7 +129,7 @@ public class Entity {
 	public void hit() {
 		long now = System.currentTimeMillis();
 		long elapsed = now - m_lastMove;
-		if (elapsed > 400L) {
+		if (elapsed > 300L) {
 			m_lastMove = now;
 			if (canihit())
 				new Hit().execute(this);
@@ -167,6 +177,7 @@ public class Entity {
 	public void updatevie(Model model, int vie) {
 
 		this.vie += vie;
+		this.isHit = true;
 		if (this instanceof Sbire && this.num_auto == 0) {
 			this.num_auto = this.last_auto;
 			this.comport = model.automates[this.num_auto];
@@ -176,7 +187,7 @@ public class Entity {
 			this.alive = false;
 			this.num_auto = 0;
 			this.comport = model.automates[this.num_auto];
-			if (type != 'W' && type != 'P' && type != 'T')
+			if (type != 'W' && type != 'P' && type != 'T' && type != 'G')
 				model.del(this);
 		}
 	}
