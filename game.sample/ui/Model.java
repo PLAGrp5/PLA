@@ -261,7 +261,7 @@ public class Model extends GameModel {
 		}
 
 		for (i = 0; i < nsbire; i++) {
-			if (now - sbires[i].m_lastMove > 200L) {
+			if (now - sbires[i].m_lastMove > m_game.set_refresh) {
 				if (sbires[i].aut_bonus) {
 					sbires[i].comport_bonus.step(sbires[i]);
 					if (++sbires[i].nstep > sbires[i].maxnstep) {
