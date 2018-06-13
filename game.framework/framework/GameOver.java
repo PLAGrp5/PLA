@@ -165,6 +165,7 @@ public class GameOver {
 				g_ui.setState(STATE.Menu);
 				Dimension d = new Dimension(1024, 1024);
 				overFrame.dispose();
+				g_ui.m_frame.dispose();
 				g_ui.createWindow(d);
 			}
 		}

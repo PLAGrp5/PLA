@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
@@ -69,9 +70,27 @@ public class Model extends GameModel {
 	Random rand = new Random();
 	Overhead m_overhead = new Overhead();
 
-	public static Automate getAut(Automate[] listAut, String sb) {
+	public static String fromFile(String fp) {
+		File f = null;
+		Scanner scan = null;
+		String res = "";
+		try {
+			f = new File(fp);
+			scan = new Scanner(f);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not &Found");
+			System.exit(0);
+		}
+		while (scan.hasNextLine()) {
+			res = scan.nextLine();
+		}
+		return res;		
+	}
+	
+	public static Automate getAut(Automate[] listAut, String fp) {
+		String sb = fromFile(fp);
 		for (int i = 0; i < listAut.length; i++) {
-			if (listAut[i].name == sb) {
+			if (listAut[i].name.equalsIgnoreCase(sb)) {
 				return listAut[i];
 			}
 		}
@@ -86,7 +105,7 @@ public class Model extends GameModel {
 		return nameList;
 	}
 	
-	public Model(Map m, String[] sb) throws ParseException, FileNotFoundException {
+	public Model(Map m) throws ParseException, FileNotFoundException {
 		this.m_Map = m;
 		Tank j1, j2;
 		Sbire s11, s12, s21, s22;
@@ -105,10 +124,10 @@ public class Model extends GameModel {
 		Color colort2 = Color.orange;
 		Color coloria = Color.gray;
 		
-		s11 = new Sbire(this, m_charbleuSprite, 6, 28, 'W', 1F, 30, coloria);
-		s12 = new Sbire(this, m_charbleuSprite, 5, 28, 'E', 1F, 30, coloria);
-		s21 = new Sbire(this, m_charrougeSprite, 1, 10, 'W', 1F, 30, coloria);
-		s22 = new Sbire(this, m_charrougeSprite, 1, 11, 'E', 1F, 30, coloria);
+		s11 = new Sbire(this, m_charbleuSprite, 1, 1, 'W', 1F, 30, coloria);
+		s12 = new Sbire(this, m_charbleuSprite, 28, 1, 'E', 1F, 30, coloria);
+		s21 = new Sbire(this, m_charrougeSprite, 1, 28, 'W', 1F, 30, coloria);
+		s22 = new Sbire(this, m_charrougeSprite, 28, 28, 'E', 1F, 30, coloria);
 		
 		/*
 		 * State e = new State("1");
@@ -129,24 +148,29 @@ public class Model extends GameModel {
 
 		automates = (Automate[]) a.make();
 		// automates =
-		s11.comport = getAut(automates, sb[0]);
+		String sb1_1 = "data/automates/sb1_1.txt";
+		String sb1_2 = "data/automates/sb1_2.txt";
+		String sb2_1 = "data/automates/sb2_1.txt";
+		String sb2_2 = "data/automates/sb2_2.txt";
+		
+		s11.comport = getAut(automates, sb1_1);
 		s11.courant = s11.comport.init;
 		sbires[0] = s11;
 		
-		s12.comport = getAut(automates, sb[1]);
+		s12.comport = getAut(automates, sb1_2);
 		s12.courant = s12.comport.init;
 		sbires[1] = s12;
 
-		s21.comport = getAut(automates, sb[2]);
+		s21.comport = getAut(automates, sb2_1);
 		s21.courant = s21.comport.init;
 		sbires[2] = s21;
 		
-		s22.comport = getAut(automates, sb[0]);
+		s22.comport = getAut(automates, sb2_2);
 		s22.courant = s22.comport.init;
 		sbires[3] = s22;
 
-		j1 = new Tank(this, m_charbleuSprite, 5, 15, 'W', 1F, 30, colort);
-		j2 = new Tank(this, m_charrougeSprite, 8, 19, 'W', 1F, 30, colort2);
+		j1 = new Tank(this, m_charbleuSprite, 15, 1, 'E', 1F, 30, colort);
+		j2 = new Tank(this, m_charrougeSprite, 15, 28, 'W', 1F, 30, colort2);
 
 		tanks[0] = j1;
 		tanks[1] = j2;

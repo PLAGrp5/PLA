@@ -104,7 +104,7 @@ public class Map {
 		try {
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
-			System.out.println("Mauvais type de fichier de carte séléctionné");
+			System.out.println("Pas de tel fichier");
 			System.exit(0);
 		}
 		n = scan.nextInt();

@@ -19,7 +19,7 @@ package framework;
 
 public abstract class GameModel {
 
-  protected GameUI m_game;
+  public GameUI m_game;
 
   protected GameModel() {
   }
