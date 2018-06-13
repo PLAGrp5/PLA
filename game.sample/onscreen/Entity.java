@@ -32,6 +32,7 @@ public class Entity {
 	int vie_max;
 
 	public boolean alive = true;
+	public boolean isHit = false;
 
 	public BonusEtMalus[] inventaire = new BonusEtMalus[3];
 	public int jauge_couleur;
