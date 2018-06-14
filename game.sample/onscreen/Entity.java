@@ -16,13 +16,13 @@ public class Entity {
 	public char dir;
 	public char type;
 	float m_scale;
-	
+
 	BufferedImage m_sprite;
 	public BufferedImage[] m_sprites;
-	
+
 	BufferedImage m_sprite_Hit;
 	public BufferedImage[] m_sprites_Hit;
-	
+
 	public long m_lastMove;
 
 	public Automate comport;
@@ -52,7 +52,7 @@ public class Entity {
 	public int nbre_vie = 0;
 
 	public Sbire[] sbires_allies = new Sbire[2];
-	
+
 	public int num_auto;
 	public int last_auto;
 
