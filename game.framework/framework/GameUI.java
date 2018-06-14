@@ -25,11 +25,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,23 +35,16 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import Parser.Ast;
-import Parser.AutomataParser;
 import Parser.ParseException;
-import automate.Automate;
 import onscreen.Map;
 import onscreen.Sbire;
 import onscreen.Tank;
 import ui.Controller;
 import ui.Model;
 import ui.View;
-import javax.swing.JPanel;
 
 public class GameUI implements ActionListener {
 
@@ -89,6 +79,7 @@ public class GameUI implements ActionListener {
 	Timer m_timer;
 	GameModel m_model;
 	GameController m_controller;
+	Controller _controller;
 	JLabel m_text;
 	int m_fps;
 	String m_msg;
@@ -131,10 +122,10 @@ public class GameUI implements ActionListener {
 
 	public GameUI(Dimension d) {
 		System.out.println(license);
-
 		// create the main window and the periodic timer
 		// to drive the overall clock of the simulation.
 		createWindow(d);
+		music();
 	}
 
 	public GameModel getModel() {
@@ -163,6 +154,10 @@ public class GameUI implements ActionListener {
 
 	public void addEast(Component c) {
 		m_frame.add(c, BorderLayout.EAST);
+	}
+	
+	public void music() {
+		m_controller.start();
 	}
 
 	void createWindow(Dimension d) {
@@ -229,8 +224,7 @@ public class GameUI implements ActionListener {
 			// which part of the overall GUI receives the keyboard events.
 			m_view.setFocusable(true);
 			m_view.requestFocusInWindow();
-
-			m_controller.notifyVisible();
+			
 		} else if (state == STATE.Menu) {
 			Map m = new Map(map);
 			Model model;
@@ -318,7 +312,7 @@ public class GameUI implements ActionListener {
 			if (mod.tanks[parcourstank].vie == 0) {
 				// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
 				stopTimer();
-				int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.INFORMATION_MESSAGE);
 				setState(STATE.Over);
 				m_frame.dispose();
@@ -332,7 +326,7 @@ public class GameUI implements ActionListener {
 		if (tempsrestant <= 0) {
 			// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
 			stopTimer();
-			int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 			setState(STATE.Over);
 			m_frame.dispose();

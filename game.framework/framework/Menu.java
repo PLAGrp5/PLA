@@ -20,6 +20,7 @@ public class Menu {
 	JFrame menuFrame;
 	JPanel controlPanel;
 	GameUI g_ui;
+	GameController m_controller;
 	final JFileChooser fc = new JFileChooser();
 
 	public Menu(GameUI g) {
@@ -29,6 +30,10 @@ public class Menu {
 
 	private void prepareGUI() {
 		menuFrame = new JFrame();
+		//m_controller.getController();
+		try {
+		m_controller.start();
+		} catch(Exception ex) { }
 		menuFrame.setTitle("Gitank Menu");
 		menuFrame.setSize(1024, 1024);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -161,7 +166,6 @@ public class Menu {
 			   // }
 			//	g_ui.resumeTimer();
 			//	g_ui.temps_de_pause += System.currentTimeMillis() - g_ui.m_start;
-				 
 			} else if (command.equals("HELP")) {
 				g_ui.setState(STATE.Help);
 				Dimension d = new Dimension(1447, 1033);

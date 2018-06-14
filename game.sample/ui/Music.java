@@ -44,9 +44,11 @@ import javax.media.Time;
  * Then to convert mp3 to wav (using -w option)
  *    mpg123 -w output.wav input.mp3
  *
- * Title:   Future RPG                      Artist: Eric Matyas
- * Comment: QMAYT1400787                    Album:  
- * Year:    6                               Genre:  Soundtrack, 
+ * Title: Leaf Shaped Feelings 7th Gear Remix                   Artist: smallRADIO
+ * Comment: QMAYT1400787                    					Album:  LSF REMIXES
+ * Year:    2011	                         					Genre:  Electronic 
+ * 
+ * La musique utilisée est libre de droit et est tirée du site https://www.auboutdufil.com/
 */
 
 public class Music {
@@ -74,16 +76,16 @@ private void load() throws IOException, NoPlayerException, CannotRealizeExceptio
           m_player.start();
         }
       }
-    });
+    }
+    );
   }
-
-  public Component getControls() {
-    Component c; 
-    c = m_player.getControlPanelComponent();
-    Dimension d = c.getPreferredSize();
-    d.setSize(d.getWidth() + 100, d.getHeight());
-    c.setPreferredSize(d);
-    return c;
+  
+  public void start() {
+	  m_player.start();
+  }
+  
+  public void stop() {
+	  m_player.stop();
   }
 
 }

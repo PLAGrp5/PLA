@@ -24,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
+
 import framework.*;
 
 /**
@@ -236,6 +238,7 @@ public class Controller extends GameController implements ActionListener {
 	public void notifyVisible() {
 		Container cont = new Container();
 		cont.setLayout(new FlowLayout());
+		//cont.setVisible(false);
 
 		m_strobesOn = new Button("Strobes");
 		m_strobesOn.addActionListener(this);
@@ -257,12 +260,20 @@ public class Controller extends GameController implements ActionListener {
 		m_explosionsOn.addActionListener(this);
 		cont.add(m_explosionsOn);
 
-		/*
-		 * File file; file = new File("game.sample/sprites/Future-RPG.wav"); //file =
-		 * new File("game.sample/sprites/Runaway-Food-Truck.wav"); try { //m_player =
-		 * new Music(file); cont.add(m_player.getControls()); } catch (Exception ex) { }
-		 * m_game.addSouth(cont);
-		 */
+	}
+	
+	public void start() {
+		  File file; 
+		  file = new File("game.sample/sprites/music.wav");
+		  try { 
+			  m_player = new Music(file); 
+			  m_player.start();
+			  } catch (Exception ex) { }
+		 
+	}
+	
+	public void stop() {
+		m_player.stop();
 	}
 
 	@Override
