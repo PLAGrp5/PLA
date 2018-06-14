@@ -24,6 +24,7 @@ public class Menu {
 	JFrame menuFrame;
 	JPanel controlPanel;
 	GameUI g_ui;
+	GameController m_controller;
 	final JFileChooser fc = new JFileChooser();
 
 	public Menu(GameUI g) {
@@ -33,6 +34,10 @@ public class Menu {
 
 	private void prepareGUI() {
 		menuFrame = new JFrame();
+		//m_controller.getController();
+		try {
+		m_controller.start();
+		} catch(Exception ex) { }
 		menuFrame.setTitle("Gitank Menu");
 		menuFrame.setSize(1024, 1024);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -147,23 +152,6 @@ public class Menu {
 				g_ui.createWindow(d);
 				g_ui.createTimer();
 				menuFrame.dispose();
-
-				// Essai d'une confirmation annoncant le début de partie lors du clic sur le
-				// bouton START
-				// g_ui.createWindow(d);
-				// g_ui.stopTimer();
-				/*
-				 * JOptionPane debut = new JOptionPane(); debut.showMessageDialog(null, "test",
-				 * "titre", JOptionPane.INFORMATION_MESSAGE); Timer timer = new Timer(5000, new
-				 * TimerTest(debut)); timer.setRepeats(false); timer.start(); if
-				 * (debut.isDisplayable()) debut.setVisible(true);
-				 */
-				// int option = JOptionPane.showConfirmDialog(null, "Prêt?", "Lancement partie",
-				// JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
-				// }
-				// g_ui.resumeTimer();
-				// g_ui.temps_de_pause += System.currentTimeMillis() - g_ui.m_start;
-
 			} else if (command.equals("HELP")) {
 				g_ui.setState(STATE.Help);
 				Dimension d = new Dimension(1447, 1033);

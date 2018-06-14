@@ -35,6 +35,10 @@ public abstract class GameController implements MouseListener, MouseMotionListen
   }
 
   public abstract void notifyVisible();
+  
+  public abstract void stop();
+  
+  public abstract void start();
 
   /**
    * Simulation step. Warning: the model has already executed its step.
