@@ -27,7 +27,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -81,6 +80,7 @@ public class GameUI implements ActionListener {
 	Timer m_timer;
 	GameModel m_model;
 	GameController m_controller;
+	Controller _controller;
 	JLabel m_text;
 	int m_fps;
 	String m_msg;
@@ -123,10 +123,10 @@ public class GameUI implements ActionListener {
 
 	public GameUI(Dimension d) {
 		System.out.println(license);
-
 		// create the main window and the periodic timer
 		// to drive the overall clock of the simulation.
 		createWindow(d);
+		music();
 	}
 
 	public GameModel getModel() {
@@ -155,6 +155,10 @@ public class GameUI implements ActionListener {
 
 	public void addEast(Component c) {
 		m_frame.add(c, BorderLayout.EAST);
+	}
+	
+	public void music() {
+		m_controller.start();
 	}
 
 	void createWindow(Dimension d) {
@@ -220,8 +224,7 @@ public class GameUI implements ActionListener {
 			// which part of the overall GUI receives the keyboard events.
 			m_view.setFocusable(true);
 			m_view.requestFocusInWindow();
-
-			m_controller.notifyVisible();
+			
 		} else if (state == STATE.Menu) {
 			Map m = new Map(map);
 			Model model;
@@ -308,8 +311,8 @@ public class GameUI implements ActionListener {
 			if (mod.tanks[parcourstank].vie == 0) {
 				// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
 				stopTimer();
-				JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
-						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE);
 				setState(STATE.Over);
 				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
@@ -322,8 +325,8 @@ public class GameUI implements ActionListener {
 		if (tempsrestant <= 0) {
 			// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
 			stopTimer();
-			JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE);
 			setState(STATE.Over);
 			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
