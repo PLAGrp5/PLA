@@ -59,7 +59,7 @@ public class Move extends Action {
 			String bonus1 = "data/bonus/bonus1.txt";
 			String bonus2 = "data/bonus/bonus2.txt";
 			Automate comp = null;
-			
+
 			e.aut_bonus = true;
 
 			int bon_aut = (int) (Math.random() * 2);
