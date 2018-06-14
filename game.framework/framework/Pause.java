@@ -39,7 +39,7 @@ public class Pause {
 
 	private void prepareGUI() {
 		pauseFrame = new JFrame("Gitank pause");
-		pauseFrame.setSize(256, 400);
+		pauseFrame.setSize(256, 450);
 		pauseFrame.setLayout(new GridLayout(2, 1));
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		pauseFrame.setLocation(dim.width / 2 - pauseFrame.getSize().width / 2,
