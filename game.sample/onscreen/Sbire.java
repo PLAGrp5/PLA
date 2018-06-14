@@ -30,7 +30,7 @@ public class Sbire extends Entity {
 		maxnstep = 15;
 		splitSbiresSprite();
 		splitSbiresSprite_Hit();
-		setvie(15);
+		setvie(3);
 		initinventaire();
 	}
 
@@ -50,7 +50,7 @@ public class Sbire extends Entity {
 		maxnstep = 15;
 		splitSbiresSprite();
 		splitSbiresSprite_Hit();
-		this.setvie(15);
+		this.setvie(3);
 		alive = true;
 		this.initinventaire();
 	}

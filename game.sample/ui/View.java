@@ -113,11 +113,11 @@ public class View extends GameView {
 		// m_model.m.print();
 
 		m_model.tanks[0].paint(g, m_model.tanks[0].dir);
-		m_model.tanks[1].paint(g, m_model.tanks[1].dir);
-		for (int i = 0; i < m_model.nsbire; i++) {
+		//m_model.tanks[1].paint(g, m_model.tanks[1].dir);
+		//for (int i = 0; i < m_model.nsbire; i++) {
 			// System.out.println(m_model.sbires[i].alive);
-			m_model.sbires[i].paint(g, m_model.sbires[i].dir);
-		}
+			m_model.sbires[0].paint(g, m_model.sbires[0].dir);
+		//}
 		for (int i = 0; i < m_model.nbullet; i++) {
 			m_model.bullets[i].paint(g, m_model.bullets[i].dir);
 		}
