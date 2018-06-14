@@ -20,9 +20,7 @@ Avan_Turn (Init) {
 
 Peintre(Colorier){
 
-* (Colorier) : True ? Pop :(Colorier2)
-* (Colorier2) : True ? Pop :(Colorier3)
-* (Colorier3) : True ? Pop :(Recharger)
+* (Colorier) : True ? Pop :(Recharger)
 * (Recharger): True ? Wizz :(Deplacement)
 * (Deplacement):
   | Cell(F,V) ? Move :(Colorier)
@@ -278,4 +276,94 @@ SuperHero(Explore){
   | True ? Wizz :(Explore)
 
 * (Build_1): True ? Throw :(Build)
+}
+
+TireurFou(Avancer){
+
+* (Avancer):
+  | Cell(F,V) ? Move :(Tireur)
+  | Cell(F,V) ? Turn(L) :(Tireur)
+  | Cell(F,J) ? Move :(Tireur)
+  | Cell(F,P) ? Move :(Utilisateur)
+  | True ? Turn(L) :(Tireur)
+  
+* (Tireur):
+  | MyDir(N) & Closest(E,N) ? Hit :(Tireur)
+  | MyDir(O) & Closest(E,O) ? Hit :(Tireur)
+  | MyDir(E) & Closest(E,E) ? Hit :(Tireur)
+  | MyDir(S) & Closest(E,S) ? Hit :(Tireur)
+  | True ? Hit :(Avancer)
+  
+* (Utilisateur): True ? Throw :(Tireur)
+	
+}
+
+MaitreInstable(Tactique){
+
+* (Tactique):
+  | MyDir(N) & Closest(E,N) ? Hit :(Tactique)
+  | MyDir(O) & Closest(E,O) ? Hit :(Tactique)
+  | MyDir(E) & Closest(E,E) ? Hit :(Tactique)
+  | MyDir(S) & Closest(E,S) ? Hit :(Tactique)
+  | Cell(F,V) ? Move :(Colorier)
+  | Cell(F,V) ? Move :(Tactique)
+  | Cell(L,V) ? Turn(R) :(Tactique)
+  | Cell(F,J) ? Move :(Colorier)
+  | Cell(F,P) ? Move :(Utilisateur)
+  | True ? Turn(R) :(Colorier)
+  
+* (Utilisateur):
+  | True ? Throw :(Tactique)
+  
+* (Colorier) : True ? Pop :(Recharger)
+
+* (Recharger): True ? Wizz :(Tactique)
+
+}
+
+Garde(Avancer){
+
+* (Avancer):
+  | MyDir(N) & Closest(E,N) ? Hit :(Tireur)
+  | MyDir(O) & Closest(E,O) ? Hit :(Tireur)
+  | MyDir(E) & Closest(E,E) ? Hit :(Tireur)
+  | MyDir(S) & Closest(E,S) ? Hit :(Tireur)
+  | Cell(F,V) ? Move :(Avancer)
+  | Cell(F,V) ? Move :(Avancer)
+  | Cell(F,J) ? Move :(Avancer)
+  | Cell(F,V) ? Turn(R):(Avancer)
+  | Cell(F,V) ? Turn(L):(Avancer)
+  | True ? Turn(R) :(Avancer)
+
+* (Tireur):
+  | MyDir(N) & Closest(E,N) ? Hit :(Tireur)
+  | MyDir(O) & Closest(E,O) ? Hit :(Tireur)
+  | MyDir(E) & Closest(E,E) ? Hit :(Tireur)
+  | MyDir(S) & Closest(E,S) ? Hit :(Tireur)
+  | True ? Turn(L) :(Avancer)
+
+}
+
+Artiste(Colorier){
+
+* (Colorier) : True ? Pop :(Recharger)
+* (Recharger): True ? Wizz :(Deplacement1)
+* (Deplacement1):
+  | Cell(F,V) ? Move :(Deplacement2)
+  | Cell(F,V) ? Turn(L) :(Deplacement1)
+  | Cell(F,J) ? Move :(Deplacement2)
+  | True ? Turn(R) :(Deplacement1)
+  
+* (Deplacement2):
+  | Cell(F,V) ? Move :(Deplacement3)
+  | Cell(F,J) ? Move :(Deplacement3)
+  | Cell(F,V) ? Turn(R) :(Deplacement2)
+  | True ? Turn(L) :(Deplacement2)
+  
+* (Deplacement3):
+  | Cell(F,V) ? Move :(Colorier)
+  | Cell(F,J) ? Move :(Colorier)
+  | Cell(F,V) ? Turn(L) :(Deplacement3)
+  | True ? Turn(R) :(Deplacement3)
+  
 }
