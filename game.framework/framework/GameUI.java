@@ -25,10 +25,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -38,27 +36,21 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import Parser.Ast;
-import Parser.AutomataParser;
 import Parser.ParseException;
-import automate.Automate;
 import onscreen.Map;
 import onscreen.Sbire;
 import onscreen.Tank;
 import ui.Controller;
 import ui.Model;
 import ui.View;
-import javax.swing.JPanel;
 
 public class GameUI implements ActionListener {
 
-	static String license = "Copyright (C) 2017  Pr. Olivier Gruber " + "This program comes with ABSOLUTELY NO WARRANTY. "
+	static String license = "Copyright (C) 2017  Pr. Olivier Gruber "
+			+ "This program comes with ABSOLUTELY NO WARRANTY. "
 			+ "This is free software, and you are welcome to redistribute it "
 			+ "under certain conditions; type `show c' for details.";
 
@@ -104,15 +96,15 @@ public class GameUI implements ActionListener {
 	protected GameOver over;
 	protected Credit credit;
 	int tpsBase;
-	
-	public long set_refresh = 200L; 
+
+	public long set_refresh = 200L;
 
 	ImageIcon sepa = new ImageIcon("game.sample/sprites/sepa.png");
 	ImageIcon sepa1 = new ImageIcon("game.sample/sprites/sepa1.png");
 	ImageIcon vie = new ImageIcon("game.sample/sprites/Vie.png");
 	ImageIcon peintureR = new ImageIcon("game.sample/sprites/peintureR.png");
 	ImageIcon peintureB = new ImageIcon("game.sample/sprites/peintureB.png");
-  
+
 	public Parametres param;
 
 	File map = new File("data/cartes/map_test.txt");
@@ -184,7 +176,7 @@ public class GameUI implements ActionListener {
 
 			m_frame.setSize(d);
 			m_frame.doLayout();
-			
+
 			m_frame.setVisible(true);
 
 			// hook window events so that we exit the Java Platform
@@ -276,7 +268,7 @@ public class GameUI implements ActionListener {
 			int tick = 1; // one millisecond
 			m_start = System.currentTimeMillis();
 			m_lastTick = m_start;
-			tpsBase = 60000;
+			tpsBase = 120000;
 			m_lastRepaint = 0;
 			m_timer = new Timer(tick, new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
@@ -316,8 +308,8 @@ public class GameUI implements ActionListener {
 			if (mod.tanks[parcourstank].vie == 0) {
 				// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
 				stopTimer();
-				int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				setState(STATE.Over);
 				m_frame.dispose();
 				Dimension d = new Dimension(1024, 1024);
@@ -330,8 +322,8 @@ public class GameUI implements ActionListener {
 		if (tempsrestant <= 0) {
 			// Créer une fenêtre en fin de partie pour pouvoir visualiser la map
 			stopTimer();
-			int option = JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie", JOptionPane.DEFAULT_OPTION,
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showConfirmDialog(null, "C'est fini !", "Fin de partie",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			setState(STATE.Over);
 			m_frame.dispose();
 			Dimension d = new Dimension(1024, 1024);
