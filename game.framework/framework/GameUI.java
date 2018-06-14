@@ -97,6 +97,7 @@ public class GameUI implements ActionListener {
 	protected Credit credit;
 	int tpsBase;
 
+
 	public long set_refresh = 200L;
 
 	ImageIcon sepa = new ImageIcon("game.sample/sprites/sepa.png");
@@ -126,7 +127,7 @@ public class GameUI implements ActionListener {
 		// create the main window and the periodic timer
 		// to drive the overall clock of the simulation.
 		createWindow(d);
-		music();
+		musicStart(); // Lancer la musique au début du jeu
 	}
 
 	public GameModel getModel() {
@@ -157,8 +158,12 @@ public class GameUI implements ActionListener {
 		m_frame.add(c, BorderLayout.EAST);
 	}
 	
-	public void music() {
+	public void musicStart() {
 		m_controller.start();
+	}
+	
+	public void musicStop() {
+		m_controller.stop();
 	}
 
 	void createWindow(Dimension d) {
