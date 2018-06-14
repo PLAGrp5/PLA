@@ -16,8 +16,6 @@ z * Educational software for a basic game development
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package ui;
-
-import java.awt.Button;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
