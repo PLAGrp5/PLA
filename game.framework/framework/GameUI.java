@@ -48,7 +48,8 @@ import ui.View;
 
 public class GameUI implements ActionListener {
 
-	static String license = "Copyright (C) 2017  Pr. Olivier Gruber " + "This program comes with ABSOLUTELY NO WARRANTY. "
+	static String license = "Copyright (C) 2017  Pr. Olivier Gruber "
+			+ "This program comes with ABSOLUTELY NO WARRANTY. "
 			+ "This is free software, and you are welcome to redistribute it "
 			+ "under certain conditions; type `show c' for details.";
 
@@ -95,15 +96,15 @@ public class GameUI implements ActionListener {
 	protected GameOver over;
 	protected Credit credit;
 	int tpsBase;
-	
-	public long set_refresh = 200L; 
+
+	public long set_refresh = 200L;
 
 	ImageIcon sepa = new ImageIcon("game.sample/sprites/sepa.png");
 	ImageIcon sepa1 = new ImageIcon("game.sample/sprites/sepa1.png");
 	ImageIcon vie = new ImageIcon("game.sample/sprites/Vie.png");
 	ImageIcon peintureR = new ImageIcon("game.sample/sprites/peintureR.png");
 	ImageIcon peintureB = new ImageIcon("game.sample/sprites/peintureB.png");
-  
+
 	public Parametres param;
 
 	File map = new File("data/cartes/map_test.txt");
@@ -164,8 +165,7 @@ public class GameUI implements ActionListener {
 		if (state == STATE.Over) {
 			over = new GameOver(this);
 			over.showEvent();
-		}
-		if (state == STATE.Game) {
+		} else if (state == STATE.Game) {
 
 			m_frame = new JFrame();
 			m_frame.setTitle("Gitank"); // Nom de la fenêtre
@@ -180,7 +180,7 @@ public class GameUI implements ActionListener {
 
 			m_frame.setSize(d);
 			m_frame.doLayout();
-			
+
 			m_frame.setVisible(true);
 
 			// hook window events so that we exit the Java Platform
@@ -243,7 +243,6 @@ public class GameUI implements ActionListener {
 			m_view.m_game = this;
 			m_controller = controller;
 			m_controller.m_game = this;
-
 			param = new Parametres(this);
 			menu = new Menu(this);
 			menu.showEvent();
@@ -272,7 +271,7 @@ public class GameUI implements ActionListener {
 			int tick = 1; // one millisecond
 			m_start = System.currentTimeMillis();
 			m_lastTick = m_start;
-			tpsBase = 60000;
+			tpsBase = 120000;
 			m_lastRepaint = 0;
 			m_timer = new Timer(tick, new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {

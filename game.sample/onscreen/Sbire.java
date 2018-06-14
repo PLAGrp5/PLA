@@ -14,12 +14,13 @@ public class Sbire extends Entity {
 		super('T', i, j, dir);
 	}
 
-	public Sbire(Model model, BufferedImage sprite, int i, int j, char dir, float scale, int dose_couleur,
+	public Sbire(Model model, BufferedImage sprite, BufferedImage sprite_hit, int i, int j, char dir, float scale, int dose_couleur,
 			Color color) {
 		super('T', i, j, dir);
 		m_model = model;
 		alive = true;
 		m_sprite = sprite;
+		m_sprite_Hit = sprite_hit;
 		m_scale = scale;
 		lastj = p.j;
 		lasti = p.i;
@@ -28,15 +29,17 @@ public class Sbire extends Entity {
 		jauge_couleur = dose_couleur;
 		maxnstep = 15;
 		splitSbiresSprite();
+		splitSbiresSprite_Hit();
 		setvie(15);
 		initinventaire();
 	}
 
-	public Sbire(Model model, BufferedImage sprite, int i, int j, char dir, float scale, int dose_couleur, Color color,
+	public Sbire(Model model, BufferedImage sprite, BufferedImage sprite_hit, int i, int j, char dir, float scale, int dose_couleur, Color color,
 			Automate a, State s) {
 		super('T', i, j, dir);
 		m_model = model;
 		m_sprite = sprite;
+		m_sprite_Hit = sprite_hit;
 		m_scale = scale;
 		alive = true;
 		lastj = p.j;
@@ -46,6 +49,7 @@ public class Sbire extends Entity {
 		jauge_couleur = dose_couleur;
 		maxnstep = 15;
 		splitSbiresSprite();
+		splitSbiresSprite_Hit();
 		this.setvie(15);
 		alive = true;
 		this.initinventaire();
@@ -61,10 +65,19 @@ public class Sbire extends Entity {
 			m_sprites[j] = m_sprite.getSubimage(x, y, 32, 32);
 		}
 	}
+	
+	void splitSbiresSprite_Hit() {
+		m_sprites_Hit = new BufferedImage[4];
+		for (int j = 0; j < 4; j++) {
+			int x = j * 32;
+			int y = 0;
+			m_sprites_Hit[j] = m_sprite_Hit.getSubimage(x, y, 32, 32);
+		}
+	}
 
 	// Affichage d'un sbire
 	public void paint(Graphics g, char dir) {
-		if (alive) {
+		if (alive && !isHit) {
 
 			Image img;
 			switch (dir) {
@@ -84,7 +97,29 @@ public class Sbire extends Entity {
 			int h = (int) (m_scale * 32);
 
 			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
-		} else {
+		}
+		else if (alive && isHit) {
+			Image img;
+			switch (dir) {
+			case 'N':
+				img = m_sprites_Hit[1];
+				break;
+			case 'S':
+				img = m_sprites_Hit[3];
+				break;
+			case 'E':
+				img = m_sprites_Hit[2];
+				break;
+			default:
+				img = m_sprites_Hit[0];
+			}
+			int w = (int) (m_scale * 32);
+			int h = (int) (m_scale * 32);
+
+			g.drawImage(img, p.j * 32, p.i * 32, w, h, null);
+			isHit = false;
+		}
+		else if (!alive){
 			g.drawImage(m_model.m_mort, p.j * 32, p.i * 32, 32, 32, null);
 		}
 	}

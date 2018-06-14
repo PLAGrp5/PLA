@@ -1,5 +1,13 @@
-Avancer (Init) {
-	* (Init): True ? Move : (Init)
+Balle (Init) {
+	* (Init): 
+	| Cell(F, V) ? Move : (Init)
+	| Cell(F, P) ? Move : (Init)
+	| Cell(F, J) ? Move : (Init)
+	| True ? Kamikaze : (Init)
+}
+
+Freeze (Init) {
+	* (Init): True ? Power : (Init)
 }
 
 Avan_Turn (Init) {
@@ -10,19 +18,9 @@ Avan_Turn (Init) {
 	| True ? Turn(R) : (Init)
 }
 
-Balle (Init) {
-	* (Init): 
-	| Cell(F, V) ? Move : (Init)
-	| Cell(F, P) ? Move : (Init)
-	| Cell(F, J) ? Move : (Init)
-	| True ? Kamikaze : (Init)
-}
-
 Peintre(Colorier){
 
-* (Colorier) : True ? Pop :(Colorier2)
-* (Colorier2) : True ? Pop :(Colorier3)
-* (Colorier3) : True ? Pop :(Recharger)
+* (Colorier) : True ? Pop :(Recharger)
 * (Recharger): True ? Wizz :(Deplacement)
 * (Deplacement):
   | Cell(F,V) ? Move :(Colorier)
@@ -65,6 +63,7 @@ Maitre(Tactique){
   | MyDir(E) & Closest(E,E) ? Hit :(Tactique)
   | MyDir(S) & Closest(E,S) ? Hit :(Tactique)
   | Cell(F,V) ? Move :(Colorier)
+  | Cell(F,J) ? Move :(Colorier)
   | Cell(F,P) ? Move :(Utilisateur)
   | True ? Turn(R) :(Colorier)
   
@@ -80,13 +79,21 @@ Maitre(Tactique){
 CopieurBleu(Init){
 
 * (Init):
-  | Key(f) & MyDir(O) ? Move :(Init)
+  | Cell(O,V) & Key(f) & MyDir(O) ? Move :(Init)
+  | Cell(O,J) & Key(f) & MyDir(O) ? Move :(Init)
+  | Cell(O,P) & Key(f) & MyDir(O) ? Move :(Init)
   | Key(f) & ! MyDir(O) ? Turn(O) :(Init)
-  | Key(t) & MyDir(N) ? Move :(Init)
+  | Cell(N,V) & Key(t) & MyDir(N) ? Move :(Init)
+  | Cell(N,J) & Key(t) & MyDir(N) ? Move :(Init)
+  | Cell(N,P) & Key(t) & MyDir(N) ? Move :(Init)
   | Key(t) & ! MyDir(N) ? Turn(N) :(Init)
-  | Key(g) & MyDir(S) ? Move :(Init)
+  | Cell(S,V) & Key(g) & MyDir(S) ? Move :(Init)
+  | Cell(S,J) & Key(g) & MyDir(S) ? Move :(Init)
+  | Cell(S,P) & Key(g) & MyDir(S) ? Move :(Init)
   | Key(g) & ! MyDir(S) ? Turn(S) :(Init)
-  | Key(h) & MyDir(E) ? Move :(Init)
+  | Cell(E,V) & Key(h) & MyDir(E) ? Move :(Init)
+  | Cell(E,J) & Key(h) & MyDir(E) ? Move :(Init)
+  | Cell(E,P) & Key(h) & MyDir(E) ? Move :(Init)
   | Key(h) & ! MyDir(E) ? Turn(E) :(Init)
   | Key(r) ? Hit :(Init)
   | Key(y) ? Throw :(Init)
@@ -99,13 +106,21 @@ CopieurBleu(Init){
 CopieurRouge(Init){
 
 * (Init):
-  | Key(FU) & MyDir(N) ? Move :(Init)
+  | Cell(N,V) & Key(FU) & MyDir(N) ? Move :(Init)
+  | Cell(N,J) & Key(FU) & MyDir(N) ? Move :(Init)
+  | Cell(N,P) & Key(FU) & MyDir(N) ? Move :(Init)
   | Key(FU) & ! MyDir(N) ? Turn(N) :(Init)
-  | Key(FD) & MyDir(S) ? Move :(Init)
+  | Cell(S,V) & Key(FD) & MyDir(S) ? Move :(Init)
+  | Cell(S,J) & Key(FD) & MyDir(S) ? Move :(Init)
+  | Cell(S,P) & Key(FD) & MyDir(S) ? Move :(Init)
   | Key(FD) & ! MyDir(S) ? Turn(S) :(Init)
-  | Key(FR) & MyDir(E) ? Move :(Init)
+  | Cell(E,V) & Key(FR) & MyDir(E) ? Move :(Init)
+  | Cell(E,J) & Key(FR) & MyDir(E) ? Move :(Init)
+  | Cell(E,P) & Key(FR) & MyDir(E) ? Move :(Init)
   | Key(FR) & ! MyDir(E) ? Turn(E) :(Init)
-  | Key(FL) & MyDir(O) ? Move :(Init)
+  | Cell(O,V) & Key(FL) & MyDir(O) ? Move :(Init)
+  | Cell(O,J) & Key(FL) & MyDir(O) ? Move :(Init)
+  | Cell(O,P) & Key(FL) & MyDir(O) ? Move :(Init)
   | Key(FL) & ! MyDir(O) ? Turn(O) :(Init)
   | Key(o) ? Hit :(Init)
   | Key(p) ? Throw :(Init)
@@ -261,4 +276,94 @@ SuperHero(Explore){
   | True ? Wizz :(Explore)
 
 * (Build_1): True ? Throw :(Build)
+}
+
+TireurFou(Avancer){
+
+* (Avancer):
+  | Cell(F,V) ? Move :(Tireur)
+  | Cell(F,V) ? Turn(L) :(Tireur)
+  | Cell(F,J) ? Move :(Tireur)
+  | Cell(F,P) ? Move :(Utilisateur)
+  | True ? Turn(L) :(Tireur)
+  
+* (Tireur):
+  | MyDir(N) & Closest(E,N) ? Hit :(Tireur)
+  | MyDir(O) & Closest(E,O) ? Hit :(Tireur)
+  | MyDir(E) & Closest(E,E) ? Hit :(Tireur)
+  | MyDir(S) & Closest(E,S) ? Hit :(Tireur)
+  | True ? Hit :(Avancer)
+  
+* (Utilisateur): True ? Throw :(Tireur)
+	
+}
+
+MaitreInstable(Tactique){
+
+* (Tactique):
+  | MyDir(N) & Closest(E,N) ? Hit :(Tactique)
+  | MyDir(O) & Closest(E,O) ? Hit :(Tactique)
+  | MyDir(E) & Closest(E,E) ? Hit :(Tactique)
+  | MyDir(S) & Closest(E,S) ? Hit :(Tactique)
+  | Cell(F,V) ? Move :(Colorier)
+  | Cell(F,V) ? Move :(Tactique)
+  | Cell(L,V) ? Turn(R) :(Tactique)
+  | Cell(F,J) ? Move :(Colorier)
+  | Cell(F,P) ? Move :(Utilisateur)
+  | True ? Turn(R) :(Colorier)
+  
+* (Utilisateur):
+  | True ? Throw :(Tactique)
+  
+* (Colorier) : True ? Pop :(Recharger)
+
+* (Recharger): True ? Wizz :(Tactique)
+
+}
+
+Garde(Avancer){
+
+* (Avancer):
+  | MyDir(N) & Closest(E,N) ? Hit :(Tireur)
+  | MyDir(O) & Closest(E,O) ? Hit :(Tireur)
+  | MyDir(E) & Closest(E,E) ? Hit :(Tireur)
+  | MyDir(S) & Closest(E,S) ? Hit :(Tireur)
+  | Cell(F,V) ? Move :(Avancer)
+  | Cell(F,V) ? Move :(Avancer)
+  | Cell(F,J) ? Move :(Avancer)
+  | Cell(F,V) ? Turn(R):(Avancer)
+  | Cell(F,V) ? Turn(L):(Avancer)
+  | True ? Turn(R) :(Avancer)
+
+* (Tireur):
+  | MyDir(N) & Closest(E,N) ? Hit :(Tireur)
+  | MyDir(O) & Closest(E,O) ? Hit :(Tireur)
+  | MyDir(E) & Closest(E,E) ? Hit :(Tireur)
+  | MyDir(S) & Closest(E,S) ? Hit :(Tireur)
+  | True ? Turn(L) :(Avancer)
+
+}
+
+Artiste(Colorier){
+
+* (Colorier) : True ? Pop :(Recharger)
+* (Recharger): True ? Wizz :(Deplacement1)
+* (Deplacement1):
+  | Cell(F,V) ? Move :(Deplacement2)
+  | Cell(F,V) ? Turn(L) :(Deplacement1)
+  | Cell(F,J) ? Move :(Deplacement2)
+  | True ? Turn(R) :(Deplacement1)
+  
+* (Deplacement2):
+  | Cell(F,V) ? Move :(Deplacement3)
+  | Cell(F,J) ? Move :(Deplacement3)
+  | Cell(F,V) ? Turn(R) :(Deplacement2)
+  | True ? Turn(L) :(Deplacement2)
+  
+* (Deplacement3):
+  | Cell(F,V) ? Move :(Colorier)
+  | Cell(F,J) ? Move :(Colorier)
+  | Cell(F,V) ? Turn(L) :(Deplacement3)
+  | True ? Turn(R) :(Deplacement3)
+  
 }
