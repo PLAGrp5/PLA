@@ -172,12 +172,5 @@ public class Menu {
 			}
 		}
 	}
-	/*
-	 * private class TimerTest implements ActionListener { private JOptionPane jp =
-	 * new JOptionPane();
-	 * 
-	 * public TimerTest(JOptionPane jp) { this.jp = jp; } public void
-	 * actionPerformed(ActionEvent e) { jp.setVisible(false); } }
-	 */
 
 }
