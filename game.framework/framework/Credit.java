@@ -30,7 +30,7 @@ public class Credit {
 
 	private void prepareGUI() {
 		creditFrame = new JFrame("Gitank Help");
-		creditFrame.setSize(700, 700);
+		creditFrame.setSize(750, 750);
 		creditFrame.setResizable(false);
 		creditFrame.setIconImage(new ImageIcon("game.sample/sprites/image.png").getImage());
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
