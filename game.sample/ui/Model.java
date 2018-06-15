@@ -145,7 +145,7 @@ public class Model extends GameModel {
 		Color colort = Color.cyan;
 		Color colort2 = Color.orange;
 
-		s11 = new Sbire(this, m_sbirebleuSprite, m_sbirebleu_hit, 2, 2, 'O', 1F, 30, colort);
+		s11 = new Sbire(this, m_sbirebleuSprite, m_sbirebleu_hit, 2, 1, 'O', 1F,30, colort);
 		s12 = new Sbire(this, m_sbirebleuSprite, m_sbirebleu_hit, 27, 2, 'E', 1F, 30, colort);
 		s21 = new Sbire(this, m_sbirerougeSprite, m_sbirerouge_hit, 2, 27, 'O', 1F, 30, colort2);
 		s22 = new Sbire(this, m_sbirerougeSprite, m_sbirerouge_hit, 27, 27, 'E', 1F, 30, colort2);
