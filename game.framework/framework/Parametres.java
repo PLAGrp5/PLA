@@ -53,7 +53,7 @@ public class Parametres {
 	JPanel Carte;
 	JPanel controlPanel;
 	GameUI g_ui;
-	
+
 	final JFileChooser fcc = new JFileChooser();
 	String sbire1_1 = "data/automates/sb1_1.txt";
 	String sbire1_2 = "data/automates/sb1_2.txt";
@@ -72,7 +72,7 @@ public class Parametres {
 	public Parametres(GameUI g) {
 		g_ui = g;
 	}
-	
+
 	public static String fromFile(String fp) {
 		File f = null;
 		Scanner scan = null;
@@ -87,7 +87,7 @@ public class Parametres {
 		while (scan.hasNextLine()) {
 			res = scan.nextLine();
 		}
-		return res;		
+		return res;
 	}
 
 	private void prepareGUI() {
@@ -105,7 +105,7 @@ public class Parametres {
 				System.exit(0);
 			}
 		});
-		
+
 		fcc.setCurrentDirectory(new File("data/cartes/"));
 
 		controlPanel = new JPanel();
@@ -118,10 +118,10 @@ public class Parametres {
 		Sbire_2 = new JPanel();
 		Sbire_2.setOpaque(false);
 		Sbire_2.setLayout(new GridLayout(1, 2));
-		
+
 		Bonus = new JPanel();
 		Bonus.setOpaque(false);
-		Bonus.setLayout(new GridLayout(1,2));
+		Bonus.setLayout(new GridLayout(1, 2));
 
 		Carte = new JPanel();
 		Carte.setOpaque(false);
@@ -208,7 +208,7 @@ public class Parametres {
 			return;
 		}
 		Automate[] automates = (Automate[]) a.make();
-		
+
 		String[] ListAut = Model.getList(automates);
 		JComboBox<String> ScrollAut1_1 = new JComboBox<String>(ListAut);
 		ScrollAut1_1.setSelectedItem(fromFile(sbire1_1));
@@ -217,11 +217,12 @@ public class Parametres {
 		JComboBox<String> ScrollAut2_1 = new JComboBox<String>(ListAut);
 		ScrollAut2_1.setSelectedItem(fromFile(sbire2_1));
 		JComboBox<String> ScrollAut2_2 = new JComboBox<String>(ListAut);
-    ScrollAut2_2.setSelectedItem(fromFile(sbire2_2));
-    
+		ScrollAut2_2.setSelectedItem(fromFile(sbire2_2));
+
 		JComboBox<String> ScrollBonus1 = new JComboBox<String>(ListAut);
 		JComboBox<String> ScrollBonus2 = new JComboBox<String>(ListAut);
-		
+		ScrollBonus1.setSelectedItem(fromFile(bonus1));
+		ScrollBonus2.setSelectedItem(fromFile(bonus2));
 
 		ScrollAut1_1.setActionCommand("SB1_1");
 		ScrollAut1_2.setActionCommand("SB1_2");
@@ -252,11 +253,11 @@ public class Parametres {
 		JPanel bouton4 = new JPanel(new GridBagLayout());
 		bouton4.setOpaque(false);
 		bouton4.add(ScrollAut2_2);
-		
+
 		JPanel bouton5 = new JPanel(new GridBagLayout());
 		bouton5.setOpaque(false);
 		bouton5.add(ScrollBonus1);
-		
+
 		JPanel bouton6 = new JPanel(new GridBagLayout());
 		bouton6.setOpaque(false);
 		bouton6.add(ScrollBonus2);
@@ -285,19 +286,19 @@ public class Parametres {
 
 		paramFrame.setVisible(true);
 	}
-	
+
 	public static void toFile(String s, File f) throws IOException {
-	    FileWriter fileWriter = new FileWriter(f);
-	    PrintWriter printWriter = new PrintWriter(fileWriter);
-	    printWriter.print(s);
-	    printWriter.close();
+		FileWriter fileWriter = new FileWriter(f);
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		printWriter.print(s);
+		printWriter.close();
 	}
 
 	private class ButtonClickListener implements ActionListener {
 		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
-			
+
 			if (command.equals("SB1_1")) {
 				JComboBox<String> cb1_1 = (JComboBox<String>) e.getSource();
 				sbire1_1 = (String) cb1_1.getSelectedItem();
@@ -359,7 +360,7 @@ public class Parametres {
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .txt", "txt", "text"); // Filtre TXT
 				fcc.setFileFilter(filter); // Ajout d'un choix : .txt dans le file chooser
 				fcc.setAcceptAllFileFilterUsed(false); // ne pas autoriser tout type de fichiers dans le file chooser
-				int returnVal = fcc.showOpenDialog(paramFrame); 
+				int returnVal = fcc.showOpenDialog(paramFrame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					carte = fcc.getSelectedFile();
 					g_ui.map = carte;
