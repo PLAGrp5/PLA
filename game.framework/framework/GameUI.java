@@ -276,7 +276,7 @@ public class GameUI implements ActionListener {
 			int tick = 1; // one millisecond
 			m_start = System.currentTimeMillis();
 			m_lastTick = m_start;
-			tpsBase = 120000;
+			tpsBase = 60000;
 			m_lastRepaint = 0;
 			m_timer = new Timer(tick, new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {

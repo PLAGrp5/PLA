@@ -114,7 +114,7 @@ public class Pause {
 
 		controlPanel.add(ExitButton);
 		controlPanel.add(ResumeButton);
-		controlPanel.add(SoundButton);
+		//controlPanel.add(SoundButton);
 
 		pauseFrame.setVisible(true);
 	}
