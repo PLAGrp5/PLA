@@ -22,11 +22,12 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-GameDev.pdf
-Lecture-GIT-part1.pdf
-PLA2018.txt
-
 #vscode file
 .vscode/
-/.metadata/
-/.recommenders/
+/.classpath
+/.gitignore
+/.project
+/edu/
+/readme.md
+/sprites/
+/src/
